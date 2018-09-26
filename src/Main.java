@@ -1,3 +1,9 @@
+/**
+ * @author Bedi
+ * @version 1.0.0
+ * @since 25-September-2018
+ */
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner; 
