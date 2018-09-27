@@ -16,8 +16,7 @@ import java.nio.file.StandardOpenOption;
 
 
 public class Main{
-	
-     public static void main(String []args) throws IOException
+    public static void main(String []args) throws IOException
      {
     	Map m = new Map();
 //    	m.createMap();
@@ -39,15 +38,32 @@ class Map
 	private HashMap<String,Integer> controlValuesByContinents = new HashMap<String,Integer>();
 	private HashMap<String,ArrayList<String>> territories = new HashMap<String,ArrayList<String>>();
 	private HashMap<String,Integer> parsedControlValuesByContinents = new HashMap<String,Integer>();
-
+	
+	/**
+	 * This method adds a country and the corresponding control value to the controlValuesByContinents hashmap.
+	 * @param country country as a string
+	 * @param controlValue the control value of the country.
+	 */
 	public void addControlValues(String country,int controlValue)
 	{
 		controlValuesByContinents.put(country,controlValue);
 	}
+	
+	/**
+	 * This method adds the territory with the corresponding information regarding the territory into the arraylist.
+	 * @param teritorry The name of the territory
+	 * @param list The list of territory information.
+	 */
 	public void addTeritorries(String teritorry,ArrayList<String> list)
 	{
 		territories.put(teritorry,list);
 	}
+	
+	/**
+	 * This function saves the map file generated to the disk.
+	 * @param mapName The name of the map .
+	 * @throws IOException 
+	 */
 	public void saveMap(String mapName) throws IOException
 	{
 		String content = "[Map]\r\n \r\n[Continents]";
@@ -83,12 +99,23 @@ class Map
 	        writer.flush();
 	    }
 	}
+	/**
+	 *This function returns the string passed. 
+	 * @param str Takes the string to be printed as a parameter.
+	 * 
+	 * @return string
+	 */
 	public static void print(String str) 
 	{
 		System.out.print(str);
 	}
 	
-	public void createMap() {
+	/**
+	 *This function creates a map object and asks the user to input values for the map.
+	 * @return A string which is passed to the function.
+	 * @throws IOException 
+	 */
+	public void createMap() throws IOException {
 		 Map m = new Map();
     	 print("\nEnter the number of continents you want to create\n");
     	 int totalNumberOfCountries = inp.getNextInteger();
@@ -123,13 +150,14 @@ class Map
     	 }
     	 print("\nEnter the name of the map ");
     	 String mapName = inp.getNextString();
-    	 try {
-			m.saveMap(mapName);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	 m.saveMap(mapName);
 	}
+	/**
+	 *This function parses the map file and stores it in variables.
+	 * @param mapName The name of the map passed.
+	 * @return A string which is passed to the function.
+	 * @throws IOException 
+	 */
 	public void parseMap(String mapName) throws IOException {
 		int captureContinents = 0;
 		File file = new File("assets/maps/"+mapName); 
@@ -155,6 +183,10 @@ class Map
 	public void editMap() {
 		
 	}
+	/**
+	 *This function lets the user select a map he/she wants to load
+	 * @throws IOException 
+	 */
 	public void loadMap() throws IOException {
 		int i=1;
 		ArrayList<String> maps = returnArrayListOfMapNames();
@@ -192,13 +224,23 @@ class Map
 		return fileNames;
 	}
 }
-
+/**
+ * This class has the Scanner class object ; used to capture inputs easily.
+ */
 class GetInputs{
 	Scanner sc = new Scanner(System.in);
+	/**
+	 * This method returns the next input string
+	 * @return string
+	 */
     public String getNextString()
     {
         return sc.next();
     }
+    /**
+	 * This method returns the next input integer
+	 * @return Integer
+	 */
     public int getNextInteger()
     {
     	return sc.nextInt();
