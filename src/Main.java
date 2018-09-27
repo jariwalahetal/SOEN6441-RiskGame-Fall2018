@@ -136,17 +136,18 @@ class Map
 		BufferedReader br = new BufferedReader(new FileReader(file)); 
 		String st; 
 		while ((st = br.readLine()) != null) {
-			print(st);
+//			print(st+"\n");
+//			print(""+captureContinents);
 			if(captureContinents == 1) {
-				if(st.trim() =="") {
+				if((st.trim()).equals("")) {
 					captureContinents =0;
 				}else {
-					System.out.println(st); 
+					String[] parsedControlValuesByContinentsArray = st.split("=");
+					parsedControlValuesByContinents.put(parsedControlValuesByContinentsArray[0], Integer.parseInt(parsedControlValuesByContinentsArray[1]));
 				}
 			}
-			if(st.trim() == "[Continents]") {
+			if((st.trim()).equals("[Continents]")) {
 				captureContinents =1;
-				
 			}
 		} 
 		br.close();
