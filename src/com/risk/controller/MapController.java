@@ -11,12 +11,12 @@ public class MapController {
 
 	private void createMap()
 	{
-		System.out.println("Create Map on MapController called");
+		System.out.println("Create Map in MapController called");
 	}
 	
 	private void editMap()
 	{
-		System.out.println("Edit Map on MapController called");
+		System.out.println("Edit Map in MapController called");
 	}
 	
 }
