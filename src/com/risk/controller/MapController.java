@@ -18,5 +18,12 @@ public class MapController {
 	{
 		System.out.println("Edit Map in MapController called");
 	}
+
+	private void validateMap()
+	{
+		System.out.println("Validate Map in MapController called");
+	}
+
+	
 	
 }
