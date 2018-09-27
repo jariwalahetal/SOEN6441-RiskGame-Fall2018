@@ -14,20 +14,32 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+
 public class Main{
 	
      public static void main(String []args) throws IOException
      {
     	Map m = new Map();
-    	m.createMap();
-    	m.returnArrayListOfMapNames();
+//    	m.createMap();
+    	print("Map Created!!!");
+    	m.loadMap();
      }
-}
 
+	private static PrintStream print(String string) {
+		return System.out.printf(string);
+	}
+}
+/**
+ * This class handles the map entity of the game. It handles functionality like creating a new map, 
+ * editing an existing map , loading an existing map for gameplay.
+ */
 class Map
 {
-	HashMap<String,Integer> controlValuesByContinents = new HashMap<String,Integer>();
-	HashMap<String,ArrayList<String>> territories = new HashMap<String,ArrayList<String>>();
+	GetInputs inp = new GetInputs();
+	private HashMap<String,Integer> controlValuesByContinents = new HashMap<String,Integer>();
+	private HashMap<String,ArrayList<String>> territories = new HashMap<String,ArrayList<String>>();
+	private HashMap<String,Integer> parsedControlValuesByContinents = new HashMap<String,Integer>();
+
 	public void addControlValues(String country,int controlValue)
 	{
 		controlValuesByContinents.put(country,controlValue);
@@ -78,7 +90,6 @@ class Map
 	
 	public void createMap() {
 		 Map m = new Map();
-    	 GetInputs inp = new GetInputs();
     	 print("\nEnter the number of continents you want to create\n");
     	 int totalNumberOfCountries = inp.getNextInteger();
     	 for(int i = 0; i < totalNumberOfCountries ; i++) 
@@ -119,13 +130,43 @@ class Map
 			e.printStackTrace();
 		}
 	}
-	public void parseMap(String mapName) {
-		
+	public void parseMap(String mapName) throws IOException {
+		int captureContinents = 0;
+		File file = new File("assets/maps/"+mapName); 
+		BufferedReader br = new BufferedReader(new FileReader(file)); 
+		String st; 
+		while ((st = br.readLine()) != null) {
+			print(st);
+			if(captureContinents == 1) {
+				if(st.trim() =="") {
+					captureContinents =0;
+				}else {
+					System.out.println(st); 
+				}
+			}
+			if(st.trim() == "[Continents]") {
+				captureContinents =1;
+				
+			}
+		} 
+		br.close();
 	}
 	public void editMap() {
 		
 	}
-	
+	public void loadMap() throws IOException {
+		int i=1;
+		ArrayList<String> maps = returnArrayListOfMapNames();
+		print("\nPress number to load file.\n");
+		for (String file : maps) {
+			print("\n"+i+")"+file);
+			i++;
+		}
+		print("\n");
+		int mapNumber = inp.getNextInteger();
+		String selectedMapName = maps.get(mapNumber-1);
+		parseMap(selectedMapName);
+	}
 
 	/**
 	 * Returns an array list of all the maps in the Maps folder directory.
@@ -142,10 +183,9 @@ class Map
 
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
-				System.out.println("File " + listOfFiles[i].getName());
 				fileNames.add(listOfFiles[i].getName());
 			} else if (listOfFiles[i].isDirectory()) {
-				System.out.println("Directory " + listOfFiles[i].getName());
+				//nada
 			}
 		}
 		return fileNames;

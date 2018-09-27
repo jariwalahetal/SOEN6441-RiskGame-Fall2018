@@ -1,8 +1,7 @@
 [Map]
  
 [Continents]
-Asia=3
-China=6
+1=1
 
 [Territories]
 1,1,1,1,1
