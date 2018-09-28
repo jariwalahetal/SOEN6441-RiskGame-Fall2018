@@ -1,5 +1,10 @@
 package com.risk.controller;
 
+import java.io.IOException;
+
+import com.risk.helper.IOHelper;
+import com.risk.model.*;
+
 /**
  * @author Binay Kumar
  * @version 1.0.0
@@ -24,6 +29,20 @@ public class MapController {
 		System.out.println("Validate Map in MapController called");
 	}
 
+	public static void parseMap(String mapName) 
+	{		
+		Map m = new Map(mapName);
+		try 
+		{
+			m.createMap();
+	    	IOHelper.print("Map Created!!!");
+			m.parseMap();
+		} catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 }
