@@ -36,7 +36,7 @@ public class MapController {
 			//TODO: initialize game
 		}
 	}
-
+	
 	public void createMap() {
 
 		IOHelper.print("\nEnter the name of the map ");
@@ -63,8 +63,10 @@ public class MapController {
 				int x = IOHelper.getNextInteger();
 				int y = IOHelper.getNextInteger();
 
-				Country country = new Country(j, countryName, i, -1, x, y);
-
+				Country country = new Country(j, countryName);
+                country.setxCoordiate(x);
+                country.setyCoordiate(y);
+                country.setContId(i);
 				IOHelper.print("\nEnter the number of adjacent countries you want to enter\n");
 				int adjacentCountries = IOHelper.getNextInteger();
 				for(int k=0 ; k < adjacentCountries ; k++) 

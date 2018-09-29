@@ -29,14 +29,10 @@ public class Country {
 	 * @param yCoordiate
 	 * @param neighbours
 	 */
-	public Country(int countryId, String countryName, int contId, int playerId, int xCoordiate, int yCoordiate) {
+	public Country(int countryId, String countryName) {
 		super();
 		this.countryId = countryId;
 		this.countryName = countryName;
-		this.contId = contId;
-		this.playerId = playerId;
-		this.xCoordiate = xCoordiate;
-		this.yCoordiate = yCoordiate;
 	}
 	
 	/**

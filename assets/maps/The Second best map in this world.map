@@ -1,0 +1,5 @@
+[Continents]
+Asia=3
+
+[Territories]
+India,2,3,Asia,pak,chn

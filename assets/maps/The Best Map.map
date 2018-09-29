@@ -1,0 +1,9 @@
+[Continents]
+Asia=4
+Europe=3
+
+[Territories]
+India,2,2,Asia,pak,Sri
+pak,2,2,Asia,India
+france,1,1,Europe,sweden,denmark
+germany,3,3,Europe,italy,france
