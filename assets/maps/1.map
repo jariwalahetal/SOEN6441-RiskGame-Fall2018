@@ -5,4 +5,6 @@ Asia=3
 China=6
 
 [Territories]
-1,1,1,1,1
+ind,1,1,Asia,pak,chn
+pak,1,4,Asia,ind,bhu
+

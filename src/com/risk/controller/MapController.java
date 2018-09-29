@@ -34,15 +34,13 @@ public class MapController {
 		Map m = new Map(mapName);
 		try 
 		{
-			m.createMap();
-	    	IOHelper.print("Map Created!!!");
 			m.parseMap();
+			System.out.print(4);
+			
 		} catch (IOException e) 
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
 }
