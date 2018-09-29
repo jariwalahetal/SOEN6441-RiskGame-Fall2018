@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class IOHelper {
 	
-	public static PrintStream print(String string) {
-		return System.out.printf(string);
+	public static void print(String string) {
+		System.out.println(string);
 	}
 	
 	static Scanner sc = new Scanner(System.in);
@@ -16,6 +16,12 @@ public class IOHelper {
     }
     public static int getNextInteger()
     {
-    	return sc.nextInt();
+    	String s = sc.nextLine();
+    	return Integer.parseInt(s);
+    }
+    
+    public static void printException(Exception exception)
+    {
+    	System.out.println("Exception: " + exception.getMessage());
     }
 }

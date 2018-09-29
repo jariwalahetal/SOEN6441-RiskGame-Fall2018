@@ -1,5 +1,7 @@
 package com.risk.model;
 
+import java.util.ArrayList;
+
 /**
  * Continent Class
  * @author sadgi
@@ -10,6 +12,7 @@ public class Continent {
 	private int contId;
 	private String contName;
 	private int controlValue;
+	private ArrayList<Country> countryList = new ArrayList<>();
 
 	/**
 	 * This is a Constructor for Continent Class
@@ -50,6 +53,11 @@ public class Continent {
 
 	public void setControlValue(int controlValue) {
 		this.controlValue = controlValue;
+	}
+	
+	public void addCountry(Country country)
+	{
+		this.countryList.add(country);
 	}
 
 

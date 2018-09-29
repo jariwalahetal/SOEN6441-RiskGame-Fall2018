@@ -19,12 +19,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 
-public class GameEngine{
+public class GameRunner{
 	
      public static void main(String []args) throws IOException
      {
-    	 MapEditorView mapEditorView = new MapEditorView();
-    	 mapEditorView.loadMap();
+    	 MapController mapController = new MapController();
+    	 mapController.startGame();
      }
 }
 

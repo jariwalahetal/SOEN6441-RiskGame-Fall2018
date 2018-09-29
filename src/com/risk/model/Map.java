@@ -24,15 +24,15 @@ import com.risk.helper.IOHelper;
  */
 public class Map {
 	private String mapName;
+	private ArrayList<Continent> continentsList = new ArrayList<>();
 	
 	/**
 	 * This is a constructor of Map Class which sets mapId and mapName.
 	 * @param mapName
 	 */
-	public Map(String mapName) 
+	public Map() 
 	{
 		super();
-		this.mapName = mapName;
 	}
 	
 	/**
@@ -53,8 +53,10 @@ public class Map {
 	private HashMap<String,Integer> parsedControlValuesByContinents = new HashMap<String,Integer>();
 	private HashMap<String,ArrayList<String>> parsedTerritories = new HashMap<String,ArrayList<String>>();
 	
-	public void parseMap() throws IOException 
+	public void readMap()
 	{
+		try
+		{
 		boolean captureContinents = false;
 		boolean captureTerritoryData = false;
 		File file = new File("assets/maps/"+this.mapName); 
@@ -109,6 +111,11 @@ public class Map {
 			}
 		} 
 		br.close();
+		}
+		catch (Exception e) {
+			IOHelper.printException(e);
+		}
+		
 	}
 	
 	public void addControlValues(String country,int controlValue)
@@ -116,55 +123,26 @@ public class Map {
 		controlValuesByContinents.put(country,controlValue);
 	}
 	
+	public void addContinent(Continent continent)
+	{
+		continentsList.add(continent);
+	}
+	
 	public void addTeritorries(String teritorry,ArrayList<String> list)
 	{
 		territories.put(teritorry,list);
 	}
 	
-	public void createMap() {
-		IOHelper.print("\nEnter the number of continents you want to create\n");
-		int totalNumberOfCountries = IOHelper.getNextInteger();
-   	 	for(int i = 0; i < totalNumberOfCountries ; i++) 
-   	 	{
-   	 		IOHelper.print("\nEnter continent name for continent number"+(i+1)+" (press enter and then input the control value)\n");
-   	 		String continent = IOHelper.getNextString();
-   	 		int controlValue = IOHelper.getNextInteger();
-            this.addControlValues(continent,controlValue);
-   	 	}
-   	 	IOHelper.print("\nEnter the number of territories you want to create\n");
-   	 	int totalNumberOfTerritories = IOHelper.getNextInteger();
-   	 	for(int i = 0; i < totalNumberOfTerritories ; i++) 
- 		{
-   	 		IOHelper.print("\nEnter territory name for territory number "+(i+1)+" (press enter and then x coordinate , y, continent)\n");
-   	 		String territory = IOHelper.getNextString();
-   	 		ArrayList<String> territoryValues = new ArrayList<String>();
-   	 		String x = IOHelper.getNextString();
-   	 		String y = IOHelper.getNextString();
-   	 		territoryValues.add(x);
-   	 		territoryValues.add(y);
-   	 		String continentContainedIn = IOHelper.getNextString();
-   	 		territoryValues.add(continentContainedIn);
-   	 		IOHelper.print("\nEnter the number of adjacent countries you want to enter\n");
-   	 		int adjacentCountries = IOHelper.getNextInteger();
-   	 		for(int j=0 ; j < adjacentCountries ; j++) 
-   	 		{
-   	 			IOHelper.print("\nEnter territory name for adjacency country number "+(j+1)+"\n");
-   	 			territoryValues.add(IOHelper.getNextString());
-   	 		}
-   	 		this.territories.put(territory, territoryValues);
- 		}
-   	 	IOHelper.print("\nEnter the name of the map ");
-   	 	String mapName = IOHelper.getNextString();
-   	 	try {
-			saveMap(mapName);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+	public Boolean isMapValid()
+	{
+		IOHelper.print("Validate map");
+		return true;
 	}
 	
-	public void saveMap(String mapName) throws IOException
+	public void saveMap()
 	{
+		//TODO: Change this logic
 		String content = "[Map]\r\n \r\n[Continents]";
 		for (String key : controlValuesByContinents.keySet()) 
 		{
@@ -175,27 +153,34 @@ public class Map {
 		content = content +"[Territories]\r\n";
 		for (String key : territories.keySet())
 		{
-			String teritorryVal = "";
+			String countryVal = "";
 			content = content +key+",";
 			for (int k = 0; k < territories.get(key).size(); k++) 
 			{
-				teritorryVal = teritorryVal + territories.get(key).get(k);
+				countryVal = countryVal + territories.get(key).get(k);
 				if(k==territories.get(key).size() - 1) {
 					
-				}else {
-					teritorryVal = teritorryVal +",";
+				}
+				else 
+				{
+					countryVal = countryVal +",";
 				}
 			}
-			content = content + teritorryVal+"\r\n";
+			content = content + countryVal+"\r\n";
 		}
 	    final Path path = Paths.get("assets/maps/"+mapName+".map");
-
-	    try (
-	        final BufferedWriter writer = Files.newBufferedWriter(path,
+	    BufferedWriter writer = null;
+	    try 
+	    {
+	        writer = Files.newBufferedWriter(path,
 	            StandardCharsets.UTF_8, StandardOpenOption.CREATE);
-	    ) {
-	        writer.write(content);
-	        writer.flush();
+	    	writer.write(content);
+	    	writer.close();
 	    }
+	    catch (Exception e) 
+	    {
+			IOHelper.printException(e);	    	
+	    }       
+	    
 	}
 }

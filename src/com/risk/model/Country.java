@@ -11,11 +11,12 @@ import java.util.ArrayList;
 public class Country {
 	private int countryId;
 	private String countryName;
-	private Continent contId;
-	private Player playerId;
+	private int contId;
+	private int playerId;
     private int xCoordiate;
     private int yCoordiate;
     private ArrayList<Country> neighbours = new ArrayList<>();
+    private ArrayList<String> neighboursString = new ArrayList<>();
     
 	/**
 	 * This is a Constructor for Country class which sets name, continent, neighbooring countries and
@@ -28,8 +29,7 @@ public class Country {
 	 * @param yCoordiate
 	 * @param neighbours
 	 */
-	public Country(int countryId, String countryName, Continent contId, Player playerId, int xCoordiate, int yCoordiate,
-			ArrayList<Country> neighbours) {
+	public Country(int countryId, String countryName, int contId, int playerId, int xCoordiate, int yCoordiate) {
 		super();
 		this.countryId = countryId;
 		this.countryName = countryName;
@@ -37,7 +37,6 @@ public class Country {
 		this.playerId = playerId;
 		this.xCoordiate = xCoordiate;
 		this.yCoordiate = yCoordiate;
-		this.neighbours = neighbours;
 	}
 	
 	/**
@@ -55,16 +54,16 @@ public class Country {
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
 	}
-	public Continent getContId() {
+	public int getContId() {
 		return contId;
 	}
-	public void setContId(Continent contId) {
+	public void setContId(int contId) {
 		this.contId = contId;
 	}
-	public Player getPlayerId() {
+	public int getPlayerId() {
 		return playerId;
 	}
-	public void setPlayerId(Player playerId) {
+	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
 	}
 	public int getxCoordiate() {
@@ -84,6 +83,10 @@ public class Country {
 	}
 	public void setNeighbours(ArrayList<Country> neighbours) {
 		this.neighbours = neighbours;
+	}
+	public void addNeighboursString(String newNeighbour)
+	{
+		this.neighboursString.add(newNeighbour);
 	}
    
 
