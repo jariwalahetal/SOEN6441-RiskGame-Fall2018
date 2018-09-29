@@ -24,6 +24,7 @@ import com.risk.helper.IOHelper;
  */
 public class Map {
 	private String mapName;
+	private String mapPath = "assets/maps/";
 	private ArrayList<Continent> continentsList = new ArrayList<>();
 	
 	/**
@@ -55,67 +56,58 @@ public class Map {
 	
 	public void readMap()
 	{
+		
 		try
 		{
 		boolean captureContinents = false;
-		boolean captureTerritoryData = false;
-		File file = new File("assets/maps/"+this.mapName); 
-		BufferedReader br = new BufferedReader(new FileReader(file)); 
-		String st;
+		boolean captureCountries = false;
+		File file = new File(mapPath + mapName); 
+		BufferedReader bufferedReader = new BufferedReader(new FileReader(file)); 
+		String readLine;
+		int continentID = 0; 
+		int countryID = 0;
 		
-		while ((st = br.readLine()) != null) 
-		{
-//			print(st+"\n");
-//			print(""+captureContinents);
+		while ((readLine = bufferedReader.readLine()) != null) 
+		{ 
+		   if(readLine.length()==0)
+			   continue;
+		   else if((readLine.trim()).equals("[Continents]")) 
+			{  captureContinents = true;
+			   continue;
+			}
+			else if((readLine.trim()).equals("[Territories]")) 
+			{   captureContinents = false;
+				captureCountries = true;
+				continue;
+			}
+
 			if(captureContinents) 
-			{
-				if((st.trim()).equals("")) 
-				{
-					captureContinents = false;
-				}else 
-				{
-					String[] parsedControlValuesByContinentsArray = st.split("=");
-					parsedControlValuesByContinents.put(parsedControlValuesByContinentsArray[0], Integer.parseInt(parsedControlValuesByContinentsArray[1]));
-				}
+			{	 String[] parsedControlValuesByContinentsArray = readLine.split("=");
+				 Continent continent = new Continent(continentID++, parsedControlValuesByContinentsArray[0] , Integer.parseInt(parsedControlValuesByContinentsArray[1]));
+			     continentsList.add(continent);
 			}
-			if((st.trim()).equals("[Continents]")) 
-			{
-				captureContinents = true;
-			}
-			
-			
-			
-			
-			if(captureTerritoryData) 
-			{
-				if((st.trim()).equals("")) 
-				{
-					captureTerritoryData = false;
-				}else 
-				{
-					String[] parsedTerritoriesArray = st.split(",");
-					String key = parsedTerritoriesArray[0];
-					String[] modifiedParsedTerritoriesArray = Arrays.copyOfRange(parsedTerritoriesArray, 1, parsedTerritoriesArray.length);
-					ArrayList<String> parsedTerritoryVal = new ArrayList<String>();
-					for(String x: modifiedParsedTerritoriesArray)
-					{
-						parsedTerritoryVal.add(x);
-					}
-					parsedTerritories.put(key, parsedTerritoryVal);
-//					parsedControlValuesByContinents.put(parsedControlValuesByContinentsArray[0], Integer.parseInt(parsedControlValuesByContinentsArray[1]));
-				}
-			}
-			if((st.trim()).equals("[Territories]")) 
-			{
-				captureTerritoryData = true;
-			}
+		  else if(captureCountries) 
+			{  	 String[] parsedTerritoriesArray = readLine.split(",");
+			     String continentName = parsedTerritoriesArray[3];
+			     Country country = new Country(countryID++, parsedTerritoriesArray[0]);
+                 country.setxCoordiate(Integer.parseInt(parsedTerritoriesArray[1]));
+                 country.setyCoordiate(Integer.parseInt(parsedTerritoriesArray[2]));
+                  
+                for(int i = 0;i< continentsList.size();i++)
+                { if(continentsList.get(i).getContName().equals(continentName))
+                  { continentsList.get(i).addCountry(country);
+                    country.setContId(continentsList.get(i).getContId());
+                    break;
+                  }
+                }	       	
+		  }
 		} 
-		br.close();
+		bufferedReader.close();
 		}
 		catch (Exception e) {
 			IOHelper.printException(e);
-		}
-		
+		}		
+	
 	}
 	
 	public void addControlValues(String country,int controlValue)
@@ -133,10 +125,10 @@ public class Map {
 		territories.put(teritorry,list);
 	}
 	
-	
 	public Boolean isMapValid()
 	{
 		IOHelper.print("Validate map");
+		
 		return true;
 	}
 	
