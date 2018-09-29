@@ -59,6 +59,10 @@ public class Continent {
 	{
 		this.countryList.add(country);
 	}
+	
+	public ArrayList<Country> getCountryList(){
+		return countryList;
+	}
 
 
 }

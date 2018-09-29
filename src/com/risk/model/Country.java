@@ -88,6 +88,7 @@ public class Country {
 	{
 		this.neighboursString.add(newNeighbour);
 	}
-   
-
+	public ArrayList<String> getNeighboursString(){
+		return neighboursString;
+	}
 }

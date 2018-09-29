@@ -57,11 +57,11 @@ public class Map {
 	{
 		try
 		{
-		boolean captureContinents = false;
-		boolean captureTerritoryData = false;
-		File file = new File("assets/maps/"+this.mapName); 
-		BufferedReader br = new BufferedReader(new FileReader(file)); 
-		String st;
+			boolean captureContinents = false;
+			boolean captureTerritoryData = false;
+			File file = new File("assets/maps/"+this.mapName); 
+			BufferedReader br = new BufferedReader(new FileReader(file)); 
+			String st;
 		
 		while ((st = br.readLine()) != null) 
 		{
@@ -142,45 +142,65 @@ public class Map {
 	
 	public void saveMap()
 	{
-		//TODO: Change this logic
-		String content = "[Map]\r\n \r\n[Continents]";
-		for (String key : controlValuesByContinents.keySet()) 
+		StringBuffer content = new StringBuffer();
+		content.append("[Continents]\n");
+		for (Continent induvidualContinentObject : this.continentsList) 
 		{
-			content = content +"\r\n"+key+"="+controlValuesByContinents.get(key);
+			content.append(induvidualContinentObject.getContName()+"="+induvidualContinentObject.getControlValue()+"\n");
 		}
-		content = content +"\r\n";
-		content = content +"\r\n";
-		content = content +"[Territories]\r\n";
-		for (String key : territories.keySet())
+		content.append("\n[Territories]\n");
+		for (Continent induvidualContinentObject : this.continentsList) 
 		{
-			String countryVal = "";
-			content = content +key+",";
-			for (int k = 0; k < territories.get(key).size(); k++) 
-			{
-				countryVal = countryVal + territories.get(key).get(k);
-				if(k==territories.get(key).size() - 1) {
-					
-				}
-				else 
+			for(Country induvidualCountry : induvidualContinentObject.getCountryList()) {
+				content.append(induvidualCountry.getCountryName()+","+induvidualCountry.getxCoordiate()+","+induvidualCountry.getyCoordiate()+","+induvidualContinentObject.getContName());
+				for(String neighbouringCountry : induvidualCountry.getNeighboursString())
 				{
-					countryVal = countryVal +",";
-				}
-			}
-			content = content + countryVal+"\r\n";
+					content.append(","+neighbouringCountry);
+				}				
+				content.append("\n");
+			};
 		}
-	    final Path path = Paths.get("assets/maps/"+mapName+".map");
-	    BufferedWriter writer = null;
-	    try 
-	    {
-	        writer = Files.newBufferedWriter(path,
-	            StandardCharsets.UTF_8, StandardOpenOption.CREATE);
-	    	writer.write(content);
-	    	writer.close();
-	    }
-	    catch (Exception e) 
-	    {
-			IOHelper.printException(e);	    	
-	    }       
+		
+		System.out.print(content);
+		//TODO: Change this logic
+//		String content = "[Map]\r\n \r\n[Continents]";
+//		for (String key : controlValuesByContinents.keySet()) 
+//		{
+//			content = content +"\r\n"+key+"="+controlValuesByContinents.get(key);
+//		}
+//		content = content +"\r\n";
+//		content = content +"\r\n";
+//		content = content +"[Territories]\r\n";
+//		for (String key : territories.keySet())
+//		{
+//			String countryVal = "";
+//			content = content +key+",";
+//			for (int k = 0; k < territories.get(key).size(); k++) 
+//			{
+//				countryVal = countryVal + territories.get(key).get(k);
+//				if(k==territories.get(key).size() - 1) {
+//					
+//				}
+//				else 
+//				{
+//					countryVal = countryVal +",";
+//				}
+//			}
+//			content = content + countryVal+"\r\n";
+//		}
+//	    final Path path = Paths.get("assets/maps/"+mapName+".map");
+//	    BufferedWriter writer = null;
+//	    try 
+//	    {
+//	        writer = Files.newBufferedWriter(path,
+//            StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+//	    	writer.write(content);
+//	    	writer.close();
+//	    }
+//	    catch (Exception e) 
+//	    {
+//			IOHelper.printException(e);	    	
+//	    }       
 	    
 	}
 }
