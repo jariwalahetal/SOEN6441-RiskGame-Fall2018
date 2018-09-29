@@ -21,7 +21,12 @@ import java.nio.file.StandardOpenOption;
 
 public class GameRunner{
 	
-     public static void main(String []args) throws IOException
+     /**
+     * start and initilization of game 
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String []args) throws IOException
      {
     	 MapController mapController = new MapController();
     	 mapController.startGame();

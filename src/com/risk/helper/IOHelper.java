@@ -3,6 +3,11 @@ package com.risk.helper;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+/**
+ * Helper class to print data
+ * @author sadgi
+ *
+ */
 public class IOHelper {
 	
 	public static void print(String string) {
