@@ -16,6 +16,7 @@ import com.risk.model.*;
 public class MapController {
 
 	Map map;
+	public static final String ANSI_RED = "\u001B[31m";
 
 	public void startGame()
 	{
@@ -47,7 +48,7 @@ public class MapController {
 		int totalNumberOfContinents = IOHelper.getNextInteger();
 		for(int i = 0; i < totalNumberOfContinents ; i++) 
 		{
-			IOHelper.print("\nEnter continent name for continent number"+(i+1)+" (press enter and then input the control value)\n");
+			IOHelper.print("\nEnter continent name for continent number "+(i+1)+" (press enter and then input the control value)\n");
 			String continentName = IOHelper.getNextString();
 			int controlValue = IOHelper.getNextInteger();
 			Continent continent = new Continent(i, continentName , controlValue);
