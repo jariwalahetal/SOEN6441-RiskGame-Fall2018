@@ -59,7 +59,7 @@ public class MapController {
 				IOHelper.print("Enter country name for country number "+(j+1));
 				String countryName = IOHelper.getNextString();
 
-				IOHelper.print("Enter x coordinate , y, continent)");
+				IOHelper.print("Enter x coordinate and y coordinate)");
 				int x = IOHelper.getNextInteger();
 				int y = IOHelper.getNextInteger();
 

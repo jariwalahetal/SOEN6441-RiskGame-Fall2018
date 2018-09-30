@@ -4,14 +4,13 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 import com.risk.helper.IOHelper;
@@ -27,6 +26,9 @@ public class Map {
 	private String mapName;
 	private String mapPath = "assets/maps/";
 	private ArrayList<Continent> continentsList = new ArrayList<>();
+	private HashMap<String, Integer> controlValuesByContinents = new HashMap<String, Integer>();
+	private HashMap<String, ArrayList<String>> territories = new HashMap<String, ArrayList<String>>();
+	private ArrayList<String> visitedList = new ArrayList<String>();
 
 	/**
 	 * This is a constructor of Map Class which sets mapId and mapName.
@@ -44,12 +46,12 @@ public class Map {
 		return mapName;
 	}
 
+	/**
+	 * This function sets the map name.
+	 */
 	public void setMapName(String mapName) {
 		this.mapName = mapName;
 	}
-
-	private HashMap<String, Integer> controlValuesByContinents = new HashMap<String, Integer>();
-	private HashMap<String, ArrayList<String>> territories = new HashMap<String, ArrayList<String>>();
 
 	public void readMap() {
 
@@ -115,17 +117,57 @@ public class Map {
 	}
 
 	public Boolean isMapValid() {
-		IOHelper.print("Validate map");
+		ArrayList<String> listOfAllCountries = new ArrayList<String>();
+		for (Continent singleContinent : this.continentsList) {
+			for (Country singleCountry : singleContinent.getCountryList()) {
+				listOfAllCountries.add(singleCountry.getCountryName());
+			}
+		}
+		Collections.sort(listOfAllCountries);
+		
+		Country sourceCountry = ((this.continentsList.get(0)).getCountryList()).get(0);
+		DfsRecursive(sourceCountry);
+		// 1.check if the graph is connected or not
+		Collections.sort(visitedList);
+		if(isTwoArrayListsWithSameValues(visitedList,listOfAllCountries)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
+	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
+		if (list1 == null && list2 == null)
+			return true;
+		if ((list1 == null && list2 != null) || (list1 != null && list2 == null))
+			return false;
+
+		if (list1.size() != list2.size())
+			return false;
+		for (String itemList1 : list1) {
+			if (!list2.contains(itemList1))
+				return false;
+		}
 		return true;
+	}
+
+	public void DfsRecursive(Country sourceCountry) {
+		visitedList.add(sourceCountry.getCountryName());
+		for (Country neighbourCountry : sourceCountry.getNeighbours()) {
+			if (visitedList.contains(sourceCountry.getCountryName())) {
+				// nada
+			} else {
+				DfsRecursive(neighbourCountry);
+			}
+		}
 	}
 
 	public void saveMap() {
 		StringBuffer content = new StringBuffer();
 		content.append("[Continents]\r\n");
 		for (Continent induvidualContinentObject : this.continentsList) {
-			content.append(
-					induvidualContinentObject.getContName() + "=" + induvidualContinentObject.getControlValue() + "\r\n");
+			content.append(induvidualContinentObject.getContName() + "=" + induvidualContinentObject.getControlValue()
+					+ "\r\n");
 		}
 		content.append("\n[Territories]\r\n");
 		for (Continent induvidualContinentObject : this.continentsList) {
@@ -140,7 +182,7 @@ public class Map {
 		}
 
 		System.out.print(content);
-		final Path path = Paths.get(this.mapPath + this.mapName+ ".map");
+		final Path path = Paths.get(this.mapPath + this.mapName + ".map");
 		BufferedWriter writer = null;
 		try {
 			writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
@@ -149,6 +191,6 @@ public class Map {
 			System.out.println("\nFile Saved");
 		} catch (Exception e) {
 			IOHelper.printException(e);
-		}   
+		}
 	}
 }

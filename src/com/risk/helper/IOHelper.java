@@ -1,6 +1,5 @@
 package com.risk.helper;
 
-import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
