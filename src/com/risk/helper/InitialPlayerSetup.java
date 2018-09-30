@@ -21,8 +21,6 @@ public class InitialPlayerSetup {
 
 	public static int getInitialArmyCount(int playerCount) {
 		switch (playerCount) {
-		case 2:
-			return 50;
 		case 3:
 			return 35;
 		case 4:
