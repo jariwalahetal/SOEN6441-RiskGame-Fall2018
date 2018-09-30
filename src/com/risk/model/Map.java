@@ -87,7 +87,15 @@ public class Map {
 					Country country = new Country(countryID++, parsedTerritoriesArray[0]);
 					country.setxCoordiate(Integer.parseInt(parsedTerritoriesArray[1]));
 					country.setyCoordiate(Integer.parseInt(parsedTerritoriesArray[2]));
-
+					int k = 0;
+					for(String data :parsedTerritoriesArray)
+					{
+						if(k>3) {
+							country.addNeighboursString(data);
+						}
+						k++;
+					}
+					
 					for (int i = 0; i < continentsList.size(); i++) {
 						if (continentsList.get(i).getContName().equals(continentName)) {
 							continentsList.get(i).addCountry(country);
@@ -120,7 +128,16 @@ public class Map {
 		ArrayList<String> listOfAllCountries = new ArrayList<String>();
 		for (Continent singleContinent : this.continentsList) {
 			for (Country singleCountry : singleContinent.getCountryList()) {
-				listOfAllCountries.add(singleCountry.getCountryName());
+				if(!listOfAllCountries.contains(singleCountry.getCountryName())) {
+					listOfAllCountries.add(singleCountry.getCountryName());
+				}
+				for(String eachNeighbourCountry:singleCountry.getNeighboursString()) {
+					if(listOfAllCountries.contains(eachNeighbourCountry)) {
+						//nada
+					}else {
+						listOfAllCountries.add(eachNeighbourCountry);
+					}
+				}
 			}
 		}
 		Collections.sort(listOfAllCountries);
@@ -153,11 +170,21 @@ public class Map {
 
 	public void DfsRecursive(Country sourceCountry) {
 		visitedList.add(sourceCountry.getCountryName());
-		for (Country neighbourCountry : sourceCountry.getNeighbours()) {
-			if (visitedList.contains(sourceCountry.getCountryName())) {
+		for (String neighbourCountry : sourceCountry.getNeighboursString()) {
+			if (visitedList.contains(neighbourCountry)) {
 				// nada
 			} else {
-				DfsRecursive(neighbourCountry);
+				Country countryyy = null;
+				for(Continent cont:this.continentsList) {
+					for(Country countryy: cont.getCountryList()) {
+						if(countryy.getCountryName().equals(neighbourCountry)) {
+							countryyy = countryy;
+						}
+					}
+				}
+				if(countryyy!=null) {
+					DfsRecursive(countryyy);
+				}
 			}
 		}
 	}

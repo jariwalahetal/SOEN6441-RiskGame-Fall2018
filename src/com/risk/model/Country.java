@@ -82,7 +82,11 @@ public class Country {
 	}
 	public void addNeighboursString(String newNeighbour)
 	{
-		this.neighboursString.add(newNeighbour);
+		if(this.neighboursString.contains(newNeighbour)) {
+			//nada
+		}else {
+			this.neighboursString.add(newNeighbour);
+		}
 	}
 	public ArrayList<String> getNeighboursString(){
 		return neighboursString;

@@ -107,6 +107,7 @@ public class MapController {
 		String selectedMapName = maps.get(mapNumber-1);
 		map.setMapName(selectedMapName);
 		map.readMap();
+		System.out.print("is map valid:"+map.isMapValid());
 	}
 	
 	private ArrayList<String> getListOfMaps() {
