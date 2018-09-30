@@ -2,6 +2,7 @@ package com.risk.model;
 
 /**
  * Player Class
+ * 
  * @author sadgi
  * @version 1.0.0
  * @since 27-September-2018
@@ -10,9 +11,11 @@ public class Player {
 	private int playerId;
 	private String name;
 	private String color;
+	private int NoOfArmies;
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
+	 * 
 	 * @param playerId
 	 * @param name
 	 * @param color
@@ -22,6 +25,17 @@ public class Player {
 		this.playerId = playerId;
 		this.name = name;
 		this.color = color;
+	}
+
+	/**
+	 * getters and setters of NoOfArmies
+	 */
+	public int getNoOfArmies() {
+		return NoOfArmies;
+	}
+
+	public void setNoOfArmies(int noOfArmies) {
+		NoOfArmies = noOfArmies;
 	}
 
 	/**
@@ -50,7 +64,5 @@ public class Player {
 	public void setColor(String color) {
 		this.color = color;
 	}
-
-
 
 }

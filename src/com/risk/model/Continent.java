@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Continent Class
+ * 
  * @author sadgi
  * @version 1.0.0
  * @since 27-September-2018
@@ -15,10 +16,13 @@ public class Continent {
 	private ArrayList<Country> countryList = new ArrayList<>();
 
 	/**
-	 * This is a Constructor for Continent Class
-	 * This constructor sets name and control value of the class
-	 * @param name of continent
-	 * @param controlValue of continent
+	 * This is a Constructor for Continent Class This constructor sets name and
+	 * control value of the class
+	 * 
+	 * @param name
+	 *            of continent
+	 * @param controlValue
+	 *            of continent
 	 */
 	public Continent(int contId, String contName, int controlValue) {
 		super();
@@ -26,7 +30,6 @@ public class Continent {
 		this.contName = contName;
 		this.controlValue = controlValue;
 	}
-
 
 	/**
 	 * getters and setters
@@ -54,15 +57,13 @@ public class Continent {
 	public void setControlValue(int controlValue) {
 		this.controlValue = controlValue;
 	}
-	
-	public void addCountry(Country country)
-	{
+
+	public void addCountry(Country country) {
 		this.countryList.add(country);
 	}
-	
-	public ArrayList<Country> getCountryList(){
+
+	public ArrayList<Country> getCountryList() {
 		return countryList;
 	}
-
 
 }
