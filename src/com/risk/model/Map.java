@@ -53,6 +53,9 @@ public class Map {
 		this.mapName = mapName;
 	}
 
+	/**
+	 * This function loads the Map into the memory
+	 */
 	public void readMap() {
 
 		try {
@@ -65,7 +68,7 @@ public class Map {
 			int countryID = 0;
 
 			while ((readLine = bufferedReader.readLine()) != null) {
-				if (readLine.length() == 0)
+				if (readLine.trim().length() == 0)
 					continue;
 				else if ((readLine.trim()).equals("[Continents]")) {
 					captureContinents = true;
@@ -88,10 +91,10 @@ public class Map {
 					country.setxCoordiate(Integer.parseInt(parsedTerritoriesArray[1]));
 					country.setyCoordiate(Integer.parseInt(parsedTerritoriesArray[2]));
 					int k = 0;
-					for(String data :parsedTerritoriesArray)
+					for(String neighborCountry :parsedTerritoriesArray)
 					{
 						if(k>3) {
-							country.addNeighboursString(data);
+							country.addNeighboursString(neighborCountry);
 						}
 						k++;
 					}
