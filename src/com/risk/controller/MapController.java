@@ -1,5 +1,7 @@
 package com.risk.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -44,6 +46,12 @@ public class MapController {
 	private void createMap() {
 		MapCreateView v = new MapCreateView();
    	 	v.showCreateView();
+	   	v.button2.addActionListener(new ActionListener() {
+	         @Override
+	         public void actionPerformed(ActionEvent e) {
+	        	 map.writeMapToDisk(new StringBuffer(v.textBox.getText()), v.mapName.getText());
+	         }
+	     });
 //		IOHelper.print("\nEnter the name of the map ");
 //		String mapName = IOHelper.getNextString();
 //		map.setMapName(mapName);

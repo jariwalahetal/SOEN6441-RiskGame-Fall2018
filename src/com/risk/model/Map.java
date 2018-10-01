@@ -220,9 +220,14 @@ public class Map {
 				content.append("\r\n");
 			}
 		}
+		writeMapToDisk(content, this.mapName);
 
 		System.out.print(content);
-		final Path path = Paths.get(this.mapPath + this.mapName + ".map");
+		
+	}
+
+	public void writeMapToDisk(StringBuffer content, String nameOfTheMap) {
+		final Path path = Paths.get(this.mapPath + nameOfTheMap + ".map");
 		BufferedWriter writer = null;
 		try {
 			writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
@@ -233,7 +238,7 @@ public class Map {
 			IOHelper.printException(e);
 		}
 	}
-
+	
 	public ArrayList<Country> getCountryList()
 	{
 		ArrayList<Country> countries = new ArrayList<>();

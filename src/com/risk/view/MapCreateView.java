@@ -18,7 +18,10 @@ import javax.swing.*;
  */
 public class MapCreateView extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private HashMap<String,String> data = new HashMap<String,String>();
+	public JButton button2 = new JButton("SAVE MAP");
+	String saveNameText = "Enter Map Name here";
+	public JTextArea textBox = new JTextArea("[Continents]\n\n\n[Territories]");
+	public JTextField mapName = new JTextField(saveNameText);
 	public void showCreateView() {
 		createJframe();
 	} 
@@ -26,17 +29,16 @@ public class MapCreateView extends JFrame {
 	 * Creates Jframe
 	 */
 	private void createJframe() {
-		String saveNameText = "Enter Map Name here";
+		
 		JFrame frame = new JFrame(getClass().getSimpleName());
 	
         JPanel pane = new JPanel();
         pane.setLayout(new BoxLayout(pane, BoxLayout.LINE_AXIS));
 
-        JTextArea textBox = new JTextArea("[Continents]\n\n\n[Territories]");
+      
         textBox.setSize(getMaximumSize());
-        JButton button2 = new JButton("SAVE MAP");
         
-        JTextField mapName = new JTextField(saveNameText);
+        
         mapName.setForeground(Color.GRAY);
         mapName.addFocusListener(new FocusListener() {
             @Override
@@ -54,13 +56,7 @@ public class MapCreateView extends JFrame {
                 }
             }
         });
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	data.put("mapName",mapName.getText());
-            	data.put("mapData",textBox.getText());
-            }
-        });
+        
         pane.add(button2);
         pane.add(mapName);
         pane.add(Box.createHorizontalGlue());
