@@ -2,15 +2,18 @@ package com.risk.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.HashMap;
 
 import javax.swing.*;
 
 public class MapCreateView extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public MapCreateView() {
+	private HashMap<String,String> data = new HashMap<String,String>();
+	public void showCreateView() {
 		createJframe();
 	} 
 	private void createJframe() {
@@ -23,6 +26,7 @@ public class MapCreateView extends JFrame {
         JTextArea textBox = new JTextArea("[Continents]\n\n\n[Territories]");
         textBox.setSize(getMaximumSize());
         JButton button2 = new JButton("SAVE MAP");
+        
         JTextField mapName = new JTextField(saveNameText);
         mapName.setForeground(Color.GRAY);
         mapName.addFocusListener(new FocusListener() {
@@ -39,6 +43,13 @@ public class MapCreateView extends JFrame {
                 	mapName.setForeground(Color.GRAY);
                 	mapName.setText(saveNameText);
                 }
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	data.put("mapName",mapName.getText());
+            	data.put("mapData",textBox.getText());
             }
         });
         pane.add(button2);
