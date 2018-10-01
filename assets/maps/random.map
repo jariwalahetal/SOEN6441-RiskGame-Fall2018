@@ -1,0 +1,6 @@
+[Continents]
+Asia=3
+Australia=5
+
+[Territories]
+ind,2,3,Asia,pak,chn

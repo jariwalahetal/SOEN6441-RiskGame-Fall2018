@@ -3,10 +3,7 @@ package com.risk.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.model.*;
@@ -23,7 +20,9 @@ public class MapController {
 
 	Map map;
 	public static final String ANSI_RED = "\u001B[31m";
-
+	/**
+	 * This function asks user either to createmap or edit map, the user can also start the game form here.
+	 */
 	public void startGame() {
 		map = new Map();
 
@@ -42,7 +41,9 @@ public class MapController {
 			// TODO: Play game
 		}
 	}
-
+	/**
+	 * This function gives the user an editor to create the map and it saves the map to the disk.
+	 */
 	private void createMap() {
 		MapCreateView v = new MapCreateView();
    	 	v.showCreateView();
@@ -51,6 +52,8 @@ public class MapController {
 	         public void actionPerformed(ActionEvent e) {
 	        	 map.writeMapToDisk(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
 	        	 v.killFrame();
+	        	 MapController map = new MapController();
+	        	 map.startGame();
 	         }
 	     });
 //		IOHelper.print("\nEnter the name of the map ");
@@ -97,7 +100,9 @@ public class MapController {
 		else
 			IOHelper.print("Map is not valid");
 */	}
-
+	/**
+	 * This function lets the user edit the map.
+	 */
 	private void editMap() {
 		// TODO: For mandeep - select map to edit and create functionality
 		System.out.println("Edit Map in MapController called");
@@ -161,7 +166,9 @@ public class MapController {
 
 
 	}
-
+	/**
+	 * This function validates the map and initializes the map.
+	 */
 	private void initializeMap() {
 		int i = 1;
 		ArrayList<String> maps = getListOfMaps();
@@ -177,7 +184,9 @@ public class MapController {
 		map.readMap();
 		System.out.print("is map valid:" + map.isMapValid());
 	}
-
+	/**
+	 * This function creates the player objects
+	 */
 	private void initializeGame() {
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
@@ -193,7 +202,11 @@ public class MapController {
 		game.assignCountriesToPlayer();
 
 	}
-
+	/**
+	 * This function returns the list of all the maps in the assets/map directory.
+	 * 
+	 * @return List of all the map files
+	 */
 	private ArrayList<String> getListOfMaps() {
 		ArrayList<String> fileNames = new ArrayList<String>();
 		File folder = new File("assets/maps");

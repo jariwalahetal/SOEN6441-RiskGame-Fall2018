@@ -20,6 +20,5 @@ public class GameRunner{
      {
     	 MapController mapController = new MapController();
     	 mapController.startGame();
-    	 
      }
 }
