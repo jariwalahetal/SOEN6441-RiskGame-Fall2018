@@ -7,16 +7,18 @@ package com.risk.controller;
 
 import java.io.*;
 
-public class GameRunner {
 
-	/**
-	 * start and initilization of game
-	 * 
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void main(String[] args) throws IOException {
-		MapController mapController = new MapController();
-		mapController.startGame();
-	}
+
+public class GameRunner{
+	
+     /**
+     * start and initilization of game 
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String []args) throws IOException
+     {
+    	 MapController mapController = new MapController();
+    	 mapController.startGame();
+     }
 }

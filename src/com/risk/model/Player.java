@@ -1,5 +1,7 @@
 package com.risk.model;
 
+import com.risk.helper.Color;
+
 /**
  * Player Class
  * 
@@ -10,7 +12,7 @@ package com.risk.model;
 public class Player {
 	private int playerId;
 	private String name;
-	private String color;
+	private Color color;
 	private int NoOfArmies;
 
 	/**
@@ -20,7 +22,7 @@ public class Player {
 	 * @param name
 	 * @param color
 	 */
-	public Player(int playerId, String name, String color) {
+	public Player(int playerId, String name, Color color) {
 		super();
 		this.playerId = playerId;
 		this.name = name;
@@ -57,11 +59,11 @@ public class Player {
 		this.name = name;
 	}
 
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 

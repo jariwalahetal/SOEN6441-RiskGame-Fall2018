@@ -12,6 +12,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import com.risk.helper.IOHelper;
 
@@ -23,17 +24,16 @@ import com.risk.helper.IOHelper;
  * @since 27-September-2018
  */
 public class Map {
+	Map map;
 	private String mapName;
 	private String mapPath = "assets/maps/";
 	private ArrayList<Continent> continentsList = new ArrayList<>();
-	private HashMap<String, Integer> controlValuesByContinents = new HashMap<String, Integer>();
-	private HashMap<String, ArrayList<String>> territories = new HashMap<String, ArrayList<String>>();
 	private ArrayList<String> visitedList = new ArrayList<String>();
 
 	/**
 	 * This is a constructor of Map Class which sets mapId and mapName.
 	 * 
-	 * @param mapName
+	 * //@param mapName
 	 */
 	public Map() {
 		super();
@@ -68,6 +68,7 @@ public class Map {
 			int countryID = 0;
 
 			while ((readLine = bufferedReader.readLine()) != null) {
+				IOHelper.print(readLine);
 				if (readLine.trim().length() == 0)
 					continue;
 				else if ((readLine.trim()).equals("[Continents]")) {
@@ -114,16 +115,26 @@ public class Map {
 
 	}
 
-	public void addControlValues(String country, int controlValue) {
-		controlValuesByContinents.put(country, controlValue);
-	}
-
 	public void addContinent(Continent continent) {
 		continentsList.add(continent);
 	}
 
-	public void addTeritorries(String teritorry, ArrayList<String> list) {
-		territories.put(teritorry, list);
+	/**
+	 * This function deletes the Continent.
+	 */
+	public void deleteContinent(String continentName){
+		map = new Map();
+		for ( Continent continent: continentsList)
+		{
+			String continentPresent = continent.getContName();
+			if (continentPresent.equalsIgnoreCase(continentName)){
+				continentsList.remove(continent);
+			}
+			else{
+				System.out.println("Invalid Continent!");
+			}
+		}
+		this.getContinentList();
 	}
 
 	public Boolean isMapValid() {
@@ -196,7 +207,7 @@ public class Map {
 		content.append("[Continents]\r\n");
 		for (Continent induvidualContinentObject : this.continentsList) {
 			content.append(induvidualContinentObject.getContName() + "=" + induvidualContinentObject.getControlValue()
-			+ "\r\n");
+					+ "\r\n");
 		}
 		content.append("\n[Territories]\r\n");
 		for (Continent induvidualContinentObject : this.continentsList) {
@@ -209,9 +220,14 @@ public class Map {
 				content.append("\r\n");
 			}
 		}
+		writeMapToDisk(content, this.mapName);
 
 		System.out.print(content);
-		final Path path = Paths.get(this.mapPath + this.mapName + ".map");
+		
+	}
+
+	public void writeMapToDisk(StringBuffer content, String nameOfTheMap) {
+		final Path path = Paths.get(this.mapPath + nameOfTheMap + ".map");
 		BufferedWriter writer = null;
 		try {
 			writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
@@ -221,5 +237,20 @@ public class Map {
 		} catch (Exception e) {
 			IOHelper.printException(e);
 		}
+	}
+	
+	public ArrayList<Country> getCountryList()
+	{
+		ArrayList<Country> countries = new ArrayList<>();
+		for(Iterator<Continent> continents= continentsList.iterator(); continents.hasNext(); )
+		{
+			countries.addAll(continents.next().getCountryList());
+		}
+		return countries;
+	}
+	
+	public ArrayList<Continent> getContinentList()
+	{
+		return continentsList;
 	}
 }
