@@ -6,6 +6,7 @@ package com.risk.controller;
  */
 
 import java.io.*;
+
 import com.risk.view.*;
 
 
@@ -23,5 +24,3 @@ public class GameRunner{
     	 MapCreateView v = new MapCreateView();
      }
 }
-
-

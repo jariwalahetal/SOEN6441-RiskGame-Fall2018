@@ -12,6 +12,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import com.risk.helper.IOHelper;
 
@@ -23,17 +24,16 @@ import com.risk.helper.IOHelper;
  * @since 27-September-2018
  */
 public class Map {
+	Map map;
 	private String mapName;
 	private String mapPath = "assets/maps/";
 	private ArrayList<Continent> continentsList = new ArrayList<>();
-	private HashMap<String, Integer> controlValuesByContinents = new HashMap<String, Integer>();
-	private HashMap<String, ArrayList<String>> territories = new HashMap<String, ArrayList<String>>();
 	private ArrayList<String> visitedList = new ArrayList<String>();
 
 	/**
 	 * This is a constructor of Map Class which sets mapId and mapName.
 	 * 
-	 * @param mapName
+	 * //@param mapName
 	 */
 	public Map() {
 		super();
@@ -53,6 +53,9 @@ public class Map {
 		this.mapName = mapName;
 	}
 
+	/**
+	 * This function loads the Map into the memory
+	 */
 	public void readMap() {
 
 		try {
@@ -65,7 +68,8 @@ public class Map {
 			int countryID = 0;
 
 			while ((readLine = bufferedReader.readLine()) != null) {
-				if (readLine.length() == 0)
+				IOHelper.print(readLine);
+				if (readLine.trim().length() == 0)
 					continue;
 				else if ((readLine.trim()).equals("[Continents]")) {
 					captureContinents = true;
@@ -88,14 +92,13 @@ public class Map {
 					country.setxCoordiate(Integer.parseInt(parsedTerritoriesArray[1]));
 					country.setyCoordiate(Integer.parseInt(parsedTerritoriesArray[2]));
 					int k = 0;
-					for(String data :parsedTerritoriesArray)
-					{
-						if(k>3) {
-							country.addNeighboursString(data);
+					for (String neighborCountry : parsedTerritoriesArray) {
+						if (k > 3) {
+							country.addNeighboursString(neighborCountry);
 						}
 						k++;
 					}
-					
+
 					for (int i = 0; i < continentsList.size(); i++) {
 						if (continentsList.get(i).getContName().equals(continentName)) {
 							continentsList.get(i).addCountry(country);
@@ -112,43 +115,53 @@ public class Map {
 
 	}
 
-	public void addControlValues(String country, int controlValue) {
-		controlValuesByContinents.put(country, controlValue);
-	}
-
 	public void addContinent(Continent continent) {
 		continentsList.add(continent);
 	}
 
-	public void addTeritorries(String teritorry, ArrayList<String> list) {
-		territories.put(teritorry, list);
+	/**
+	 * This function deletes the Continent.
+	 */
+	public void deleteContinent(String continentName){
+		map = new Map();
+		for ( Continent continent: continentsList)
+		{
+			String continentPresent = continent.getContName();
+			if (continentPresent.equalsIgnoreCase(continentName)){
+				continentsList.remove(continent);
+			}
+			else{
+				System.out.println("Invalid Continent!");
+			}
+		}
+		this.getContinentList();
 	}
 
 	public Boolean isMapValid() {
 		ArrayList<String> listOfAllCountries = new ArrayList<String>();
 		for (Continent singleContinent : this.continentsList) {
 			for (Country singleCountry : singleContinent.getCountryList()) {
-				if(!listOfAllCountries.contains(singleCountry.getCountryName())) {
+				if (!listOfAllCountries.contains(singleCountry.getCountryName())) {
 					listOfAllCountries.add(singleCountry.getCountryName());
 				}
-				for(String eachNeighbourCountry:singleCountry.getNeighboursString()) {
-					if(listOfAllCountries.contains(eachNeighbourCountry)) {
-						//nada
-					}else {
+				for (String eachNeighbourCountry : singleCountry.getNeighboursString()) {
+					if (listOfAllCountries.contains(eachNeighbourCountry)) {
+						// nada
+					} else {
 						listOfAllCountries.add(eachNeighbourCountry);
 					}
 				}
 			}
 		}
 		Collections.sort(listOfAllCountries);
-		
+
 		Country sourceCountry = ((this.continentsList.get(0)).getCountryList()).get(0);
 		DfsRecursive(sourceCountry);
 		// 1.check if the graph is connected or not
 		Collections.sort(visitedList);
-		if(isTwoArrayListsWithSameValues(visitedList,listOfAllCountries)) {
+		if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
@@ -175,14 +188,14 @@ public class Map {
 				// nada
 			} else {
 				Country countryyy = null;
-				for(Continent cont:this.continentsList) {
-					for(Country countryy: cont.getCountryList()) {
-						if(countryy.getCountryName().equals(neighbourCountry)) {
+				for (Continent cont : this.continentsList) {
+					for (Country countryy : cont.getCountryList()) {
+						if (countryy.getCountryName().equals(neighbourCountry)) {
 							countryyy = countryy;
 						}
 					}
 				}
-				if(countryyy!=null) {
+				if (countryyy != null) {
 					DfsRecursive(countryyy);
 				}
 			}
@@ -219,5 +232,20 @@ public class Map {
 		} catch (Exception e) {
 			IOHelper.printException(e);
 		}
+	}
+
+	public ArrayList<Country> getCountryList()
+	{
+		ArrayList<Country> countries = new ArrayList<>();
+		for(Iterator<Continent> continents= continentsList.iterator(); continents.hasNext(); )
+		{
+			countries.addAll(continents.next().getCountryList());
+		}
+		return countries;
+	}
+	
+	public ArrayList<Continent> getContinentList()
+	{
+		return continentsList;
 	}
 }
