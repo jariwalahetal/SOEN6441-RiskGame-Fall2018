@@ -68,6 +68,7 @@ public class Map {
 			int countryID = 0;
 
 			while ((readLine = bufferedReader.readLine()) != null) {
+				IOHelper.print(readLine);
 				if (readLine.trim().length() == 0)
 					continue;
 				else if ((readLine.trim()).equals("[Continents]")) {

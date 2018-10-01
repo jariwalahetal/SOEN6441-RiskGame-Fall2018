@@ -78,16 +78,55 @@ public class MapController {
 			map.addContinent(continent);
 		}
 
-		if (map.isMapValid())
+		/*if (map.isMapValid())
 			map.saveMap();
 		else
 			IOHelper.print("Map is not valid");
-
-	}
+*/	}
 
 	private void editMap() {
 		// TODO: For mandeep - select map to edit and create functionality
 		System.out.println("Edit Map in MapController called");
+		IOHelper.print("\n Choose the name of map you want to edit from the list given below:");
+		ArrayList<String> mapList = getListOfMaps();
+		for (String nameOfMap: mapList)
+		{
+			System.out.println(nameOfMap);
+		}
+		String newEditMap = IOHelper.getNextString();
+		System.out.println(newEditMap);
+
+		map.setMapName(newEditMap);
+		map.readMap();
+		System.out.println("===============");
+		Map tempMap = map;
+		tempMap.readMap();
+		IOHelper.print("^_____Edit_Map_Menu_____^");
+		IOHelper.print("1. Delete Continent");
+		IOHelper.print("2. Delete Country");
+
+		int input = IOHelper.getNextInteger();
+		if (input == 1)
+		{
+			//createMap();
+
+
+		}
+		else if (input == 2)
+			editMap();
+
+
+
+			if (tempMap.isMapValid())
+			{	// yes
+				IOHelper.print("Valid Map!");
+			}
+			else
+			{	// No
+				IOHelper.print("Map is not valid!");
+			}
+
+
 	}
 
 	private void initializeMap() {
