@@ -22,7 +22,7 @@ public class Game {
 	private Map map;
 
 	/**
-	 * This is a constructor of Game class which will initialise the Map
+	 * This is a constructor of Game class which will initialize the Map
 	 * 
 	 * @param map
 	 */
@@ -34,36 +34,38 @@ public class Game {
 	/**
 	 * This function will randomly assign Countries to all players
 	 * 
-	 * @param map
 	 */
 	public void assignCountriesToPlayer() {
-		//For each country in map, assign player to them
+		
 		int countriesCount = map.getCountryList().size();
 		int playerIndex = 0, playerCount = playerList.size();
 		ArrayList<Integer> tempList = new ArrayList<>();
+		//Here creating the list with indexes
 		for(int i=0;i<countriesCount ;i++)
 		{
 			tempList.add(i);
 		}
+		
+		//Shuffling the list for randomness
 		Collections.shuffle(tempList,new Random());
+		
+		//assigning the shuffled countries from tempList to the players one by one
 		for(int i=0;i<countriesCount;i++)
 		{
 			if(playerIndex == playerCount)
 				playerIndex = 0;
 
-			//Increase assigned armies for country
-			assignCountryToPlayer(playerList.get(playerIndex), map.getCountryList().get(tempList.get(i))); 
+			Country newCountry = map.getCountryList().get(tempList.get(i));
+			//Adding the country to the player
+			assignCountryToPlayer(playerList.get(playerIndex), newCountry);
+			
+			//Assigning one initial army to the country
+			newCountry.increaseArmyCount();
+			
 			playerIndex++;		
 		}
 	}
 
-	/**
-	 * This function will assign armies to all players
-	 */
-	/*
-	 * public void initialArmyAssignment() {
-	 * System.out.println("initialArmyAssignment called"); }
-	 */
 	/**
 	 * This function will add the player to the game(playerList)
 	 * 
@@ -75,12 +77,18 @@ public class Game {
 
 	/**
 	 * 
-	 * @return
+	 * @return Boolean
 	 */
 	public Boolean isGameOn() {
 		return false;
 	}
 
+	/**
+	 * Assigns the newCountry to selected player  
+	 * 
+	 * @param player
+	 * @param newCountry
+	 */
 	public void assignCountryToPlayer(Player player, Country newCountry)
 	{
 		if (playerCountry.containsKey(player))
@@ -94,6 +102,19 @@ public class Game {
 			assignedCountries.add(newCountry);
 			playerCountry.put(player, assignedCountries);
 		}
-		newCountry.increaseArmyCount();
+	}
+	
+	/**
+	 * Unassign the country from selected player
+	 * @param player
+	 * @param country
+	 */
+	public void unassignCountryFromPlayer(Player player, Country country)
+	{
+		if(playerCountry.containsKey(player))
+		{
+			ArrayList<Country> assignedCountries = playerCountry.get(player);
+			assignedCountries.remove(player);
+		}
 	}
 }

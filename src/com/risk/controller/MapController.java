@@ -119,7 +119,7 @@ public class MapController {
 			game.addPlayer(player);
 		}
 		// game.initialArmyAssignment();
-		game.assignCountryToPlayer();
+		game.assignCountriesToPlayer();
 
 	}
 
