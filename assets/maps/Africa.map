@@ -1,0 +1,68 @@
+[Map]
+author=Sean O'Connor
+warn=yes
+image=Africa.bmp
+wrap=no
+scroll=horizontal
+
+[Continents]
+Northern Africa=4
+Southern Africa=3
+Western Africa=7
+Eastern Africa=3
+Central Africa=6
+The Horn=3
+The Congo=5
+
+
+[Territories]
+Morocco,127,46,Northern Africa,Western Sahara,Algeria
+Algeria,193,85,Northern Africa,Morocco,Western Sahara,Mauritania,Mali,Niger,Libya,Tunisia
+Tunisia,252,33,Northern Africa,Algeria,Libya
+Libya,314,94,Northern Africa,North Sudan,Tunisia,Algeria,Niger,Chad,Egypt
+Egypt,415,99,Northern Africa,Libya,North Sudan
+
+Western Sahara,62,103,Western Africa,Morocco,Algeria,Mauritania
+Mauritania,84,147,Western Africa,Western Sahara,Algeria,Mali,Senegal
+Senegal,36,203,Western Africa,Mauritania,Mali,Guinea
+Mali,144,178,Western Africa,Senegal,Mauritania,Algeria,Niger,Burkina Faso,Ivory Coast,Guinea
+Guinea,65,236,Western Africa,Senegal,Mali,Ivory Coast,Sierra Leone,Liberia
+Sierra Leone,56,255,Western Africa,Guinea,Liberia
+Liberia,77,276,Western Africa,Sierra Leone,Guinea,Ivory Coast
+Ivory Coast,112,268,Western Africa,Liberia,Guinea,Mali,Burkina Faso,Ghana
+Burkina Faso,146,223,Western Africa,Mali,Niger,Benin,Ghana,Ivory Coast
+Benin,174,259,Western Africa,Burkina Faso,Niger,Nigeria,Ghana
+Ghana,150,266,Western Africa,Burkina Faso,Benin,Ivory Coast
+
+Niger,248,180,Central Africa,Mali,Algeria,Libya,Chad,Nigeria,Benin,Burkina Faso
+Nigeria,229,254,Central Africa,Niger,Chad,Cameroon,Benin
+Chad,325,197,Central Africa,Libya,North Sudan,South Sudan,Central African Rep.,Cameroon,Nigeria,Niger
+Cameroon,271,293,Central Africa,Nigeria,Chad,Central African Rep.,Rep. of the Congo,Gabon
+Central African Rep.,341,278,Central Africa,Chad,South Sudan,D.R.O.T. Congo,Rep. of the Congo,Cameroon
+
+North Sudan,427,179,The Horn,Egypt,Libya,Eritrea,Ethiopia,South Sudan,Chad
+South Sudan,421,253,The Horn,North Sudan,Ethiopia,Kenya,Uganda,D.R.O.T. Congo,Central African Rep.,Chad
+Eritrea,507,199,The Horn,North Sudan,Somalia,Ethiopia
+Ethiopia,510,256,The Horn,Eritrea,Somalia,Kenya,South Sudan,North Sudan
+Somalia,584,274,The Horn,Eritrea,Ethiopia,Kenya
+
+Gabon,264,339,The Congo,Cameroon,Rep. of the Congo
+Rep. of the Congo,299,345,The Congo,Cameroon,Central African Rep.,D.R.O.T. Congo,Gabon
+D.R.O.T. Congo,372,356,The Congo,Central African Rep.,South Sudan,Uganda,Tanzania,Zambia,Angola,Rep. of the Congo
+Angola,315,449,The Congo,D.R.O.T. Congo,Zambia,Namibia,Botswana
+Zambia,408,462,The Congo,D.R.O.T. Congo,Tanzania,Malawi,Mozambique,Zimbabwe,Botswana,Angola
+
+Uganda,452,323,Eastern Africa,South Sudan,Kenya,Tanzania,D.R.O.T. Congo
+Kenya,498,330,Eastern Africa,South Sudan,Ethiopia,Somalia,Tanzania,Uganda
+Tanzania,470,391,Eastern Africa,Uganda,Kenya,Mozambique,Malawi,D.R.O.T. Congo,Zambia
+Malawi,460,454,Eastern Africa,Tanzania,Mozambique,Zambia
+
+Namibia,315,534,Southern Africa,Angola,Botswana,South Africa
+Botswana,373,529,Southern Africa,Angola,Zambia,Zimbabwe,South Africa,Namibia
+Zimbabwe,425,506,Southern Africa,Zambia,Mozambique,South Africa,Botswana
+Mozambique,482,496,Southern Africa,Tanzania,Malawi,Madagascar,Zambia,Zimbabwe,South Africa
+Madagascar,567,512,Southern Africa,Mozambique
+South Africa,385,596,Southern Africa,Namibia,Botswana,Zimbabwe,Mozambique
+
+
+
