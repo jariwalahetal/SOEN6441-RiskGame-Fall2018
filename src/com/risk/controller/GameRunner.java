@@ -6,7 +6,7 @@ package com.risk.controller;
  */
 
 import java.io.*;
-
+import com.risk.view.*;
 
 
 public class GameRunner{
@@ -19,7 +19,8 @@ public class GameRunner{
     public static void main(String []args) throws IOException
      {
     	 MapController mapController = new MapController();
-    	 mapController.startGame();
+//    	 mapController.startGame();
+    	 MapCreateView v = new MapCreateView();
      }
 }
 
