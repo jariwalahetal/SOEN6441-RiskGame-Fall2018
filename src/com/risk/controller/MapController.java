@@ -49,7 +49,8 @@ public class MapController {
 	   	v.button2.addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent e) {
-	        	 map.writeMapToDisk(new StringBuffer(v.textBox.getText()), v.mapName.getText());
+	        	 map.writeMapToDisk(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
+	        	 v.killFrame();
 	         }
 	     });
 //		IOHelper.print("\nEnter the name of the map ");
