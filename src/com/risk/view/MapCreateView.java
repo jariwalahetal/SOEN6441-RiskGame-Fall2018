@@ -10,12 +10,21 @@ import java.util.HashMap;
 
 import javax.swing.*;
 
+/**
+ * This class's purpose is to create a create map view
+ * 
+ * @author jasraj Singh Bedi
+ * @since 1-October-2018
+ */
 public class MapCreateView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String,String> data = new HashMap<String,String>();
 	public void showCreateView() {
 		createJframe();
 	} 
+	/**
+	 * Creates Jframe
+	 */
 	private void createJframe() {
 		String saveNameText = "Enter Map Name here";
 		JFrame frame = new JFrame(getClass().getSimpleName());
