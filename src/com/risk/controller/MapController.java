@@ -134,22 +134,31 @@ public class MapController {
 			String continentToDelete = IOHelper.getNextString();
 			map.deleteContinent(continentToDelete);
 			//map.saveMap();
-			IOHelper.print("New Continent List");
+            IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
+            /*IOHelper.print("New Continent List");
 			for (Continent nameOfContinent: continentList )
 			{
 				IOHelper.print(nameOfContinent.getContName());
-			}
+			}*/
 		}
-		else if (input == 2)
-		{	// In Progress
-			IOHelper.print("Enter name of the Country you wish to delete:");
-			ArrayList<Country> countryList = map.getCountryList();
-			for (Country nameOfCountry: countryList )
+        else if (input == 2)
+        {	// In Progress
+            IOHelper.print("Enter name of the Country you wish to delete from the list given below:");
+            ArrayList<Country> countryList = map.getCountryList();
+            for (Country nameOfCountry: countryList )
+            {
+                IOHelper.print(nameOfCountry.getCountryName());
+            }
+            String countryToDelete = IOHelper.getNextString();
+            map.deleteCountry(countryToDelete);
+/*
+			for (Country country: countryList )
 			{
-				IOHelper.print(nameOfCountry.getCountryName());
+				IOHelper.print(country.getCountryName());
 			}
-			String deleteCountry = IOHelper.getNextString();
-		}
+*/
+            IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
+        }
 
 
 /*
