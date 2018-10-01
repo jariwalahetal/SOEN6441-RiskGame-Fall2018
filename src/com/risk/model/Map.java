@@ -24,6 +24,7 @@ import com.risk.helper.IOHelper;
  * @since 27-September-2018
  */
 public class Map {
+	Map map;
 	private String mapName;
 	private String mapPath = "assets/maps/";
 	private ArrayList<Continent> continentsList = new ArrayList<>();
@@ -32,7 +33,7 @@ public class Map {
 	/**
 	 * This is a constructor of Map Class which sets mapId and mapName.
 	 * 
-	 * @param mapName
+	 * //@param mapName
 	 */
 	public Map() {
 		super();
@@ -116,6 +117,24 @@ public class Map {
 
 	public void addContinent(Continent continent) {
 		continentsList.add(continent);
+	}
+
+	/**
+	 * This function deletes the Continent.
+	 */
+	public void deleteContinent(String continentName){
+		map = new Map();
+		for ( Continent continent: continentsList)
+		{
+			String continentPresent = continent.getContName();
+			if (continentPresent.equalsIgnoreCase(continentName)){
+				continentsList.remove(continent);
+			}
+			else{
+				System.out.println("Invalid Continent!");
+			}
+		}
+		this.getContinentList();
 	}
 
 	public Boolean isMapValid() {

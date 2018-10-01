@@ -1,7 +1,9 @@
 package com.risk.controller;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
@@ -98,8 +100,6 @@ public class MapController {
 		System.out.println(newEditMap);
 
 		map.setMapName(newEditMap);
-		map.readMap();
-		System.out.println("===============");
 		Map tempMap = map;
 		tempMap.readMap();
 		IOHelper.print("^_____Edit_Map_Menu_____^");
@@ -109,15 +109,35 @@ public class MapController {
 		int input = IOHelper.getNextInteger();
 		if (input == 1)
 		{
-			//createMap();
-
-
+			IOHelper.print("Enter name of the Continent you wish to delete:");
+			ArrayList<Continent> continentList = map.getContinentList();
+			for (Continent nameOfContinent: continentList )
+			{
+				IOHelper.print(nameOfContinent.getContName());
+			}
+			String continentToDelete = IOHelper.getNextString();
+			map.deleteContinent(continentToDelete);
+			//map.saveMap();
+			IOHelper.print("New Continent List");
+			for (Continent nameOfContinent: continentList )
+			{
+				IOHelper.print(nameOfContinent.getContName());
+			}
 		}
 		else if (input == 2)
-			editMap();
+		{	// In Progress
+			IOHelper.print("Enter name of the Country you wish to delete:");
+			ArrayList<Country> countryList = map.getCountryList();
+			for (Country nameOfCountry: countryList )
+			{
+				IOHelper.print(nameOfCountry.getCountryName());
+			}
+			String deleteCountry = IOHelper.getNextString();
+		}
 
 
-
+/*
+			//validate Map
 			if (tempMap.isMapValid())
 			{	// yes
 				IOHelper.print("Valid Map!");
@@ -126,6 +146,7 @@ public class MapController {
 			{	// No
 				IOHelper.print("Map is not valid!");
 			}
+*/
 
 
 	}
