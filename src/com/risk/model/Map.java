@@ -12,6 +12,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import com.risk.helper.IOHelper;
 
@@ -26,8 +27,6 @@ public class Map {
 	private String mapName;
 	private String mapPath = "assets/maps/";
 	private ArrayList<Continent> continentsList = new ArrayList<>();
-	private HashMap<String, Integer> controlValuesByContinents = new HashMap<String, Integer>();
-	private HashMap<String, ArrayList<String>> territories = new HashMap<String, ArrayList<String>>();
 	private ArrayList<String> visitedList = new ArrayList<String>();
 
 	/**
@@ -115,16 +114,8 @@ public class Map {
 
 	}
 
-	public void addControlValues(String country, int controlValue) {
-		controlValuesByContinents.put(country, controlValue);
-	}
-
 	public void addContinent(Continent continent) {
 		continentsList.add(continent);
-	}
-
-	public void addTeritorries(String teritorry, ArrayList<String> list) {
-		territories.put(teritorry, list);
 	}
 
 	public Boolean isMapValid() {
@@ -197,7 +188,7 @@ public class Map {
 		content.append("[Continents]\r\n");
 		for (Continent induvidualContinentObject : this.continentsList) {
 			content.append(induvidualContinentObject.getContName() + "=" + induvidualContinentObject.getControlValue()
-			+ "\r\n");
+					+ "\r\n");
 		}
 		content.append("\n[Territories]\r\n");
 		for (Continent induvidualContinentObject : this.continentsList) {
@@ -222,5 +213,20 @@ public class Map {
 		} catch (Exception e) {
 			IOHelper.printException(e);
 		}
+	}
+
+	public ArrayList<Country> getCountryList()
+	{
+		ArrayList<Country> countries = new ArrayList<>();
+		for(Iterator<Continent> continent= continentsList.iterator(); continent.hasNext(); )
+		{
+			
+		}
+		return countries;
+	}
+	
+	public ArrayList<Continent> getContinentList()
+	{
+		return continentsList;
 	}
 }

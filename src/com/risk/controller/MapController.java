@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.risk.helper.IOHelper;
+import com.risk.helper.InitialPlayerSetup;
 import com.risk.model.*;
 
 /**
@@ -147,16 +148,18 @@ public class MapController {
 
 	private void initializeGame() {
 		IOHelper.print("\nEnter the number of Players:");
-		int playerNo = IOHelper.getNextInteger();
+		int playerCount = IOHelper.getNextInteger();
 		Game game = new Game(map);
-		for (int i = 1; i <= playerNo; i++) {
+		for (int i = 1; i <= playerCount; i++) {
 			IOHelper.print("\nEnter the name of Player " + i);
 			String playerName = IOHelper.getNextString();
-			Player player = new Player(i, playerName, "Blue"); // color logic we have to decide later
+			Player player = new Player(i, playerName, InitialPlayerSetup.getPlayerColor(i));
+			player.setNoOfArmies(InitialPlayerSetup.getInitialArmyCount(playerCount));
 			game.addPlayer(player);
 		}
+		// game.initialArmyAssignment();
 		game.assignCountryToPlayer();
-		game.initialArmyAssignment();
+
 	}
 
 	private ArrayList<String> getListOfMaps() {

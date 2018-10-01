@@ -3,6 +3,8 @@ package com.risk.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.risk.helper.InitialPlayerSetup;
+
 /**
  * Game Class
  * 
@@ -32,17 +34,17 @@ public class Game {
 	 * 
 	 * @param map
 	 */
-	public void assignCountryToPlayer() { // divide the countries in Map object to the players in the playerList
+	public void assignCountryToPlayer() {
 		System.out.println("assignCountryToPlayer called");
 	}
 
 	/**
 	 * This function will assign armies to all players
 	 */
-	public void initialArmyAssignment() {// set NoOfArmies field for all players.
-		System.out.println("initialArmyAssignment called");
-	}
-
+	/*
+	 * public void initialArmyAssignment() {
+	 * System.out.println("initialArmyAssignment called"); }
+	 */
 	/**
 	 * This function will add the player to the game(playerList)
 	 * 
@@ -53,7 +55,6 @@ public class Game {
 	}
 
 	/**
-	 * This function will tell if we have found a winner or not.
 	 * 
 	 * @return
 	 */
