@@ -18,7 +18,8 @@ public class Country {
 	private int yCoordiate;
 	private ArrayList<Country> neighbours = new ArrayList<>();
 	private ArrayList<String> neighboursString = new ArrayList<>();
-
+	private int armyCount;
+	
 	/**
 	 * This is a Constructor for Country class which sets name, continent,
 	 * neighbooring countries and xaxis , yaxis and player of the country.
@@ -35,6 +36,7 @@ public class Country {
 		super();
 		this.countryId = countryId;
 		this.countryName = countryName;
+		this.armyCount = 0;
 	}
 
 	/**
@@ -106,5 +108,15 @@ public class Country {
 
 	public ArrayList<String> getNeighboursString() {
 		return neighboursString;
+	}
+	
+	public int getArmyCount()
+	{
+		return armyCount;
+	}
+	
+	public void increaseArmyCount()
+	{
+		armyCount++;
 	}
 }

@@ -217,9 +217,9 @@ public class Map {
 	public ArrayList<Country> getCountryList()
 	{
 		ArrayList<Country> countries = new ArrayList<>();
-		for(Iterator<Continent> continent= continentsList.iterator(); continent.hasNext(); )
+		for(Iterator<Continent> continents= continentsList.iterator(); continents.hasNext(); )
 		{
-			
+			countries.addAll(continents.next().getCountryList());
 		}
 		return countries;
 	}
