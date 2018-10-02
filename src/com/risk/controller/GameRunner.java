@@ -18,7 +18,7 @@ public class GameRunner{
      */
     public static void main(String []args) throws IOException
      {
-    	 MapController mapController = new MapController();
-    	 mapController.startGame();
+    	 GameController gameController = new GameController();
+    	 gameController.startGame();
      }
 }
