@@ -28,7 +28,6 @@ public class Map {
 	private String mapName;
 	private String mapPath = "assets/maps/";
 	private ArrayList<Continent> continentsList = new ArrayList<>();
-	private static ArrayList<Country> countriesList = new ArrayList<>();
 	private ArrayList<String> visitedList = new ArrayList<String>();
 
 	/**
@@ -242,6 +241,7 @@ public class Map {
 	
 	public ArrayList<Country> getCountryList()
 	{
+		ArrayList<Country> countriesList = new ArrayList<>();
 		for(Iterator<Continent> continents= continentsList.iterator(); continents.hasNext(); )
 		{
 			countriesList.addAll(continents.next().getCountryList());
@@ -259,8 +259,14 @@ public class Map {
 	 * This function deletes the Country present in the map.
 	 */
 	public void deleteCountry(String countryToDelete) {
-
 		int index=0;
+		ArrayList<Country> countriesList = map.getCountryList();
+		for (Country country: countriesList) {
+
+		}
+
+
+		/*int index=0;
 		for(int i=0;i<countriesList.size();i++){
 			if(countriesList.get(i).getCountryName().equals(countryToDelete)){
 				index=i;
@@ -269,7 +275,7 @@ public class Map {
 		if (index!=0)
 			countriesList.remove(index);
 		else
-			IOHelper.print("Country not found!");
+			IOHelper.print("Country not found!");*/
 
 	}
 }

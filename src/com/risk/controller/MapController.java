@@ -175,6 +175,8 @@ public class MapController {
 
 
 	}
+
+
 	/**
 	 * This function validates the map and initializes the map.
 	 */
