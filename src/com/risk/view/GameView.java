@@ -3,11 +3,14 @@ package com.risk.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,9 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
 import com.risk.model.Game;
-
-
-
 
 
 
@@ -69,6 +69,9 @@ public class GameView {
 			    loadGameActionView();
 			    gameJframe.add(gameActionJpanel);	
 			    loadingReinforcementLabel();
+			    loadingFortificationLabel();
+			    loadingSaveGameButton();
+			    
 			    gameJframe.setSize(1200, 700);
 			    gameJframe.setVisible(true);
 			    gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,8 +103,8 @@ public class GameView {
 		      } */
 		    mapLabel = new JLabel(icon);
 		    mapScrollPane = new JScrollPane(mapLabel);
-		    mapScrollPane.setBounds(10, 10, 500, 500);
-		    mapScrollPane.setBorder(new TitledBorder("Map"));
+		    mapScrollPane.setBounds(10, 10, 700, 650);
+		    mapScrollPane.setBorder(new TitledBorder(""));
 		    gameActionJpanel.add(mapScrollPane);
 		    
 	  }
@@ -112,10 +115,10 @@ public class GameView {
 		    reinforcementLabel = new JLabel();
 		    reinforcementLabel.setBorder(BorderFactory.createTitledBorder(null, "ReinforcementPhase",
 		        TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION,
-		        new Font("SansSerif", Font.PLAIN, 12), Color.RED));
-		    reinforcementLabel.setBounds(mapScrollPane.getX()+500,
-		        mapScrollPane.getY(), mapScrollPane.getWidth()+200,
-		     200);
+		        new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+		    reinforcementLabel.setBounds(mapScrollPane.getX()+700,
+		        mapScrollPane.getY(), 490,
+		     180);
 		 // Recreate every components in Label
 		    playersTurnLabel = new JLabel(
 		        "Player A");
@@ -148,6 +151,74 @@ public class GameView {
 		  
 	  }
 	  
+	  private static void loadingFortificationLabel() {
+		  fortificationLabel.removeAll();
+		    fortificationLabel = null;
+		    fortificationLabel = new JLabel();
+		    fortificationLabel.setBorder(
+		        BorderFactory.createTitledBorder(null, "Fortification", TitledBorder.DEFAULT_JUSTIFICATION,
+		            TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+		    fortificationLabel.setBounds(reinforcementLabel.getX(),
+		    		reinforcementLabel.getY() + 10 + reinforcementLabel.getHeight(),
+		    		reinforcementLabel.getWidth(), 140);
+		    // Recreate every components in Label
+		    String conquerdCountries[]={"Country A","Country B","Country C","Country D"};
+		    soldierMoveFromComboBox =
+		        new JComboBox<>(conquerdCountries);
+		    soldierMoveFromComboBox.setBorder(new TitledBorder("Source Country"));
+		    soldierMoveFromComboBox.setBounds(20, 20, 252, 52);
+		   
+
+	
+
+		    soldierMoveToComboBox = new JComboBox<>();
+		    soldierMoveToComboBox.setBorder(new TitledBorder("Destination Country"));
+		    soldierMoveToComboBox.setBounds(
+		        soldierMoveFromComboBox.getX() + soldierMoveFromComboBox.getWidth() + 10,
+		        soldierMoveFromComboBox.getY(), 200,
+		        soldierMoveFromComboBox.getHeight());
+
+		    noOfSoldierMoveComboBox.setBounds(soldierMoveFromComboBox.getX(),
+		        soldierMoveFromComboBox.getHeight() + soldierMoveFromComboBox.getY() + 7,
+		        soldierMoveFromComboBox.getWidth(), soldierMoveFromComboBox.getHeight());
+		    noOfSoldierMoveComboBox.setBorder(new TitledBorder("Total number of army to move"));
+
+		    fortificationMoveButton.setBounds(soldierMoveToComboBox.getX(), noOfSoldierMoveComboBox.getY(),
+		        soldierMoveToComboBox.getWidth(), soldierMoveToComboBox.getHeight());
+		    
+
+		    // Add all components in Label
+		    fortificationLabel.add(soldierMoveFromComboBox);
+		    fortificationLabel.add(soldierMoveToComboBox);
+		    fortificationLabel.add(noOfSoldierMoveComboBox);
+		    fortificationLabel.add(fortificationMoveButton);
+		    // Adding Label to Panel
+		    gameActionJpanel.add(fortificationLabel);  
+		  
+		  
+	  }
+	  
+	  private static void loadingSaveGameButton() {
+		    saveButtonLabel.removeAll();
+		    saveButtonLabel = null;
+		    saveButtonLabel = new JLabel();
+		    saveButtonLabel
+		        .setBorder(BorderFactory.createTitledBorder(null, "", TitledBorder.DEFAULT_JUSTIFICATION,
+		            TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+		    saveButtonLabel.setBounds(fortificationLabel.getX(),
+		        fortificationLabel.getY() + 10 + fortificationLabel.getHeight(),
+		        fortificationLabel.getWidth(), fortificationLabel.getHeight() - 13);
+
+		    saveButton = new JButton("Save Game");
+		    int buttonHeight = 25;
+		    int buttonWidth = 100;
+		    saveButton.setBounds(saveButtonLabel.getWidth() / 2 - buttonWidth / 2,
+		        saveButtonLabel.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight);
+		    
+		    saveButtonLabel.add(saveButton);
+
+		    gameActionJpanel.add(saveButtonLabel);
+		  }
 	  public static void main(String[] args) {
 			 GameView gameView=new GameView();
 	    	 gameView.gameInitializer();
