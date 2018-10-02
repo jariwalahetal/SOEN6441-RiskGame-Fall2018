@@ -106,16 +106,18 @@ public class GameController {
 	private void editMap() {
 		// TODO: For mandeep - select map to edit and create functionality
 		System.out.println("Edit Map in MapController called");
-		IOHelper.print("\n Choose the name of map you want to edit from the list given below:");
+		IOHelper.print("\n Press number of map you want to edit from the list given below:");
 		ArrayList<String> mapList = getListOfMaps();
+		int i = 1;
 		for (String nameOfMap: mapList)
 		{
-			System.out.println(nameOfMap);
+			IOHelper.print("\n" + i + ")" + nameOfMap);
+			i++;
 		}
-		String newEditMap = IOHelper.getNextString();
-		System.out.println(newEditMap);
-
-		map.setMapName(newEditMap);
+		int mapNumber = IOHelper.getNextInteger();
+		String selectedMapName = mapList.get(mapNumber - 1);
+		map.setMapName(selectedMapName);
+		
 		Map tempMap = map;
 		tempMap.readMap();
 		IOHelper.print("^_____Edit_Map_Menu_____^");
