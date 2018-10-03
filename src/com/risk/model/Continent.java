@@ -32,7 +32,9 @@ public class Continent {
 	}
 
 	/**
-	 * getters and setters
+	 * This function returns the continent ID of the continent.
+	 * 
+	 * @return int continent ID
 	 */
 	public int getContId() {
 		return contId;
