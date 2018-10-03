@@ -241,16 +241,41 @@ public class Map {
 	
 	public ArrayList<Country> getCountryList()
 	{
-		ArrayList<Country> countries = new ArrayList<>();
+		ArrayList<Country> countriesList = new ArrayList<>();
 		for(Iterator<Continent> continents= continentsList.iterator(); continents.hasNext(); )
 		{
-			countries.addAll(continents.next().getCountryList());
+			countriesList.addAll(continents.next().getCountryList());
 		}
-		return countries;
+		return countriesList;
 	}
 	
 	public ArrayList<Continent> getContinentList()
 	{
 		return continentsList;
+	}
+
+	/**
+	 *
+	 * This function deletes the Country present in the map.
+	 */
+	public void deleteCountry(String countryToDelete) {
+		int index=0;
+		ArrayList<Country> countriesList = map.getCountryList();
+		for (Country country: countriesList) {
+
+		}
+
+
+		/*int index=0;
+		for(int i=0;i<countriesList.size();i++){
+			if(countriesList.get(i).getCountryName().equals(countryToDelete)){
+				index=i;
+			}
+		}
+		if (index!=0)
+			countriesList.remove(index);
+		else
+			IOHelper.print("Country not found!");*/
+
 	}
 }
