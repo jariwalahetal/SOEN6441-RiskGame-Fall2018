@@ -39,31 +39,52 @@ public class Continent {
 	public int getContId() {
 		return contId;
 	}
-
+	/**
+	 * This function sets the continent ID of the continent.
+	 * @param int continent ID
+	 */
 	public void setContId(int contId) {
 		this.contId = contId;
 	}
-
+	/**
+	 * This function returns the continent name.
+	 * @param string continent name
+	 */
 	public String getContName() {
 		return contName;
 	}
-
+	/**
+	 * This function sets the continent name.
+	 * @param string continent name
+	 */
 	public void setContName(String contName) {
 		this.contName = contName;
 	}
-
+	/**
+	 * This function returns the control value of the continent object.
+	 * @return int control value
+	 */
 	public int getControlValue() {
 		return controlValue;
 	}
-
+	/**
+	 * This function sets the control value of the continent object.
+	 * @param int control value
+	 */
 	public void setControlValue(int controlValue) {
 		this.controlValue = controlValue;
 	}
-
+	/**
+	 * This function adds the country object into the country list.
+	 * @param Country country object
+	 */
 	public void addCountry(Country country) {
 		this.countryList.add(country);
 	}
-
+	/**
+	 * This function returns the country list.
+	 * @return ArrayList country object
+	 */
 	public ArrayList<Country> getCountryList() {
 		return countryList;
 	}
