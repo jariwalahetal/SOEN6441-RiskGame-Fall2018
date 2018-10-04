@@ -3,9 +3,11 @@ package com.risk.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 import com.risk.helper.InitialPlayerSetup;
+import com.risk.viewmodel.PlayerCountryAdorner;
 
 /**
  * Game Class
@@ -116,5 +118,23 @@ public class Game {
 			ArrayList<Country> assignedCountries = playerCountry.get(player);
 			assignedCountries.remove(player);
 		}
+	}
+		
+	public ArrayList<PlayerCountryAdorner> getMapViewData()
+	{
+		ArrayList<PlayerCountryAdorner> list = new ArrayList<>();
+		
+		playerCountry.forEach((k,v) -> {
+			for(int i=0;i<v.size();i++)
+			{
+				PlayerCountryAdorner _newItem = new PlayerCountryAdorner
+						(v.get(i).getCountryId(), v.get(i).getCountryName());
+				_newItem.setColor(k.getColor());
+				_newItem.setNoOfArmies(k.getNoOfArmies());
+				
+			}
+		});
+		
+		return list;
 	}
 }
