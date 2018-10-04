@@ -176,7 +176,14 @@ public class Map {
 			return false;
 		}
 	}
-
+	/**
+	 * Checks if two array lists are same or not
+	 * 
+	 * @param list arraylist1
+	 * @param list arraylist2
+	 * 
+	 * @return boolean
+	 */
 	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
 		if (list1 == null && list2 == null)
 			return true;
