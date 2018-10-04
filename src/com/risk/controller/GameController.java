@@ -209,6 +209,7 @@ public class GameController {
 			String playerName = IOHelper.getNextString();
 			Player player = new Player(i, playerName, InitialPlayerSetup.getPlayerColor(i));
 			player.setNoOfArmies(InitialPlayerSetup.getInitialArmyCount(playerCount));
+			player.setNoOfUnassignedArmies(InitialPlayerSetup.getInitialArmyCount(playerCount));
 			game.addPlayer(player);
 		}
 		// game.initialArmyAssignment();

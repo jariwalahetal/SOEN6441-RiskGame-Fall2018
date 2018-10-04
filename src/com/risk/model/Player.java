@@ -14,6 +14,7 @@ public class Player {
 	private String name;
 	private Color color;
 	private int NoOfArmies;
+	private int NoOfUnassignedArmies;
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
@@ -38,6 +39,14 @@ public class Player {
 
 	public void setNoOfArmies(int noOfArmies) {
 		NoOfArmies = noOfArmies;
+	}
+	
+	public int getNoOfUnassignedArmies() {
+		return NoOfUnassignedArmies;
+	}
+
+	public void setNoOfUnassignedArmies(int noOfUnassignedArmies) {
+		NoOfUnassignedArmies = noOfUnassignedArmies;
 	}
 
 	/**
@@ -67,4 +76,8 @@ public class Player {
 		this.color = color;
 	}
 
+	public void decreaseUnassignedArmyCount()
+	{
+		NoOfUnassignedArmies--;
+	}
 }

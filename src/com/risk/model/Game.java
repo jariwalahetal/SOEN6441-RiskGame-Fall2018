@@ -7,7 +7,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.risk.helper.InitialPlayerSetup;
-import com.risk.viewmodel.PlayerCountryAdorner;
+import com.risk.viewmodel.CountryAdorner;
+import com.risk.viewmodel.PlayerAdorner;
 
 /**
  * Game Class
@@ -21,6 +22,7 @@ public class Game {
 	// Country and the army assigned to it
 	private HashMap<Player, ArrayList<Country> > playerCountry = new HashMap<>();
 	private ArrayList<Player> playerList = new ArrayList<Player>();
+	private static int currentPlayerId;
 	private Map map;
 
 	/**
@@ -62,7 +64,7 @@ public class Game {
 			assignCountryToPlayer(playerList.get(playerIndex), newCountry);
 			
 			//Assigning one initial army to the country
-			newCountry.increaseArmyCount();
+			incresePlayerArmyInCountry(playerList.get(playerIndex), newCountry);
 			
 			playerIndex++;		
 		}
@@ -105,6 +107,12 @@ public class Game {
 			playerCountry.put(player, assignedCountries);
 		}
 	}
+
+	public void incresePlayerArmyInCountry(Player player, Country country)
+	{
+		player.decreaseUnassignedArmyCount();
+		country.increaseArmyCount();
+	}
 	
 	/**
 	 * Unassign the country from selected player
@@ -120,14 +128,14 @@ public class Game {
 		}
 	}
 		
-	public ArrayList<PlayerCountryAdorner> getMapViewData()
+	public ArrayList<CountryAdorner> getMapViewData()
 	{
-		ArrayList<PlayerCountryAdorner> list = new ArrayList<>();
+		ArrayList<CountryAdorner> list = new ArrayList<>();
 		
 		playerCountry.forEach((k,v) -> {
 			for(int i=0;i<v.size();i++)
 			{
-				PlayerCountryAdorner _newItem = new PlayerCountryAdorner
+				CountryAdorner _newItem = new CountryAdorner
 						(v.get(i).getCountryId(), v.get(i).getCountryName());
 				_newItem.setColor(k.getColor());
 				_newItem.setNoOfArmies(k.getNoOfArmies());
@@ -136,5 +144,28 @@ public class Game {
 		});
 		
 		return list;
+	}
+	
+	public PlayerAdorner getNextPlayer()
+	{
+		if(currentPlayerId == playerList.size())
+			currentPlayerId = 0;
+		
+		PlayerAdorner currentPlayer = (PlayerAdorner)playerList.get(currentPlayerId);
+		currentPlayerId++;
+		return currentPlayer;
+	}
+	
+	public void addArmyToCountry(int playerId, int countryId)
+	{
+		Player player = playerList.stream()
+				  .filter(p -> playerId == p.getPlayerId())
+				  .findAny()
+				  .orElse(null);
+		Country country = playerCountry.get(player).stream()
+				.filter(c -> c.getCountryId() == countryId)
+				.findAny()
+				.orElse(null);
+		incresePlayerArmyInCountry(player, country);
 	}
 }

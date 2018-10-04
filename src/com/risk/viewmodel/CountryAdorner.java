@@ -3,8 +3,8 @@ package com.risk.viewmodel;
 import com.risk.helper.Color;
 import com.risk.model.Country;
 
-public class PlayerCountryAdorner extends Country {
-	public PlayerCountryAdorner(int countryId, String countryName) {
+public class CountryAdorner extends Country {
+	public CountryAdorner(int countryId, String countryName) {
 		super(countryId, countryName);
 	}
 
