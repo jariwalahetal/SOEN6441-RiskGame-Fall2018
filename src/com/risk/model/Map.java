@@ -114,7 +114,11 @@ public class Map {
 		}
 
 	}
-
+	/**
+	 * This adds a continent to the continent list
+	 * 
+	 * @param Continent 
+	 */
 	public void addContinent(Continent continent) {
 		continentsList.add(continent);
 	}
@@ -136,7 +140,11 @@ public class Map {
 		}
 		this.getContinentList();
 	}
-
+	/**
+	 * This function checks and returns if the map is a valid map or not.
+	 * 
+	 * return true
+	 */
 	public boolean isMapValid() {
 		boolean oneCountryInTwoContinents = false;
 		ArrayList<String> listOfAllCountries = new ArrayList<String>();
@@ -198,7 +206,11 @@ public class Map {
 		}
 		return true;
 	}
-
+	/**
+	 * This function checks if the map is connected or not ; it is a recursive funciton.
+	 * 
+	 * @param Country
+	 */
 	public void DfsRecursive(Country sourceCountry) {
 		visitedList.add(sourceCountry.getCountryName());
 		for (String neighbourCountry : sourceCountry.getNeighboursString()) {
@@ -219,7 +231,10 @@ public class Map {
 			}
 		}
 	}
-
+	/**
+	 * This function saves the map into the disk.
+	 * 
+	 */
 	public void saveMap() {
 		StringBuffer content = new StringBuffer();
 		content.append("[Continents]\r\n");
@@ -243,7 +258,12 @@ public class Map {
 		System.out.print(content);
 		
 	}
-
+	/**
+	 * This writes the content to the disk with the name passed to the funciton.
+	 * 
+	 * @param String content
+	 * @param String nameOfTheMap
+	 */
 	public void writeMapToDisk(StringBuffer content, String nameOfTheMap) {
 		final Path path = Paths.get(this.mapPath + nameOfTheMap + ".map");
 		BufferedWriter writer = null;
@@ -256,7 +276,11 @@ public class Map {
 			IOHelper.printException(e);
 		}
 	}
-	
+	/**
+	 * This function returns the country list.
+	 * 
+	 * @param ArrayList
+	 */
 	public ArrayList<Country> getCountryList()
 	{
 		ArrayList<Country> countriesList = new ArrayList<>();
@@ -266,7 +290,11 @@ public class Map {
 		}
 		return countriesList;
 	}
-	
+	/**
+	 * This function returns the continent list.
+	 * 
+	 * @return ArrayList
+	 */
 	public ArrayList<Continent> getContinentList()
 	{
 		return continentsList;
