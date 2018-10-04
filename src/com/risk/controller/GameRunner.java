@@ -7,7 +7,9 @@ package com.risk.controller;
 
 import java.io.*;
 
-
+/**
+ * This class runs the game.
+ */
 
 public class GameRunner{
 	
