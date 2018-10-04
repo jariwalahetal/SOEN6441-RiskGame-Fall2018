@@ -137,12 +137,23 @@ public class Map {
 		this.getContinentList();
 	}
 
-	public Boolean isMapValid() {
+	public boolean isMapValid() {
+		boolean oneCountryInTwoContinents = false;
 		ArrayList<String> listOfAllCountries = new ArrayList<String>();
+		ArrayList<String> listOfMainCountries = new ArrayList<String>();
 		for (Continent singleContinent : this.continentsList) {
 			for (Country singleCountry : singleContinent.getCountryList()) {
 				if (!listOfAllCountries.contains(singleCountry.getCountryName())) {
 					listOfAllCountries.add(singleCountry.getCountryName());
+				}
+				if (listOfMainCountries.contains(singleCountry.getCountryName())) {
+					oneCountryInTwoContinents = true;
+					if(oneCountryInTwoContinents) {
+						System.out.println("Same country cannot be in two continents.");
+						return false;
+					}
+				}else {
+					listOfMainCountries.add(singleCountry.getCountryName());
 				}
 				for (String eachNeighbourCountry : singleCountry.getNeighboursString()) {
 					if (listOfAllCountries.contains(eachNeighbourCountry)) {
