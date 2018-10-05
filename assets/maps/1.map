@@ -5,9 +5,5 @@ Asia=3
 Europe=6
 
 [Territories]
-ind,1,1,Asia,pak,chn
-pak,1,4,Asia,ind,bhu
-chn,2,2,Asia,ind
-bhu,2,2,Asia,pak
-test,5,5,Europe,ind,test2
-test2,5,5,Europe,test,pak
+ind,1,1,Europe,pak
+ind,1,4,Europe,ind
