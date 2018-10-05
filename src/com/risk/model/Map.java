@@ -338,4 +338,12 @@ public class Map {
 			IOHelper.print("Country not found!");*/
 
 	}
+
+	public String getMapPath() {
+		return mapPath;
+	}
+
+	public void setMapPath(String mapPath) {
+		this.mapPath = mapPath;
+	}
 }

@@ -1,6 +1,8 @@
 package com.risk.viewmodel;
 
-import com.risk.helper.Color;
+import javax.swing.JLabel;
+
+import com.risk.helper.EnumColor;
 import com.risk.model.Country;
 
 public class CountryAdorner extends Country {
@@ -8,15 +10,16 @@ public class CountryAdorner extends Country {
 		super(countryId, countryName);
 	}
 
-	private Color color;
+	private EnumColor playerColor;
 	private int NoOfArmies;
+	private JLabel pointInMapLabel = null;
 	
-	public Color getColor() {
-		return color;
+	public EnumColor getPlayerColor() {
+		return playerColor;
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setPlayerColor(EnumColor playerColor) {
+		this.playerColor = playerColor;
 	}
 	
 	public int getNoOfArmies() {
@@ -26,4 +29,13 @@ public class CountryAdorner extends Country {
 	public void setNoOfArmies(int noOfArmies) {
 		NoOfArmies = noOfArmies;
 	}
+
+	public void setPointInMapLabel(JLabel pointInMapLabel) {
+	    this.pointInMapLabel = pointInMapLabel;
+	  }
+	 
+    public JLabel getPointInMapLabel() {
+	    return pointInMapLabel;
+	  }
+	
 }

@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.model.*;
+import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
+import com.risk.viewmodel.CountryAdorner;
 
 /**
  * @author Binay Kumar
@@ -19,6 +21,7 @@ import com.risk.view.MapCreateView;
 public class GameController {
 
 	Map map;
+	Game game = new Game(map);
 	public static final String ANSI_RED = "\u001B[31m";
 	/**
 	 * This function asks user either to createmap or edit map, the user can also start the game form here.
@@ -205,7 +208,7 @@ public class GameController {
 	private void initializeGame() {
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
-		Game game = new Game(map);
+		
 		for (int i = 1; i <= playerCount; i++) {
 			IOHelper.print("\nEnter the name of Player " + i);
 			String playerName = IOHelper.getNextString();
@@ -216,8 +219,20 @@ public class GameController {
 		}
 		// game.initialArmyAssignment();
 		game.assignCountriesToPlayer();
+		initializeMapView();
 
 	}
+	private void initializeMapView(){
+		GameView gameView=new GameView();
+		ArrayList<CountryAdorner> arrayList=new ArrayList<>();
+		arrayList=game.getMapViewData();
+		//gameView.loadMapData(arrayList);	
+		gameView.gameInitializer(arrayList,game.getMap());
+		
+		
+	}
+	
+	
 	/**
 	 * This function returns the list of all the maps in the assets/map directory.
 	 * 

@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -16,6 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
+import com.risk.helper.Common;
+import com.risk.model.Map;
+import com.risk.viewmodel.CountryAdorner;
+
 /**
  * Initiate the game view in java swings
  * @author sadgi
@@ -23,6 +29,7 @@ import javax.swing.border.TitledBorder;
  */
 public class GameView {
 	
+	Common common=new Common();
 	 private static JPanel gameActionJpanel = new JPanel(null);
 	  private static JFrame gameJframe= null;
 
@@ -48,9 +55,9 @@ public class GameView {
 	  private static JLabel saveButtonJlabel = new JLabel();
 	  private static JButton saveButton = new JButton("Save");
 	  	  
-	  public void gameInitializer(){
+	  public void gameInitializer(ArrayList<CountryAdorner> arrayList,Map map){
 			 gameJframe = new JFrame("Risk Game");
-			    loadGameActionView();
+			    loadGameActionView(arrayList, map);
 			    gameJframe.add(gameActionJpanel);	
 			    loadingReinforcementLabel();
 			    loadingFortificationLabel();
@@ -60,11 +67,12 @@ public class GameView {
 			    gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 }
 	  
-	  public void loadGameActionView(){
+	  public void loadGameActionView(ArrayList<CountryAdorner> arrayList,Map map){
 		  gameActionJpanel.removeAll();
 		  gameActionJpanel = new JPanel(null);
 		  File imageFile = null;
-		    imageFile = new File("assets/maps/"+"Africa" + ".bmp");
+		  imageFile = new File(map.getMapPath()+map.getMapName() + ".bmp");
+		  //  imageFile = new File("assets/maps/"+"Africa" + ".bmp");
 		    Image image;
 		    ImageIcon icon = null;
 		    try {
@@ -73,17 +81,19 @@ public class GameView {
 		    } catch (IOException e) {
 		      e.printStackTrace();
 		    }
-		 /*
-		  *NEED THIS INFO FROM CONTROLLER
-		  *    for (int i = 0; i < Map.getCountryList().size(); i++) {
-		        Country tempCountry = Map.getCountryList().get(i);
-		        int[] coordinate = tempCountry.getCoordinate();
-		        tempCountry.setPointInMapLabel(new JLabel("" + tempCountry.getSoilders()));
+
+		    for (int i = 0; i < arrayList.size(); i++) {
+		        CountryAdorner tempCountry = arrayList.get(i);
+		        int xCoordinate =tempCountry.getxCoordiate();
+		        int yCoordinate=tempCountry.getyCoordiate();
+		        tempCountry.setPointInMapLabel(new JLabel("" + tempCountry.getNoOfArmies()));
 		        tempCountry.getPointInMapLabel().setFont(new Font("Courier", Font.BOLD, 20));
-		        tempCountry.getPointInMapLabel().setForeground(tempCountry.getPlayer().getColor());
-		        tempCountry.getPointInMapLabel().setBounds(coordinate[0], coordinate[1], 25, 25);
+		        tempCountry.getPointInMapLabel().setForeground(common.getColor(tempCountry.getPlayerColor()));
+		        tempCountry.getPointInMapLabel().setBounds(xCoordinate, yCoordinate, 25, 25);		        
 		        mapJlabel.add(tempCountry.getPointInMapLabel());
-		      } */
+		  		  
+	  }
+	 	    
 		    mapJlabel = new JLabel(icon);
 		    mapScrollPane = new JScrollPane(mapJlabel);
 		    mapScrollPane.setBounds(10, 10, 700, 650);
@@ -92,7 +102,7 @@ public class GameView {
 		    
 	  }
 	  
-	  private  void loadingReinforcementLabel(){
+	  public  void loadingReinforcementLabel(){
 		    reinforcementJlabel.removeAll();
 		    reinforcementJlabel = null;
 		    reinforcementJlabel = new JLabel();
@@ -134,7 +144,7 @@ public class GameView {
 		  
 	  }
 	  
-	  private static void loadingFortificationLabel() {
+	  public  void loadingFortificationLabel() {
 		  fortificationJlabel.removeAll();
 		    fortificationJlabel = null;
 		    fortificationJlabel = new JLabel();
@@ -178,7 +188,7 @@ public class GameView {
 		  
 	  }
 	  
-	  private static void loadingSaveGameButton() {
+	  public  void loadingSaveGameButton() {
 		    saveButtonJlabel.removeAll();
 		    saveButtonJlabel = null;
 		    saveButtonJlabel = new JLabel();
@@ -199,12 +209,6 @@ public class GameView {
 
 		    gameActionJpanel.add(saveButtonJlabel);
 		  }
-	  public static void main(String[] args) {
-			 GameView gameView=new GameView();
-	    	 gameView.gameInitializer();
-			
-	}
-
+	  
 	 
-
 }
