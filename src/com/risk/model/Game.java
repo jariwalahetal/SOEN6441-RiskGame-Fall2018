@@ -137,7 +137,7 @@ public class Game {
 			{
 				CountryAdorner _newItem = new CountryAdorner
 						(v.get(i).getCountryId(), v.get(i).getCountryName());
-				_newItem.setColor(k.getColor());
+				_newItem.setPlayerColor(k.getColor());
 				_newItem.setNoOfArmies(k.getNoOfArmies());
 				
 			}
@@ -167,5 +167,13 @@ public class Game {
 				.findAny()
 				.orElse(null);
 		incresePlayerArmyInCountry(player, country);
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
 	}
 }

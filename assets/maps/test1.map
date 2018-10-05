@@ -1,0 +1,7 @@
+[Continents]
+Asia=4
+Europe=7
+
+[Territories]
+ind,2,2,Asia,pak
+pak,2,2,Asia,ind

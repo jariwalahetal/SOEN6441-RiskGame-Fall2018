@@ -2,20 +2,20 @@ package com.risk.helper;
 
 public class InitialPlayerSetup {
 
-	public static Color getPlayerColor(int playerID) {
+	public static EnumColor getPlayerColor(int playerID) {
 		switch (playerID) {
 		case 1:
-			return Color.BLACK;
+			return EnumColor.BLACK;
 		case 2:
-			return Color.BLUE;
+			return EnumColor.BLUE;
 		case 3:
-			return Color.GREEN;
+			return EnumColor.GREEN;
 		case 4:
-			return Color.RED;
+			return EnumColor.RED;
 		case 5:
-			return Color.YELLOW;
+			return EnumColor.YELLOW;
 		default:
-			return Color.YELLOW;
+			return EnumColor.YELLOW;
 		}
 	}
 
