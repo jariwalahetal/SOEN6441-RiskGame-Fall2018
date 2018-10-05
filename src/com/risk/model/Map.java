@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.risk.helper.IOHelper;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 /**
  * Map Class
@@ -124,20 +125,33 @@ public class Map {
 	}
 
 	/**
-	 * This function deletes the Continent.
+	 * This function deletes the Continent from the Map.
 	 */
-	public void deleteContinent(String continentName){
-		map = new Map();
-		for ( Continent continent: continentsList)
-		{
-			String continentPresent = continent.getContName();
-			if (continentPresent.equalsIgnoreCase(continentName)){
-				continentsList.remove(continent);
-			}
-			else{
-				System.out.println("Invalid Continent!");
+	public void deleteContinent(String continentToDelete){
+
+		ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
+		Continent currentContinent = continentsList.stream()
+								.filter(x-> x.getContName().equalsIgnoreCase(continentToDelete))
+								.findAny()
+								.orElse(null);
+
+		countriesListOfCurrentContinent = currentContinent.getCountryList();
+		for ( Continent continent: continentsList){
+			for (Country country : continent.getCountryList()) {
+				//IOHelper.print("neighbour"+country.getNeighboursString());
+				for (int i = 0; i < country.getNeighboursString().size() ; i++) {
+					if (country.getNeighboursString().get(i).equalsIgnoreCase(countriesListOfCurrentContinent.get(i).getCountryName())){
+						//IOHelper.print("got neighbour");
+						country.getNeighboursString().remove(i);
+					}
+					else{
+						//IOHelper.print("neighbor not found");
+					}
+				}
 			}
 		}
+		continentsList.remove(currentContinent);
+
 		this.getContinentList();
 	}
 	/**

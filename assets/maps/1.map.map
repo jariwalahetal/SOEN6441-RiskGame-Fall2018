@@ -1,0 +1,6 @@
+[Continents]
+Europe=6
+
+[Territories]
+test,5,5,Europe,test2
+test2,5,5,Europe,test
