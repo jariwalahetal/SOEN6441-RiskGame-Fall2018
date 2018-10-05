@@ -118,17 +118,17 @@ public class GameController {
 		}
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = mapList.get(mapNumber - 1);
+		//String[] splitName = selectedMapName.trim().split(".");
+		//IOHelper.print("map name: "+selectedMapName);
 		map.setMapName(selectedMapName);
-		
 		Map tempMap = map;
 		tempMap.readMap();
+		//IOHelper.print("temp: "+tempMap.getMapName());
 		IOHelper.print("^_____Edit_Map_Menu_____^");
 		IOHelper.print("1. Delete Continent");
 		IOHelper.print("2. Delete Country");
-
 		int input = IOHelper.getNextInteger();
-		if (input == 1)
-		{
+		if (input == 1){ //Done
 			IOHelper.print("Enter name of the Continent you wish to delete:");
 			ArrayList<Continent> continentList = map.getContinentList();
 			for (Continent nameOfContinent: continentList )
@@ -137,16 +137,10 @@ public class GameController {
 			}
 			String continentToDelete = IOHelper.getNextString();
 			map.deleteContinent(continentToDelete);
-			//map.saveMap();
+			map.saveMap();
             IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
-            /*IOHelper.print("New Continent List");
-			for (Continent nameOfContinent: continentList )
-			{
-				IOHelper.print(nameOfContinent.getContName());
-			}*/
 		}
-        else if (input == 2)
-        {	// In Progress
+        else if (input == 2) {	// Done
             IOHelper.print("Enter name of the Country you wish to delete from the list given below:");
             ArrayList<Country> countryList = map.getCountryList();
             for (Country nameOfCountry: countryList )
@@ -155,29 +149,16 @@ public class GameController {
             }
             String countryToDelete = IOHelper.getNextString();
             map.deleteCountry(countryToDelete);
-/*
-			for (Country country: countryList )
-			{
-				IOHelper.print(country.getCountryName());
-			}
-*/
+            map.saveMap();
             IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
         }
-
-
-/*
 			//validate Map
-			if (tempMap.isMapValid())
-			{	// yes
+			if (tempMap.isMapValid()){	// yes
 				IOHelper.print("Valid Map!");
 			}
-			else
-			{	// No
+			else{	// No
 				IOHelper.print("Map is not valid!");
 			}
-*/
-
-
 	}
 
 

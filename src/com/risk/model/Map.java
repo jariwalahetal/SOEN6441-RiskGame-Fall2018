@@ -16,6 +16,7 @@ import java.util.Iterator;
 
 import com.risk.helper.IOHelper;
 
+
 /**
  * Map Class
  * 
@@ -125,20 +126,33 @@ public class Map {
 	}
 
 	/**
-	 * This function deletes the Continent.
+	 * This function deletes the Continent from the Map.
 	 */
-	public void deleteContinent(String continentName){
-		map = new Map();
-		for ( Continent continent: continentsList)
-		{
-			String continentPresent = continent.getContName();
-			if (continentPresent.equalsIgnoreCase(continentName)){
-				continentsList.remove(continent);
-			}
-			else{
-				System.out.println("Invalid Continent!");
+	public void deleteContinent(String continentToDelete){
+
+		ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
+		Continent currentContinent = continentsList.stream()
+								.filter(x-> x.getContName().equalsIgnoreCase(continentToDelete))
+								.findAny()
+								.orElse(null);
+
+		countriesListOfCurrentContinent = currentContinent.getCountryList();
+		for ( Continent continent: continentsList){
+			for (Country country : continent.getCountryList()) {
+				//IOHelper.print("neighbour"+country.getNeighboursString());
+				for (int i = 0; i < country.getNeighboursString().size() ; i++) {
+					if (country.getNeighboursString().get(i).equalsIgnoreCase(countriesListOfCurrentContinent.get(i).getCountryName())){
+						//IOHelper.print("got neighbour");
+						country.getNeighboursString().remove(i);
+					}
+					else{
+						//IOHelper.print("neighbor not found");
+					}
+				}
 			}
 		}
+		continentsList.remove(currentContinent);
+
 		this.getContinentList();
 	}
 	/**
@@ -148,9 +162,13 @@ public class Map {
 	 */
 	public boolean isMapValid() {
 		boolean oneCountryInTwoContinents = false;
+		boolean atLeastOneCountryInAllContinents = true;
 		ArrayList<String> listOfAllCountries = new ArrayList<String>();
 		ArrayList<String> listOfMainCountries = new ArrayList<String>();
 		for (Continent singleContinent : this.continentsList) {
+			if(singleContinent.getCountryList().isEmpty()) {
+				atLeastOneCountryInAllContinents = false;
+			}
 			for (Country singleCountry : singleContinent.getCountryList()) {
 				if (!listOfAllCountries.contains(singleCountry.getCountryName())) {
 					listOfAllCountries.add(singleCountry.getCountryName());
@@ -179,6 +197,10 @@ public class Map {
 		DfsRecursive(sourceCountry);
 		// 1.check if the graph is connected or not
 		Collections.sort(visitedList);
+		if(!atLeastOneCountryInAllContinents) {
+			System.out.println("Each continent should have atleast one country");
+			return false;
+		}
 		if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
 			return true;
 		} else {
@@ -306,24 +328,25 @@ public class Map {
 	 * This function deletes the Country present in the map.
 	 */
 	public void deleteCountry(String countryToDelete) {
-		int index=0;
-		ArrayList<Country> countriesList = map.getCountryList();
+		ArrayList<Country> countriesList = getCountryList();
+		Country currentCountry = countriesList.stream()
+				.filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
+				.findAny()
+				.orElse(null);
 		for (Country country: countriesList) {
-
-		}
-
-
-		/*int index=0;
-		for(int i=0;i<countriesList.size();i++){
-			if(countriesList.get(i).getCountryName().equals(countryToDelete)){
-				index=i;
+			for (int i = 0; i < country.getNeighboursString().size() ; i++) {
+				if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
+					//IOHelper.print("got neighbour");
+					country.getNeighboursString().remove(i);
+				}
+				else{
+					//IOHelper.print("neighbor not found");
+				}
 			}
 		}
-		if (index!=0)
-			countriesList.remove(index);
-		else
-			IOHelper.print("Country not found!");*/
-
+		for (Continent continent:continentsList) {
+			continent.getCountryList().remove(currentCountry);
+		}
 	}
 
 	public String getMapPath() {
