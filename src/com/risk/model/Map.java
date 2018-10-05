@@ -147,9 +147,13 @@ public class Map {
 	 */
 	public boolean isMapValid() {
 		boolean oneCountryInTwoContinents = false;
+		boolean atLeastOneCountryInAllContinents = true;
 		ArrayList<String> listOfAllCountries = new ArrayList<String>();
 		ArrayList<String> listOfMainCountries = new ArrayList<String>();
 		for (Continent singleContinent : this.continentsList) {
+			if(singleContinent.getCountryList().isEmpty()) {
+				atLeastOneCountryInAllContinents = false;
+			}
 			for (Country singleCountry : singleContinent.getCountryList()) {
 				if (!listOfAllCountries.contains(singleCountry.getCountryName())) {
 					listOfAllCountries.add(singleCountry.getCountryName());
@@ -178,6 +182,10 @@ public class Map {
 		DfsRecursive(sourceCountry);
 		// 1.check if the graph is connected or not
 		Collections.sort(visitedList);
+		if(!atLeastOneCountryInAllContinents) {
+			System.out.println("Each continent should have atleast one country");
+			return false;
+		}
 		if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
 			return true;
 		} else {
