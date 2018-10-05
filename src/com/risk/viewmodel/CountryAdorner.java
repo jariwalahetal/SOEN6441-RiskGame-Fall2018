@@ -6,8 +6,10 @@ import com.risk.helper.EnumColor;
 import com.risk.model.Country;
 
 public class CountryAdorner extends Country {
-	public CountryAdorner(int countryId, String countryName) {
-		super(countryId, countryName);
+	public CountryAdorner(Country country) {
+		super(country.getCountryId(), country.getCountryName());
+		this.setxCoordiate(country.getxCoordiate());
+		this.setyCoordiate(country.getyCoordiate());
 	}
 
 	private EnumColor playerColor;

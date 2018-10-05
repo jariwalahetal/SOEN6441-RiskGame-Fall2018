@@ -82,6 +82,7 @@ public class GameView {
 		      e.printStackTrace();
 		    }
 
+		    mapJlabel = new JLabel(icon);
 		    for (int i = 0; i < arrayList.size(); i++) {
 		        CountryAdorner tempCountry = arrayList.get(i);
 		        int xCoordinate =tempCountry.getxCoordiate();
@@ -92,9 +93,8 @@ public class GameView {
 		        tempCountry.getPointInMapLabel().setBounds(xCoordinate, yCoordinate, 25, 25);		        
 		        mapJlabel.add(tempCountry.getPointInMapLabel());
 		  		  
-	  }
+		    }
 	 	    
-		    mapJlabel = new JLabel(icon);
 		    mapScrollPane = new JScrollPane(mapJlabel);
 		    mapScrollPane.setBounds(10, 10, 700, 650);
 		    mapScrollPane.setBorder(new TitledBorder(""));

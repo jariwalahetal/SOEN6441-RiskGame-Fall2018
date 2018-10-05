@@ -21,14 +21,13 @@ import com.risk.viewmodel.CountryAdorner;
 public class GameController {
 
 	Map map;
-	Game game = new Game(map);
+	Game game;
 	public static final String ANSI_RED = "\u001B[31m";
 	/**
 	 * This function asks user either to createmap or edit map, the user can also start the game form here.
 	 */
 	public void startGame() {
 		map = new Map();
-
 		IOHelper.print("1. Create Map");
 		IOHelper.print("2. Edit Map");
 		IOHelper.print("3. Play Game");
@@ -204,6 +203,7 @@ public class GameController {
 	 * This function creates the player objects
 	 */
 	private void initializeGame() {
+		game = new Game(map);
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
 		

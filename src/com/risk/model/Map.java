@@ -43,7 +43,8 @@ public class Map {
 	 * getters and setters
 	 */
 	public String getMapName() {
-		return mapName;
+		
+		return mapName.replace(".map", "");
 	}
 
 	/**

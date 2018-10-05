@@ -132,17 +132,19 @@ public class Game {
 	{
 		ArrayList<CountryAdorner> list = new ArrayList<>();
 		
-		playerCountry.forEach((k,v) -> {
-			for(int i=0;i<v.size();i++)
+		for(java.util.Map.Entry<Player, ArrayList<Country>> e: playerCountry.entrySet()){
+		    Player key = e.getKey();
+		    ArrayList<Country> countries = e.getValue();
+		    for(int i=0;i<countries.size();i++)
 			{
-				CountryAdorner _newItem = new CountryAdorner
-						(v.get(i).getCountryId(), v.get(i).getCountryName());
-				_newItem.setPlayerColor(k.getColor());
-				_newItem.setNoOfArmies(k.getNoOfArmies());
-				
+				CountryAdorner _newItem = new CountryAdorner(countries.get(i));
+			
+				_newItem.setPlayerColor(key.getColor());
+				_newItem.setNoOfArmies(countries.get(i).getArmyCount());;
+				list.add(_newItem);
 			}
-		});
-		
+		    
+		}
 		return list;
 	}
 	
