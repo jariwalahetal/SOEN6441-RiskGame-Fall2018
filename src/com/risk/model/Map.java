@@ -319,24 +319,25 @@ public class Map {
 	 * This function deletes the Country present in the map.
 	 */
 	public void deleteCountry(String countryToDelete) {
-		int index=0;
-		ArrayList<Country> countriesList = map.getCountryList();
+		ArrayList<Country> countriesList = getCountryList();
+		Country currentCountry = countriesList.stream()
+				.filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
+				.findAny()
+				.orElse(null);
 		for (Country country: countriesList) {
-
-		}
-
-
-		/*int index=0;
-		for(int i=0;i<countriesList.size();i++){
-			if(countriesList.get(i).getCountryName().equals(countryToDelete)){
-				index=i;
+			for (int i = 0; i < country.getNeighboursString().size() ; i++) {
+				if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
+					//IOHelper.print("got neighbour");
+					country.getNeighboursString().remove(i);
+				}
+				else{
+					//IOHelper.print("neighbor not found");
+				}
 			}
 		}
-		if (index!=0)
-			countriesList.remove(index);
-		else
-			IOHelper.print("Country not found!");*/
-
+		for (Continent continent:continentsList) {
+			continent.getCountryList().remove(currentCountry);
+		}
 	}
 
 	public String getMapPath() {
