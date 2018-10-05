@@ -1,5 +1,8 @@
 package com.risk.helper;
 
-public enum Color {
+public enum EnumColor {
   RED, GREEN, BLUE, BLACK, YELLOW, GRAY;
 }
+
+
+

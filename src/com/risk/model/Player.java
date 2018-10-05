@@ -1,6 +1,6 @@
 package com.risk.model;
 
-import com.risk.helper.Color;
+import com.risk.helper.EnumColor;
 
 /**
  * Player Class
@@ -12,7 +12,7 @@ import com.risk.helper.Color;
 public class Player {
 	private int playerId;
 	private String name;
-	private Color color;
+	private EnumColor color;
 	private int NoOfArmies;
 	private int NoOfUnassignedArmies;
 
@@ -23,7 +23,7 @@ public class Player {
 	 * @param name
 	 * @param color
 	 */
-	public Player(int playerId, String name, Color color) {
+	public Player(int playerId, String name, EnumColor color) {
 		super();
 		this.playerId = playerId;
 		this.name = name;
@@ -68,11 +68,11 @@ public class Player {
 		this.name = name;
 	}
 
-	public Color getColor() {
+	public EnumColor getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(EnumColor color) {
 		this.color = color;
 	}
 
