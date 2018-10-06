@@ -47,7 +47,7 @@ public class GameView {
 	  private static JLabel playersTurnJlabel = new JLabel("Default");
 	  private static JLabel armyLeftJlabel = new JLabel("0");
 	  private static JComboBox<String> addArmyToCountryJcomboBox = new JComboBox<>();
-	  private static JButton addArmyButton = new JButton("Add Army To Country");
+	
 
 	  // Fortification Label
 	  private static JLabel fortificationJlabel = new JLabel();
@@ -135,27 +135,17 @@ public class GameView {
 		    playersTurnJlabel.setBounds(5, 20, reinforcementJlabel.getWidth() / 2 - 8,
 		        reinforcementJlabel.getHeight() / 3 - 15);
 		    
-		    // listOfCountriesPlayerOccupied(Map.playerWithTurn());
-		  //  String[] countryNameList = Map.playerWithTurn().listOfCountriesPlayerConqueredInStringArray();
-		    String[] countryNameList={"INDIA","PAKISTAN","NEPAL"};
-		    addArmyToCountryJcomboBox = new JComboBox<>(countryNameList);
-		    addArmyToCountryJcomboBox.setBorder(new TitledBorder("Add Army To Country"));
-		    addArmyToCountryJcomboBox.setBounds(playersTurnJlabel.getX() + playersTurnJlabel.getWidth() + 3,
-		        playersTurnJlabel.getY(), playersTurnJlabel.getWidth(), playersTurnJlabel.getHeight());
-		    
-		    armyLeftJlabel = new JLabel("ARMY NEEDS TO BE ASSIGNED=10");
+		    armyLeftJlabel = new JLabel(""+activePlayer.getNoOfUnassignedArmies());
 		    armyLeftJlabel.setBorder(new TitledBorder("Armies Left"));
-		    armyLeftJlabel.setBounds(playersTurnJlabel.getX(),
-		    		playersTurnJlabel.getY() + playersTurnJlabel.getHeight() + 5, playersTurnJlabel.getWidth(),
+		    armyLeftJlabel.setBounds(playersTurnJlabel.getX()+240,
+		    		playersTurnJlabel.getY() -45+ playersTurnJlabel.getHeight(), playersTurnJlabel.getWidth(),
 		        playersTurnJlabel.getHeight());
-		    addArmyButton.setBounds(addArmyToCountryJcomboBox.getX(), armyLeftJlabel.getY(),
-		            armyLeftJlabel.getWidth(), armyLeftJlabel.getHeight());
+		   
 
 		    reinforcementJlabel.add(playersTurnJlabel);
 		    reinforcementJlabel.add(playersTurnJlabel);
 		    reinforcementJlabel.add(armyLeftJlabel);
 		    reinforcementJlabel.add(addArmyToCountryJcomboBox);
-		    reinforcementJlabel.add(addArmyButton);
 		    gameActionJpanel.add(reinforcementJlabel);
 		  
 	  }
