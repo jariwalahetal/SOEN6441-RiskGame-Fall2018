@@ -203,7 +203,6 @@ public class GameController {
 			IOHelper.print("\nEnter the name of Player " + i);
 			String playerName = IOHelper.getNextString();
 			Player player = new Player(i, playerName, InitialPlayerSetup.getPlayerColor(i));
-			player.setNoOfArmies(InitialPlayerSetup.getInitialArmyCount(playerCount));
 			player.setNoOfUnassignedArmies(InitialPlayerSetup.getInitialArmyCount(playerCount));
 			game.addPlayer(player);
 		}
