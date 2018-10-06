@@ -240,6 +240,9 @@ public class GameController {
 		return fileNames;
 	}
 	
+	/**
+	 * to update view
+	 */
 	public void updateView(){
 		ArrayList<CountryAdorner> arrayList=new ArrayList<>();
 		arrayList=game.getMapViewData();
@@ -253,7 +256,7 @@ public class GameController {
           	if(game.addArmyToCountry(activePlayer.getPlayerId(),Integer.parseInt(string)))
           		updateView();
     		
-          	
+
             }
         });
 	}
