@@ -25,6 +25,7 @@ public class PlayerAdorner extends Player {
 				addCountry(countries.get(i));
 			}
 		}
+		this.setNoOfUnassignedArmies(p.getNoOfUnassignedArmies());
 		
 	}
 

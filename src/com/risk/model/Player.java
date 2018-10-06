@@ -13,7 +13,6 @@ public class Player {
 	private int playerId;
 	private String name;
 	private EnumColor color;
-	private int NoOfArmies;
 	private int NoOfUnassignedArmies;
 
 	/**
@@ -33,14 +32,7 @@ public class Player {
 	/**
 	 * getters and setters of NoOfArmies
 	 */
-	public int getNoOfArmies() {
-		return NoOfArmies;
-	}
 
-	public void setNoOfArmies(int noOfArmies) {
-		NoOfArmies = noOfArmies;
-	}
-	
 	public int getNoOfUnassignedArmies() {
 		return NoOfUnassignedArmies;
 	}

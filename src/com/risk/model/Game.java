@@ -37,7 +37,7 @@ public class Game {
 	}
 
 	/**
-	 * This function will randomly assign Countries to all players
+	 * This function will randomly assign Countries to all players and assign one army to each country for a player
 	 * 
 	 */
 	public void assignCountriesToPlayer() {
@@ -109,6 +109,12 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Increase one army for selected selected player in selected country
+	 * 
+	 * @param player
+	 * @param country
+	 */
 	public void incresePlayerArmyInCountry(Player player, Country country)
 	{
 		player.decreaseUnassignedArmyCount();
