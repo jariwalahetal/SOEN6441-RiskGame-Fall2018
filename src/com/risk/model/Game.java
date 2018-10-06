@@ -141,7 +141,6 @@ public class Game {
 				CountryAdorner _newItem = new CountryAdorner(countries.get(i));
 			
 				_newItem.setPlayerColor(key.getColor());
-				_newItem.setNoOfArmies(countries.get(i).getArmyCount());;
 				list.add(_newItem);
 			}
 		    

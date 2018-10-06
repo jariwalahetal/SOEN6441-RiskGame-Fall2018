@@ -7,7 +7,7 @@ import com.risk.model.Country;
 
 public class CountryAdorner extends Country {
 	public CountryAdorner(Country country) {
-		super(country.getCountryId(), country.getCountryName());
+		super(country.getCountryId(), country.getCountryName(), country.getnoOfArmies());
 		this.setxCoordiate(country.getxCoordiate());
 		this.setyCoordiate(country.getyCoordiate());
 	}
@@ -22,16 +22,5 @@ public class CountryAdorner extends Country {
 
 	public void setPlayerColor(EnumColor playerColor) {
 		this.playerColor = playerColor;
-	}
-	
-	public int getNoOfArmies() {
-		return NoOfArmies;
-	}
-
-	public void setNoOfArmies(int noOfArmies) {
-		NoOfArmies = noOfArmies;
-	}
-
-
-	
+	}	
 }

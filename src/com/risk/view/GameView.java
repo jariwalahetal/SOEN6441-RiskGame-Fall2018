@@ -93,7 +93,7 @@ public class GameView {
 		        CountryAdorner tempCountry = arrayList.get(i);
 		        int xCoordinate =tempCountry.getxCoordiate();
 		        int yCoordinate=tempCountry.getyCoordiate();
-		        JLabel newLabel = new JLabel("" + tempCountry.getNoOfArmies());
+		        JLabel newLabel = new JLabel("" + tempCountry.getnoOfArmies());
 		        newLabel.setFont(new Font("Courier", Font.BOLD, 20));
 		        newLabel.setForeground(common.getColor(tempCountry.getPlayerColor()));
 		        newLabel.setBounds(xCoordinate, yCoordinate, 25, 25);
