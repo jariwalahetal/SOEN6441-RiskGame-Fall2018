@@ -25,6 +25,10 @@ public class Common {
 	       if(selectedColor.equals(EnumColor.GRAY)){
 	    	   return Color.GRAY;
 	       }
+
+	       if(selectedColor.equals(EnumColor.YELLOW)){
+	    	   return Color.yellow;
+	       }
 		return null;
 		
 	}

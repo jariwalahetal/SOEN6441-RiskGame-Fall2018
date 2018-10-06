@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.viewmodel.CountryAdorner;
 import com.risk.viewmodel.PlayerAdorner;
@@ -159,17 +160,28 @@ public class Game {
 		return currentPlayer;
 	}
 	
-	public void addArmyToCountry(int playerId, int countryId)
+	public boolean addArmyToCountry(int playerId, int countryId)
 	{
 		Player player = playerList.stream()
 				  .filter(p -> playerId == p.getPlayerId())
 				  .findAny()
 				  .orElse(null);
+		if(player == null)
+		{
+			IOHelper.print("Player id " + playerId + " does not exist");
+			return false;
+		}
 		Country country = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryId() == countryId)
 				.findAny()
 				.orElse(null);
+		if(country == null)
+		{
+			IOHelper.print("Country id " + countryId + " does not exist");
+			return false;
+		}
 		incresePlayerArmyInCountry(player, country);
+		return true;
 	}
 
 	public Map getMap() {

@@ -3,6 +3,9 @@ package com.risk.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
+import com.risk.controller.GameController;
 import com.risk.helper.Common;
 import com.risk.model.Map;
 import com.risk.viewmodel.CountryAdorner;
@@ -58,7 +62,7 @@ public class GameView {
 	  	  
 	  public void gameInitializer(PlayerAdorner activePlayer,ArrayList<CountryAdorner> arrayList,Map map){
 			 gameJframe = new JFrame("Risk Game");
-			    loadGameActionView(arrayList, map);
+			    loadGameActionView(arrayList, map,activePlayer);
 			    gameJframe.add(gameActionJpanel);	
 			    loadingReinforcementLabel(activePlayer);
 			    loadingFortificationLabel();
@@ -68,7 +72,7 @@ public class GameView {
 			    gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 }
 	  
-	  public void loadGameActionView(ArrayList<CountryAdorner> arrayList,Map map){
+	  public void loadGameActionView(ArrayList<CountryAdorner> arrayList,Map map,PlayerAdorner activePlayer){
 		  gameActionJpanel.removeAll();
 		  gameActionJpanel = new JPanel(null);
 		  File imageFile = null;
@@ -84,23 +88,35 @@ public class GameView {
 		    }
 
 		    mapJlabel = new JLabel(icon);
+		    GameController gameController=new GameController();
 		    for (int i = 0; i < arrayList.size(); i++) {
 		        CountryAdorner tempCountry = arrayList.get(i);
 		        int xCoordinate =tempCountry.getxCoordiate();
 		        int yCoordinate=tempCountry.getyCoordiate();
-		        tempCountry.setPointInMapLabel(new JLabel("" + tempCountry.getNoOfArmies()));
-		        tempCountry.getPointInMapLabel().setFont(new Font("Courier", Font.BOLD, 20));
-		        tempCountry.getPointInMapLabel().setForeground(common.getColor(tempCountry.getPlayerColor()));
-		        tempCountry.getPointInMapLabel().setBounds(xCoordinate, yCoordinate, 25, 25);		        
-		        mapJlabel.add(tempCountry.getPointInMapLabel());
-		  		  
+		        JLabel newLabel = new JLabel("" + tempCountry.getNoOfArmies());
+		        newLabel.setFont(new Font("Courier", Font.BOLD, 20));
+		        newLabel.setForeground(common.getColor(tempCountry.getPlayerColor()));
+		        newLabel.setBounds(xCoordinate, yCoordinate, 25, 25);
+		        newLabel.setToolTipText(tempCountry.getCountryId() + "--" +tempCountry.getCountryName());
+		        mapJlabel.add(newLabel);
+		       
+		      
 		    }
-	 	    
+		   
 		    mapScrollPane = new JScrollPane(mapJlabel);
 		    mapScrollPane.setBounds(10, 10, 700, 650);
 		    mapScrollPane.setBorder(new TitledBorder(""));
 		    gameActionJpanel.add(mapScrollPane);
 		    
+	  }
+	  
+	  public void addActionListenToMapLabels(MouseListener listener){
+		int n=  mapJlabel.getComponentCount();
+		  for(int i=0;i<n;i++)
+		  {
+			JLabel jLabel= (JLabel) mapJlabel.getComponent(i); 
+			jLabel.addMouseListener(listener);
+		  }
 	  }
 	  
 	  public  void loadingReinforcementLabel(PlayerAdorner activePlayer){

@@ -27,5 +27,13 @@ public class PlayerAdorner extends Player {
 		}
 		
 	}
+
+	public ArrayList<CountryAdorner> getCountries() {
+		return countries;
+	}
+
+	public void setCountries(ArrayList<CountryAdorner> countries) {
+		this.countries = countries;
+	}
 	
 }

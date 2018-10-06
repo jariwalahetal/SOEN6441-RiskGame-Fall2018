@@ -32,12 +32,6 @@ public class CountryAdorner extends Country {
 		NoOfArmies = noOfArmies;
 	}
 
-	public void setPointInMapLabel(JLabel pointInMapLabel) {
-	    this.pointInMapLabel = pointInMapLabel;
-	  }
-	 
-    public JLabel getPointInMapLabel() {
-	    return pointInMapLabel;
-	  }
+
 	
 }
