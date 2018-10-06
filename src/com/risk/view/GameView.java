@@ -128,17 +128,17 @@ public class GameView {
 		        new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		    reinforcementJlabel.setBounds(mapScrollPane.getX()+700,
 		        mapScrollPane.getY(), 490,
-		     180);
+		     100);
 		 // Recreate every components in Label
 		    playersTurnJlabel = new JLabel(activePlayer.getName()+" "+activePlayer.getColor());
 		    playersTurnJlabel.setBorder(new TitledBorder("Active Player"));
-		    playersTurnJlabel.setBounds(5, 20, reinforcementJlabel.getWidth() / 2 - 8,
-		        reinforcementJlabel.getHeight() / 3 - 15);
+		    playersTurnJlabel.setBounds(15, 25,  220,
+		        70);
 		    
 		    armyLeftJlabel = new JLabel(""+activePlayer.getNoOfUnassignedArmies());
 		    armyLeftJlabel.setBorder(new TitledBorder("Armies Left"));
 		    armyLeftJlabel.setBounds(playersTurnJlabel.getX()+240,
-		    		playersTurnJlabel.getY() -45+ playersTurnJlabel.getHeight(), playersTurnJlabel.getWidth(),
+		    		playersTurnJlabel.getY() -70+ playersTurnJlabel.getHeight(), playersTurnJlabel.getWidth(),
 		        playersTurnJlabel.getHeight());
 		   
 
