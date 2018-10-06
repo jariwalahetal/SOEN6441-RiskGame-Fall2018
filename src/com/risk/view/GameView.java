@@ -23,12 +23,13 @@ import javax.swing.border.TitledBorder;
 
 import com.risk.controller.GameController;
 import com.risk.helper.Common;
+import com.risk.model.Country;
 import com.risk.model.Map;
 import com.risk.viewmodel.CountryAdorner;
 import com.risk.viewmodel.PlayerAdorner;
 
 /**
- * Initiate the game view in java swings
+ * Initiate the risk game view in java swings
  * @author sadgi
  *
  */
@@ -42,12 +43,17 @@ public class GameView {
 	  private static JLabel mapJlabel = new JLabel();
 	  private static JScrollPane mapScrollPane = null;
 
-	  // Reinforcement Label
-	  private static JLabel reinforcementJlabel = new JLabel();
+	 // Initialization Label
+	  private static JLabel initializationJlabel = new JLabel();
 	  private static JLabel playersTurnJlabel = new JLabel("Default");
 	  private static JLabel armyLeftJlabel = new JLabel("0");
+	  
+	  // Reinforcement Label
+	  private static JLabel reinforcementsJlabel = new JLabel();
+	  private static JLabel reinforcementplayersTurnJlabel = new JLabel("Default"); 
+	  private static JLabel reinforcementUnassignedUnit = new JLabel("0"); 
 	  private static JComboBox<String> addArmyToCountryJcomboBox = new JComboBox<>();
-	
+	  private static JButton addArmy = new JButton("Add Army");
 
 	  // Fortification Label
 	  private static JLabel fortificationJlabel = new JLabel();
@@ -64,7 +70,8 @@ public class GameView {
 			 gameJframe = new JFrame("Risk Game");
 			    loadGameActionView(arrayList, map,activePlayer);
 			    gameJframe.add(gameActionJpanel);	
-			    loadingReinforcementLabel(activePlayer);
+			    loadingInitializationLabel(activePlayer);
+			    loadingReinforcementLabel();
 			    loadingFortificationLabel();
 			    loadingSaveGameButton();			    
 			    gameJframe.setSize(1200, 700);
@@ -119,14 +126,14 @@ public class GameView {
 		  }
 	  }
 	  
-	  public  void loadingReinforcementLabel(PlayerAdorner activePlayer){
-		    reinforcementJlabel.removeAll();
-		    reinforcementJlabel = null;
-		    reinforcementJlabel = new JLabel();
-		    reinforcementJlabel.setBorder(BorderFactory.createTitledBorder(null, "Initialization Phase",
+	  public  void loadingInitializationLabel(PlayerAdorner activePlayer){
+		    initializationJlabel.removeAll();
+		    initializationJlabel = null;
+		    initializationJlabel = new JLabel();
+		    initializationJlabel.setBorder(BorderFactory.createTitledBorder(null, "Initialization Phase",
 		        TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION,
 		        new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		    reinforcementJlabel.setBounds(mapScrollPane.getX()+700,
+		    initializationJlabel.setBounds(mapScrollPane.getX()+700,
 		        mapScrollPane.getY(), 490,
 		     100);
 		 // Recreate every components in Label
@@ -138,15 +145,54 @@ public class GameView {
 		    armyLeftJlabel = new JLabel(""+activePlayer.getNoOfUnassignedArmies());
 		    armyLeftJlabel.setBorder(new TitledBorder("Armies Left"));
 		    armyLeftJlabel.setBounds(playersTurnJlabel.getX()+240,
-		    		playersTurnJlabel.getY() -70+ playersTurnJlabel.getHeight(), playersTurnJlabel.getWidth(),
-		        playersTurnJlabel.getHeight());
+		    playersTurnJlabel.getY() -70+ playersTurnJlabel.getHeight(), playersTurnJlabel.getWidth(),
+		    playersTurnJlabel.getHeight());
 		   
 
-		    reinforcementJlabel.add(playersTurnJlabel);
-		    reinforcementJlabel.add(playersTurnJlabel);
-		    reinforcementJlabel.add(armyLeftJlabel);
-		    reinforcementJlabel.add(addArmyToCountryJcomboBox);
-		    gameActionJpanel.add(reinforcementJlabel);
+		    initializationJlabel.add(playersTurnJlabel);
+		    initializationJlabel.add(playersTurnJlabel);
+		    initializationJlabel.add(armyLeftJlabel);
+		   
+		    gameActionJpanel.add(initializationJlabel);
+		  
+	  }
+	  
+	  public void loadingReinforcementLabel(){
+		  reinforcementsJlabel.removeAll();
+		  reinforcementsJlabel=null;
+		  reinforcementsJlabel=new JLabel();
+		  reinforcementsJlabel.setBorder(
+		 BorderFactory.createTitledBorder(null, "Reinforcement Phase", TitledBorder.DEFAULT_JUSTIFICATION,
+			       TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+		  reinforcementsJlabel.setBounds(initializationJlabel.getX(),
+				  initializationJlabel.getY() + 10 + initializationJlabel.getHeight(),
+				  initializationJlabel.getWidth(), 140);
+		  
+		  reinforcementplayersTurnJlabel = new JLabel("Player turn");
+		  reinforcementplayersTurnJlabel.setBorder(new TitledBorder("Player's Turn"));
+		  reinforcementplayersTurnJlabel.setBounds(15, 25, 220,
+				  50 );
+		  
+		  String[] countryNameList = {"Country A", "country B", "country C", "Country D"};
+		  addArmyToCountryJcomboBox = new JComboBox<>(countryNameList);
+		  addArmyToCountryJcomboBox.setBorder(new TitledBorder("Add Unit To Country"));
+		  addArmyToCountryJcomboBox.setBounds(reinforcementplayersTurnJlabel.getX()+20 + reinforcementplayersTurnJlabel.getWidth() + 3,
+		    		reinforcementplayersTurnJlabel.getY(), reinforcementplayersTurnJlabel.getWidth(), reinforcementplayersTurnJlabel.getHeight());
+		 
+		  reinforcementUnassignedUnit = new JLabel("Assign army=10");
+		  reinforcementUnassignedUnit.setBorder(new TitledBorder("Reinforced Army Unit"));
+		  reinforcementUnassignedUnit.setBounds(reinforcementplayersTurnJlabel.getX(),
+				  reinforcementplayersTurnJlabel.getY() + reinforcementplayersTurnJlabel.getHeight() + 5, reinforcementplayersTurnJlabel.getWidth(),
+				  reinforcementplayersTurnJlabel.getHeight());
+
+		  addArmy.setBounds(addArmyToCountryJcomboBox.getX(), reinforcementUnassignedUnit.getY(),
+				  reinforcementUnassignedUnit.getWidth(), reinforcementUnassignedUnit.getHeight());
+		  
+		  reinforcementsJlabel.add(reinforcementplayersTurnJlabel);
+		  reinforcementsJlabel.add(addArmyToCountryJcomboBox);
+		  reinforcementsJlabel.add(reinforcementUnassignedUnit);
+		  reinforcementsJlabel.add(addArmy);
+		   gameActionJpanel.add(reinforcementsJlabel); 
 		  
 	  }
 	  
@@ -157,26 +203,26 @@ public class GameView {
 		    fortificationJlabel.setBorder(
 		        BorderFactory.createTitledBorder(null, "Fortification Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 		            TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		    fortificationJlabel.setBounds(reinforcementJlabel.getX(),
-		    		reinforcementJlabel.getY() + 10 + reinforcementJlabel.getHeight(),
-		    		reinforcementJlabel.getWidth(), 140);
-		    // Recreate every components in Label
+		    fortificationJlabel.setBounds(reinforcementsJlabel.getX(),
+		    		reinforcementsJlabel.getY() + 10 + reinforcementsJlabel.getHeight(),
+		    		reinforcementsJlabel.getWidth(), 140);
+		 
 		    String conquerdCountries[]={"Country A","Country B","Country C","Country D"};
 		    sourceCountry =
-		        new JComboBox<>(conquerdCountries);
+		    new JComboBox<>(conquerdCountries);
 		    sourceCountry.setBorder(new TitledBorder("Source Country"));
-		    sourceCountry.setBounds(20, 20, 252, 52);
+		    sourceCountry.setBounds(15, 25, 220, 50);
 	        String destinationCountries[]={"Country A","Country B","Country C","Country D"};
 		    destinationCountry = new JComboBox<>(destinationCountries);
 		    destinationCountry.setBorder(new TitledBorder("Destination Country"));
 		    destinationCountry.setBounds(
-		        sourceCountry.getX() + sourceCountry.getWidth() + 10,
-		        sourceCountry.getY(), 200,
-		        sourceCountry.getHeight());
+		    		sourceCountry.getX()+20+sourceCountry.getWidth()+3,
+		    		sourceCountry.getY(), sourceCountry.getWidth(),
+		    		sourceCountry.getHeight());
 
 		    noOfArmyToMoveJcomboBox.setBounds(sourceCountry.getX(),
-		        sourceCountry.getHeight() + sourceCountry.getY() + 7,
-		        sourceCountry.getWidth(), sourceCountry.getHeight());
+		    sourceCountry.getHeight() + sourceCountry.getY() + 7,
+		    sourceCountry.getWidth(), sourceCountry.getHeight());
 		    noOfArmyToMoveJcomboBox.setBorder(new TitledBorder("Total number of army to move"));
 
 		    fortificationMoveButton.setBounds(destinationCountry.getX(), noOfArmyToMoveJcomboBox.getY(),
