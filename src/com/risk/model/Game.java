@@ -153,7 +153,7 @@ public class Game {
 		if(currentPlayerId == playerList.size())
 			currentPlayerId = 0;
 		
-		PlayerAdorner currentPlayer = (PlayerAdorner)playerList.get(currentPlayerId);
+		PlayerAdorner currentPlayer =(PlayerAdorner) playerList.get(currentPlayerId);
 		currentPlayerId++;
 		return currentPlayer;
 	}

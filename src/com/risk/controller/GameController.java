@@ -10,6 +10,7 @@ import com.risk.model.*;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
 import com.risk.viewmodel.CountryAdorner;
+import com.risk.viewmodel.PlayerAdorner;
 
 /**
  * @author Binay Kumar
@@ -206,7 +207,8 @@ public class GameController {
 		ArrayList<CountryAdorner> arrayList=new ArrayList<>();
 		arrayList=game.getMapViewData();
 		//gameView.loadMapData(arrayList);	
-		gameView.gameInitializer(arrayList,game.getMap());
+		PlayerAdorner activePlayer=game.getNextPlayer();
+		gameView.gameInitializer(activePlayer,arrayList,game.getMap());
 		
 		
 	}

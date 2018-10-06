@@ -21,6 +21,7 @@ import javax.swing.border.TitledBorder;
 import com.risk.helper.Common;
 import com.risk.model.Map;
 import com.risk.viewmodel.CountryAdorner;
+import com.risk.viewmodel.PlayerAdorner;
 
 /**
  * Initiate the game view in java swings
@@ -55,11 +56,11 @@ public class GameView {
 	  private static JLabel saveButtonJlabel = new JLabel();
 	  private static JButton saveButton = new JButton("Save");
 	  	  
-	  public void gameInitializer(ArrayList<CountryAdorner> arrayList,Map map){
+	  public void gameInitializer(PlayerAdorner activePlayer,ArrayList<CountryAdorner> arrayList,Map map){
 			 gameJframe = new JFrame("Risk Game");
 			    loadGameActionView(arrayList, map);
 			    gameJframe.add(gameActionJpanel);	
-			    loadingReinforcementLabel();
+			    loadingReinforcementLabel(activePlayer);
 			    loadingFortificationLabel();
 			    loadingSaveGameButton();			    
 			    gameJframe.setSize(1200, 700);
@@ -102,7 +103,7 @@ public class GameView {
 		    
 	  }
 	  
-	  public  void loadingReinforcementLabel(){
+	  public  void loadingReinforcementLabel(PlayerAdorner activePlayer){
 		    reinforcementJlabel.removeAll();
 		    reinforcementJlabel = null;
 		    reinforcementJlabel = new JLabel();
@@ -113,8 +114,7 @@ public class GameView {
 		        mapScrollPane.getY(), 490,
 		     180);
 		 // Recreate every components in Label
-		    playersTurnJlabel = new JLabel(
-		        "Player A");
+		    playersTurnJlabel = new JLabel(activePlayer.getName()+" "+activePlayer.getColor());
 		    playersTurnJlabel.setBorder(new TitledBorder("Active Player"));
 		    playersTurnJlabel.setBounds(5, 20, reinforcementJlabel.getWidth() / 2 - 8,
 		        reinforcementJlabel.getHeight() / 3 - 15);
