@@ -128,6 +128,7 @@ public class GameController {
 		IOHelper.print("^_____Edit_Map_Menu_____^");
 		IOHelper.print("1. Delete Continent");
 		IOHelper.print("2. Delete Country");
+
 		int input = IOHelper.getNextInteger();
 		if (input == 1){ //Done
 			IOHelper.print("Enter name of the Continent you wish to delete:");
