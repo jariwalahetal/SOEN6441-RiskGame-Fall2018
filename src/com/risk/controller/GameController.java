@@ -2,14 +2,23 @@ package com.risk.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
+
+import javax.swing.JLabel;
+
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.model.*;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
 import com.risk.viewmodel.CountryAdorner;
+import com.risk.viewmodel.PlayerAdorner;
 
 /**
  * @author Binay Kumar
@@ -21,14 +30,15 @@ import com.risk.viewmodel.CountryAdorner;
 public class GameController {
 
 	Map map;
-	Game game = new Game(map);
+	Game game;
+	GameView gameView;
+	public static PlayerAdorner activePlayer;
 	public static final String ANSI_RED = "\u001B[31m";
 	/**
 	 * This function asks user either to createmap or edit map, the user can also start the game form here.
 	 */
 	public void startGame() {
 		map = new Map();
-
 		IOHelper.print("1. Create Map");
 		IOHelper.print("2. Edit Map");
 		IOHelper.print("3. Play Game");
@@ -193,6 +203,7 @@ public class GameController {
 	 * This function creates the player objects
 	 */
 	private void initializeGame() {
+		game = new Game(map);
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
 		
@@ -200,7 +211,6 @@ public class GameController {
 			IOHelper.print("\nEnter the name of Player " + i);
 			String playerName = IOHelper.getNextString();
 			Player player = new Player(i, playerName, InitialPlayerSetup.getPlayerColor(i));
-			player.setNoOfArmies(InitialPlayerSetup.getInitialArmyCount(playerCount));
 			player.setNoOfUnassignedArmies(InitialPlayerSetup.getInitialArmyCount(playerCount));
 			game.addPlayer(player);
 		}
@@ -210,15 +220,12 @@ public class GameController {
 
 	}
 	private void initializeMapView(){
-		GameView gameView=new GameView();
-		ArrayList<CountryAdorner> arrayList=new ArrayList<>();
-		arrayList=game.getMapViewData();
-		//gameView.loadMapData(arrayList);	
-		gameView.gameInitializer(arrayList,game.getMap());
-		
+		gameView=new GameView();
+		updateView();
 		
 	}
 	
+
 	
 	/**
 	 * This function returns the list of all the maps in the assets/map directory.
@@ -239,5 +246,27 @@ public class GameController {
 		}
 		return fileNames;
 	}
+	
+	/**
+	 * to update view
+	 */
+	public void updateView(){
+		ArrayList<CountryAdorner> arrayList=new ArrayList<>();
+		arrayList=game.getMapViewData();
+		activePlayer=game.getNextPlayer();
+		gameView.gameInitializer(activePlayer,arrayList,game.getMap());
+		gameView.addActionListenToMapLabels(new MouseAdapter() {
+       
+            public void mouseClicked(MouseEvent e) {
+            JLabel jLabel=	(JLabel) e.getSource();
+           String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
+          	if(game.addArmyToCountry(activePlayer.getPlayerId(),Integer.parseInt(string)))
+          		updateView();
+    		
 
+            }
+        });
+	}
+	
+	
 }

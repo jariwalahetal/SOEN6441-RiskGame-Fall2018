@@ -44,7 +44,8 @@ public class Map {
 	 * getters and setters
 	 */
 	public String getMapName() {
-		return mapName;
+		
+		return mapName.replace(".map", "");
 	}
 
 	/**
@@ -89,7 +90,7 @@ public class Map {
 				} else if (captureCountries) {
 					String[] parsedTerritoriesArray = readLine.split(",");
 					String continentName = parsedTerritoriesArray[3];
-					Country country = new Country(countryID++, parsedTerritoriesArray[0]);
+					Country country = new Country(countryID++, parsedTerritoriesArray[0],0);
 					country.setxCoordiate(Integer.parseInt(parsedTerritoriesArray[1]));
 					country.setyCoordiate(Integer.parseInt(parsedTerritoriesArray[2]));
 					int k = 0;
