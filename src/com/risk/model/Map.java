@@ -125,7 +125,8 @@ public class Map {
 	}
 
 	/**
-	 * This function deletes the Continent from the Map.
+	 * This function deletes the Continent from the existing Map file.
+	 * @param continentToDelete
 	 */
 	public void deleteContinent(String continentToDelete){
 
@@ -154,6 +155,33 @@ public class Map {
 
 		this.getContinentList();
 	}
+
+	/**
+	 * This function deletes the Country from the existing Map file.
+	 * @param countryToDelete
+	 */
+	public void deleteCountry(String countryToDelete) {
+		ArrayList<Country> countriesList = getCountryList();
+		Country currentCountry = countriesList.stream()
+				.filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
+				.findAny()
+				.orElse(null);
+		for (Country country: countriesList) {
+			for (int i = 0; i < country.getNeighboursString().size() ; i++) {
+				if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
+					//IOHelper.print("got neighbour");
+					country.getNeighboursString().remove(i);
+				}
+				else{
+					//IOHelper.print("neighbor not found");
+				}
+			}
+		}
+		for (Continent continent:continentsList) {
+			continent.getCountryList().remove(currentCountry);
+		}
+	}
+
 	/**
 	 * This function checks and returns if the map is a valid map or not.
 	 * 
@@ -320,33 +348,6 @@ public class Map {
 	public ArrayList<Continent> getContinentList()
 	{
 		return continentsList;
-	}
-
-	/**
-	 *
-	 * This function deletes the Country present in the map.
-	 * @param countryToDelete
-	 */
-	public void deleteCountry(String countryToDelete) {
-		ArrayList<Country> countriesList = getCountryList();
-		Country currentCountry = countriesList.stream()
-				.filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
-				.findAny()
-				.orElse(null);
-		for (Country country: countriesList) {
-			for (int i = 0; i < country.getNeighboursString().size() ; i++) {
-				if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
-					//IOHelper.print("got neighbour");
-					country.getNeighboursString().remove(i);
-				}
-				else{
-					//IOHelper.print("neighbor not found");
-				}
-			}
-		}
-		for (Continent continent:continentsList) {
-			continent.getCountryList().remove(currentCountry);
-		}
 	}
 
 	public String getMapPath() {
