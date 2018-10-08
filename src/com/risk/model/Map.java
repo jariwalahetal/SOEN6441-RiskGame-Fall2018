@@ -119,13 +119,15 @@ public class Map {
 	/**
 	 * This adds a continent to the continent list
 	 * 
-	 * @param Continent 
+	 * @param continent
 	 */
 	public void addContinent(Continent continent) {
+
 		continentsList.add(continent);
 	}
 
 	/**
+	 * @author Mandeep Kaur
 	 * This function deletes the Continent from the existing Map file.
 	 * @param continentToDelete
 	 */
@@ -158,6 +160,7 @@ public class Map {
 	}
 
 	/**
+	 * @author Mandeep Kaur
 	 * This function deletes the Country from the existing Map file.
 	 * @param countryToDelete
 	 */
@@ -238,8 +241,8 @@ public class Map {
 	/**
 	 * Checks if two array lists are same or not
 	 * 
-	 * @param list arraylist1
-	 * @param list arraylist2
+	 * @param list1 arraylist1
+	 * @param list2 arraylist2
 	 * 
 	 * @return boolean
 	 */
@@ -260,7 +263,7 @@ public class Map {
 	/**
 	 * This function checks if the map is connected or not ; it is a recursive funciton.
 	 * 
-	 * @param Country
+	 * @param sourceCountry
 	 */
 	public void DfsRecursive(Country sourceCountry) {
 		visitedList.add(sourceCountry.getCountryName());
@@ -312,8 +315,8 @@ public class Map {
 	/**
 	 * This writes the content to the disk with the name passed to the funciton.
 	 * 
-	 * @param String content
-	 * @param String nameOfTheMap
+	 * @param  content
+	 * @param  nameOfTheMap
 	 */
 	public void writeMapToDisk(StringBuffer content, String nameOfTheMap) {
 		final Path path = Paths.get(this.mapPath + nameOfTheMap + ".map");
@@ -329,8 +332,7 @@ public class Map {
 	}
 	/**
 	 * This function returns the country list.
-	 * 
-	 * @param ArrayList
+	 *
 	 */
 	public ArrayList<Country> getCountryList()
 	{

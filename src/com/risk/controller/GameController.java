@@ -113,7 +113,7 @@ public class GameController {
 		else
 			IOHelper.print("Map is not valid");
 */	}
-	/**
+	/**@author Mandeep Kaur
 	 * This function lets the user edit the map.
 	 */
 	private void editMap() {
@@ -167,6 +167,7 @@ public class GameController {
         }
         else if(input ==3){
 			// add continent
+
 		}
 		else if(input==4){
 

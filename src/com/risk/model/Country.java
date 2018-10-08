@@ -26,11 +26,7 @@ public class Country {
 	 * 
 	 * @param countryId
 	 * @param countryName
-	 * @param contId
-	 * @param playerId
-	 * @param xCoordiate
-	 * @param yCoordiate
-	 * @param neighbours
+	 * @param noOfArmies
 	 */
 	public Country(int countryId, String countryName, int noOfArmies) {
 		super();
@@ -86,8 +82,7 @@ public class Country {
 
 	/**
 	 * Sets continent id
-	 * 
-	 * @param continentId sting
+	 * @param contId
 	 */
 	public void setContId(int contId) {
 		this.contId = contId;
