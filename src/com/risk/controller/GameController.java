@@ -63,10 +63,18 @@ public class GameController {
 	   	v.button2.addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent e) {
-	        	 map.writeMapToDisk(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
-	        	 v.killFrame();
-	        	 GameController map = new GameController();
-	        	 map.startGame();
+	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
+	        	 if(isMapCreated)
+	        	 {	        		 
+	        		 IOHelper.print("Map Created successfully");
+		        	 v.killFrame();
+		        	 GameController map = new GameController();
+		        	 map.startGame();
+	        	 }
+	        	 else 
+	        	 {
+	        		 IOHelper.print("Map is not valid.Please try again");
+	        	 }
 	         }
 	     });
 //		IOHelper.print("\nEnter the name of the map ");
