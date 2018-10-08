@@ -121,7 +121,7 @@ public class GameController {
 		else
 			IOHelper.print("Map is not valid");
 */	}
-	/**
+	/**@author Mandeep Kaur
 	 * This function lets the user edit the map.
 	 */
 	private void editMap() {
@@ -146,6 +146,8 @@ public class GameController {
 		IOHelper.print("^_____Edit_Map_Menu_____^");
 		IOHelper.print("1. Delete Continent");
 		IOHelper.print("2. Delete Country");
+		IOHelper.print("3. Add Continent");
+		IOHelper.print("4. Add Country");
 		int input = IOHelper.getNextInteger();
 		if (input == 1){ //Done
 			IOHelper.print("Enter name of the Continent you wish to delete:");
@@ -171,6 +173,13 @@ public class GameController {
             map.saveMap();
             IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
         }
+        else if(input ==3){
+			// add continent
+
+		}
+		else if(input==4){
+
+		}
 			//validate Map
 			if (tempMap.isMapValid()){	// yes
 				IOHelper.print("Valid Map!");

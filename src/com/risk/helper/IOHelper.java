@@ -23,8 +23,8 @@ public class IOHelper {
 
 	/**
 	 * Method to take string input from user on command line
-	 * @param string
-	 */
+	 * @return string input
+	 * */
     public static String getNextString()
     {
         return sc.nextLine();
@@ -42,7 +42,7 @@ public class IOHelper {
     
     /**
   	 * Method to print and handle Exceptions
-  	 * @param Exception Object
+  	 * @param exception
   	 */
     public static void printException(Exception exception)
     {

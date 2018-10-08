@@ -119,14 +119,17 @@ public class Map {
 	/**
 	 * This adds a continent to the continent list
 	 * 
-	 * @param Continent 
+	 * @param continent
 	 */
 	public void addContinent(Continent continent) {
+
 		continentsList.add(continent);
 	}
 
 	/**
-	 * This function deletes the Continent from the Map.
+	 * @author Mandeep Kaur
+	 * This function deletes the Continent from the existing Map file.
+	 * @param continentToDelete
 	 */
 	public void deleteContinent(String continentToDelete){
 
@@ -155,6 +158,34 @@ public class Map {
 
 		this.getContinentList();
 	}
+
+	/**
+	 * @author Mandeep Kaur
+	 * This function deletes the Country from the existing Map file.
+	 * @param countryToDelete
+	 */
+	public void deleteCountry(String countryToDelete) {
+		ArrayList<Country> countriesList = getCountryList();
+		Country currentCountry = countriesList.stream()
+				.filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
+				.findAny()
+				.orElse(null);
+		for (Country country: countriesList) {
+			for (int i = 0; i < country.getNeighboursString().size() ; i++) {
+				if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
+					//IOHelper.print("got neighbour");
+					country.getNeighboursString().remove(i);
+				}
+				else{
+					//IOHelper.print("neighbor not found");
+				}
+			}
+		}
+		for (Continent continent:continentsList) {
+			continent.getCountryList().remove(currentCountry);
+		}
+	}
+
 	/**
 	 * This function checks and returns if the map is a valid map or not.
 	 * 
@@ -210,8 +241,8 @@ public class Map {
 	/**
 	 * Checks if two array lists are same or not
 	 * 
-	 * @param list arraylist1
-	 * @param list arraylist2
+	 * @param list1 arraylist1
+	 * @param list2 arraylist2
 	 * 
 	 * @return boolean
 	 */
@@ -232,7 +263,7 @@ public class Map {
 	/**
 	 * This function checks if the map is connected or not ; it is a recursive funciton.
 	 * 
-	 * @param Country
+	 * @param sourceCountry
 	 */
 	public void DfsRecursive(Country sourceCountry) {
 		visitedList.add(sourceCountry.getCountryName());
@@ -309,8 +340,8 @@ public class Map {
 	/**
 	 * This writes the content to the disk with the name passed to the funciton.
 	 * 
-	 * @param String content
-	 * @param String nameOfTheMap
+	 * @param  content
+	 * @param  nameOfTheMap
 	 */
 	private boolean writeMapToDisk(StringBuffer content, String nameOfTheMap) {
 		Path path = Paths.get(this.mapPath + nameOfTheMap + ".map");
@@ -331,8 +362,7 @@ public class Map {
 	}
 	/**
 	 * This function returns the country list.
-	 * 
-	 * @param ArrayList
+	 *
 	 */
 	public ArrayList<Country> getCountryList()
 	{
@@ -351,32 +381,6 @@ public class Map {
 	public ArrayList<Continent> getContinentList()
 	{
 		return continentsList;
-	}
-
-	/**
-	 *
-	 * This function deletes the Country present in the map.
-	 */
-	public void deleteCountry(String countryToDelete) {
-		ArrayList<Country> countriesList = getCountryList();
-		Country currentCountry = countriesList.stream()
-				.filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
-				.findAny()
-				.orElse(null);
-		for (Country country: countriesList) {
-			for (int i = 0; i < country.getNeighboursString().size() ; i++) {
-				if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
-					//IOHelper.print("got neighbour");
-					country.getNeighboursString().remove(i);
-				}
-				else{
-					//IOHelper.print("neighbor not found");
-				}
-			}
-		}
-		for (Continent continent:continentsList) {
-			continent.getCountryList().remove(currentCountry);
-		}
 	}
 
 	public String getMapPath() {
