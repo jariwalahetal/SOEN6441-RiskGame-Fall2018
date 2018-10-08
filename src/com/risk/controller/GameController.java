@@ -14,6 +14,7 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
+import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
@@ -213,6 +214,9 @@ public class GameController {
 	 */
 	private void initializeGame() {
 		game = new Game(map);
+		
+		
+		game.setGamePhase(PhaseEnum.Startup);
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
 		
