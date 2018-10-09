@@ -35,7 +35,12 @@ public class Country {
 		this.noOfArmies = noOfArmies;
 	}
 
-	/**
+    public Country(int countryId, String countryName) {
+		this.countryId = countryId;
+		this.countryName = countryName;
+	}
+
+    /**
 	 * Get country id
 	 * 
 	 * @return countryId int

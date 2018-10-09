@@ -69,44 +69,6 @@ public class GameController {
 	        	 map.startGame();
 	         }
 	     });
-//		IOHelper.print("\nEnter the name of the map ");
-//		String mapName = IOHelper.getNextString();
-//		map.setMapName(mapName);
-//
-//		IOHelper.print("\nEnter the number of continents you want to create\n");
-//		int totalNumberOfContinents = IOHelper.getNextInteger();
-//		for (int i = 0; i < totalNumberOfContinents; i++) {
-//			IOHelper.print("\nEnter continent name for continent number " + (i + 1)
-//					+ " (press enter and then input the control value)\n");
-//			String continentName = IOHelper.getNextString();
-//			int controlValue = IOHelper.getNextInteger();
-//			Continent continent = new Continent(i, continentName, controlValue);
-//
-//			IOHelper.print("Enter the number of country you want to create in this continent\n");
-//			int numberOfCountries = IOHelper.getNextInteger();
-//			for (int j = 0; j < numberOfCountries; j++) {
-//				IOHelper.print("Enter country name for country number " + (j + 1));
-//				String countryName = IOHelper.getNextString();
-//
-//				IOHelper.print("Enter x coordinate and y coordinate)");
-//				int x = IOHelper.getNextInteger();
-//				int y = IOHelper.getNextInteger();
-//
-//				Country country = new Country(j, countryName);
-//				country.setxCoordiate(x);
-//				country.setyCoordiate(y);
-//				country.setContId(i);
-//				IOHelper.print("\nEnter the number of adjacent countries you want to enter\n");
-//				int adjacentCountries = IOHelper.getNextInteger();
-//				for (int k = 0; k < adjacentCountries; k++) {
-//					IOHelper.print("\nEnter country name for adjacency country number " + (k + 1) + "\n");
-//					String neighbourName = IOHelper.getNextString();
-//					country.addNeighboursString(neighbourName);
-//				}
-//				continent.addCountry(country);
-//			}
-//			map.addContinent(continent);
-//		}
 
 		/*if (map.isMapValid())
 			map.saveMap();
@@ -114,12 +76,12 @@ public class GameController {
 			IOHelper.print("Map is not valid");
 */	}
 	/**@author Mandeep Kaur
-	 * This function lets the user edit the map.
+	 * This function lets the user to edit the Map.
 	 */
 	private void editMap() {
 		// TODO: For mandeep - select map to edit and create functionality
 		System.out.println("Edit Map in MapController called");
-		IOHelper.print("\n Press number of map you want to edit from the list given below:");
+		IOHelper.print("\n Select and enter number of Map you want to edit from the list given below:");
 		ArrayList<String> mapList = getListOfMaps();
 		int i = 1;
 		for (String nameOfMap: mapList)
@@ -165,11 +127,12 @@ public class GameController {
             map.saveMap();
             IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
         }
-        else if(input ==3){
-			// add continent
+        else if(input ==3){ // Done
 
+            addContinentToMap();
+            map.saveMap();
 		}
-		else if(input==4){
+		else if(input==4){ // in progress
 
 		}
 			//validate Map
@@ -181,8 +144,48 @@ public class GameController {
 			}
 	}
 
+	/*
+	* This function will add continent to an existing Map
+	* */
+    private void addContinentToMap() {
+        IOHelper.print("\nEnter the number of continents you want to create\n");
+		int totalNumberOfContinents = IOHelper.getNextInteger();
+		for (int i = 0; i < totalNumberOfContinents; i++) {
+			IOHelper.print("\nEnter continent name for continent number " + (i + 1)
+					+ " (press enter and then input the control value)\n");
+			String continentName = IOHelper.getNextString();
+			int controlValue = IOHelper.getNextInteger();
+			Continent continent = new Continent(i, continentName, controlValue);
 
-	/**
+			IOHelper.print("Enter the number of countries you want to create in this continent\n");
+			int numberOfCountries = IOHelper.getNextInteger();
+			for (int j = 0; j < numberOfCountries; j++) {
+				IOHelper.print("Enter country name for country number " + (j + 1));
+				String countryName = IOHelper.getNextString();
+
+				IOHelper.print("Enter x coordinate and y coordinate)");
+				int x = IOHelper.getNextInteger();
+				int y = IOHelper.getNextInteger();
+
+				Country country = new Country(j, countryName);
+				country.setxCoordiate(x);
+				country.setyCoordiate(y);
+				country.setContId(i);
+    			IOHelper.print("\nEnter the number of adjacent countries you want to create:\n");
+				int adjacentCountries = IOHelper.getNextInteger();
+				for (int k = 0; k < adjacentCountries; k++) {
+					IOHelper.print("\nEnter country name for adjacency country number " + (k + 1) + "\n");
+					String neighbourName = IOHelper.getNextString();
+					country.addNeighboursString(neighbourName);
+				}
+				continent.addCountry(country);
+			}
+			map.addContinent(continent);
+		}
+    }
+
+
+    /**
 	 * This function validates the map and initializes the map.
 	 */
 	private void initializeMap() {
