@@ -14,6 +14,7 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
+import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
@@ -63,10 +64,18 @@ public class GameController {
 	   	v.button2.addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent e) {
-	        	 map.writeMapToDisk(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
-	        	 v.killFrame();
-	        	 GameController map = new GameController();
-	        	 map.startGame();
+	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
+	        	 if(isMapCreated)
+	        	 {	        		 
+	        		 IOHelper.print("Map Created successfully");
+		        	 v.killFrame();
+		        	 GameController map = new GameController();
+		        	 map.startGame();
+	        	 }
+	        	 else 
+	        	 {
+	        		 IOHelper.print("Map is not valid.Please try again");
+	        	 }
 	         }
 	     });
 
@@ -208,6 +217,9 @@ public class GameController {
 	 */
 	private void initializeGame() {
 		game = new Game(map);
+		
+		
+		game.setGamePhase(PhaseEnum.Startup);
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
 		

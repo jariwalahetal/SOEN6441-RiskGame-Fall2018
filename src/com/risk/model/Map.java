@@ -312,22 +312,52 @@ public class Map {
 		System.out.print(content);
 		
 	}
+	
+	public boolean validateAndCreateMap(StringBuffer content, String nameOfTheMap) {
+		
+		if(this.writeMapToDisk(content, "temp"))
+		{
+			this.mapName = "temp.map";
+			this.readMap();
+			if(this.isMapValid())
+			{
+				this.mapName = nameOfTheMap;
+				this.writeMapToDisk(content, nameOfTheMap);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			
+		}
+		else 
+		{
+			return false;
+		}
+	}
+	
 	/**
 	 * This writes the content to the disk with the name passed to the funciton.
 	 * 
 	 * @param  content
 	 * @param  nameOfTheMap
 	 */
-	public void writeMapToDisk(StringBuffer content, String nameOfTheMap) {
-		final Path path = Paths.get(this.mapPath + nameOfTheMap + ".map");
+	private boolean writeMapToDisk(StringBuffer content, String nameOfTheMap) {
+		Path path = Paths.get(this.mapPath + nameOfTheMap + ".map");
 		BufferedWriter writer = null;
 		try {
+			//Delete temp file
+			Path tempFilePath = Paths.get(this.mapPath + "temp" + ".map");
+			Files.deleteIfExists(tempFilePath);
+			
 			writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
 			writer.write(new String(content));
 			writer.close();
-			System.out.println("\nFile Saved");
+			return true;
 		} catch (Exception e) {
 			IOHelper.printException(e);
+			return false;
 		}
 	}
 	/**

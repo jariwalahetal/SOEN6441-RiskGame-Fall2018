@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
+import com.risk.helper.PhaseEnum;
 import com.risk.viewmodel.CountryAdorner;
 import com.risk.viewmodel.PlayerAdorner;
 
@@ -24,6 +25,7 @@ public class Game {
 	private HashMap<Player, ArrayList<Country> > playerCountry = new HashMap<>();
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private static int currentPlayerId;
+	private static PhaseEnum gamePhase;
 	private Map map;
 
 	/**
@@ -161,12 +163,27 @@ public class Game {
 		
 		Player p = playerList.get(currentPlayerId);
 		PlayerAdorner currentPlayer = new  PlayerAdorner(p,playerCountry.get(p)) ;
-		currentPlayerId++;
+		
+		if(gamePhase == PhaseEnum.Startup)
+		{
+			//set next player as current player
+			currentPlayerId++;
+		}
+		else if(gamePhase == PhaseEnum.Reinforcement)
+		{
+			//Don't change next player
+		}
 		return currentPlayer;
 	}
 	
 	public boolean addArmyToCountry(int playerId, int countryId)
 	{
+		if(this.getGamePhase() != PhaseEnum.Startup || this.getGamePhase() != PhaseEnum.Reinforcement)
+		{
+			IOHelper.print("Cannot assign army from player to country. Not valid phase");
+			return false;
+		}
+		
 		Player player = playerList.stream()
 				  .filter(p -> playerId == p.getPlayerId())
 				  .findAny()
@@ -176,6 +193,13 @@ public class Game {
 			IOHelper.print("Player id " + playerId + " does not exist");
 			return false;
 		}
+		
+		if(player.getNoOfUnassignedArmies() == 0)
+		{
+			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies");
+			return false;
+		}
+		
 		Country country = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryId() == countryId)
 				.findAny()
@@ -186,14 +210,61 @@ public class Game {
 			return false;
 		}
 		incresePlayerArmyInCountry(player, country);
+		updatePhase();
 		return true;
 	}
+	
+	private void updatePhase()
+	{
+		//check if all player has unassigned armies as 0 then update phase
+		long pendingPlayersCount = playerList.stream().filter(p -> p.getNoOfUnassignedArmies() > 0).count();
+		
+		if(pendingPlayersCount == 0)
+		{
+			//Check if in startup phase then update to reinforcement
+			if(this.getGamePhase() == gamePhase.Startup)
+			{
+				this.setGamePhase(gamePhase.Reinforcement);
+				currentPlayerId = 0;
+				calculateReinforcement();
+			}
+			else if(this.getGamePhase() == gamePhase.Reinforcement)
+			{
+				//We don't need to implement attack for now
+				this.setGamePhase(gamePhase.Fortification);
+			}
+		}
+	}
 
+	public void calculateReinforcement()
+	{
+		//count number of countries owned by player
+		Player player = playerList.stream()
+				  .filter(p -> currentPlayerId == p.getPlayerId())
+				  .findAny()
+				  .orElse(null);
+		
+		int countriesCount = (int) Math.floor(playerCountry.get(player).stream().count() / 3);
+		
+		//TODO: Check if player owns any of the continent
+		player.setNoOfUnassignedArmies(countriesCount);
+	}
+	
 	public Map getMap() {
 		return map;
 	}
 
 	public void setMap(Map map) {
 		this.map = map;
+	}
+	
+	public PhaseEnum getGamePhase()
+	{
+		return gamePhase;
+	}
+	
+	public void setGamePhase(PhaseEnum gamePhase)
+	{
+		this.gamePhase = gamePhase;
 	}
 }
