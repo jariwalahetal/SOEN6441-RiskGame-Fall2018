@@ -84,13 +84,13 @@ public class GameController {
 		else
 			IOHelper.print("Map is not valid");
 */	}
+
 	/**@author Mandeep Kaur
 	 * This function lets the user to edit the Map.
 	 */
 	private void editMap() {
-		// TODO: For mandeep - select map to edit and create functionality
-		System.out.println("Edit Map in MapController called");
-		IOHelper.print("\n Select and enter number of Map you want to edit from the list given below:");
+		//System.out.println("Edit Map in MapController called");
+		IOHelper.print("\n Enter Map_Number of the Map you want to edit from the list given below:");
 		ArrayList<String> mapList = getListOfMaps();
 		int i = 1;
 		for (String nameOfMap: mapList)
@@ -100,19 +100,17 @@ public class GameController {
 		}
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = mapList.get(mapNumber - 1);
-		//String[] splitName = selectedMapName.trim().split(".");
-		//IOHelper.print("map name: "+selectedMapName);
 		map.setMapName(selectedMapName);
-		Map tempMap = map;
-		tempMap.readMap();
-		//IOHelper.print("temp: "+tempMap.getMapName());
-		IOHelper.print("^_____Edit_Map_Menu_____^");
+		Map newMap = map;
+		newMap.readMap();
+
+		IOHelper.print("\n\t\tEdit Map Menu: ");
 		IOHelper.print("1. Delete Continent");
 		IOHelper.print("2. Delete Country");
 		IOHelper.print("3. Add Continent");
 		IOHelper.print("4. Add Country");
 		int input = IOHelper.getNextInteger();
-		if (input == 1){ //Done
+		if (input == 1){
 			IOHelper.print("Enter name of the Continent you wish to delete:");
 			ArrayList<Continent> continentList = map.getContinentList();
 			for (Continent nameOfContinent: continentList )
@@ -124,7 +122,7 @@ public class GameController {
 			map.saveMap();
             IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
 		}
-        else if (input == 2) {	// Done
+        else if (input == 2) {
             IOHelper.print("Enter name of the Country you wish to delete from the list given below:");
             ArrayList<Country> countryList = map.getCountryList();
             for (Country nameOfCountry: countryList )
@@ -136,34 +134,32 @@ public class GameController {
             map.saveMap();
             IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
         }
-        else if(input ==3){ // Done
-
+        else if(input ==3){
             map.addContinentToMap();
             map.saveMap();
+            IOHelper.print("Continent added successfully!");
 		}
-		else if(input==4){ // Done
+		else if(input==4){
 			IOHelper.print("Enter name of the continent where you want to add the country from the list given below: ");
 			ArrayList<Continent> continentList = map.getContinentList();
-			int continentID = 0,controlValue;
+			int continentID = 0;
 			for (Continent continent: continentList )
 			{
-				IOHelper.print(continent.getContName());
+				IOHelper.print("-> "+continent.getContName());
 				continentID = continent.getContId();
-				controlValue = continent.getControlValue();
 			}
 			String continentName = IOHelper.getNextString();
 
 			map.addCountryToContinent(continentName,continentID);
 			map.saveMap();
-
+            IOHelper.print("Country added successfuly!");
         }
-			//validate Map
-			if (tempMap.isMapValid()){	// yes
-				IOHelper.print("Valid Map!");
-			}
-			else{	// No
-				IOHelper.print("Map is not valid!");
-			}
+        if (newMap.isMapValid()){
+			IOHelper.print("Valid Map!");
+		}
+		else{
+			IOHelper.print("Map is not valid!");
+		}
 	}
 
     /**

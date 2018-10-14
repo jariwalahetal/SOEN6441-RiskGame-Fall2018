@@ -125,7 +125,9 @@ public class Map {
 
 		continentsList.add(continent);
 	}
-
+    /**
+     * This method allows user to to edit map and add new continent.
+     */
 	public void addContinentToMap(){
 		IOHelper.print("\nEnter the number of continents you want to create\n");
 		int totalNumberOfContinents = IOHelper.getNextInteger();
@@ -163,14 +165,16 @@ public class Map {
 			addContinent(continent);
 		}
 	}
-	// This function allows user to edit map and add country to the existing continent in the map.
-	public void addCountryToContinent(String continentName,int contID) {
 
-       // ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
-        Continent currentContinent = continentsList.stream()
-                .filter(x-> x.getContName().equalsIgnoreCase(continentName))
-                .findAny()
-                .orElse(null);
+	/**
+     * This method allows user to edit map and add country to the existing continent in the map.
+     */
+    public void addCountryToContinent(String continentName,int contID) {
+
+       Continent currentContinent = continentsList.stream()
+                                .filter(x-> x.getContName().equalsIgnoreCase(continentName))
+                                .findAny()
+                                .orElse(null);
 
 		IOHelper.print("Enter the number of countries you want to create in this continent\n");
 		int numberOfCountries = IOHelper.getNextInteger();
@@ -209,9 +213,9 @@ public class Map {
 
 		ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
 		Continent currentContinent = continentsList.stream()
-								.filter(x-> x.getContName().equalsIgnoreCase(continentToDelete))
-								.findAny()
-								.orElse(null);
+								    .filter(x-> x.getContName().equalsIgnoreCase(continentToDelete))
+								    .findAny()
+								    .orElse(null);
 		if(currentContinent==null){
 			IOHelper.print("Continent does not exists.");
 			return;
@@ -244,9 +248,9 @@ public class Map {
 	public void deleteCountry(String countryToDelete) {
 		ArrayList<Country> countriesList = getCountryList();
 		Country currentCountry = countriesList.stream()
-				.filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
-				.findAny()
-				.orElse(null);
+				                .filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
+				                .findAny()
+				                .orElse(null);
 		for (Country country: countriesList) {
 			for (int i = 0; i < country.getNeighboursString().size() ; i++) {
 				if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
