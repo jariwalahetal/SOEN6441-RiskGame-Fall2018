@@ -18,7 +18,7 @@ public class Country {
 	private int yCoordiate;
 	private ArrayList<Country> neighbours = new ArrayList<>();
 	private ArrayList<String> neighboursString = new ArrayList<>();
-	private int armyCount;
+	private int noOfArmies;
 	
 	/**
 	 * This is a Constructor for Country class which sets name, continent,
@@ -26,20 +26,21 @@ public class Country {
 	 * 
 	 * @param countryId
 	 * @param countryName
-	 * @param contId
-	 * @param playerId
-	 * @param xCoordiate
-	 * @param yCoordiate
-	 * @param neighbours
+	 * @param noOfArmies
 	 */
-	public Country(int countryId, String countryName) {
+	public Country(int countryId, String countryName, int noOfArmies) {
 		super();
 		this.countryId = countryId;
 		this.countryName = countryName;
-		this.armyCount = 0;
+		this.noOfArmies = noOfArmies;
 	}
 
-	/**
+    public Country(int countryId, String countryName) {
+		this.countryId = countryId;
+		this.countryName = countryName;
+	}
+
+    /**
 	 * Get country id
 	 * 
 	 * @return countryId int
@@ -86,8 +87,7 @@ public class Country {
 
 	/**
 	 * Sets continent id
-	 * 
-	 * @param continentId sting
+	 * @param contId
 	 */
 	public void setContId(int contId) {
 		this.contId = contId;
@@ -192,11 +192,11 @@ public class Country {
 	/**
 	 * Gets army count for the country
 	 * 
-	 * @return armyCount int
+	 * @return noOfArmies int
 	 */
-	public int getArmyCount()
+	public int getnoOfArmies()
 	{
-		return armyCount;
+		return noOfArmies;
 	}
 	
 	/**
@@ -205,7 +205,7 @@ public class Country {
 	 */
 	public void increaseArmyCount()
 	{
-		armyCount++;
+		noOfArmies++;
 	}
 	
 	/**
@@ -215,7 +215,7 @@ public class Country {
 	 */
 	public void increaseArmyCount(int count)
 	{
-		armyCount+=count;
+		noOfArmies+=count;
 	}
 	
 	/**
@@ -224,7 +224,7 @@ public class Country {
 	 */
 	public void decreseArmyCount()
 	{
-		armyCount--;
+		noOfArmies--;
 	}
 	
 
@@ -235,6 +235,6 @@ public class Country {
 	 */
 	public void decreaseArmyCount(int count)
 	{
-		armyCount-=count;
+		noOfArmies-=count;
 	}
 }
