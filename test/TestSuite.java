@@ -10,7 +10,7 @@ import com.risk.model.*;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({MapTest.class,CountryTest.class})
+@SuiteClasses({MapTest.class,CountryTest.class,ContinentTest.class})
 
 /**
  * This is the Test Suite class

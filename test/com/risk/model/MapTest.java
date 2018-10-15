@@ -2,10 +2,6 @@
 
 import static org.junit.Assert.*;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.junit.Before;
 import org.junit.Test;
 /**
@@ -61,10 +57,6 @@ public class MapTest {
 		Map map = new Map();
 		boolean isMapCreated = map.validateAndCreateMap(sb, mapName);
 		assertTrue(isMapCreated);
-		
-		Path path = Paths.get(map.getMapPath() + map.getMapName() + ".map");
-		//assertTrue(Files.exists(path));
-				
 	}
 	/**
 	 * Test if invalid map treated as 
