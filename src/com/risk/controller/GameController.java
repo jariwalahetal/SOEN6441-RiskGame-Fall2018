@@ -225,6 +225,7 @@ public class GameController {
 		gameView.gameInitializer();
 		addArmyImageClickListener();
 		addArmyButtonClickListener();
+		addSourceCountriesListener();
 	}
 
 	
@@ -271,11 +272,35 @@ public class GameController {
 	 * to update view
 	 */
 	public void addArmyButtonClickListener(){
-		gameView.addActionListenToAddButton(new ActionListener() {
+		gameView.addActionListenToAddArmyButton(new ActionListener() {
        
         public void actionPerformed(ActionEvent  e) {
         System.out.println("call to Model method to add army");
-        
+        }
+        });
+	}
+
+
+	/**
+	 * to update view
+	 */
+	public void addSourceCountriesListener(){
+		gameView.addActionListenToSourceCountryList(new ActionListener() {
+       
+        public void actionPerformed(ActionEvent  e) {
+           System.out.println("find neighbours of the selected country");        
+        }
+        });
+	}
+
+	/**
+	 * to update view
+	 */
+	public void addMoveArmyButtonListener(){
+		gameView.addActionListenToMoveArmyButton(new ActionListener() {
+       
+        public void actionPerformed(ActionEvent  e) {
+           System.out.println("Call to move Army method");        
         }
         });
 	}
