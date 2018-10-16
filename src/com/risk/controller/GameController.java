@@ -216,8 +216,8 @@ public class GameController {
 			game.addPlayer(player);
 		}
 		// game.initialArmyAssignment();
-		game.assignCountriesToPlayer();
 		game.setCurrentPlayerId();
+		game.assignCountriesToPlayer();
 		initializeMapView();
 
 	}

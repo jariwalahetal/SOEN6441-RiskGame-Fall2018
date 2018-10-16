@@ -94,10 +94,14 @@ public class Game extends Observable {
 
 			playerIndex++;
 		}
-		setChanged();
-		notifyObservers(this);
+		notifyObserverslocal(this);
 	}
 
+	private void notifyObserverslocal(Game game)
+	{	setChanged();
+    	notifyObservers(this);		
+	}
+	
 	/**
 	 * Assigns the newCountry to selected player
 	 * 
@@ -260,8 +264,7 @@ public class Game extends Observable {
 		isPhaseOver();
 		setNextPlayer();
 
-		setChanged();
-		notifyObservers(this);
+		notifyObserverslocal(this);
 		
 		return true;
 	}
@@ -276,8 +279,8 @@ public class Game extends Observable {
 				this.setGamePhase(gamePhase.Reinforcement);
 				currentPlayerId = 1;
 				playGame();
-				setChanged();
-				notifyObservers(this);
+			
+				notifyObserverslocal(this);
 			} else if (this.getGamePhase() == gamePhase.Reinforcement) {
 				// We don't need to implement attack for now
 				this.setGamePhase(gamePhase.Attack);

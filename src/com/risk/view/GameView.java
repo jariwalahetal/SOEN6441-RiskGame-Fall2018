@@ -289,6 +289,11 @@ public class GameView implements Observer{
      Map map = game.getMap();
      mapPath = map.getMapPath() + map.getMapName() + ".bmp";
    
+     activePlayerName = game.getCurrentPlayer().getName();
+     activePlayerColor = game.getCurrentPlayer().getColor();
+     activePlayerUnassignedArmiesCount = game.getCurrentPlayer().getNoOfUnassignedArmies();  
+
+     
      for(Country country: map.getCountryList())
      { ViewCountries viewCountry = new ViewCountries();
         viewCountry.setCountryId(country.getCountryId());
@@ -302,10 +307,7 @@ public class GameView implements Observer{
      
      
      if (gameJframe !=null)
-       {   activePlayerName = game.getCurrentPlayer().getName();
-          activePlayerColor = game.getCurrentPlayer().getColor();
-          activePlayerUnassignedArmiesCount = game.getCurrentPlayer().getNoOfUnassignedArmies();  
-
+       { 
     	 gameJframe.setVisible(false);       
          gameInitializer(); 
        }
