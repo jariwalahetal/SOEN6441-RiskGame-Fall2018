@@ -223,7 +223,7 @@ public class GameController {
 	private void initializeMapView(){
 		game.setCurrentPlayerId();
 		gameView.gameInitializer();
-//		updateView();		
+		updateView();		
 	}
 
 	

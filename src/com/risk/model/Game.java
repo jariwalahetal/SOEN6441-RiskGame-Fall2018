@@ -141,6 +141,8 @@ public class Game extends Observable {
 	public void incresePlayerArmyInCountry(Player player, Country country) {
 		player.decreaseUnassignedArmyCount();
 		country.increaseArmyCount();
+		setChanged();
+		notifyObservers(this);
 	}
 
 	/**
@@ -192,7 +194,7 @@ public class Game extends Observable {
 	}
 */
 	public boolean addArmyToCountry(int countryId) {
-		System.out.println("gamePhase: "+gamePhase);
+		System.out.println("Inside addArmyToCountry and value of gamePhase: "+gamePhase);
 		if (this.gamePhase == PhaseEnum.Attack || this.gamePhase == PhaseEnum.Fortification) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
 			return false;
@@ -216,7 +218,7 @@ public class Game extends Observable {
 			return false;
 		}
 		incresePlayerArmyInCountry(player, country);
-//		updatePhase();
+		updatePhase();
 		return true;
 	}
 
