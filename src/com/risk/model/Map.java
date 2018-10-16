@@ -32,7 +32,6 @@ public class Map {
 	/**
 	 * This is a constructor of Map Class which sets mapId and mapName.
 	 * 
-	 * //@param mapName
 	 */
 	public Map() {
 		super();

@@ -34,7 +34,6 @@ import com.risk.model.Player;
 public class GameView implements Observer{
     Game game;
     Map map;
-	Common common = new Common();
 	private static JFrame gameJframe = null;
 	private static JPanel gameActionJpanel;
 	
@@ -102,7 +101,7 @@ public class GameView implements Observer{
 			int yCoordinate = tempCountry.getyCoordiate();
 			JLabel newLabel = new JLabel("" + tempCountry.getnoOfArmies());
 			newLabel.setFont(new Font("Courier", Font.BOLD, 20));
-			newLabel.setForeground(common.getColor(tempCountry.getCountryColor()));
+			newLabel.setForeground(Common.getColor(tempCountry.getCountryColor()));
 			newLabel.setBounds(xCoordinate, yCoordinate, 25, 25);
 			newLabel.setToolTipText(tempCountry.getCountryId() + "--" + tempCountry.getCountryName());
 			mapJlabel.add(newLabel);

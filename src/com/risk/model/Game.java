@@ -38,15 +38,16 @@ public class Game extends Observable {
 	public Game(Map map) {
 		super();
 		this.map = map;
+		this.setGamePhase(gamePhase.Startup);
 	}
 
 	public int getCurrentPlayerId() {
 		return currentPlayerId;
 	}
 
-	public void setCurrentPlayerId() {
-		if (currentPlayerId == playerList.size() + 1)
-			currentPlayerId = 1;
+	private void setCurrentPlayerId() {
+		if (currentPlayerId == playerList.size() - 1)
+			currentPlayerId = 0;
 		else
 			currentPlayerId++;
 		System.out.println("current player ID:" + currentPlayerId);
@@ -68,6 +69,12 @@ public class Game extends Observable {
 	 */
 	public void assignCountriesToPlayer() {
 
+		//Assign countries based on number of players to all players
+		for(int i=0;i<playerList.size();i++)
+		{
+			playerList.get(i).setNoOfUnassignedArmies(InitialPlayerSetup.getInitialArmyCount(playerList.size()));	
+		}
+		
 		int countriesCount = map.getCountryList().size();
 		int playerIndex = 0, playerCount = playerList.size();
 		ArrayList<Integer> tempList = new ArrayList<>();
@@ -94,6 +101,7 @@ public class Game extends Observable {
 
 			playerIndex++;
 		}
+		setCurrentPlayerId();
 		setChanged();
 		notifyObservers(this);
 	}
@@ -172,24 +180,16 @@ public class Game extends Observable {
 	/*
 	 * } return list; }
 	 */
-	public Player getNextPlayer() {
-		Player currentPlayer = playerList.get(currentPlayerId);
-		return currentPlayer;
-	}
 
 	private void setNextPlayer() {
-		if (currentPlayerId == playerList.size())
+		if (currentPlayerId == playerList.size()-1)
 			currentPlayerId = 0;
 		else
 			currentPlayerId++;
-
-		if (gamePhase == PhaseEnum.Startup) {
-			// set next player as current player
-			currentPlayerId++;
-		}
 	}
 
 	public ArrayList<Country> getPlayerCountries() {
+		System.out.println("Hetal -- " + currentPlayerId);
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return playerCountry.get(currentPlayer);
 	}
@@ -242,6 +242,7 @@ public class Game extends Observable {
 		
 		fromCountry.decreaseArmyCount(fortifyArmiesCount);
 		toCountry.increaseArmyCount(fortifyArmiesCount);
+		setNextPlayer();
 		return true;
 	}
 	
@@ -263,10 +264,14 @@ public class Game extends Observable {
 			return false;
 		}
 
+		for(int i=0;i<playerCountry.get(player).size();i++)
+		{
+			System.out.println(playerCountry.get(player).get(i).getCountryId() + "--" + playerCountry.get(player).get(i).getCountryName());
+		}
 		Country country = playerCountry.get(player).stream().filter(c -> c.getCountryId() == countryId).findAny()
 				.orElse(null);
 		if (country == null) {
-			IOHelper.print("Country id " + countryId + " does not exist");
+			IOHelper.print("Country id " + player.getName() + "--"+ countryId + " does not exist");
 			return false;
 		}
 		
@@ -288,12 +293,12 @@ public class Game extends Observable {
 			// Check if in startup phase then update to reinforcement
 			if (this.getGamePhase() == gamePhase.Startup) {
 				this.setGamePhase(gamePhase.Reinforcement);
-				currentPlayerId = 1;
+				currentPlayerId = 0;
 				calculateReinforcement();
 			} else if (this.getGamePhase() == gamePhase.Reinforcement) {
 				// We don't need to implement attack for now
 				this.setGamePhase(gamePhase.Attack);
-
+				
 			}
 		}
 	}
@@ -304,7 +309,6 @@ public class Game extends Observable {
 	}
 
 	public void calculateReinforcement() {
-		System.out.println("currentPlayerId:" + currentPlayerId);
 
 		// count number of countries owned by player
 		Player player = playerList.stream().filter(p -> currentPlayerId == p.getPlayerId()).findAny().orElse(null);
@@ -344,7 +348,12 @@ public class Game extends Observable {
 		return gamePhase;
 	}
 
-	public void setGamePhase(PhaseEnum gamePhase) {
+	private void setGamePhase(PhaseEnum gamePhase) {
 		this.gamePhase = gamePhase;
+	}
+	
+	public ArrayList<Player> getAllPlayers()
+	{
+		return playerList;
 	}
 }

@@ -204,15 +204,13 @@ public class GameController {
 		gameView=new GameView();
 		game.addObserver(gameView);
 		
-		game.setGamePhase(PhaseEnum.Startup);
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
 		
 		for (int i = 1; i <= playerCount; i++) {
 			IOHelper.print("\nEnter the name of Player " + i);
 			String playerName = IOHelper.getNextString();
-			Player player = new Player(i, playerName, InitialPlayerSetup.getPlayerColor(i));
-			player.setNoOfUnassignedArmies(InitialPlayerSetup.getInitialArmyCount(playerCount));
+			Player player = new Player(i, playerName);
 			game.addPlayer(player);
 		}
 		// game.initialArmyAssignment();
@@ -221,7 +219,6 @@ public class GameController {
 
 	}
 	private void initializeMapView(){
-		game.setCurrentPlayerId();
 		gameView.gameInitializer();
 		updateView();		
 	}
