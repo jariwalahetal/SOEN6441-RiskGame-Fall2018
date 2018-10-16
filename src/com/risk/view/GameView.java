@@ -43,7 +43,7 @@ public class GameView implements Observer{
     Map map;
 	Common common = new Common();
 	private static JFrame gameJframe = null;
-	private static JPanel gameActionJpanel;// = new JPanel(null);
+	private static JPanel gameActionJpanel;
 	
 	// Map Label
 	private static JLabel mapJlabel;// = new JLabel();
