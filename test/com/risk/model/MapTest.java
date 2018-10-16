@@ -1,8 +1,13 @@
- package com.risk.model;
+package com.risk.model;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 /**
  * This class tests the Map methods for a valid map.
@@ -10,13 +15,46 @@ import org.junit.Test;
 public class MapTest {
 	StringBuffer sb;
 	StringBuffer sb2;
+	Map map1;
+	ArrayList<String> testMapContinents = new ArrayList<String>();
+	
+	public  boolean equalLists(ArrayList<String> one, ArrayList<String> two){     
+	    if (one == null && two == null){
+	        return true;
+	    }
+
+	    if((one == null && two != null) 
+	      || one != null && two == null
+	      || one.size() != two.size()){
+	        return false;
+	    }
+
+	    //to avoid messing the order of the lists we will use a copy
+	    //as noted in comments by A. R. S.
+	    one = new ArrayList<String>(one); 
+	    two = new ArrayList<String>(two);   
+
+	    Collections.sort(one);
+	    Collections.sort(two);      
+	    return one.equals(two);
+	}
 	
 	@Before
 	public void setUp()
 	{
 		sb = new StringBuffer();
 		sb2 = new StringBuffer();
-		
+		map1 = new Map();
+		map1.setMapPath("assets/maps/");
+		map1.setMapName("Africa.map");
+		testMapContinents.add("Northern Africa");
+		testMapContinents.add("Southern Africa");
+		testMapContinents.add("Western Africa");
+		testMapContinents.add("Eastern Africa");
+		testMapContinents.add("Central Africa");
+		testMapContinents.add("The Horn");
+		testMapContinents.add("The Congo");
+		Collections.sort(testMapContinents);
 		String inValidMapString ="[Map]\n" + 
 				 "author=SOEN6441 - Team8\n" +  
 				 "image=Africa.bmp\n" +  
@@ -61,6 +99,7 @@ public class MapTest {
 	/**
 	 * Test if invalid map treated as 
 	 */
+	
 	@Test
 	public void testInValidCreateMap() {
 		String mapName = "inValidMapTest";
@@ -68,5 +107,15 @@ public class MapTest {
 		boolean isMapCreated = map.validateAndCreateMap(sb2, mapName);
 		assertFalse(isMapCreated);
 	}
-
+	@Test
+	public void readMapTest() {
+		ArrayList<String> testContinents= new ArrayList<String>();
+		map1.readMap();
+		ArrayList<Continent> a =map1.getContinentList();
+		for(Continent i: a) {
+			testContinents.add(i.getContName());
+		}
+		Collections.sort(testContinents);
+		assertTrue(equalLists(testContinents,testMapContinents));
+	}
 }

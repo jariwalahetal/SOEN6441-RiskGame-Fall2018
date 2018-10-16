@@ -113,7 +113,6 @@ public class Map {
 		} catch (Exception e) {
 			IOHelper.printException(e);
 		}
-
 	}
 	/**
 	 * This adds a continent to the continent list
@@ -242,7 +241,7 @@ public class Map {
 	/**
 	 * @author Mandeep Kaur
 	 * This function deletes the Country from the existing Map file.
-	 * @param countryToDelete
+	 * @param countryToDelete 
 	 */
 	public void deleteCountry(String countryToDelete) {
 		ArrayList<Country> countriesList = getCountryList();
