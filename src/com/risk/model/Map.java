@@ -125,6 +125,84 @@ public class Map {
 
 		continentsList.add(continent);
 	}
+    /**
+     * This method allows user to to edit map and add new continent.
+     */
+	public void addContinentToMap(){
+		IOHelper.print("\nEnter the number of continents you want to create\n");
+		int totalNumberOfContinents = IOHelper.getNextInteger();
+		for (int i = 0; i < totalNumberOfContinents; i++) {
+			IOHelper.print("\nEnter continent name for continent number " + (i + 1)
+					+ " (press enter and then input the control value)\n");
+			String continentName = IOHelper.getNextString();
+			int controlValue = IOHelper.getNextInteger();
+			Continent continent = new Continent(i, continentName, controlValue);
+
+			IOHelper.print("Enter the number of countries you want to create in this continent\n");
+			int numberOfCountries = IOHelper.getNextInteger();
+			for (int j = 0; j < numberOfCountries; j++) {
+				IOHelper.print("Enter country name for country number " + (j + 1));
+				String countryName = IOHelper.getNextString();
+
+				IOHelper.print("Enter x coordinate and y coordinate)");
+				int x = IOHelper.getNextInteger();
+				int y = IOHelper.getNextInteger();
+
+				Country country = new Country(j, countryName);
+				country.setxCoordiate(x);
+				country.setyCoordiate(y);
+				country.setContId(i);
+				IOHelper.print("\nEnter the number of adjacent countries you want to create:\n");
+				int adjacentCountries = IOHelper.getNextInteger();
+				for (int k = 0; k < adjacentCountries; k++) {
+					IOHelper.print("\nEnter country name for adjacency country number " + (k + 1) + "\n");
+					String neighbourName = IOHelper.getNextString();
+					country.addNeighboursString(neighbourName);
+				}
+				continent.addCountry(country);
+			}
+			//map.addContinent(continent);
+			addContinent(continent);
+		}
+	}
+
+	/**
+     * This method allows user to edit map and add country to the existing continent in the map.
+     */
+    public void addCountryToContinent(String continentName,int contID) {
+
+       Continent currentContinent = continentsList.stream()
+                                .filter(x-> x.getContName().equalsIgnoreCase(continentName))
+                                .findAny()
+                                .orElse(null);
+
+		IOHelper.print("Enter the number of countries you want to create in this continent\n");
+		int numberOfCountries = IOHelper.getNextInteger();
+		for (int j = 0; j < numberOfCountries; j++) {
+			IOHelper.print("Enter country name for country number " + (j + 1));
+			String countryName = IOHelper.getNextString();
+
+			IOHelper.print("Enter x coordinate and y coordinate)");
+			int x = IOHelper.getNextInteger();
+			int y = IOHelper.getNextInteger();
+
+			Country country = new Country(j, countryName);
+			country.setxCoordiate(x);
+			country.setyCoordiate(y);
+			country.setContId(contID);
+			IOHelper.print("\nEnter the number of adjacent countries you want to create:\n");
+			int adjacentCountries = IOHelper.getNextInteger();
+			for (int k = 0; k < adjacentCountries; k++) {
+				IOHelper.print("\nEnter country name for adjacency country number " + (k + 1) + "\n");
+				String neighbourName = IOHelper.getNextString();
+				country.addNeighboursString(neighbourName);
+			}
+			// continent.addCountry(country);
+            currentContinent.addCountry(country);
+		}
+	}
+
+
 
 	/**
 	 * @author Mandeep Kaur
@@ -135,10 +213,13 @@ public class Map {
 
 		ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
 		Continent currentContinent = continentsList.stream()
-								.filter(x-> x.getContName().equalsIgnoreCase(continentToDelete))
-								.findAny()
-								.orElse(null);
-
+								    .filter(x-> x.getContName().equalsIgnoreCase(continentToDelete))
+								    .findAny()
+								    .orElse(null);
+		if(currentContinent==null){
+			IOHelper.print("Continent does not exists.");
+			return;
+		}
 		countriesListOfCurrentContinent = currentContinent.getCountryList();
 		for ( Continent continent: continentsList){
 			for (Country country : continent.getCountryList()) {
@@ -167,9 +248,9 @@ public class Map {
 	public void deleteCountry(String countryToDelete) {
 		ArrayList<Country> countriesList = getCountryList();
 		Country currentCountry = countriesList.stream()
-				.filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
-				.findAny()
-				.orElse(null);
+				                .filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
+				                .findAny()
+				                .orElse(null);
 		for (Country country: countriesList) {
 			for (int i = 0; i < country.getNeighboursString().size() ; i++) {
 				if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
@@ -189,7 +270,7 @@ public class Map {
 	/**
 	 * This function checks and returns if the map is a valid map or not.
 	 * 
-	 * return true
+	 * @return true
 	 */
 	public boolean isMapValid() {
 		boolean oneCountryInTwoContinents = false;
@@ -390,4 +471,5 @@ public class Map {
 	public void setMapPath(String mapPath) {
 		this.mapPath = mapPath;
 	}
+
 }
