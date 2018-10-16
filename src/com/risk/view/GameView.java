@@ -29,8 +29,6 @@ import com.risk.model.Country;
 import com.risk.model.Game;
 import com.risk.model.Map;
 import com.risk.model.Player;
-import com.risk.viewmodel.CountryAdorner;
-import com.risk.viewmodel.PlayerAdorner;
 
 /**
  * Initiate the risk game view in java swings

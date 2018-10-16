@@ -18,8 +18,6 @@ import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
-import com.risk.viewmodel.CountryAdorner;
-import com.risk.viewmodel.PlayerAdorner;
 
 /**
  * @author Binay Kumar
@@ -33,7 +31,6 @@ public class GameController {
 	Map map;
 	Game game;
 	GameView gameView;
-	public static PlayerAdorner activePlayer;
 	public static final String ANSI_RED = "\u001B[31m";
 	/**
 	 * This function asks user either to createmap or edit map, the user can also start the game form here.

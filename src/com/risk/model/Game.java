@@ -11,8 +11,6 @@ import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.helper.PhaseEnum;
-import com.risk.viewmodel.CountryAdorner;
-import com.risk.viewmodel.PlayerAdorner;
 
 /**
  * Game Class
@@ -158,7 +156,7 @@ public class Game extends Observable {
 		}
 	}
 
-	public ArrayList<CountryAdorner> getMapViewData() {
+/*	public ArrayList<CountryAdorner> getMapViewData() {
 		ArrayList<CountryAdorner> list = new ArrayList<>();
 
 		for (java.util.Map.Entry<Player, ArrayList<Country>> e : playerCountry.entrySet()) {
@@ -171,10 +169,10 @@ public class Game extends Observable {
 			 * _newItem.setPlayerColor(key.getColor()); list.add(_newItem); }
 			 */
 
-		}
+	/*	}
 		return list;
 	}
-
+*/
 /*	public PlayerAdorner getNextPlayer() {
 		if (currentPlayerId == playerList.size())
 			currentPlayerId = 0;
