@@ -223,7 +223,8 @@ public class GameController {
 	}
 	private void initializeMapView(){
 		gameView.gameInitializer();
-		updateView();		
+		addArmyImageClickListener();
+		addArmyButtonClickListener();
 	}
 
 	
@@ -250,28 +251,34 @@ public class GameController {
 	/**
 	 * to update view
 	 */
-	public void updateView(){
-		//ArrayList<CountryAdorner> arrayList=new ArrayList<>();
-		//arrayList=game.getMapViewData();
+	public void addArmyImageClickListener(){
 		gameView.addActionListenToMapLabels(new MouseAdapter() {
        
             public void mouseClicked(MouseEvent e) {
             JLabel jLabel=	(JLabel) e.getSource();
            String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
           	if(game.addArmyToCountry(Integer.parseInt(string)))
-          		updateView();    		
+          		addArmyImageClickListener();    		
           	else
              	{System.out.println("mouse clicked else");
         		  
-        		}
-          	
+        		}         	
             }
         });
 	}
-	
-	public void addArmy(int army)
-	{
-		
+
+	/**
+	 * to update view
+	 */
+	public void addArmyButtonClickListener(){
+		gameView.addActionListenToAddButton(new ActionListener() {
+       
+        public void actionPerformed(ActionEvent  e) {
+        System.out.println("call to Model method to add army");
+        
+        }
+        });
 	}
+
 	
 }

@@ -3,6 +3,7 @@ package com.risk.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +37,7 @@ class ViewCountries
 	private int yCoordinate; 
 	private int noOfArmies;
 	private EnumColor CountryColor;
+	private int playerID;
 	
 	public int getCountryId() {
 		return countryId;
@@ -73,7 +75,14 @@ class ViewCountries
 	public void setCountryColor(EnumColor countryColor) {
 		CountryColor = countryColor;
 	}
-
+	public int getPlayerID() {
+		return playerID;
+	}
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+	
+	
 }
 
 
@@ -115,8 +124,9 @@ public class GameView implements Observer{
 	
 	
     String activePlayerName = null;
+    int activePlayerId;
     EnumColor activePlayerColor = null;
-	int activePlayerUnassignedArmiesCount;   
+	String activePlayerUnassignedArmiesCount;   
     String mapPath;
     ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
 
@@ -172,14 +182,6 @@ public class GameView implements Observer{
 	    
 	}
 
-	public void addActionListenToMapLabels(MouseListener listener) {
-		int n = mapJlabel.getComponentCount();
-		for (int i = 0; i < n; i++) {
-			JLabel jLabel = (JLabel) mapJlabel.getComponent(i);
-			jLabel.addMouseListener(listener);
-		}
-	}
-
 	public void loadingInitializationLabel() {
 		initializationJlabel = new JLabel();
 		initializationJlabel.setBorder(
@@ -215,19 +217,27 @@ public class GameView implements Observer{
 				initializationJlabel.getY() + 10 + initializationJlabel.getHeight(), initializationJlabel.getWidth(),
 				140);
 
-		reinforcementplayersTurnJlabel = new JLabel("Player turn");
+		reinforcementplayersTurnJlabel = new JLabel(activePlayerName);
 		reinforcementplayersTurnJlabel.setBorder(new TitledBorder("Player's Turn"));
 		reinforcementplayersTurnJlabel.setBounds(15, 25, 220, 50);
 
-		String[] countryNameList = { "Country A", "country B", "country C", "Country D" };
-		addArmyToCountryJcomboBox = new JComboBox<>(countryNameList);
+		ArrayList<String> countryNameList = new ArrayList<String>();
+		
+		for (int i = 0; i < countryList.size(); i++) {
+			ViewCountries tempCountry = countryList.get(i);
+            if(activePlayerId == tempCountry.getPlayerID())
+             { countryNameList.add(tempCountry.getCountryName());
+             }
+		}
+		
+		addArmyToCountryJcomboBox = new JComboBox(countryNameList.toArray());
 		addArmyToCountryJcomboBox.setBorder(new TitledBorder("Add Unit To Country"));
 		addArmyToCountryJcomboBox.setBounds(
 				reinforcementplayersTurnJlabel.getX() + 20 + reinforcementplayersTurnJlabel.getWidth() + 3,
 				reinforcementplayersTurnJlabel.getY(), reinforcementplayersTurnJlabel.getWidth(),
 				reinforcementplayersTurnJlabel.getHeight());
 
-		reinforcementUnassignedUnit = new JLabel("Assign army=10");
+		reinforcementUnassignedUnit = new JLabel(activePlayerUnassignedArmiesCount);
 		reinforcementUnassignedUnit.setBorder(new TitledBorder("Reinforced Army Unit"));
 		reinforcementUnassignedUnit.setBounds(reinforcementplayersTurnJlabel.getX(),
 				reinforcementplayersTurnJlabel.getY() + reinforcementplayersTurnJlabel.getHeight() + 5,
@@ -282,6 +292,21 @@ public class GameView implements Observer{
 
 	}
 
+	
+	public void addActionListenToMapLabels(MouseListener listener) {
+		int n = mapJlabel.getComponentCount();
+		for (int i = 0; i < n; i++) {
+			JLabel jLabel = (JLabel) mapJlabel.getComponent(i);
+			jLabel.addMouseListener(listener);
+		}
+	}
+
+	
+	public void addActionListenToAddButton(ActionListener listener) {
+		addArmy.addActionListener(listener);
+	}
+
+	
 	@Override
 	public void update(Observable obj, Object arg1) {
 		
@@ -290,9 +315,9 @@ public class GameView implements Observer{
      mapPath = map.getMapPath() + map.getMapName() + ".bmp";
    
      activePlayerName = game.getCurrentPlayer().getName();
+     activePlayerId = game.getCurrentPlayerId();
      activePlayerColor = game.getCurrentPlayer().getColor();
-     activePlayerUnassignedArmiesCount = game.getCurrentPlayer().getNoOfUnassignedArmies();  
-
+     activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());  
      
      for(Country country: map.getCountryList())
      { ViewCountries viewCountry = new ViewCountries();
@@ -302,6 +327,7 @@ public class GameView implements Observer{
         viewCountry.setNoOfArmies(country.getnoOfArmies());
         viewCountry.setxCoordinate(country.getxCoordiate());
         viewCountry.setyCoordinate(country.getyCoordiate());
+        viewCountry.setPlayerID(activePlayerId);
         countryList.add(viewCountry);
      }
      
