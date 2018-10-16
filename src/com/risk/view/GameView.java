@@ -3,15 +3,12 @@ package com.risk.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,8 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
-
-import com.risk.controller.GameController;
 import com.risk.helper.Common;
 import com.risk.model.Country;
 import com.risk.model.Game;
@@ -82,6 +77,7 @@ public class GameView implements Observer{
 		gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	
 	public void loadGameActionView() {
 		gameJframe = new JFrame("Risk Game");
 		gameActionJpanel = new JPanel(null);
@@ -131,8 +127,6 @@ public class GameView implements Observer{
 	}
 
 	public void loadingInitializationLabel() {
-		//initializationJlabel.removeAll();
-		//initializationJlabel = null;
 		initializationJlabel = new JLabel();
 		initializationJlabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
@@ -161,8 +155,6 @@ public class GameView implements Observer{
 	}
 
 	public void loadingReinforcementLabel() {
-	//	reinforcementsJlabel.removeAll();
-	//	reinforcementsJlabel = null;
 		reinforcementsJlabel = new JLabel();
 		reinforcementsJlabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Reinforcement Phase", TitledBorder.DEFAULT_JUSTIFICATION,
@@ -201,8 +193,6 @@ public class GameView implements Observer{
 	}
 
 	public void loadingFortificationLabel() {
-	//	fortificationJlabel.removeAll();
-	//	fortificationJlabel = null;
 		fortificationJlabel = new JLabel();
 		fortificationJlabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Fortification Phase", TitledBorder.DEFAULT_JUSTIFICATION,
@@ -241,8 +231,6 @@ public class GameView implements Observer{
 	}
 
 	public void loadingSaveGameButton() {
-	//	saveButtonJlabel.removeAll();
-	//	saveButtonJlabel = null;
 		saveButtonJlabel = new JLabel();
 		saveButtonJlabel.setBorder(BorderFactory.createTitledBorder(null, "", TitledBorder.DEFAULT_JUSTIFICATION,
 				TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
@@ -263,10 +251,13 @@ public class GameView implements Observer{
 
 	@Override
 	public void update(Observable obj, Object arg1) {
+		
 	 game = ((Game)obj);
      map = game.getMap();
-  //   gameInitializer();
-     loadGameActionView();
+     if (gameJframe !=null)
+       { gameJframe.setVisible(false);
+         gameInitializer(); 
+       }
 	}
 
 

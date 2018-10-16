@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.risk.helper.IOHelper;
-
-
 /**
  * Map Class
  * 
@@ -111,6 +109,7 @@ public class Map {
 				}
 			}
 			bufferedReader.close();
+			setNeighbouringCountry();
 		} catch (Exception e) {
 			IOHelper.printException(e);
 		}
@@ -470,6 +469,24 @@ public class Map {
 
 	public void setMapPath(String mapPath) {
 		this.mapPath = mapPath;
+	}
+	
+	private void setNeighbouringCountry() {
+		IOHelper.print("Adding neighbour class for all countries");
+		for (int i = 0; i < getCountryList().size(); i++) {
+			Country tempCountry = getCountryList().get(i);
+			tempCountry.setNeighbours(new ArrayList<>());
+			for (int j = 0; j < tempCountry.getNeighboursString().size(); j++) {
+				Country matchedCountry = getCountryList().stream()
+						 .filter(x-> x.getCountryName().equalsIgnoreCase(tempCountry.getCountryName()))
+                        .findAny()
+                        .orElse(null);
+				if(matchedCountry != null)
+				{
+					tempCountry.addNeighbour(matchedCountry);
+				}
+			}
+		}
 	}
 
 }

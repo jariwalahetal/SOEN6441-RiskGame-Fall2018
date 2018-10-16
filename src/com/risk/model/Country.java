@@ -169,6 +169,11 @@ public class Country {
 	}
 
 	
+	public void addNeighbour(Country country)
+	{
+		this.neighbours.add(country);
+	}
+	
 	/**
 	 * Sets neighbours country list
 	 * 
