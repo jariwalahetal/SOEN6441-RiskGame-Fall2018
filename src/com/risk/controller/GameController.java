@@ -217,11 +217,11 @@ public class GameController {
 		}
 		// game.initialArmyAssignment();
 		game.assignCountriesToPlayer();
+		game.setCurrentPlayerId();
 		initializeMapView();
 
 	}
 	private void initializeMapView(){
-		game.setCurrentPlayerId();
 		gameView.gameInitializer();
 		updateView();		
 	}
