@@ -262,7 +262,7 @@ public class GameController {
           		updateView();    		
           	else
              	{System.out.println("mouse clicked else");
-        		  game.updatePhase();
+        		  
         		}
           	
             }

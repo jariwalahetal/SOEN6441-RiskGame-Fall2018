@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
+import java.util.stream.Collectors;
 
+import java.util.List;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
@@ -27,7 +29,7 @@ public class Game extends Observable {
 	private  int currentPlayerId;
 	private PhaseEnum gamePhase;
 	private Map map;
-	
+	private final int MINIMUM_REINFORCEMENT_PlALYERS = 3;
 
 	/**
 	 * This is a constructor of Game class which will initialize the Map
@@ -138,7 +140,7 @@ public class Game extends Observable {
 	 * @param player
 	 * @param country
 	 */
-	public void incresePlayerArmyInCountry(Player player, Country country) {
+	private void incresePlayerArmyInCountry(Player player, Country country) {
 		player.decreaseUnassignedArmyCount();
 		country.increaseArmyCount();
 	}
@@ -173,26 +175,29 @@ public class Game extends Observable {
 		return list;
 	}
 */
-/*	public PlayerAdorner getNextPlayer() {
+	public Player getNextPlayer()
+	{
+		Player currentPlayer = playerList.get(currentPlayerId);
+		return currentPlayer;
+	}
+	
+	private void setNextPlayer() {
 		if (currentPlayerId == playerList.size())
 			currentPlayerId = 0;
 		else
 			currentPlayerId++;
-
-		Player p = playerList.get(currentPlayerId);
-		PlayerAdorner currentPlayer = new PlayerAdorner(p, playerCountry.get(p));
-
+		
 		if (gamePhase == PhaseEnum.Startup) {
 			// set next player as current player
 			currentPlayerId++;
 		} else if (gamePhase == PhaseEnum.Reinforcement) {
 			// Don't change next player
 		}
-		return currentPlayer;
 	}
-*/
+
 	public boolean addArmyToCountry(int countryId) {
-		System.out.println("gamePhase: "+gamePhase);
+		IOHelper.print("gamePhase: "+gamePhase);
+		
 		if (this.gamePhase == PhaseEnum.Attack || this.gamePhase == PhaseEnum.Fortification) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
 			return false;
@@ -215,12 +220,14 @@ public class Game extends Observable {
 			IOHelper.print("Country id " + countryId + " does not exist");
 			return false;
 		}
+		
 		incresePlayerArmyInCountry(player, country);
-//		updatePhase();
+		setNextPlayer();
+		updatePhase();
 		return true;
 	}
 
-	public void updatePhase() {
+	private void updatePhase() {
 		// check if all player has unassigned armies as 0 then update phase
 		long pendingPlayersCount = playerList.stream().filter(p -> p.getNoOfUnassignedArmies() > 0).count();
 
@@ -245,9 +252,27 @@ public class Game extends Observable {
 				                           .findAny()
 				                           .orElse(null);
 
+		//get reinforcement country count based on countries owned by player
 		int countriesCount = (int) Math.floor(playerCountry.get(player).stream().count() / 3);
-      System.out.println("countries count:"+countriesCount);
-		// TODO: Check if player owns any of the continent
+      
+		// Check if player owns any of the continent
+		if (playerCountry.containsKey(player)) {
+			ArrayList<Country> assignedCountries = playerCountry.get(player);
+			List<Integer> assignedCountryIds = assignedCountries.stream().
+											map(c -> c.getCountryId()).
+											collect(Collectors.toList());
+			
+			ArrayList<Continent> continents = map.getContinentList();
+			for(Continent continent : continents) {
+				List<Integer> continentCountryIds = continent.getCountryList().stream().
+														map(c -> c.getCountryId()).
+														collect(Collectors.toList());
+				boolean hasPlayerAllCountries = continentCountryIds.containsAll(assignedCountryIds);
+				countriesCount += continent.getControlValue();		
+			}					
+		} 
+		
+		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PlALYERS ? MINIMUM_REINFORCEMENT_PlALYERS :  countriesCount;
 		player.setNoOfUnassignedArmies(countriesCount);
 	}
 
