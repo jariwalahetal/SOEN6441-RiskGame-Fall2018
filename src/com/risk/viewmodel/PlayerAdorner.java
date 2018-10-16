@@ -7,26 +7,23 @@ import com.risk.model.Country;
 import com.risk.model.Player;
 
 public class PlayerAdorner extends Player {
-
+/*
 	private ArrayList<CountryAdorner> countries;
-	
-	public void addCountry(Country c)
-	{
+
+	public void addCountry(Country c) {
 		countries.add(new CountryAdorner(c));
 	}
-	
+
 	public PlayerAdorner(Player p, ArrayList<Country> countries) {
 		super(p.getPlayerId(), p.getName(), p.getColor());
 		countries = new ArrayList<>();
-		if(countries!= null)
-		{
-			for(int i=0;i<countries.size();i++)
-			{
+		if (countries != null) {
+			for (int i = 0; i < countries.size(); i++) {
 				addCountry(countries.get(i));
 			}
 		}
 		this.setNoOfUnassignedArmies(p.getNoOfUnassignedArmies());
-		
+
 	}
 
 	public ArrayList<CountryAdorner> getCountries() {
@@ -36,5 +33,5 @@ public class PlayerAdorner extends Player {
 	public void setCountries(ArrayList<CountryAdorner> countries) {
 		this.countries = countries;
 	}
-	
+*/
 }

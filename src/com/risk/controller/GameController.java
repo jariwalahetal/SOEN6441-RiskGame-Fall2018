@@ -214,7 +214,8 @@ public class GameController {
 	 */
 	private void initializeGame() {
 		game = new Game(map);
-		
+		gameView=new GameView();
+		game.addObserver(gameView);
 		
 		game.setGamePhase(PhaseEnum.Startup);
 		IOHelper.print("\nEnter the number of Players:");
@@ -233,11 +234,10 @@ public class GameController {
 
 	}
 	private void initializeMapView(){
-		gameView=new GameView();
-		updateView();
-		
+		game.setCurrentPlayerId();
+		gameView.gameInitializer();
+//		updateView();		
 	}
-	
 
 	
 	/**
@@ -264,22 +264,27 @@ public class GameController {
 	 * to update view
 	 */
 	public void updateView(){
-		ArrayList<CountryAdorner> arrayList=new ArrayList<>();
-		arrayList=game.getMapViewData();
-		activePlayer=game.getNextPlayer();
-		gameView.gameInitializer(activePlayer,arrayList,game.getMap());
+		//ArrayList<CountryAdorner> arrayList=new ArrayList<>();
+		//arrayList=game.getMapViewData();
 		gameView.addActionListenToMapLabels(new MouseAdapter() {
        
             public void mouseClicked(MouseEvent e) {
             JLabel jLabel=	(JLabel) e.getSource();
            String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
-          	if(game.addArmyToCountry(activePlayer.getPlayerId(),Integer.parseInt(string)))
-          		updateView();
-    		
-
+          	if(game.addArmyToCountry(Integer.parseInt(string)))
+          		updateView();    		
+          	else
+             	{System.out.println("mouse clicked else");
+        		  game.updatePhase();
+        		}
+          	
             }
         });
 	}
 	
+	public void addArmy(int army)
+	{
+		
+	}
 	
 }

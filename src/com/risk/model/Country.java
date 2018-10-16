@@ -2,6 +2,8 @@ package com.risk.model;
 
 import java.util.ArrayList;
 
+import com.risk.helper.EnumColor;
+
 /**
  * Country Class
  * 
@@ -19,7 +21,16 @@ public class Country {
 	private ArrayList<Country> neighbours = new ArrayList<>();
 	private ArrayList<String> neighboursString = new ArrayList<>();
 	private int noOfArmies;
+	private EnumColor countryColor;
 	
+	public EnumColor getCountryColor() {
+		return countryColor;
+	}
+
+	public void setCountryColor(EnumColor countryColor) {
+		this.countryColor = countryColor;
+	}
+
 	/**
 	 * This is a Constructor for Country class which sets name, continent,
 	 * neighbooring countries and xaxis , yaxis and player of the country.
