@@ -3,6 +3,7 @@ package com.risk.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +21,82 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import com.risk.helper.Common;
+import com.risk.helper.EnumColor;
 import com.risk.model.Country;
 import com.risk.model.Game;
 import com.risk.model.Map;
-import com.risk.model.Player;
+
+
+/**
+ * To hold the countries information for view
+ * 
+ * @author Binay
+ *
+ */
+class ViewCountries
+{   
+	private int countryId;
+	private String countryName;
+	private int xCoordinate;
+	private int yCoordinate; 
+	private int noOfArmies;
+	private EnumColor CountryColor;
+	private int playerID;
+	private ArrayList<String> neighboursString = new ArrayList<>();
+	
+	
+	public int getCountryId() {
+		return countryId;
+	}
+	public void setCountryId(int countryId) {
+		this.countryId = countryId;
+	}
+	public String getCountryName() {
+		return countryName;
+	}
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
+	public int getxCoordinate() {
+		return xCoordinate;
+	}
+	public void setxCoordinate(int xCoordinate) {
+		this.xCoordinate = xCoordinate;
+	}
+	public int getyCoordinate() {
+		return yCoordinate;
+	}
+	public void setyCoordinate(int yCoordinate) {
+		this.yCoordinate = yCoordinate;
+	}
+	public int getNoOfArmies() {
+		return noOfArmies;
+	}
+	public void setNoOfArmies(int noOfArmies) {
+		this.noOfArmies = noOfArmies;
+	}
+	public EnumColor getCountryColor() {
+		return CountryColor;
+	}
+	public void setCountryColor(EnumColor countryColor) {
+		CountryColor = countryColor;
+	}
+	public int getPlayerID() {
+		return playerID;
+	}
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+	
+	public ArrayList<String> getNeighboursString() {
+		return neighboursString;
+	}
+	public void setNeighboursString(ArrayList<String> neighboursString) {
+		this.neighboursString = neighboursString;
+	}
+	
+}
+
 
 /**
  * Initiate the risk game view in java swings
@@ -32,45 +105,48 @@ import com.risk.model.Player;
  *
  */
 public class GameView implements Observer{
-    Game game;
-    Map map;
+//    Game game;
+//    Map map;
 	private static JFrame gameJframe = null;
 	private static JPanel gameActionJpanel;
 	
 	// Map Label
-	private static JLabel mapJlabel;// = new JLabel();
+	private static JLabel mapJlabel;
 	private static JScrollPane mapScrollPane = null;
 
 	// Initialization Label
-	private static JLabel initializationJlabel;// = new JLabel();
-	private static JLabel playersTurnJlabel; //= new JLabel("Default");
-	private static JLabel armyLeftJlabel; //= new JLabel("0");
+	private static JLabel initializationJlabel;
+	private static JLabel playersTurnJlabel; 
+	private static JLabel armyLeftJlabel; 
 
 	// Reinforcement Label
-	private static JLabel reinforcementsJlabel;//= new JLabel();
-	private static JLabel reinforcementplayersTurnJlabel;// = new JLabel("Default");
-	private static JLabel reinforcementUnassignedUnit;// = new JLabel("0");
-	private static JComboBox<String> addArmyToCountryJcomboBox;// = new JComboBox<>();
+	private static JLabel reinforcementsJlabel;
+	private static JLabel reinforcementplayersTurnJlabel;
+	private static JLabel reinforcementUnassignedUnit;
+	private static JComboBox<String> addArmyToCountryJcomboBox;
 	private static JButton addArmy = new JButton("Add Army");
 
 	// Fortification Label
-	private static JLabel fortificationJlabel;// = new JLabel();
-	private static JComboBox<String> sourceCountry;// = new JComboBox<>();
-	private static JComboBox<String> destinationCountry;// = new JComboBox<>();
-	private static JComboBox<String> noOfArmyToMoveJcomboBox;// = new JComboBox<>();
+	private static JLabel fortificationJlabel;
+	private static JComboBox<String> sourceCountry;
+	private static JComboBox<String> destinationCountry;
+	private static JComboBox<String> noOfArmyToMoveJcomboBox;
 	private static JButton fortificationMoveButton = new JButton("Move Army");
+	
+	
+    String activePlayerName = null;
+    int activePlayerId;
+    EnumColor activePlayerColor = null;
+	String activePlayerUnassignedArmiesCount;   
+    String mapPath;
+    ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
 
-	// Save Game Button
-	private static JLabel saveButtonJlabel;// = new JLabel();
-	private static JButton saveButton = new JButton("Save");
-
-	public void gameInitializer() {
+    public void gameInitializer() {
 		//gameActionJpanel = new JPanel(null);
 		loadGameActionView();
 		loadingInitializationLabel();
 		loadingReinforcementLabel();
 		loadingFortificationLabel();
-		loadingSaveGameButton();
 		gameJframe.setSize(1200, 700);
 		gameJframe.setVisible(true);
 		gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,7 +158,7 @@ public class GameView implements Observer{
 		gameActionJpanel = new JPanel(null);
 		File imageFile = null;
 		
-		imageFile = new File(map.getMapPath() + map.getMapName() + ".bmp");
+		imageFile = new File(mapPath);
 		Image image;
 		ImageIcon icon = null;
 		try {
@@ -93,13 +169,13 @@ public class GameView implements Observer{
 			e.printStackTrace();
 		}
 		
-        ArrayList<Country> countryList = map.getCountryList();
+       // ArrayList<Country> countryList = map.getCountryList();
 		mapJlabel = new JLabel(icon);
 		for (int i = 0; i < countryList.size(); i++) {
-			Country tempCountry = countryList.get(i);
-			int xCoordinate = tempCountry.getxCoordiate();
-			int yCoordinate = tempCountry.getyCoordiate();
-			JLabel newLabel = new JLabel("" + tempCountry.getnoOfArmies());
+			ViewCountries tempCountry = countryList.get(i);
+			int xCoordinate = tempCountry.getxCoordinate();
+			int yCoordinate = tempCountry.getyCoordinate();
+			JLabel newLabel = new JLabel("" + tempCountry.getNoOfArmies());
 			newLabel.setFont(new Font("Courier", Font.BOLD, 20));
 			newLabel.setForeground(Common.getColor(tempCountry.getCountryColor()));
 			newLabel.setBounds(xCoordinate, yCoordinate, 25, 25);
@@ -117,14 +193,6 @@ public class GameView implements Observer{
 	    
 	}
 
-	public void addActionListenToMapLabels(MouseListener listener) {
-		int n = mapJlabel.getComponentCount();
-		for (int i = 0; i < n; i++) {
-			JLabel jLabel = (JLabel) mapJlabel.getComponent(i);
-			jLabel.addMouseListener(listener);
-		}
-	}
-
 	public void loadingInitializationLabel() {
 		initializationJlabel = new JLabel();
 		initializationJlabel.setBorder(
@@ -132,14 +200,12 @@ public class GameView implements Observer{
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		initializationJlabel.setBounds(mapScrollPane.getX() + 700, mapScrollPane.getY(), 490, 100);
 		
-		Player activePlayer = game.getCurrentPlayer();
-		
 		// Recreate every components in Label
-		playersTurnJlabel = new JLabel(activePlayer.getName() + " " + activePlayer.getColor());
+		playersTurnJlabel = new JLabel(activePlayerName + " " + activePlayerColor);
 		playersTurnJlabel.setBorder(new TitledBorder("Active Player"));
 		playersTurnJlabel.setBounds(15, 25, 220, 70);
 
-		armyLeftJlabel = new JLabel("" + activePlayer.getNoOfUnassignedArmies());
+		armyLeftJlabel = new JLabel("" + activePlayerUnassignedArmiesCount);
 		armyLeftJlabel.setBorder(new TitledBorder("Armies Left"));
 		armyLeftJlabel.setBounds(playersTurnJlabel.getX() + 240,
 				playersTurnJlabel.getY() - 70 + playersTurnJlabel.getHeight(), playersTurnJlabel.getWidth(),
@@ -162,19 +228,27 @@ public class GameView implements Observer{
 				initializationJlabel.getY() + 10 + initializationJlabel.getHeight(), initializationJlabel.getWidth(),
 				140);
 
-		reinforcementplayersTurnJlabel = new JLabel("Player turn");
+		reinforcementplayersTurnJlabel = new JLabel(activePlayerName);
 		reinforcementplayersTurnJlabel.setBorder(new TitledBorder("Player's Turn"));
 		reinforcementplayersTurnJlabel.setBounds(15, 25, 220, 50);
 
-		String[] countryNameList = { "Country A", "country B", "country C", "Country D" };
-		addArmyToCountryJcomboBox = new JComboBox<>(countryNameList);
+		ArrayList<String> countryNameList = new ArrayList<String>();
+		
+		for (int i = 0; i < countryList.size(); i++) {
+			ViewCountries tempCountry = countryList.get(i);
+            if(activePlayerId == tempCountry.getPlayerID())
+             { countryNameList.add(tempCountry.getCountryName());
+             }
+		}
+		
+		addArmyToCountryJcomboBox = new JComboBox(countryNameList.toArray());
 		addArmyToCountryJcomboBox.setBorder(new TitledBorder("Add Unit To Country"));
 		addArmyToCountryJcomboBox.setBounds(
 				reinforcementplayersTurnJlabel.getX() + 20 + reinforcementplayersTurnJlabel.getWidth() + 3,
 				reinforcementplayersTurnJlabel.getY(), reinforcementplayersTurnJlabel.getWidth(),
 				reinforcementplayersTurnJlabel.getHeight());
 
-		reinforcementUnassignedUnit = new JLabel("Assign army=10");
+		reinforcementUnassignedUnit = new JLabel(activePlayerUnassignedArmiesCount);
 		reinforcementUnassignedUnit.setBorder(new TitledBorder("Reinforced Army Unit"));
 		reinforcementUnassignedUnit.setBounds(reinforcementplayersTurnJlabel.getX(),
 				reinforcementplayersTurnJlabel.getY() + reinforcementplayersTurnJlabel.getHeight() + 5,
@@ -200,17 +274,34 @@ public class GameView implements Observer{
 				reinforcementsJlabel.getY() + 10 + reinforcementsJlabel.getHeight(), reinforcementsJlabel.getWidth(),
 				140);
 
-		String conquerdCountries[] = { "Country A", "Country B", "Country C", "Country D" };
-		sourceCountry = new JComboBox<>(conquerdCountries);
+		
+        ArrayList<String> conquerdCountries = new ArrayList<String>();
+		
+		for (int i = 0; i < countryList.size(); i++) {
+			ViewCountries tempCountry = countryList.get(i);
+            if(activePlayerId == tempCountry.getPlayerID())
+             { conquerdCountries.add(tempCountry.getCountryName());
+             }
+		}
+			
+		sourceCountry = new JComboBox(conquerdCountries.toArray());
 		sourceCountry.setBorder(new TitledBorder("Source Country"));
 		sourceCountry.setBounds(15, 25, 220, 50);
-		String destinationCountries[] = { "Country A", "Country B", "Country C", "Country D" };
+		
+		String destinationCountries[] = {" "};
 		destinationCountry = new JComboBox<>(destinationCountries);
 		destinationCountry.setBorder(new TitledBorder("Destination Country"));
 		destinationCountry.setBounds(sourceCountry.getX() + 20 + sourceCountry.getWidth() + 3, sourceCountry.getY(),
 				sourceCountry.getWidth(), sourceCountry.getHeight());
 
-		noOfArmyToMoveJcomboBox = new JComboBox<>();
+		
+	    ArrayList<Integer> NoOfArmies = new ArrayList<Integer>();		
+		for (int i = 1 ; i <= Integer.parseInt(activePlayerUnassignedArmiesCount);i++) {
+				 NoOfArmies.add(i);
+	        }
+		
+		
+		noOfArmyToMoveJcomboBox = new JComboBox(NoOfArmies.toArray());
 
 		noOfArmyToMoveJcomboBox.setBounds(sourceCountry.getX(), sourceCountry.getHeight() + sourceCountry.getY() + 7,
 				sourceCountry.getWidth(), sourceCountry.getHeight());
@@ -226,35 +317,57 @@ public class GameView implements Observer{
 		fortificationJlabel.add(fortificationMoveButton);
 		// Adding Label to Panel
 		gameActionJpanel.add(fortificationJlabel);
-
+	}
+	
+	public void addActionListenToMapLabels(MouseListener listener) {
+		int n = mapJlabel.getComponentCount();
+		for (int i = 0; i < n; i++) {
+			JLabel jLabel = (JLabel) mapJlabel.getComponent(i);
+			jLabel.addMouseListener(listener);
+		}
+	}
+	
+	public void addActionListenToAddArmyButton(ActionListener listener) {
+		addArmy.addActionListener(listener);
 	}
 
-	public void loadingSaveGameButton() {
-		saveButtonJlabel = new JLabel();
-		saveButtonJlabel.setBorder(BorderFactory.createTitledBorder(null, "", TitledBorder.DEFAULT_JUSTIFICATION,
-				TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		saveButtonJlabel.setBounds(fortificationJlabel.getX(),
-				fortificationJlabel.getY() + 10 + fortificationJlabel.getHeight(), fortificationJlabel.getWidth(),
-				fortificationJlabel.getHeight() - 13);
+	public void addActionListenToSourceCountryList(ActionListener listener) {
+		sourceCountry.addActionListener (listener);
+	}
 
-		saveButton = new JButton("Save Game");
-		int buttonHeight = 25;
-		int buttonWidth = 100;
-		saveButton.setBounds(saveButtonJlabel.getWidth() / 2 - buttonWidth / 2,
-				saveButtonJlabel.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight);
-
-		saveButtonJlabel.add(saveButton);
-
-		gameActionJpanel.add(saveButtonJlabel);
+	public void addActionListenToMoveArmyButton(ActionListener listener) {
+		fortificationMoveButton.addActionListener(listener);
 	}
 
 	@Override
 	public void update(Observable obj, Object arg1) {
 		
-	 game = ((Game)obj);
-     map = game.getMap();
+	 Game game = ((Game)obj);
+     Map map = game.getMap();
+     mapPath = map.getMapPath() + map.getMapName() + ".bmp";
+   
+     activePlayerName = game.getCurrentPlayer().getName();
+     activePlayerId = game.getCurrentPlayerId();
+     activePlayerColor = game.getCurrentPlayer().getColor();
+     activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());  
+     
+     for(Country country: map.getCountryList())
+     { ViewCountries viewCountry = new ViewCountries();
+        viewCountry.setCountryId(country.getCountryId());
+        viewCountry.setCountryColor(country.getCountryColor());
+        viewCountry.setCountryName(country.getCountryName());
+        viewCountry.setNoOfArmies(country.getnoOfArmies());
+        viewCountry.setxCoordinate(country.getxCoordiate());
+        viewCountry.setyCoordinate(country.getyCoordiate());
+        viewCountry.setNeighboursString(country.getNeighboursString());
+        viewCountry.setPlayerID(activePlayerId);
+        countryList.add(viewCountry);
+     }
+     
+     
      if (gameJframe !=null)
-       { gameJframe.setVisible(false);
+       { 
+    	 gameJframe.setVisible(false);       
          gameInitializer(); 
        }
 	}
