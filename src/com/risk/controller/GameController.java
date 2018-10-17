@@ -213,39 +213,28 @@ public class GameController {
 			Player player = new Player(i, playerName);
 			game.addPlayer(player);
 		}
-		// game.initialArmyAssignment();
-		game.assignCountriesToPlayer();
-		initializeMapView();
-
-	}
-	private void initializeMapView(){
+		game.startUpPhase();
 		gameView.gameInitializer();
-		addArmyImageClickListener();
-		addArmyButtonClickListener();
-		addSourceCountriesListener();
-	}
+		activateListenersOnView();
 
-	
-	/**
-	 * This function returns the list of all the maps in the assets/map directory.
-	 * 
-	 * @return List of all the map files
-	 */
-	private ArrayList<String> getListOfMaps() {
-		ArrayList<String> fileNames = new ArrayList<String>();
-		File folder = new File("assets/maps");
-		File[] listOfFiles = folder.listFiles();
-
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()) {
-				fileNames.add(listOfFiles[i].getName());
-			} else if (listOfFiles[i].isDirectory()) {
-				// nada
-			}
-		}
-		return fileNames;
 	}
-	
+	private void activateListenersOnView(){
+	    if(game.getGamePhase()==PhaseEnum.Startup)
+		  { addArmyImageClickListener();
+		  }
+		else if(game.getGamePhase()==PhaseEnum.Reinforcement)
+		  { System.out.println("phase is Reinforcement");
+			game.reinforcementPhaseSetup();
+			addArmyButtonClickListener();
+		  }
+		else if(game.getGamePhase()==PhaseEnum.Fortification)
+		  { System.out.println("phase is Fortification");
+			addSourceCountriesListener();
+			addMoveArmyButtonListener();
+		  }
+		
+	}
+		
 	/**
 	 * to update view
 	 */
@@ -255,12 +244,8 @@ public class GameController {
             public void mouseClicked(MouseEvent e) {
             JLabel jLabel=	(JLabel) e.getSource();
            String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
-          	if(game.addArmyToCountry(Integer.parseInt(string)))
-          		addArmyImageClickListener();    		
-          	else
-             	{System.out.println("mouse clicked else");
-        		  
-        		}         	
+          	game.addArmyToCountry(Integer.parseInt(string));
+        	activateListenersOnView();
             }
         });
 	}
@@ -270,13 +255,13 @@ public class GameController {
 	 */
 	public void addArmyButtonClickListener(){
 		gameView.addActionListenToAddArmyButton(new ActionListener() {
-       
-        public void actionPerformed(ActionEvent  e) {
-        System.out.println("call to Model method to add army");
+        public void actionPerformed(ActionEvent  e) {        	
+        	System.out.println("gameView.getAddArmyToCountryJcomboBox(): "+gameView.getAddArmyToCountryJcomboBox());
+        	game.reinforcementPhase(gameView.getAddArmyToCountryJcomboBox());  
+        	activateListenersOnView();
         }
         });
 	}
-
 
 	/**
 	 * to update view
@@ -297,9 +282,30 @@ public class GameController {
 		gameView.addActionListenToMoveArmyButton(new ActionListener() {
        
         public void actionPerformed(ActionEvent  e) {
-           System.out.println("Call to move Army method");        
+        	game.fortificationPhase(gameView.getSourceCountry(),gameView.getDestinationCountry(),gameView.getNoOfArmyToMoveJcomboBox());
+        	activateListenersOnView();
         }
         });
+	}
+
+	/**
+	 * This function returns the list of all the maps in the assets/map directory.
+	 * 
+	 * @return List of all the map files
+	 */
+	private ArrayList<String> getListOfMaps() {
+		ArrayList<String> fileNames = new ArrayList<String>();
+		File folder = new File("assets/maps");
+		File[] listOfFiles = folder.listFiles();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				fileNames.add(listOfFiles[i].getName());
+			} else if (listOfFiles[i].isDirectory()) {
+				// nada
+			}
+		}
+		return fileNames;
 	}
 
 	

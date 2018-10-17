@@ -249,8 +249,8 @@ public class Country {
 	 * 
 	 * @param count int
 	 */
-	public void decreaseArmyCount(int count)
+	public void decreaseArmyCount()
 	{
-		noOfArmies-=count;
+		noOfArmies--;
 	}
 }

@@ -70,7 +70,13 @@ public class Player {
 	}
 
 	public void decreaseUnassignedArmyCount()
-	{
-		NoOfUnassignedArmies--;
+	{     if(NoOfUnassignedArmies>0)
+		    NoOfUnassignedArmies--;
 	}
+	
+	public void increaseUnassignedArmyCount()
+	{
+		NoOfUnassignedArmies++;
+	}
+	
 }
