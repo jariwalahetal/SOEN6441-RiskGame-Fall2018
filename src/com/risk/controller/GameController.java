@@ -208,7 +208,7 @@ public class GameController {
 		int playerCount = IOHelper.getNextInteger();
 		
 		for (int i = 0; i < playerCount; i++) {
-			IOHelper.print("\nEnter the name of Player " + i+1);
+			IOHelper.print("\nEnter the name of Player " + (i+1));
 			String playerName = IOHelper.getNextString();
 			Player player = new Player(i, playerName);
 			game.addPlayer(player);

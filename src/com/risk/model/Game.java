@@ -278,6 +278,7 @@ public class Game extends Observable {
 			IOHelper.print("Country id " + countryId + " does not exist");
 			return false;
 		}
+		
 		increasePlayerArmyInCountry(player, country);
 		setNextPlayer();
 		updatePhase();

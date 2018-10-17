@@ -1,6 +1,7 @@
 package com.risk.view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
@@ -113,6 +115,7 @@ public class GameView implements Observer{
 	// Map Label
 	private static JLabel mapJlabel;
 	private static JScrollPane mapScrollPane = null;
+	private static HashMap<String,Component> mapLabels= new HashMap<>();
 
 	// Initialization Label
 	private static JLabel initializationJlabel;
@@ -176,10 +179,12 @@ public class GameView implements Observer{
 			int xCoordinate = tempCountry.getxCoordinate();
 			int yCoordinate = tempCountry.getyCoordinate();
 			JLabel newLabel = new JLabel("" + tempCountry.getNoOfArmies());
+			newLabel.setName("mapLabel" + tempCountry.getCountryId());
 			newLabel.setFont(new Font("Courier", Font.BOLD, 20));
 			newLabel.setForeground(Common.getColor(tempCountry.getCountryColor()));
 			newLabel.setBounds(xCoordinate, yCoordinate, 25, 25);
 			newLabel.setToolTipText(tempCountry.getCountryId() + "--" + tempCountry.getCountryName());
+			mapLabels.put(String.valueOf(tempCountry.getCountryId()), newLabel);
 			mapJlabel.add(newLabel);
 		}
 
@@ -344,6 +349,7 @@ public class GameView implements Observer{
 		
 	 Game game = ((Game)obj);
      Map map = game.getMap();
+    
      mapPath = map.getMapPath() + map.getMapName() + ".bmp";
    
      activePlayerName = game.getCurrentPlayer().getName();
@@ -361,14 +367,17 @@ public class GameView implements Observer{
         viewCountry.setyCoordinate(country.getyCoordiate());
         viewCountry.setNeighboursString(country.getNeighboursString());
         viewCountry.setPlayerID(activePlayerId);
+        JLabel label = (JLabel) mapLabels.get(String.valueOf(country.getCountryId()));
+        if(label != null)
+        	label.setText(String.valueOf(viewCountry.getNoOfArmies()));
         countryList.add(viewCountry);
      }
      
      
      if (gameJframe !=null)
        { 
-    	 gameJframe.setVisible(false);       
-         gameInitializer(); 
+    	 //gameJframe.setVisible(false);       
+         //gameInitializer(); 
        }
 	}
 
