@@ -207,14 +207,13 @@ public class GameController {
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
 		
-		for (int i = 1; i <= playerCount; i++) {
-			IOHelper.print("\nEnter the name of Player " + i);
+		for (int i = 0; i < playerCount; i++) {
+			IOHelper.print("\nEnter the name of Player " + i+1);
 			String playerName = IOHelper.getNextString();
 			Player player = new Player(i, playerName);
 			game.addPlayer(player);
 		}
 		// game.initialArmyAssignment();
-		game.setCurrentPlayerId();
 		game.assignCountriesToPlayer();
 		initializeMapView();
 

@@ -474,9 +474,9 @@ public class Map {
 		for (int i = 0; i < getCountryList().size(); i++) {
 			Country tempCountry = getCountryList().get(i);
 			tempCountry.setNeighbours(new ArrayList<>());
-			for (int j = 0; j < tempCountry.getNeighboursString().size(); j++) {
+			for (String name : tempCountry.getNeighboursString()) {
 				Country matchedCountry = getCountryList().stream()
-						 .filter(x-> x.getCountryName().equalsIgnoreCase(tempCountry.getCountryName()))
+						 .filter(x-> x.getCountryName().equalsIgnoreCase(name))
                         .findAny()
                         .orElse(null);
 				if(matchedCountry != null)
