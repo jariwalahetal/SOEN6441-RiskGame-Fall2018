@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.risk.helper.Common;
@@ -18,9 +19,13 @@ public class GameTest {
 
 	Map map;
 	Game game;
+	Game game2;
 
 	String mapToTest = "Africa.map";
 	Integer playerCount = 5;
+	Player p1;
+	Country c1;
+	Country c2;
 
 	@Before
 	public void readMapAndAssignCountries() {
@@ -28,6 +33,7 @@ public class GameTest {
 		map = new Map();
 		map.setMapName(mapToTest);
 		map.readMap();
+		
 
 		game = new Game(map);
 		for (int i = 0; i < playerCount; i++) {
@@ -37,7 +43,7 @@ public class GameTest {
 		}
 		game.startUpPhase();
 
-		// Loop untill all armies are assigned for all players
+		// Loop until all armies are assigned for all players
 		while (game.getGamePhase() == PhaseEnum.Startup) {
 			// Randomly increase army for the country of player
 			ArrayList<Country> playerCountries = game.getPlayerCountries();
@@ -47,13 +53,11 @@ public class GameTest {
 			game.addArmyToCountry(playerCountries.get(id).getCountryId());
 		}
 	}
-
 	@Test
 	public void testCurrentPhaseIsReinforcement() {
 		// Phase should be updated directly by model
 		assertEquals(PhaseEnum.Reinforcement, game.getGamePhase());
 	}
-
 	@Test
 	public void testGamePlayRandomTimes() {
 		int iterationCount = Common.getRandomNumberInRange(10, 25);
@@ -124,5 +128,42 @@ public class GameTest {
 			iterationCount--;
 		}
 	}
-
+	
+	@Test
+	public void assignCountryToPlayerTest() {
+		
+		Map map1 = new Map();
+		map1.setMapName(mapToTest);
+		map1.readMap();
+		
+		Game game1 = new Game(map1);
+		for (int i = 0; i < 2; i++) {
+			String playerName = "Bestplayer " + i;
+			Player player = new Player(i, playerName);
+			game1.addPlayer(player);
+		}
+		game1.startUpPhase();
+		
+		for(Continent c: map1.getContinentList()) {
+			for(Country countryToTest :c.getCountryList()) {
+				assertEquals(1,countryToTest.getnoOfArmies());
+			}
+		}
+	}
+	
+//	@Test
+//	public void totalArmiesTest(){
+//		Map map2 = new Map();
+//		map2.setMapName(mapToTest);
+//		map2.readMap();
+//		
+//		Game game2 = new Game(map2);
+//		for (int i = 0; i < playerCount; i++) {
+//			String playerName = "Bestplayer " + i;
+//			Player player = new Player(i, playerName);
+//			assert(player.getNoOfUnassignedArmies()+);
+//			game2.addPlayer(player);
+//		}
+//		game2.startUpPhase();
+//	}
 }
