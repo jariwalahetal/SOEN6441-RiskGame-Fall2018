@@ -58,7 +58,7 @@ public class GameTest {
 
 			int id = Common.getRandomNumberInRange(0, playerCountries.size() - 1);
 
-			game.addArmyToCountry(playerCountries.get(id).getCountryId());
+			game.addArmyToCountry(playerCountries.get(id).getCountryName());
 		}
 	}
 
@@ -73,10 +73,10 @@ public class GameTest {
 		assertEquals(PhaseEnum.Reinforcement, game.getGamePhase());
 	}
 
-
 	/**
 	 * Test Method for game play functionality
 	 */
+	/*
 	@Test
 	public void testGamePlayRandomTimes() {
 		int iterationCount = Common.getRandomNumberInRange(10, 25);
@@ -149,6 +149,7 @@ public class GameTest {
 		}
 	}
 	
+	*/
 	@Test
 	public void assignCountryToPlayerTest() {
 		

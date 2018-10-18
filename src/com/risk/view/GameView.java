@@ -463,8 +463,15 @@ public class GameView implements Observer {
 	 * @return selectedCountry
 	 */
 	public static String getSourceCountry() {
-		String selectedCountry = (String) sourceCountry.getSelectedItem();
-		return selectedCountry;
+		Object selectedItem = sourceCountry.getSelectedItem();
+		if(selectedItem != null)
+		{
+			String selectedCountry = (String) selectedItem;
+			return selectedCountry;
+		}
+		else {
+			return "";
+		}
 	}
 	
 	/**
@@ -472,8 +479,16 @@ public class GameView implements Observer {
 	 * @return selectedCountry
 	 */
 	public static String getDestinationCountry() {
-		String selectedCountry = (String) destinationCountry.getSelectedItem();
-		return selectedCountry;
+		
+		Object selectedItem = destinationCountry.getSelectedItem();
+		if(selectedItem != null)
+		{
+			String selectedCountry = (String) selectedItem;
+			return selectedCountry;
+		}
+		else {
+			return "";
+		}
 	}
 	
 	/**
@@ -481,8 +496,13 @@ public class GameView implements Observer {
 	 * @return NoOfArmies
 	 */
 	public static Integer getNoOfArmyToMoveJcomboBox() {
-		Integer NoOfArmies = (Integer.parseInt((String) noOfArmyToMoveJcomboBox.getSelectedItem()));
-		return NoOfArmies;
+		Object selectedItem = noOfArmyToMoveJcomboBox.getSelectedItem();
+		if(selectedItem != null)
+		{
+			Integer NoOfArmies = (Integer.parseInt((String) selectedItem));
+			return NoOfArmies;
+		}
+		return 0;
 	}
 
 	/**
@@ -491,7 +511,7 @@ public class GameView implements Observer {
 	 */
 	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies)
 	{   noOfArmyToMoveJcomboBox.removeAllItems();
-		for(Integer i=1;i<NoOfArmies;i++)
+		for(Integer i=0;i<NoOfArmies;i++)
 			noOfArmyToMoveJcomboBox.addItem(i.toString());		
 	}
 	

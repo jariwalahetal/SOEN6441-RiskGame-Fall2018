@@ -241,9 +241,9 @@ public class GameController {
        
             public void mouseClicked(MouseEvent e) {
             JLabel jLabel=	(JLabel) e.getSource();
-            String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
+            String string=jLabel.getToolTipText();
             if (game.getGamePhase()==PhaseEnum.Startup || game.getGamePhase() == PhaseEnum.Reinforcement)
-               game.addArmyToCountry(Integer.parseInt(string));
+               game.addArmyToCountry(string);
             }
         });
 	}

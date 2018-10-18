@@ -161,7 +161,7 @@ public class Game extends Observable {
 		country.decreseArmyCount();
 	}
 
-	public boolean addArmyToCountryForStartup(int countryId) {
+	public boolean addArmyToCountryForStartup(String countryName) {
 		if (this.gamePhase != PhaseEnum.Startup) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
 			return false;
@@ -181,10 +181,10 @@ public class Game extends Observable {
 			return true;
 		}
 
-		Country country = playerCountry.get(player).stream().filter(c -> c.getCountryId() == countryId).findAny()
-				.orElse(null);
+		Country country = playerCountry.get(player).stream()
+				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 		if (country == null) {
-			IOHelper.print("Country id " + countryId + " does not exist");
+			IOHelper.print("Country name -  " + countryName + " does not exist");
 			return false;
 		}
 
@@ -192,7 +192,7 @@ public class Game extends Observable {
 		return true;
 	}
 	
-	public boolean addArmyToCountryForReinforcement(int countryId) {
+	public boolean addArmyToCountryForReinforcement(String countryName) {
 		if (this.gamePhase != PhaseEnum.Reinforcement) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
 			return false;
@@ -210,10 +210,10 @@ public class Game extends Observable {
 			return false;
 		}
 
-		Country country = playerCountry.get(player).stream().filter(c -> c.getCountryId() == countryId).findAny()
-				.orElse(null);
+		Country country = playerCountry.get(player).stream()
+				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 		if (country == null) {
-			IOHelper.print("Country id " + countryId + " does not exist");
+			IOHelper.print("Country name - " + countryName + " does not exist");
 			return false;
 		}
 
@@ -221,7 +221,7 @@ public class Game extends Observable {
 		return true;
 	}
 	
-	public void addArmyToCountry(int countryId)
+	public void addArmyToCountry(String countryName)
 	{
 		if(gamePhase == PhaseEnum.Attack || gamePhase == PhaseEnum.Fortification)
 		{
@@ -230,7 +230,7 @@ public class Game extends Observable {
 		}
 		if(gamePhase == PhaseEnum.Startup) 
 		{
-			boolean isProcessed = addArmyToCountryForStartup(countryId);
+			boolean isProcessed = addArmyToCountryForStartup(countryName);
 			
 			if(isProcessed)
 			{
@@ -239,7 +239,7 @@ public class Game extends Observable {
 		}
 		else if(gamePhase == PhaseEnum.Reinforcement)
 		{
-			addArmyToCountryForReinforcement(countryId);
+			addArmyToCountryForReinforcement(countryName);
 		}
 		updatePhase();
 
@@ -336,10 +336,21 @@ public class Game extends Observable {
 		Country destinationCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destinationCountryName)).findAny().orElse(null);
 
+		if(sourceCountry == null || destinationCountry == null)
+		{
+			IOHelper.print("Source or destination country is invalid");
+			return;
+		}
+		
+		if(noOfArmies == 0)
+		{
+			IOHelper.print("No armies to move");
+		}
 		sourceCountry.decreaseArmyCount(noOfArmies);
 		destinationCountry.increaseArmyCount(noOfArmies);
 		this.setNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
+		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
 
 	}
