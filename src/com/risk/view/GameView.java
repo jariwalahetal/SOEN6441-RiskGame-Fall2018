@@ -377,8 +377,8 @@ public class GameView implements Observer{
      
      if (gameJframe !=null)
        { //addArmyToCountryJcomboBox.removeAll();
-    	 gameJframe.setVisible(false);       
-         gameInitializer(); 
+ //   	 gameJframe.setVisible(false);       
+  //       gameInitializer(); 
        }
 	}
 	
