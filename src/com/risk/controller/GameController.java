@@ -197,7 +197,7 @@ public class GameController {
 		map.setMapName(selectedMapName);
 		map.readMap();
 		System.out.print("is map valid:" + map.isMapValid());
-		if(!map.isMapValid()){
+		if(map.isMapValid()){
 			GameController map=new GameController();
 			map.startGame();
 		}
