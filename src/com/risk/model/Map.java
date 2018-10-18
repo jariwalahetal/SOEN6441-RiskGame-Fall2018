@@ -56,7 +56,6 @@ public class Map {
      * This function loads the Map into the memory
      */
     public void readMap() {
-
         try {
             boolean captureContinents = false;
             boolean captureCountries = false;
