@@ -181,7 +181,7 @@ public class Country {
 	/**
 	 * Gets list of neighbours stings
 	 * 
-	 * @return neighboursString ArrayList<String>
+	 * @return neighboursString 
 	 */
 	public ArrayList<String> getNeighboursString() {
 		return neighboursString;

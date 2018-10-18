@@ -159,7 +159,7 @@ class ViewCountries {
 
 	/**
 	 * This method return neighbours of the countries
-	 * @return neighboursString  ArrayList<String>
+	 * @return neighboursString 
 	 */
 	public ArrayList<String> getNeighboursString() {
 		return neighboursString;
@@ -168,7 +168,7 @@ class ViewCountries {
 
 	/**
 	 * This method set neighbours of the countries
-	 * @param neighboursString  ArrayList<String>
+	 * @param neighboursString ArrayList
 	 */
 	public void setNeighboursString(ArrayList<String> neighboursString) {
 		this.neighboursString = neighboursString;
@@ -464,6 +464,7 @@ public class GameView implements Observer {
 
 	/**
 	 * Method used to populate value in the destination phase combobox 
+	 * @param destinationCountries ArrayList
 	 */	
 	public void populateDestinationCountryComboBox(ArrayList<String> destinationCountries)
 	{   destinationCountry.removeAllItems();
@@ -474,6 +475,7 @@ public class GameView implements Observer {
 	
 	/**
 	 * Method used perform the on mouse click and add army in the country
+	 * @param listener MouseListener
 	 */
 	public void addActionListenToMapLabels(MouseListener listener) {
 		int n = mapJlabel.getComponentCount();
@@ -485,6 +487,7 @@ public class GameView implements Observer {
 
 	/**
 	 * Method used to add Action Listener to Source Country
+	 * @param listener ActionListener
 	 */
 	public void addActionListenToSourceCountryList(ActionListener listener) {
 		sourceCountry.addActionListener(listener);
@@ -492,6 +495,7 @@ public class GameView implements Observer {
 	
 	/**
 	 * Method for performing action listener on move army button
+	 * @param listener ActionListener
 	 */
 	public void addActionListenToMoveArmyButton(ActionListener listener) {
 		fortificationMoveButton.addActionListener(listener);
@@ -547,7 +551,8 @@ public class GameView implements Observer {
 
 	/**
 	 * Static method to show number of army the player wants to move in combobox
-	 * @return NoOfArmies
+	 * @param NoOfArmies int
+	 * 
 	 */
 	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies)
 	{   noOfArmyToMoveJcomboBox.removeAllItems();

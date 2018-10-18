@@ -23,7 +23,6 @@ public class Player {
 	 * 
 	 * @param playerId
 	 * @param name
-	 * @param color
 	 */
 	public Player(int playerId, String name) {
 		super();
@@ -43,7 +42,7 @@ public class Player {
 	
 	/**
 	 * This method set the number of unassigned army unit
-	 * 
+	 * @param noOfUnassignedArmies
 	 */
 	public void setNoOfUnassignedArmies(int noOfUnassignedArmies) {
 		this.noOfUnassignedArmies = noOfUnassignedArmies;
