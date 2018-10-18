@@ -2,62 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/doc/allclasses-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/allclasses-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/allclasses-noframe.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/allclasses-noframe.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/controller/GameController.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/controller/GameController.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/controller/GameRunner.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/controller/GameRunner.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/controller/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/controller/package-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/controller/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/controller/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/controller/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/controller/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/helper/Common.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/helper/Common.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/helper/EnumColor.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/helper/EnumColor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/helper/IOHelper.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/helper/IOHelper.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/helper/InitialPlayerSetup.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/helper/InitialPlayerSetup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/helper/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/helper/package-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/helper/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/helper/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/helper/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/helper/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/model/Continent.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/model/Continent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/model/Country.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/model/Country.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/model/Game.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/model/Game.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/model/Map.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/model/Map.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/model/Player.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/model/Player.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/model/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/model/package-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/model/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/model/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/model/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/model/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/view/GameView.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/view/GameView.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/view/MapCreateView.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/view/MapCreateView.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/view/MapEditorView.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/view/MapEditorView.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/view/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/view/package-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/view/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/view/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/view/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/view/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/viewmodel/CountryAdorner.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/viewmodel/CountryAdorner.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/viewmodel/PlayerAdorner.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/viewmodel/PlayerAdorner.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/viewmodel/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/viewmodel/package-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/viewmodel/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/viewmodel/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/com/risk/viewmodel/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/com/risk/viewmodel/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/constant-values.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/constant-values.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/deprecated-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/deprecated-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/help-doc.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/help-doc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-10.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-10.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-11.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-11.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-12.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-12.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-13.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-13.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-14.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-14.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-15.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-15.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-4.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-4.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-5.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-5.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-7.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-7.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-8.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-8.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index-files/index-9.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index-files/index-9.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/overview-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/overview-frame.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/overview-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/overview-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/overview-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/overview-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/serialized-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/serialized-form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/1.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/maps/1.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -69,20 +14,52 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/risk/model/Map.java">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+              <folding>
+                <element signature="e#750#758#0" expanded="true" />
+                <element signature="e#861#862#0" expanded="true" />
+                <element signature="e#875#876#0" expanded="true" />
+                <element signature="e#1074#1075#0" expanded="true" />
+                <element signature="e#1103#1104#0" expanded="true" />
+                <element signature="e#8883#8891#0" expanded="true" />
+                <element signature="e#8950#8958#0" expanded="true" />
+                <element signature="e#14340#14341#0" expanded="true" />
+                <element signature="e#14368#14369#0" expanded="true" />
+                <element signature="e#14399#14400#0" expanded="true" />
+                <element signature="e#14420#14421#0" expanded="true" />
+                <element signature="e#14463#14464#0" expanded="true" />
+                <element signature="e#14492#14493#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file leaf-file-name="GameController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="30" column="29" lean-forward="true" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+              <caret line="24" column="21" lean-forward="true" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#8731#9146#0" expanded="true" />
+                <element signature="e#9145#9146#0" expanded="true" />
+                <element signature="e#9869#9870#0" expanded="true" />
+                <element signature="e#9961#9962#0" expanded="true" />
+                <element signature="e#10664#10672#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="1.map" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/maps/1.map">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -103,12 +80,12 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/risk/controller/MapController.java" />
         <option value="$PROJECT_DIR$/src/com/risk/model/Continent.java" />
-        <option value="$PROJECT_DIR$/src/com/risk/view/GameView.java" />
         <option value="$PROJECT_DIR$/src/com/risk/helper/IOHelper.java" />
         <option value="$PROJECT_DIR$/src/com/risk/model/Country.java" />
-        <option value="$PROJECT_DIR$/assets/maps/1.map" />
         <option value="$PROJECT_DIR$/assets/maps/1.map.map" />
+        <option value="$PROJECT_DIR$/src/com/risk/view/GameView.java" />
         <option value="$PROJECT_DIR$/src/com/risk/model/Map.java" />
+        <option value="$PROJECT_DIR$/assets/maps/1.map" />
         <option value="$PROJECT_DIR$/src/com/risk/controller/GameController.java" />
       </list>
     </option>
@@ -127,9 +104,9 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
-    <option name="y" value="17" />
+    <option name="y" value="166" />
     <option name="width" value="1346" />
-    <option name="height" value="635" />
+    <option name="height" value="582" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -137,6 +114,8 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -194,19 +173,10 @@
               <item name="risk" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="SOEN6441-RiskGame" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SOEN6441-RiskGame" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="risk" type="462c0819:PsiDirectoryNode" />
-              <item name="viewmodel" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -312,53 +282,54 @@
       <workItem from="1538676900702" duration="33233000" />
       <workItem from="1539112043092" duration="9141000" />
       <workItem from="1539278667842" duration="2114000" />
-      <workItem from="1539472203379" duration="11979000" />
+      <workItem from="1539472203379" duration="13920000" />
+      <workItem from="1539742012456" duration="7264000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85814000" />
+    <option name="totallyTimeSpent" value="95019000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="3" weight="0.32980332" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="REPL" order="3" side_tool="true" />
-      <window_info anchor="right" id="Leiningen" order="3" />
-      <window_info id="Capture Tool" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="11" weight="0.32980332" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="right" id="REPL" order="10" side_tool="true" />
+      <window_info anchor="right" id="Leiningen" order="7" weight="0.32980332" />
+      <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Database" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2822086" />
+      <window_info id="UI Designer" order="4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.6165644" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.3297546" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.7346626" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.3297546" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6610429" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21028744" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.20801815" />
+      <window_info anchor="right" id="SciView" order="6" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.49079755" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.6610429" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -368,25 +339,25 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="9" weight="0.3297546" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.3297546" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="11" />
-      <window_info anchor="right" id="Maven Projects" order="5" weight="0.32980332" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="right" id="Maven Projects" order="11" weight="0.32980332" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21028744" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20801815" />
       <window_info anchor="right" id="SciView" order="6" />
-      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Database" order="5" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="right" id="Leiningen" order="8" />
+      <window_info anchor="right" id="Leiningen" order="7" weight="0.32980332" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="9" />
-      <window_info anchor="right" id="Theme Preview" order="10" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2822086" />
-      <window_info anchor="right" id="REPL" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.6165644" />
+      <window_info anchor="right" id="REPL" order="10" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,7 +390,7 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="16" />
+      <option name="time" value="19" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -434,9 +405,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2380">
           <caret line="140" selection-start-line="140" selection-end-line="140" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -487,9 +455,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3196">
           <caret line="188" column="8" lean-forward="true" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -504,9 +469,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2873">
           <caret line="169" column="52" selection-start-line="169" selection-start-column="52" selection-end-line="169" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -589,13 +551,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="266" lean-forward="true" selection-start-line="266" selection-end-line="266" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
@@ -645,13 +600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/maps/1.map">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="18" lean-forward="true" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/model/Continent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
@@ -670,22 +618,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/model/Map.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/maps/1.map.map">
+    <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="1921">
+          <caret line="139" column="95" lean-forward="true" selection-start-line="139" selection-start-column="95" selection-end-line="139" selection-end-column="95" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/maps/1.map">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/model/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="e#750#758#0" expanded="true" />
+            <element signature="e#861#862#0" expanded="true" />
+            <element signature="e#875#876#0" expanded="true" />
+            <element signature="e#1074#1075#0" expanded="true" />
+            <element signature="e#1103#1104#0" expanded="true" />
+            <element signature="e#8883#8891#0" expanded="true" />
+            <element signature="e#8950#8958#0" expanded="true" />
+            <element signature="e#14340#14341#0" expanded="true" />
+            <element signature="e#14368#14369#0" expanded="true" />
+            <element signature="e#14399#14400#0" expanded="true" />
+            <element signature="e#14420#14421#0" expanded="true" />
+            <element signature="e#14463#14464#0" expanded="true" />
+            <element signature="e#14492#14493#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/maps/1.map.map">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="30" column="29" lean-forward="true" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+          <caret line="24" column="21" lean-forward="true" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#8731#9146#0" expanded="true" />
+            <element signature="e#9145#9146#0" expanded="true" />
+            <element signature="e#9869#9870#0" expanded="true" />
+            <element signature="e#9961#9962#0" expanded="true" />
+            <element signature="e#10664#10672#0" expanded="true" />
           </folding>
         </state>
       </provider>
