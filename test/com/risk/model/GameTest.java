@@ -79,7 +79,7 @@ public class GameTest {
 			}
 			reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
 
-			// varify generate reinforcement value with actual value
+			// verify generate reinforcement value with actual value
 			assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
 			
 			//place the armies on random countries for the player
@@ -98,7 +98,7 @@ public class GameTest {
 			Country fromCountry = playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1));
 			int previousFromCountryArmiesCount = fromCountry.getnoOfArmies();
 
-			// Randomly select a neighbouring country to move armies in
+			// Randomly select a neighboring country to move armies in
 			ArrayList<Country> neigbouringCountries = game
 					.getNeighbouringCountriesForFortification(fromCountry.getCountryId());
 
