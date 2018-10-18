@@ -137,7 +137,6 @@ public class GameView implements Observer {
 
 	// Reinforcement Label
 	private static JLabel reinforcementsJlabel;
-	private static JLabel reinforcementplayersTurnJlabel;
 	private static JLabel reinforcementUnassignedUnit;
 
 	// Fortification Label
@@ -270,18 +269,10 @@ public class GameView implements Observer {
 				initializationJlabel.getY() + 10 + initializationJlabel.getHeight(), initializationJlabel.getWidth(),
 				80);
 
-		reinforcementplayersTurnJlabel = new JLabel(activePlayerName);
-		reinforcementplayersTurnJlabel.setBorder(new TitledBorder("Player's Turn"));
-		reinforcementplayersTurnJlabel.setBounds(15, 25, 220, 50);
-
 		reinforcementUnassignedUnit = new JLabel(reinforcementUnassignedArmiesCount);
 		reinforcementUnassignedUnit.setBorder(new TitledBorder("Reinforced Army Unit"));
-		reinforcementUnassignedUnit.setBounds(
-				reinforcementplayersTurnJlabel.getX() + 20 + reinforcementplayersTurnJlabel.getWidth() + 3,
-				reinforcementplayersTurnJlabel.getY(), reinforcementplayersTurnJlabel.getWidth(),
-				reinforcementplayersTurnJlabel.getHeight());
+		reinforcementUnassignedUnit.setBounds(15,25, 460,50);
 
-		reinforcementsJlabel.add(reinforcementplayersTurnJlabel);
 		reinforcementsJlabel.add(reinforcementUnassignedUnit);
 		gameActionJpanel.add(reinforcementsJlabel);
 
@@ -401,8 +392,6 @@ public class GameView implements Observer {
 		playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
 		armyLeftJlabel.setText(activePlayerUnassignedArmiesCount);
 		
-		reinforcementplayersTurnJlabel.setText(activePlayerName);
-		reinforcementplayersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
 		reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
 		
 		if (game.getGamePhase() == PhaseEnum.Startup) {
