@@ -1,7 +1,12 @@
 package com.risk.helper;
-
+/**
+ *This class is for the player setup.
+ */
 public class InitialPlayerSetup {
-
+	/**
+	 * This returns the player color.
+	 * @param playerID the id of the player
+	 */
 	public static EnumColor getPlayerColor(int playerID) {
 		switch (playerID) {
 		case 1:
@@ -18,7 +23,11 @@ public class InitialPlayerSetup {
 			return EnumColor.YELLOW;
 		}
 	}
-
+	/**
+	 * This method computes the initial army count according to the player.
+	 * @param playerCount The total number of players playing the game.
+	 * @return count of the initial army
+	 */
 	public static int getInitialArmyCount(int playerCount) {
 		switch (playerCount) {
 		case 3:

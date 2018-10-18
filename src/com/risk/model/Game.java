@@ -372,10 +372,10 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * Method to get neighbouring countries of a given country
+	 * Method to get neighboring countries of a given country
 	 * 
 	 * @param countryId
-	 * @return ArrayList<Country> , returning arraylist of countries.
+	 * @return ArrayList<Country> , returning array list of countries.
 	 */
 	public ArrayList<Country> getNeighbouringCountriesForFortification(int countryId) {
 		Country country = map.getCountryList().stream().filter(c -> c.getCountryId() == countryId).findAny()
