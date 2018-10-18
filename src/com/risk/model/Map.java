@@ -384,13 +384,13 @@ public class Map {
                 content.append("\r\n");
             }
         }
+        // write map to disk
         Path path = Paths.get(this.mapPath + this.mapName );
         BufferedWriter writer = null;
         try {
             //Delete temporary file
             Path tempFilePath = Paths.get(this.mapPath + "temp" + ".map");
             Files.deleteIfExists(tempFilePath);
-
             writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8);
             writer.write(new String(content));
             writer.close();
@@ -420,7 +420,6 @@ public class Map {
             {
                 return false;
             }
-
         }
         else
         {

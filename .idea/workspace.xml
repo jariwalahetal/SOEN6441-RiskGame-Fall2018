@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/assets/maps/1.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/maps/1.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/model/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Map.java" afterDir="false" />
     </list>
@@ -18,8 +19,8 @@
       <file leaf-file-name="Map.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/risk/model/Map.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="399" column="34" selection-start-line="399" selection-start-column="34" selection-end-line="399" selection-end-column="34" />
+            <state relative-caret-position="537">
+              <caret line="456" column="29" lean-forward="true" selection-start-line="456" selection-start-column="29" selection-end-line="456" selection-end-column="29" />
               <folding>
                 <element signature="e#778#786#0" expanded="true" />
                 <element signature="e#903#904#0" expanded="true" />
@@ -43,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
-              <caret line="149" column="72" selection-start-line="149" selection-start-column="72" selection-end-line="149" selection-end-column="72" />
+              <caret line="159" column="40" lean-forward="true" selection-start-line="159" selection-start-column="40" selection-end-line="159" selection-end-column="40" />
               <folding>
                 <element signature="e#12635#13063#0" expanded="true" />
                 <element signature="e#13062#13063#0" expanded="true" />
@@ -77,8 +78,8 @@
         <option value="$PROJECT_DIR$/src/com/risk/model/Country.java" />
         <option value="$PROJECT_DIR$/src/com/risk/view/GameView.java" />
         <option value="$PROJECT_DIR$/assets/maps/1.map.map" />
-        <option value="$PROJECT_DIR$/assets/maps/1.map" />
         <option value="$PROJECT_DIR$/src/com/risk/controller/GameController.java" />
+        <option value="$PROJECT_DIR$/assets/maps/1.map" />
         <option value="$PROJECT_DIR$/src/com/risk/model/Map.java" />
       </list>
     </option>
@@ -277,12 +278,12 @@
       <workItem from="1539112043092" duration="9141000" />
       <workItem from="1539278667842" duration="2114000" />
       <workItem from="1539472203379" duration="13920000" />
-      <workItem from="1539742012456" duration="17864000" />
+      <workItem from="1539742012456" duration="18351000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105619000" />
+    <option name="totallyTimeSpent" value="106106000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -309,7 +310,7 @@
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.6303681" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20801815" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20801815" />
       <window_info anchor="right" id="SciView" order="6" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Favorites" order="5" side_tool="true" />
@@ -598,15 +599,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/maps/1.map">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        <state relative-caret-position="204">
+          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/maps/test1.map">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/maps/The Second best map in this world.map">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="149" column="72" selection-start-line="149" selection-start-column="72" selection-end-line="149" selection-end-column="72" />
+          <caret line="159" column="40" lean-forward="true" selection-start-line="159" selection-start-column="40" selection-end-line="159" selection-end-column="40" />
           <folding>
             <element signature="e#12635#13063#0" expanded="true" />
             <element signature="e#13062#13063#0" expanded="true" />
@@ -619,8 +626,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/model/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="399" column="34" selection-start-line="399" selection-start-column="34" selection-end-line="399" selection-end-column="34" />
+        <state relative-caret-position="537">
+          <caret line="456" column="29" lean-forward="true" selection-start-line="456" selection-start-column="29" selection-end-line="456" selection-end-column="29" />
           <folding>
             <element signature="e#778#786#0" expanded="true" />
             <element signature="e#903#904#0" expanded="true" />

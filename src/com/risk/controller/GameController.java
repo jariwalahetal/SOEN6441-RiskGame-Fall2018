@@ -38,7 +38,6 @@ public class GameController {
 		IOHelper.print("2. Edit Map");
 		IOHelper.print("3. Play Game");
 		IOHelper.print("4. Exit");
-
 		int input = IOHelper.getNextInteger();
 		if (input == 1)
 			createMap();
