@@ -11,6 +11,11 @@ import java.util.Random;
  */
 public class Common {
 
+	/**
+	 * Method to convert the enum color into color object of swings
+	 * @param selectedColor
+	 * @return Color based on the objects
+	 */
 	public static Color getColor(EnumColor selectedColor) {
 		if (selectedColor.equals(EnumColor.BLACK)) {
 			return Color.BLACK;

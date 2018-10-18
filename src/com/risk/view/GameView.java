@@ -157,6 +157,9 @@ public class GameView implements Observer {
     ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
     PhaseEnum phase;
         
+    /**
+     * Method use to initialize the view of game
+     */
     public void gameInitializer() {
 		//gameActionJpanel = new JPanel(null);
 		loadGameActionView();
@@ -178,6 +181,9 @@ public class GameView implements Observer {
 		gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Method use to load image of map on view
+	 */
 	public void loadGameActionView() {
 		gameJframe = new JFrame("Risk Game");
 		gameActionJpanel = new JPanel(null);
@@ -219,6 +225,9 @@ public class GameView implements Observer {
 
 	}
 
+	/**
+	 * Method used to perform initializtion phase of the game
+	 */
 	public void loadingInitializationLabel() {
 		initializationJlabel = new JLabel();
 
@@ -249,6 +258,9 @@ public class GameView implements Observer {
 
 	}
 
+	/**
+	 * Method used to perform reinforcement phase of game
+	 */
 	public void loadingReinforcementLabel() {
 		reinforcementsJlabel = new JLabel();
 		reinforcementsJlabel.setBorder(
@@ -275,6 +287,9 @@ public class GameView implements Observer {
 
 	}
 
+	/**
+	 * Method used to perform fortification phase 
+	 */
 	public void loadingFortificationLabel() {
 		fortificationJlabel = new JLabel();
 		fortificationJlabel.setBorder(
@@ -325,7 +340,9 @@ public class GameView implements Observer {
 		// Adding Label to Panel
 		gameActionJpanel.add(fortificationJlabel);
 	}
-
+	/**
+	 * Method used to load the name of the phase
+	 */
 	public void loadingPhaseLabel() {
 		gamePhaseJLabel = new JLabel();
 		gamePhaseJLabel.setBorder(
@@ -344,6 +361,9 @@ public class GameView implements Observer {
 		gameActionJpanel.add(gamePhaseJLabel);
 	}
 
+	/**
+	 * Update method called by the observable object to perform all the actions
+	 */
 	@Override
 	public void update(Observable obj, Object arg1) {
 		
@@ -398,7 +418,9 @@ public class GameView implements Observer {
      }
 	}
 
-		
+	/**
+	 * Method used to populate value in the destination phase combobox 
+	 */	
 	public void populateDestinationCountryComboBox(ArrayList<String> destinationCountries)
 	{   destinationCountry.removeAllItems();
 		for(String countryName : destinationCountries)
@@ -406,6 +428,9 @@ public class GameView implements Observer {
 			
 	}
 	
+	/**
+	 * Method used perform the on mouse click and add army in the country
+	 */
 	public void addActionListenToMapLabels(MouseListener listener) {
 		int n = mapJlabel.getComponentCount();
 		for (int i = 0; i < n; i++) {
@@ -414,10 +439,16 @@ public class GameView implements Observer {
 		}
 	}
 
+	/**
+	 * Method used to add Action Listener to Source Country
+	 */
 	public void addActionListenToSourceCountryList(ActionListener listener) {
 		sourceCountry.addActionListener(listener);
 	}
-
+	
+	/**
+	 * Method for performing action listener on move army button
+	 */
 	public void addActionListenToMoveArmyButton(ActionListener listener) {
 		fortificationMoveButton.addActionListener(listener);
 	}
@@ -427,22 +458,37 @@ public class GameView implements Observer {
 	 * addArmyToCountryJcomboBox) { GameView.addArmyToCountryJcomboBox =
 	 * addArmyToCountryJcomboBox; }
 	 */
-
+	/**
+	 * Static method to populate all source countries
+	 * @return selectedCountry
+	 */
 	public static String getSourceCountry() {
 		String selectedCountry = (String) sourceCountry.getSelectedItem();
 		return selectedCountry;
 	}
-
+	
+	/**
+	 * Static method to get all destination countries
+	 * @return selectedCountry
+	 */
 	public static String getDestinationCountry() {
 		String selectedCountry = (String) destinationCountry.getSelectedItem();
 		return selectedCountry;
 	}
-
+	
+	/**
+	 * Static method to get number of army the player wants to move
+	 * @return NoOfArmies
+	 */
 	public static Integer getNoOfArmyToMoveJcomboBox() {
 		Integer NoOfArmies = (Integer.parseInt((String) noOfArmyToMoveJcomboBox.getSelectedItem()));
 		return NoOfArmies;
 	}
 
+	/**
+	 * Static method to show number of army the player wants to move in combobox
+	 * @return NoOfArmies
+	 */
 	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies)
 	{   noOfArmyToMoveJcomboBox.removeAllItems();
 		for(Integer i=1;i<NoOfArmies;i++)

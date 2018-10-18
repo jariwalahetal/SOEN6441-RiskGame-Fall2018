@@ -1,6 +1,9 @@
 package com.risk.helper;
+
 /**
- *This method contains the colors for the game players.
+ * Enum to print the name of different colors assign to players
+ * @author sadgi
+ *
  */
 public enum EnumColor {
 	RED, GREEN, BLUE, BLACK, YELLOW, GRAY;
