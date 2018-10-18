@@ -21,6 +21,7 @@ import com.risk.helper.PhaseEnum;
  * @version 1.0.0
  * @since 30-September-2018
  */
+
 public class Game extends Observable {
 
 	// Country and the army assigned to it
@@ -48,7 +49,7 @@ public class Game extends Observable {
 
 	private void setNextPlayerTurn() {
 			currentPlayerId++;
-		
+
 		if (currentPlayerId == playerList.size())
 			currentPlayerId = 0;
 		System.out.println("current player ID:" + currentPlayerId);
@@ -61,8 +62,8 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * This function will randomly assign Countries to all players and assign one
-	 * army to each country for a player
+	 * This function will randomly assign Countries to all players and assign
+	 * one army to each country for a player
 	 * 
 	 */
 	public void startUpPhase() {
@@ -138,6 +139,12 @@ public class Game extends Observable {
 		country.increaseArmyCount();
 	}
 
+	/**
+	 * Decrease army of the player in the country
+	 * 
+	 * @param player
+	 * @param country
+	 */
 	private void decreasePlayerArmyInCountry(Player player, Country country) {
 		player.increaseUnassignedArmyCount();
 		country.decreseArmyCount();
@@ -225,8 +232,12 @@ public class Game extends Observable {
 		// return true;
 	}
 
+	/**
+	 * Method to update the phase of the game
+	 * 
+	 */
 	private void updatePhase() {
-		
+
 		if(this.getGamePhase() == gamePhase.Startup)
 		{
 			//Check all players have assigned armies to country or not
@@ -254,6 +265,9 @@ public class Game extends Observable {
 		}
 	}
 
+	/**
+	 * Method to set up reinforcement phase
+	 */
 	public void reinforcementPhaseSetup() {
 
 		// count number of countries owned by player
@@ -284,11 +298,21 @@ public class Game extends Observable {
 		player.setNoOfReinforcedArmies(countriesCount);
 	}
 
+	/**
+	 * Method for performing attack phase 
+	 */
 	public void attackPhase() {
 		setGamePhase(gamePhase.Fortification);
 		notifyObserverslocal(this);
 	}
 
+	/**
+	 * Method to perform fortification phase
+	 * 
+	 * @param sourceCountryName
+	 * @param destinationCountryName
+	 * @param noOfArmies
+	 */
 	public void fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
 
 		Player player = getCurrentPlayer();
@@ -305,17 +329,18 @@ public class Game extends Observable {
 
 	}
 
-	public void setNextPlayerReinforcement()
-	{
-		if(gamePhase != gamePhase.Fortification)
-		{
+	/**
+	 * Method to find the next player to perform reinforcement
+	 */
+	public void setNextPlayerReinforcement() {
+		if (gamePhase != gamePhase.Fortification) {
 			IOHelper.print("Cannot set next player in reinforcement");
 		}
 		setNextPlayerTurn();
 		updatePhase();
 		reinforcementPhaseSetup();
 	}
-	
+
 	/**
 	 * This function will add the player to the game(playerList)
 	 * 
@@ -325,11 +350,22 @@ public class Game extends Observable {
 		this.playerList.add(player.getPlayerId(), player);
 	}
 
+	/**
+	 * Method to get countries corresponding to players
+	 * 
+	 * @return ArrayList<Country> , returning arraylist of countries.
+	 */
 	public ArrayList<Country> getPlayerCountries() {
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return playerCountry.get(currentPlayer);
 	}
 
+	/**
+	 * Method to get neighbouring countries of a given country
+	 * 
+	 * @param countryId
+	 * @return ArrayList<Country> , returning arraylist of countries.
+	 */
 	public ArrayList<Country> getNeighbouringCountriesForFortification(int countryId) {
 		Country country = map.getCountryList().stream().filter(c -> c.getCountryId() == countryId).findAny()
 				.orElse(null);
@@ -351,7 +387,14 @@ public class Game extends Observable {
 		}
 		return neighbhbouringCountries;
 	}
-
+	/**
+	 * Method to find out that countries belong to a player or not
+	 * 
+	 * @param fromCountryId
+	 * @param toCountryId
+	 * @param fortifyArmiesCount
+	 * @return true if country belongs to player
+	 */
 	public boolean fortifyCountry(int fromCountryId, int toCountryId, int fortifyArmiesCount) {
 		Player currentPlayer = playerList.get(currentPlayerId);
 
@@ -378,27 +421,57 @@ public class Game extends Observable {
 		return true;
 	}
 
+	/**
+	 * Method used to get map
+	 * 
+	 * @return map
+	 */
 	public Map getMap() {
 		return map;
 	}
 
+	/**
+	 * method used to set map
+	 * 
+	 * @param map
+	 */
 	public void setMap(Map map) {
 		this.map = map;
 	}
 
+	/**
+	 * Method to get enum for game phase
+	 * 
+	 * @return gamePhase
+	 */
 	public PhaseEnum getGamePhase() {
 		return gamePhase;
 	}
 
+	/**
+	 * Method used to set phase of the game
+	 * 
+	 * @param gamePhase
+	 */
 	private void setGamePhase(PhaseEnum gamePhase) {
 		this.gamePhase = gamePhase;
 	}
 
+	/**
+	 * Method used to notify observer
+	 * 
+	 * @param game
+	 */
 	private void notifyObserverslocal(Game game) {
 		setChanged();
 		notifyObservers(this);
 	}
 
+	/**
+	 * Method use to get  arraylist of players
+	 * 
+	 * @return playerList
+	 */
 	public ArrayList<Player> getAllPlayers() {
 		return playerList;
 	}

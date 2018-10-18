@@ -8,13 +8,12 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import com.risk.model.*;
 
-
 @RunWith(Suite.class)
-@SuiteClasses({MapTest.class,CountryTest.class,ContinentTest.class})
+@SuiteClasses({ MapTest.class, CountryTest.class, ContinentTest.class })
 
 /**
  * This is the Test Suite class
  */
-public class TestSuite {   
-	
-}  
+public class TestSuite {
+
+}

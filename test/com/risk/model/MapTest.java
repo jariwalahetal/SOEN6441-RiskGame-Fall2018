@@ -9,6 +9,7 @@ import java.util.Collections;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+
 /**
  * This class tests the Map methods for a valid map.
  */
@@ -18,31 +19,28 @@ public class MapTest {
 	Map map1;
 	ArrayList<String> testMapContinents = new ArrayList<String>();
 	ArrayList<String> testMapCountries = new ArrayList<String>();
-	
-	public  boolean equalLists(ArrayList<String> one, ArrayList<String> two){     
-	    if (one == null && two == null){
-	        return true;
-	    }
 
-	    if((one == null && two != null) 
-	      || one != null && two == null
-	      || one.size() != two.size()){
-	        return false;
-	    }
+	public boolean equalLists(ArrayList<String> one, ArrayList<String> two) {
+		if (one == null && two == null) {
+			return true;
+		}
 
-	    //to avoid messing the order of the lists we will use a copy
-	    //as noted in comments by A. R. S.
-	    one = new ArrayList<String>(one); 
-	    two = new ArrayList<String>(two);   
+		if ((one == null && two != null) || one != null && two == null || one.size() != two.size()) {
+			return false;
+		}
 
-	    Collections.sort(one);
-	    Collections.sort(two);      
-	    return one.equals(two);
+		// to avoid messing the order of the lists we will use a copy
+		// as noted in comments by A. R. S.
+		one = new ArrayList<String>(one);
+		two = new ArrayList<String>(two);
+
+		Collections.sort(one);
+		Collections.sort(two);
+		return one.equals(two);
 	}
-	
+
 	@Before
-	public void setUp()
-	{
+	public void setUp() {
 		sb = new StringBuffer();
 		sb2 = new StringBuffer();
 		map1 = new Map();
@@ -96,39 +94,26 @@ public class MapTest {
 		testMapCountries.add("Mozambique");
 		testMapCountries.add("Madagascar");
 		testMapCountries.add("South Africa");
-		
+
 		Collections.sort(testMapContinents);
-		String inValidMapString ="[Map]\n" + 
-				 "author=SOEN6441 - Team8\n" +  
-				 "image=Africa.bmp\n" +  
-				 "[Continents]\n" +  
-				 "Continent1=10\n" +  
-				 "Continent2=20\n" +  
-				 "[Territories]\n" +  
-				 "Country1,127,46,Continent2,Country2,Country3\n" +  
-				 "Country1,127,46,Continent1,Country2,Country3\n" +  
-				 "Country2,193,85,Continent1,Country1,Country3,Country4\n" +  
-				 "Country3,252,33,Continent1,Country5,Country1,Country2\n" +  
-				 "Country4,314,94,Continent2,Country2,Country5\n" +  
-				 "Country5,415,99,Continent2,Country4,Country3";
-		
-		String validMapString = "[Map]\n" + 
-				 "author=SOEN6441 - Team8\n" +  
-				 "image=Africa.bmp\n" +  
-				 "[Continents]\n" +  
-				 "Continent1=10\n" +  
-				 "Continent2=20\n" +  
-				 "[Territories]\n" +  
-				 "Country1,127,46,Continent1,Country2,Country3\n" +  
-				 "Country2,193,85,Continent1,Country1,Country3,Country4\n" +  
-				 "Country3,252,33,Continent1,Country5,Country1,Country2\n" +  
-				 "Country4,314,94,Continent2,Country2,Country5\n" +  
-				 "Country5,415,99,Continent2,Country4,Country3";
-		
+		String inValidMapString = "[Map]\n" + "author=SOEN6441 - Team8\n" + "image=Africa.bmp\n" + "[Continents]\n"
+				+ "Continent1=10\n" + "Continent2=20\n" + "[Territories]\n"
+				+ "Country1,127,46,Continent2,Country2,Country3\n" + "Country1,127,46,Continent1,Country2,Country3\n"
+				+ "Country2,193,85,Continent1,Country1,Country3,Country4\n"
+				+ "Country3,252,33,Continent1,Country5,Country1,Country2\n"
+				+ "Country4,314,94,Continent2,Country2,Country5\n" + "Country5,415,99,Continent2,Country4,Country3";
+
+		String validMapString = "[Map]\n" + "author=SOEN6441 - Team8\n" + "image=Africa.bmp\n" + "[Continents]\n"
+				+ "Continent1=10\n" + "Continent2=20\n" + "[Territories]\n"
+				+ "Country1,127,46,Continent1,Country2,Country3\n"
+				+ "Country2,193,85,Continent1,Country1,Country3,Country4\n"
+				+ "Country3,252,33,Continent1,Country5,Country1,Country2\n"
+				+ "Country4,314,94,Continent2,Country2,Country5\n" + "Country5,415,99,Continent2,Country4,Country3";
+
 		sb.append(validMapString);
 		sb2.append(inValidMapString);
 	}
-	
+
 	/**
 	 * Test creation of valid map varify file exist on drive
 	 */
@@ -139,10 +124,11 @@ public class MapTest {
 		boolean isMapCreated = map.validateAndCreateMap(sb, mapName);
 		assertTrue(isMapCreated);
 	}
+
 	/**
-	 * Test if invalid map treated as 
+	 * Test if invalid map treated as
 	 */
-	
+
 	@Test
 	public void testInValidCreateMap() {
 		String mapName = "inValidMapTest";
@@ -150,24 +136,25 @@ public class MapTest {
 		boolean isMapCreated = map.validateAndCreateMap(sb2, mapName);
 		assertFalse(isMapCreated);
 	}
+
 	@Test
 	public void readMapTest() {
-		ArrayList<String> testContinents= new ArrayList<String>();
-		ArrayList<String> testCountries= new ArrayList<String>();
+		ArrayList<String> testContinents = new ArrayList<String>();
+		ArrayList<String> testCountries = new ArrayList<String>();
 		map1.readMap();
-		ArrayList<Continent> a =map1.getContinentList();
-		for(Continent i: a) {
+		ArrayList<Continent> a = map1.getContinentList();
+		for (Continent i : a) {
 			testContinents.add(i.getContName());
-			for(Country x:i.getCountryList()) {
-				if(testCountries.contains(x.getCountryName())) {
-					//nada
-				}else {
+			for (Country x : i.getCountryList()) {
+				if (testCountries.contains(x.getCountryName())) {
+					// nada
+				} else {
 					testCountries.add(x.getCountryName());
 				}
 			}
 		}
 		Collections.sort(testContinents);
-		assertTrue(equalLists(testContinents,testMapContinents));
-		assertTrue(equalLists(testCountries,testMapCountries));
+		assertTrue(equalLists(testContinents, testMapContinents));
+		assertTrue(equalLists(testCountries, testMapCountries));
 	}
 }
