@@ -379,12 +379,22 @@ public class Game extends Observable {
 	/**
 	 * Method to get countries corresponding to players
 	 * 
-	 * @return ArrayList<Country> , returning arraylist of countries.
+	 * @return ArrayList<Country> , returning array list of countries.
 	 */
-	public ArrayList<Country> getPlayerCountries() {
+	public ArrayList<Country> getCurrentPlayerCountries() {
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return playerCountry.get(currentPlayer);
 	}
+	/**
+	 * This method returns the list of countries that the player has.
+	 * @param currentPlayer 
+	 * @return The countries which the player occupies
+	 */
+	public ArrayList<Country> getPlayersCountry(Player currentPlayer) {
+		return playerCountry.get(currentPlayer);
+	}
+	
+	
 
 	/**
 	 * Method to get neighboring countries of a given country
