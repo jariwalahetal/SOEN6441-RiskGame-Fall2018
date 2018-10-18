@@ -290,16 +290,8 @@ public class GameView implements Observer {
 				reinforcementsJlabel.getY() + 10 + reinforcementsJlabel.getHeight(), reinforcementsJlabel.getWidth(),
 				140);
 
-		ArrayList<String> conquerdCountries = new ArrayList<String>();
-
-		for (int i = 0; i < countryList.size(); i++) {
-			ViewCountries tempCountry = countryList.get(i);
-			if (activePlayerId == tempCountry.getPlayerID()) {
-				conquerdCountries.add(tempCountry.getCountryName());
-			}
-		}
-
-		sourceCountry = new JComboBox(conquerdCountries.toArray());
+//		sourceCountry = new JComboBox(conquerdCountries.toArray());
+		sourceCountry = new JComboBox();
 		sourceCountry.setBorder(new TitledBorder("Source Country"));
 		sourceCountry.setBounds(15, 25, 220, 50);
 
@@ -403,6 +395,7 @@ public class GameView implements Observer {
 				game.attackPhase();
 			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
 				gamePhaseNameJLabel.setText("Fortification");
+				setSourceCountryComboBox();
 			}
      }
 	}
@@ -447,20 +440,26 @@ public class GameView implements Observer {
 	 * addArmyToCountryJcomboBox) { GameView.addArmyToCountryJcomboBox =
 	 * addArmyToCountryJcomboBox; }
 	 */
+	
+	public void setSourceCountryComboBox()
+	{  sourceCountry.removeAllItems();
+		for (int i = 0; i < countryList.size(); i++) {
+			ViewCountries tempCountry = countryList.get(i);
+			if (activePlayerId == tempCountry.getPlayerID()) {
+				sourceCountry.addItem(tempCountry.getCountryName());
+			}
+		}
+		
+	}
+	
 	/**
 	 * Static method to populate all source countries
 	 * @return selectedCountry
 	 */
 	public static String getSourceCountry() {
-		Object selectedItem = sourceCountry.getSelectedItem();
-		if(selectedItem != null)
-		{
-			String selectedCountry = (String) selectedItem;
-			return selectedCountry;
-		}
-		else {
-			return "";
-		}
+		
+		return (String)sourceCountry.getSelectedItem();
+		
 	}
 	
 	/**
