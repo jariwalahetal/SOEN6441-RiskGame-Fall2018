@@ -47,9 +47,9 @@ public class Game extends Observable {
 	}
 
 	private void setNextPlayerTurn() {
-		if(getGamePhase() == PhaseEnum.Startup || getGamePhase() == PhaseEnum.Fortification)
+		if (getGamePhase() == PhaseEnum.Startup || getGamePhase() == PhaseEnum.Fortification)
 			currentPlayerId++;
-		
+
 		if (currentPlayerId == playerList.size())
 			currentPlayerId = 0;
 		System.out.println("current player ID:" + currentPlayerId);
@@ -62,8 +62,8 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * This function will randomly assign Countries to all players and assign one
-	 * army to each country for a player
+	 * This function will randomly assign Countries to all players and assign
+	 * one army to each country for a player
 	 * 
 	 */
 	public void startUpPhase() {
@@ -176,7 +176,7 @@ public class Game extends Observable {
 	private void updatePhase() {
 		// check if all player has unassigned armies as 0 then update phase
 		long pendingPlayersCount = playerList.stream().filter(p -> p.getNoOfUnassignedArmies() > 0).count();
-		
+
 		if (pendingPlayersCount == 0) {
 			// Check if in startup phase then update to reinforcement
 			if (this.getGamePhase() == gamePhase.Startup) {
@@ -186,9 +186,7 @@ public class Game extends Observable {
 			} else if (this.getGamePhase() == gamePhase.Reinforcement) {
 				// We don't need to implement attack for now
 				this.setGamePhase(gamePhase.Attack);
-			}
-			else if(this.getGamePhase() == gamePhase.Fortification)
-			{
+			} else if (this.getGamePhase() == gamePhase.Fortification) {
 				this.setGamePhase(gamePhase.Reinforcement);
 			}
 		}
@@ -246,17 +244,15 @@ public class Game extends Observable {
 
 	}
 
-	public void setNextPlayerReinforcement()
-	{
-		if(gamePhase != gamePhase.Fortification)
-		{
+	public void setNextPlayerReinforcement() {
+		if (gamePhase != gamePhase.Fortification) {
 			IOHelper.print("Cannot set next player in reinforcement");
 		}
 		setNextPlayerTurn();
 		updatePhase();
 		reinforcementPhaseSetup();
 	}
-	
+
 	/**
 	 * This function will add the player to the game(playerList)
 	 * 

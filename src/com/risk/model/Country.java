@@ -22,7 +22,7 @@ public class Country {
 	private ArrayList<String> neighboursString = new ArrayList<>();
 	private int noOfArmies;
 	private EnumColor countryColor;
-	
+
 	public EnumColor getCountryColor() {
 		return countryColor;
 	}
@@ -46,12 +46,12 @@ public class Country {
 		this.noOfArmies = noOfArmies;
 	}
 
-    public Country(int countryId, String countryName) {
+	public Country(int countryId, String countryName) {
 		this.countryId = countryId;
 		this.countryName = countryName;
 	}
 
-    /**
+	/**
 	 * Get country id
 	 * 
 	 * @return countryId int
@@ -63,7 +63,8 @@ public class Country {
 	/**
 	 * Sets country id
 	 * 
-	 * @param countryId int
+	 * @param countryId
+	 *            int
 	 */
 	public void setCountryId(int countryId) {
 		this.countryId = countryId;
@@ -81,7 +82,8 @@ public class Country {
 	/**
 	 * Sets country name
 	 * 
-	 * @param countryName string
+	 * @param countryName
+	 *            string
 	 */
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
@@ -98,12 +100,13 @@ public class Country {
 
 	/**
 	 * Sets continent id
+	 * 
 	 * @param contId
 	 */
 	public void setContId(int contId) {
 		this.contId = contId;
 	}
-	
+
 	/**
 	 * Gets player id
 	 * 
@@ -117,7 +120,8 @@ public class Country {
 	/**
 	 * Sets player id
 	 * 
-	 * @param playerId int
+	 * @param playerId
+	 *            int
 	 */
 	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
@@ -131,11 +135,12 @@ public class Country {
 	public int getxCoordiate() {
 		return xCoordiate;
 	}
-	
+
 	/**
 	 * Sets X-coordinate position
 	 * 
-	 * @param xCoordiate int
+	 * @param xCoordiate
+	 *            int
 	 */
 	public void setxCoordiate(int xCoordiate) {
 		this.xCoordiate = xCoordiate;
@@ -153,7 +158,8 @@ public class Country {
 	/**
 	 * Sets Y-coordinate position
 	 * 
-	 * @param yCoordiate int
+	 * @param yCoordiate
+	 *            int
 	 */
 	public void setyCoordiate(int yCoordiate) {
 		this.yCoordiate = yCoordiate;
@@ -168,16 +174,15 @@ public class Country {
 		return neighbours;
 	}
 
-	
-	public void addNeighbour(Country country)
-	{
+	public void addNeighbour(Country country) {
 		this.neighbours.add(country);
 	}
-	
+
 	/**
 	 * Sets neighbours country list
 	 * 
-	 * @param neighbours ArrayList<Country>
+	 * @param neighbours
+	 *            ArrayList<Country>
 	 */
 	public void setNeighbours(ArrayList<Country> neighbours) {
 		this.neighbours = neighbours;
@@ -186,7 +191,8 @@ public class Country {
 	/**
 	 * Adds name for neighbour string
 	 * 
-	 * @param newNeighbour String
+	 * @param newNeighbour
+	 *            String
 	 */
 	public void addNeighboursString(String newNeighbour) {
 		if (this.neighboursString.contains(newNeighbour)) {
@@ -204,53 +210,49 @@ public class Country {
 	public ArrayList<String> getNeighboursString() {
 		return neighboursString;
 	}
-	
+
 	/**
 	 * Gets army count for the country
 	 * 
 	 * @return noOfArmies int
 	 */
-	public int getnoOfArmies()
-	{
+	public int getnoOfArmies() {
 		return noOfArmies;
 	}
-	
+
 	/**
 	 * Increases the army count by one
 	 * 
 	 */
-	public void increaseArmyCount()
-	{
+	public void increaseArmyCount() {
 		noOfArmies++;
 	}
-	
+
 	/**
 	 * Increases the army count by given value
 	 * 
-	 * @param count int
+	 * @param count
+	 *            int
 	 */
-	public void increaseArmyCount(int count)
-	{
-		noOfArmies+=count;
+	public void increaseArmyCount(int count) {
+		noOfArmies += count;
 	}
-	
+
 	/**
 	 * Decreases the army count by one
 	 * 
 	 */
-	public void decreseArmyCount()
-	{
+	public void decreseArmyCount() {
 		noOfArmies--;
 	}
-	
 
 	/**
 	 * Decreases the army count by given value
 	 * 
-	 * @param count int
+	 * @param count
+	 *            int
 	 */
-	public void decreaseArmyCount(int count)
-	{
-		noOfArmies-=count;
+	public void decreaseArmyCount(int count) {
+		noOfArmies -= count;
 	}
 }

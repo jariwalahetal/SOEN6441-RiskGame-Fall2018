@@ -29,76 +29,87 @@ import com.risk.model.Country;
 import com.risk.model.Game;
 import com.risk.model.Map;
 
-
 /**
  * To hold the countries information for view
  * 
  * @author Binay
  *
  */
-class ViewCountries
-{   
+class ViewCountries {
 	private int countryId;
 	private String countryName;
 	private int xCoordinate;
-	private int yCoordinate; 
+	private int yCoordinate;
 	private int noOfArmies;
 	private EnumColor CountryColor;
 	private int playerID;
 	private ArrayList<String> neighboursString = new ArrayList<>();
-	
-	
+
 	public int getCountryId() {
 		return countryId;
 	}
+
 	public void setCountryId(int countryId) {
 		this.countryId = countryId;
 	}
+
 	public String getCountryName() {
 		return countryName;
 	}
+
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
 	}
+
 	public int getxCoordinate() {
 		return xCoordinate;
 	}
+
 	public void setxCoordinate(int xCoordinate) {
 		this.xCoordinate = xCoordinate;
 	}
+
 	public int getyCoordinate() {
 		return yCoordinate;
 	}
+
 	public void setyCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
+
 	public int getNoOfArmies() {
 		return noOfArmies;
 	}
+
 	public void setNoOfArmies(int noOfArmies) {
 		this.noOfArmies = noOfArmies;
 	}
+
 	public EnumColor getCountryColor() {
 		return CountryColor;
 	}
+
 	public void setCountryColor(EnumColor countryColor) {
 		CountryColor = countryColor;
 	}
+
 	public int getPlayerID() {
 		return playerID;
 	}
+
 	public void setPlayerID(int playerID) {
 		this.playerID = playerID;
-	}	
+	}
+
 	public ArrayList<String> getNeighboursString() {
 		return neighboursString;
 	}
+
 	public void setNeighboursString(ArrayList<String> neighboursString) {
 		this.neighboursString = neighboursString;
 	}
-	
-}
 
+}
 
 /**
  * Initiate the risk game view in java swings
@@ -106,24 +117,24 @@ class ViewCountries
  * @author sadgi
  *
  */
-public class GameView implements Observer{
+public class GameView implements Observer {
 	private static JFrame gameJframe = null;
 	private static JPanel gameActionJpanel;
-	
+
 	// Map Label
 	private static JLabel mapJlabel;
 	private static JScrollPane mapScrollPane = null;
-	private static HashMap<String,Component> mapLabels= new HashMap<>();
+	private static HashMap<String, Component> mapLabels = new HashMap<>();
 
-	//Phase label
+	// Phase label
 	private static JLabel gamePhaseJLabel;
 	private static JLabel gamePhaseNameJLabel;
-	
+
 	// Initialization Label
 	private static JLabel initializationJlabel;
-	private static JLabel playersTurnJlabel; 
-	private static JLabel armyLeftJlabel; 
-	
+	private static JLabel playersTurnJlabel;
+	private static JLabel armyLeftJlabel;
+
 	// Reinforcement Label
 	private static JLabel reinforcementsJlabel;
 	private static JLabel reinforcementplayersTurnJlabel;
@@ -136,42 +147,41 @@ public class GameView implements Observer{
 	private static JComboBox<String> destinationCountry;
 	private static JComboBox<String> noOfArmyToMoveJcomboBox;
 	private static JButton fortificationMoveButton = new JButton("Move Army");
-	
-	
-    String activePlayerName = null;
-    int activePlayerId;
-    EnumColor activePlayerColor = null;
-	String activePlayerUnassignedArmiesCount;   
-    String mapPath;
-    ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
-    PhaseEnum phase;
-        
-    public void gameInitializer() {
-		//gameActionJpanel = new JPanel(null);
+
+	String activePlayerName = null;
+	int activePlayerId;
+	EnumColor activePlayerColor = null;
+	String activePlayerUnassignedArmiesCount;
+	String mapPath;
+	ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
+	PhaseEnum phase;
+
+	public void gameInitializer() {
+		// gameActionJpanel = new JPanel(null);
 		loadGameActionView();
 		loadingInitializationLabel();
-	    loadingReinforcementLabel();
-        loadingFortificationLabel();
-        loadingPhaseLabel();
-		 
-		/*if(phase == PhaseEnum.Startup)
-		{ reinforcementsJlabel.setVisible(false);			
-  		  fortificationJlabel.setVisible(false);
-		}
-		else
-		{ reinforcementsJlabel.setVisible(true);			
-	      fortificationJlabel.setVisible(true);		
-		}*/		
-			 
+		loadingReinforcementLabel();
+		loadingFortificationLabel();
+		loadingPhaseLabel();
+
+		/*
+		 * if(phase == PhaseEnum.Startup) {
+		 * reinforcementsJlabel.setVisible(false);
+		 * fortificationJlabel.setVisible(false); } else {
+		 * reinforcementsJlabel.setVisible(true);
+		 * fortificationJlabel.setVisible(true); }
+		 */
+
 		gameJframe.setSize(1200, 700);
 		gameJframe.setVisible(true);
 		gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
 	public void loadGameActionView() {
 		gameJframe = new JFrame("Risk Game");
 		gameActionJpanel = new JPanel(null);
 		File imageFile = null;
-		
+
 		imageFile = new File(mapPath);
 		Image image;
 		ImageIcon icon = null;
@@ -179,11 +189,11 @@ public class GameView implements Observer{
 			image = ImageIO.read(imageFile);
 			icon = new ImageIcon(image);
 		} catch (IOException e) {
-		
+
 			e.printStackTrace();
 		}
-		
-       // ArrayList<Country> countryList = map.getCountryList();
+
+		// ArrayList<Country> countryList = map.getCountryList();
 		mapJlabel = new JLabel(icon);
 		for (int i = 0; i < countryList.size(); i++) {
 			ViewCountries tempCountry = countryList.get(i);
@@ -199,26 +209,26 @@ public class GameView implements Observer{
 			mapJlabel.add(newLabel);
 		}
 
-
 		mapScrollPane = new JScrollPane(mapJlabel);
 		mapScrollPane.setBounds(10, 10, 700, 650);
 		mapScrollPane.setBorder(new TitledBorder(""));
 		gameActionJpanel.add(mapScrollPane);
 
 		gameJframe.add(gameActionJpanel);
-	    
+
 	}
-	
+
 	public void loadingInitializationLabel() {
 		initializationJlabel = new JLabel();
-		
-		initializationJlabel.setBorder(BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
-				TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+
+		initializationJlabel.setBorder(
+				BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		initializationJlabel.setBounds(mapScrollPane.getX() + 700, mapScrollPane.getY(), 490, 100);
-		
+
 		// Recreate every components in Label
 		playersTurnJlabel = new JLabel(activePlayerName);
-		Font font = new Font("Courier", Font.BOLD,24);
+		Font font = new Font("Courier", Font.BOLD, 24);
 		playersTurnJlabel.setFont(font);
 		playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
 		playersTurnJlabel.setBorder(new TitledBorder("Active Player"));
@@ -252,12 +262,12 @@ public class GameView implements Observer{
 		reinforcementplayersTurnJlabel.setBounds(15, 25, 220, 50);
 
 		ArrayList<String> countryNameList = new ArrayList<String>();
-		
+
 		for (int i = 0; i < countryList.size(); i++) {
 			ViewCountries tempCountry = countryList.get(i);
-            if(activePlayerId == tempCountry.getPlayerID())
-             { countryNameList.add(tempCountry.getCountryName());
-             }
+			if (activePlayerId == tempCountry.getPlayerID()) {
+				countryNameList.add(tempCountry.getCountryName());
+			}
 		}
 
 		reinforcementUnassignedUnit = new JLabel(activePlayerUnassignedArmiesCount);
@@ -282,33 +292,30 @@ public class GameView implements Observer{
 				reinforcementsJlabel.getY() + 10 + reinforcementsJlabel.getHeight(), reinforcementsJlabel.getWidth(),
 				140);
 
-		
-        ArrayList<String> conquerdCountries = new ArrayList<String>();
-		
+		ArrayList<String> conquerdCountries = new ArrayList<String>();
+
 		for (int i = 0; i < countryList.size(); i++) {
 			ViewCountries tempCountry = countryList.get(i);
-            if(activePlayerId == tempCountry.getPlayerID())
-             { conquerdCountries.add(tempCountry.getCountryName());
-             }
+			if (activePlayerId == tempCountry.getPlayerID()) {
+				conquerdCountries.add(tempCountry.getCountryName());
+			}
 		}
-			
+
 		sourceCountry = new JComboBox(conquerdCountries.toArray());
 		sourceCountry.setBorder(new TitledBorder("Source Country"));
 		sourceCountry.setBounds(15, 25, 220, 50);
-		
-		String destinationCountries[] = {" "};
+
+		String destinationCountries[] = { " " };
 		destinationCountry = new JComboBox<>(destinationCountries);
 		destinationCountry.setBorder(new TitledBorder("Destination Country"));
 		destinationCountry.setBounds(sourceCountry.getX() + 20 + sourceCountry.getWidth() + 3, sourceCountry.getY(),
 				sourceCountry.getWidth(), sourceCountry.getHeight());
 
-		
-	    ArrayList<Integer> NoOfArmies = new ArrayList<Integer>();		
-		for (int i = 1 ; i <= Integer.parseInt(activePlayerUnassignedArmiesCount);i++) {
-				 NoOfArmies.add(i);
-	        }
-		
-		
+		ArrayList<Integer> NoOfArmies = new ArrayList<Integer>();
+		for (int i = 1; i <= Integer.parseInt(activePlayerUnassignedArmiesCount); i++) {
+			NoOfArmies.add(i);
+		}
+
 		noOfArmyToMoveJcomboBox = new JComboBox(NoOfArmies.toArray());
 
 		noOfArmyToMoveJcomboBox.setBounds(sourceCountry.getX(), sourceCountry.getHeight() + sourceCountry.getY() + 7,
@@ -327,137 +334,122 @@ public class GameView implements Observer{
 		gameActionJpanel.add(fortificationJlabel);
 	}
 
-	public void loadingPhaseLabel()
-	{
+	public void loadingPhaseLabel() {
 		gamePhaseJLabel = new JLabel();
 		gamePhaseJLabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		gamePhaseJLabel.setBounds(reinforcementsJlabel.getX(),
-				fortificationJlabel.getY() + 10 + fortificationJlabel.getHeight(), fortificationJlabel.getWidth(),
-				70);
-		
+				fortificationJlabel.getY() + 10 + fortificationJlabel.getHeight(), fortificationJlabel.getWidth(), 70);
+
 		gamePhaseNameJLabel = new JLabel("Initialization");
-		Font font = new Font("Courier", Font.BOLD,24);
+		Font font = new Font("Courier", Font.BOLD, 24);
 		gamePhaseNameJLabel.setFont(font);
 		gamePhaseNameJLabel.setBounds(15, 15, 220, 70);
-		
+
 		gamePhaseJLabel.add(gamePhaseNameJLabel);
-		
+
 		gameActionJpanel.add(gamePhaseJLabel);
 	}
-	
+
 	@Override
 	public void update(Observable obj, Object arg1) {
-		
-	 Game game = ((Game)obj);
-     Map map = game.getMap();
-     
-     phase = game.getGamePhase(); 
-     mapPath = map.getMapPath() + map.getMapName() + ".bmp";
-   
-     activePlayerName = game.getCurrentPlayer().getName();
-     activePlayerId = game.getCurrentPlayerId();
-     activePlayerColor = game.getCurrentPlayer().getColor();
-     activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());  
-     countryList.clear();
-     for(Country country: map.getCountryList())
-     {  ViewCountries viewCountry = new ViewCountries();
-        viewCountry.setCountryId(country.getCountryId());
-        viewCountry.setCountryColor(country.getCountryColor());
-        viewCountry.setCountryName(country.getCountryName());
-        viewCountry.setNoOfArmies(country.getnoOfArmies());
-        viewCountry.setxCoordinate(country.getxCoordiate());
-        viewCountry.setyCoordinate(country.getyCoordiate());
-        viewCountry.setNeighboursString(country.getNeighboursString());
-        viewCountry.setPlayerID(country.getPlayerId());
-        JLabel label = (JLabel) mapLabels.get(String.valueOf(country.getCountryId()));
-        if(label != null)
-        { label.setText(String.valueOf(viewCountry.getNoOfArmies()));
-        }
-        countryList.add(viewCountry);
-     }
-     if(playersTurnJlabel != null)
-     {
-		playersTurnJlabel.setText(activePlayerName);
-		playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
-		armyLeftJlabel.setText(activePlayerUnassignedArmiesCount);
-		
-		reinforcementplayersTurnJlabel.setText(activePlayerName);
-		reinforcementplayersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
-		reinforcementUnassignedUnit.setText(activePlayerUnassignedArmiesCount);
-		
-		if(game.getGamePhase() == PhaseEnum.Startup)
-		{
-			gamePhaseNameJLabel.setText("Initialization");
+
+		Game game = ((Game) obj);
+		Map map = game.getMap();
+
+		phase = game.getGamePhase();
+		mapPath = map.getMapPath() + map.getMapName() + ".bmp";
+
+		activePlayerName = game.getCurrentPlayer().getName();
+		activePlayerId = game.getCurrentPlayerId();
+		activePlayerColor = game.getCurrentPlayer().getColor();
+		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());
+		countryList.clear();
+		for (Country country : map.getCountryList()) {
+			ViewCountries viewCountry = new ViewCountries();
+			viewCountry.setCountryId(country.getCountryId());
+			viewCountry.setCountryColor(country.getCountryColor());
+			viewCountry.setCountryName(country.getCountryName());
+			viewCountry.setNoOfArmies(country.getnoOfArmies());
+			viewCountry.setxCoordinate(country.getxCoordiate());
+			viewCountry.setyCoordinate(country.getyCoordiate());
+			viewCountry.setNeighboursString(country.getNeighboursString());
+			viewCountry.setPlayerID(country.getPlayerId());
+			JLabel label = (JLabel) mapLabels.get(String.valueOf(country.getCountryId()));
+			if (label != null) {
+				label.setText(String.valueOf(viewCountry.getNoOfArmies()));
+			}
+			countryList.add(viewCountry);
 		}
-		else if(game.getGamePhase() == PhaseEnum.Reinforcement)
-		{
-			gamePhaseNameJLabel.setText("Reinforcement");
+		if (playersTurnJlabel != null) {
+			playersTurnJlabel.setText(activePlayerName);
+			playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
+			armyLeftJlabel.setText(activePlayerUnassignedArmiesCount);
+
+			reinforcementplayersTurnJlabel.setText(activePlayerName);
+			reinforcementplayersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
+			reinforcementUnassignedUnit.setText(activePlayerUnassignedArmiesCount);
+
+			if (game.getGamePhase() == PhaseEnum.Startup) {
+				gamePhaseNameJLabel.setText("Initialization");
+			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
+				gamePhaseNameJLabel.setText("Reinforcement");
+			} else if (game.getGamePhase() == PhaseEnum.Attack) {
+				gamePhaseNameJLabel.setText("Attack - not implemented");
+				game.attackPhase();
+			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
+				gamePhaseNameJLabel.setText("Fortification");
+			}
 		}
-		else if(game.getGamePhase() == PhaseEnum.Attack)
-		{
-			gamePhaseNameJLabel.setText("Attack - not implemented");
-			game.attackPhase();
+
+		/*
+		 * if (phase == PhaseEnum.Startup) {} else if (phase ==
+		 * PhaseEnum.Reinforcement) {} else if (phase ==
+		 * PhaseEnum.Reinforcement) {}
+		 */
+
+		if (gameJframe != null) { // addArmyToCountryJcomboBox.removeAll();
+			// gameJframe.setVisible(false);
+			// gameInitializer();
 		}
-		else if(game.getGamePhase() == PhaseEnum.Fortification)
-		{
-			gamePhaseNameJLabel.setText("Fortification");
-		}
-     }
-     
-/*     if (phase == PhaseEnum.Startup)
-     {}
-     else if (phase == PhaseEnum.Reinforcement)
-     {}
-     else if (phase == PhaseEnum.Reinforcement)
-     {}*/
-     
-     if (gameJframe !=null)
-       { //addArmyToCountryJcomboBox.removeAll();
- //   	 gameJframe.setVisible(false);       
-  //       gameInitializer(); 
-       }
 	}
-	
+
 	public void addActionListenToMapLabels(MouseListener listener) {
 		int n = mapJlabel.getComponentCount();
 		for (int i = 0; i < n; i++) {
 			JLabel jLabel = (JLabel) mapJlabel.getComponent(i);
 			jLabel.addMouseListener(listener);
-		}		
+		}
 	}
-	
-		
+
 	public void addActionListenToSourceCountryList(ActionListener listener) {
-		sourceCountry.addActionListener (listener);
+		sourceCountry.addActionListener(listener);
 	}
 
 	public void addActionListenToMoveArmyButton(ActionListener listener) {
 		fortificationMoveButton.addActionListener(listener);
 	}
 
-/*
-	public static void setAddArmyToCountryJcomboBox(JComboBox<String> addArmyToCountryJcomboBox) {
-		GameView.addArmyToCountryJcomboBox = addArmyToCountryJcomboBox;
-	}
-*/
-    
+	/*
+	 * public static void setAddArmyToCountryJcomboBox(JComboBox<String>
+	 * addArmyToCountryJcomboBox) { GameView.addArmyToCountryJcomboBox =
+	 * addArmyToCountryJcomboBox; }
+	 */
+
 	public static String getSourceCountry() {
-	    String selectedCountry = (String) sourceCountry.getSelectedItem();
-		return selectedCountry;		
+		String selectedCountry = (String) sourceCountry.getSelectedItem();
+		return selectedCountry;
 	}
 
 	public static String getDestinationCountry() {
-	    String selectedCountry = (String) destinationCountry.getSelectedItem();
-		return selectedCountry;		
+		String selectedCountry = (String) destinationCountry.getSelectedItem();
+		return selectedCountry;
 	}
 
 	public static Integer getNoOfArmyToMoveJcomboBox() {
 		Integer NoOfArmies = (Integer) noOfArmyToMoveJcomboBox.getSelectedItem();
-		return NoOfArmies;		
+		return NoOfArmies;
 	}
-   
-	
-	
+
 }
