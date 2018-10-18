@@ -379,11 +379,10 @@ public class Game extends Observable {
 	 */
 	public ArrayList<String> getNeighbouringCountries(String sourceCountryName) {
 	
-	   Player currentPlayer = playerList.get(currentPlayerId);
+	   Player currentPlayer = this.getCurrentPlayer();
        ArrayList<String> neighborCountriesName = null;
        ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>() ; 
-      
-    		   
+      	   
       for(Country country: playerCountry.get(currentPlayer))
        {  String countryName = country.getCountryName();
     	  countriesAssignedToPlayer.add(countryName);
@@ -396,36 +395,30 @@ public class Game extends Observable {
       while(it.hasNext()) {  
     	  String country = it.next();
     	    if(!countriesAssignedToPlayer.contains(country))
-    	    {
-    	        it.remove();
+    	    {    it.remove();
     	    }
     	}
 
       return neighborCountriesName;
-    	   
-/*
-		Player currentPlayer = playerList.get(currentPlayerId);
-
-		Country country = map.getCountryList().stream().filter(c -> c.getCountryId() == countryId).findAny()
-				.orElse(null);
+  	}
 	
-		if (country == null || currentPlayer == null) {
-			IOHelper.print("Country id or player id is not valid");
-			return null;
-		}
-
-		ArrayList<String> neighbhbouringCountries = new ArrayList<>();
-
-		for (Country pCounty : playerCountry.get(currentPlayer)) {
-			Country matchedCountry = country.getNeighbours().stream().filter(c -> c.equals(pCounty)).findAny()
-					.orElse(null);
-			if (matchedCountry != null) {
-				neighbhbouringCountries.add(matchedCountry.toString());
-			}
-		}
-		return neighbhbouringCountries;
-		*/
+	
+	public int getArmiesAssignedToCountry(String sourceCountryName)
+	{
+		 Player currentPlayer = this.getCurrentPlayer();
+	     int noOfArmies = 0;
+	     
+	      for(Country country: playerCountry.get(currentPlayer))
+	       {  if(country.getCountryName().equals(sourceCountryName))
+	    	     { noOfArmies = country.getnoOfArmies();
+	    	     }            
+	       }
+	        
+		return noOfArmies;
+		
 	}
+	
+	
 	/**
 	 * Method to find out that countries belong to a player or not
 	 * 

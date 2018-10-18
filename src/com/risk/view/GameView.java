@@ -459,8 +459,14 @@ public class GameView implements Observer {
 	}
 
 	public static Integer getNoOfArmyToMoveJcomboBox() {
-		Integer NoOfArmies = (Integer) noOfArmyToMoveJcomboBox.getSelectedItem();
+		Integer NoOfArmies = (Integer.parseInt((String) noOfArmyToMoveJcomboBox.getSelectedItem()));
 		return NoOfArmies;
 	}
 
+	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies)
+	{   noOfArmyToMoveJcomboBox.removeAllItems();
+		for(Integer i=1;i<=NoOfArmies;i++)
+			noOfArmyToMoveJcomboBox.addItem(i.toString());		
+	}
+	
 }

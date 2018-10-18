@@ -257,7 +257,9 @@ public class GameController {
         public void actionPerformed(ActionEvent  e) {
         	String countryName = gameView.getSourceCountry();
         	ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
+        	int armyCount = game.getArmiesAssignedToCountry(countryName);
         	gameView.populateDestinationCountryComboBox(neighborCountries);
+        	gameView.populateNoOfArmyToMoveJcomboBox(armyCount);
         }
         });
 	}
