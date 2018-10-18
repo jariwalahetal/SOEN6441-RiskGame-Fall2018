@@ -109,7 +109,6 @@ public class Map {
                 }
             }
             bufferedReader.close();
-            setNeighbouringCountry();
         } catch (Exception e) {
             IOHelper.printException(e);
         }
@@ -479,24 +478,6 @@ public class Map {
 
     public void setMapPath(String mapPath) {
         this.mapPath = mapPath;
-    }
-
-    private void setNeighbouringCountry() {
-        IOHelper.print("Adding neighbour class for all countries");
-        for (int i = 0; i < getCountryList().size(); i++) {
-            Country tempCountry = getCountryList().get(i);
-            tempCountry.setNeighbours(new ArrayList<>());
-            for (String name : tempCountry.getNeighboursString()) {
-                Country matchedCountry = getCountryList().stream()
-                        .filter(x-> x.getCountryName().equalsIgnoreCase(name))
-                        .findAny()
-                        .orElse(null);
-                if(matchedCountry != null)
-                {
-                    tempCountry.addNeighbour(matchedCountry);
-                }
-            }
-        }
     }
 
 }

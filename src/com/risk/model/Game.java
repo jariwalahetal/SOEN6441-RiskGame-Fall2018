@@ -161,10 +161,10 @@ public class Game extends Observable {
 		country.decreseArmyCount();
 	}
 
-	public void addArmyToCountryForStartup(int countryId) {
+	public boolean addArmyToCountryForStartup(int countryId) {
 		if (this.gamePhase != PhaseEnum.Startup) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
-			return;
+			return false;
 		}
 
 		// Player player = playerList.stream().filter(p -> currentPlayerId ==
@@ -173,52 +173,52 @@ public class Game extends Observable {
 
 		if (player == null) {
 			IOHelper.print("Player id " + currentPlayerId + " does not exist");
-			return;
+			return false;
 		}
 
 		if (player.getNoOfUnassignedArmies() == 0) {
 			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies");
-			return;
+			return true;
 		}
 
 		Country country = playerCountry.get(player).stream().filter(c -> c.getCountryId() == countryId).findAny()
 				.orElse(null);
 		if (country == null) {
 			IOHelper.print("Country id " + countryId + " does not exist");
-			return;
+			return false;
 		}
 
 		assignFromUnassigned(player, country);
+		return true;
 	}
 	
-	public void addArmyToCountryForReinforcement(int countryId) {
+	public boolean addArmyToCountryForReinforcement(int countryId) {
 		if (this.gamePhase != PhaseEnum.Reinforcement) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
-			return;
+			return false;
 		}
 
-		// Player player = playerList.stream().filter(p -> currentPlayerId ==
-		// p.getPlayerId()).findAny().orElse(null);
 		Player player = this.getCurrentPlayer();
 
 		if (player == null) {
 			IOHelper.print("Player id " + currentPlayerId + " does not exist");
-			return;
+			return false;
 		}
 
 		if (player.getNoOfReinforcedArmies() == 0) {
 			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies");
-			return;
+			return false;
 		}
 
 		Country country = playerCountry.get(player).stream().filter(c -> c.getCountryId() == countryId).findAny()
 				.orElse(null);
 		if (country == null) {
 			IOHelper.print("Country id " + countryId + " does not exist");
-			return;
+			return false;
 		}
 
 		assignFromReinforcement(player, country);
+		return true;
 	}
 	
 	public void addArmyToCountry(int countryId)
@@ -230,8 +230,12 @@ public class Game extends Observable {
 		}
 		if(gamePhase == PhaseEnum.Startup) 
 		{
-			addArmyToCountryForStartup(countryId);
-			setNextPlayerTurn();
+			boolean isProcessed = addArmyToCountryForStartup(countryId);
+			
+			if(isProcessed)
+			{
+				setNextPlayerTurn();
+			}
 		}
 		else if(gamePhase == PhaseEnum.Reinforcement)
 		{
@@ -328,9 +332,9 @@ public class Game extends Observable {
 
 		Player player = getCurrentPlayer();
 		Country sourceCountry = playerCountry.get(player).stream()
-				.filter(c -> c.getCountryName().equals(sourceCountryName)).findAny().orElse(null);
+				.filter(c -> c.getCountryName().equalsIgnoreCase(sourceCountryName)).findAny().orElse(null);
 		Country destinationCountry = playerCountry.get(player).stream()
-				.filter(c -> c.getCountryName().equals(destinationCountryName)).findAny().orElse(null);
+				.filter(c -> c.getCountryName().equalsIgnoreCase(destinationCountryName)).findAny().orElse(null);
 
 		sourceCountry.decreaseArmyCount(noOfArmies);
 		destinationCountry.increaseArmyCount(noOfArmies);
@@ -418,41 +422,6 @@ public class Game extends Observable {
 		
 	}
 	
-	
-	/**
-	 * Method to find out that countries belong to a player or not
-	 * 
-	 * @param fromCountryId
-	 * @param toCountryId
-	 * @param fortifyArmiesCount
-	 * @return true if country belongs to player
-	 */
-	public boolean fortifyCountry(int fromCountryId, int toCountryId, int fortifyArmiesCount) {
-		Player currentPlayer = playerList.get(currentPlayerId);
-
-		Country fromCountry = playerCountry.get(currentPlayer).stream().filter(c -> c.getCountryId() == fromCountryId)
-				.findAny().orElse(null);
-		if (fromCountry == null) {
-			IOHelper.print("From country doesn't belong to current player");
-			return false;
-		}
-
-		Country toCountry = playerCountry.get(currentPlayer).stream().filter(c -> c.getCountryId() == toCountryId)
-				.findAny().orElse(null);
-		if (toCountry == null) {
-			IOHelper.print("From country doesn't belong to current player");
-			return false;
-		}
-
-		System.out.println(
-				"Fortify country " + toCountry.getCountryName() + " from country " + fromCountry.getCountryName()
-						+ " with " + fortifyArmiesCount + " armies for player " + getCurrentPlayer().getName());
-		fromCountry.decreaseArmyCount(fortifyArmiesCount);
-		toCountry.increaseArmyCount(fortifyArmiesCount);
-
-		return true;
-	}
-
 	/**
 	 * Method used to get map
 	 * 

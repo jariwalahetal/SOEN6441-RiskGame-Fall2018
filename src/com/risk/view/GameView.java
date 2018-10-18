@@ -205,7 +205,7 @@ public class GameView implements Observer {
 			newLabel.setFont(new Font("Courier", Font.BOLD, 20));
 			newLabel.setForeground(Common.getColor(tempCountry.getCountryColor()));
 			newLabel.setBounds(xCoordinate, yCoordinate, 25, 25);
-			newLabel.setToolTipText(tempCountry.getCountryId() + "--" + tempCountry.getCountryName());
+			newLabel.setToolTipText(tempCountry.getCountryName());
 			mapLabels.put(String.valueOf(tempCountry.getCountryId()), newLabel);
 			mapJlabel.add(newLabel);
 		}
@@ -385,20 +385,7 @@ public class GameView implements Observer {
 		reinforcementplayersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
 		reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
 		
-		if(game.getGamePhase() == PhaseEnum.Startup)
-		{
-			gamePhaseNameJLabel.setText("Initialization");
-		}
-		if (playersTurnJlabel != null) {
-			playersTurnJlabel.setText(activePlayerName);
-			playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
-			armyLeftJlabel.setText(activePlayerUnassignedArmiesCount);
-
-			reinforcementplayersTurnJlabel.setText(activePlayerName);
-			reinforcementplayersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
-			reinforcementUnassignedUnit.setText(activePlayerUnassignedArmiesCount);
-
-			if (game.getGamePhase() == PhaseEnum.Startup) {
+		if (game.getGamePhase() == PhaseEnum.Startup) {
 				gamePhaseNameJLabel.setText("Initialization");
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
 				gamePhaseNameJLabel.setText("Reinforcement");
@@ -408,13 +395,6 @@ public class GameView implements Observer {
 			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
 				gamePhaseNameJLabel.setText("Fortification");
 			}
-		}
-
-		/*
-		 * if (phase == PhaseEnum.Startup) {} else if (phase ==
-		 * PhaseEnum.Reinforcement) {} else if (phase ==
-		 * PhaseEnum.Reinforcement) {}
-		 */
      }
 	}
 
@@ -465,7 +445,7 @@ public class GameView implements Observer {
 
 	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies)
 	{   noOfArmyToMoveJcomboBox.removeAllItems();
-		for(Integer i=1;i<=NoOfArmies;i++)
+		for(Integer i=1;i<NoOfArmies;i++)
 			noOfArmyToMoveJcomboBox.addItem(i.toString());		
 	}
 	

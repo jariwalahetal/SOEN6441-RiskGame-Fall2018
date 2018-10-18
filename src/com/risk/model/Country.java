@@ -18,7 +18,6 @@ public class Country {
 	private int playerId;
 	private int xCoordiate;
 	private int yCoordiate;
-	private ArrayList<Country> neighbours = new ArrayList<>();
 	private ArrayList<String> neighboursString = new ArrayList<>();
 	private int noOfArmies;
 	private EnumColor countryColor;
@@ -163,29 +162,6 @@ public class Country {
 	 */
 	public void setyCoordiate(int yCoordiate) {
 		this.yCoordiate = yCoordiate;
-	}
-
-	/**
-	 * Get neighbours country list
-	 * 
-	 * @return neighbours ArrayList<Country>
-	 */
-	public ArrayList<Country> getNeighbours() {
-		return neighbours;
-	}
-
-	public void addNeighbour(Country country) {
-		this.neighbours.add(country);
-	}
-
-	/**
-	 * Sets neighbours country list
-	 * 
-	 * @param neighbours
-	 *            ArrayList<Country>
-	 */
-	public void setNeighbours(ArrayList<Country> neighbours) {
-		this.neighbours = neighbours;
 	}
 
 	/**
