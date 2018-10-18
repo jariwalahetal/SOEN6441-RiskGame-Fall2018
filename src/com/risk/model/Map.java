@@ -332,11 +332,11 @@ public class Map {
         return true;
     }
     /**
-     * This function checks if the map is connected or not ; it is a recursive funciton.     *
+     * This function checks if the map is connected or not ; it is a recursive function.     *
      * @param sourceCountry
      */
     public void DfsRecursive(Country sourceCountry) {
-        visitedList.add(sourceCountry.getCountryName());
+    	visitedList.add(sourceCountry.getCountryName());
         for (String neighbourCountry : sourceCountry.getNeighboursString()) {
             if (visitedList.contains(neighbourCountry)) {
             } else {
