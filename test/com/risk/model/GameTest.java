@@ -14,6 +14,11 @@ import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.helper.PhaseEnum;
 
+/**
+ * Test class for testing game functionality
+ * @author sadgi
+ *
+ */
 public class GameTest {
 
 	Map map;
@@ -22,6 +27,9 @@ public class GameTest {
 	String mapToTest = "Africa.map";
 	Integer playerCount = 5;
 
+	/**
+	 * Test Method for assign countries to player after reading the map
+	 */
 	@Before
 	public void readMapAndAssignCountries() {
 		IOHelper.print("Test: creating maps and generating player randomly");
@@ -48,12 +56,18 @@ public class GameTest {
 		}
 	}
 
+	/**
+	 * Test method for checking current reinforcement phase
+	 */
 	@Test
 	public void testCurrentPhaseIsReinforcement() {
 		// Phase should be updated directly by model
 		assertEquals(PhaseEnum.Reinforcement, game.getGamePhase());
 	}
 
+	/**
+	 * Test Method for game play functionality
+	 */
 	@Test
 	public void testGamePlayRandomTimes() {
 		int iterationCount = Common.getRandomNumberInRange(10, 25);
