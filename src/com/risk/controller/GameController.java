@@ -73,8 +73,6 @@ public class GameController {
 	        	 else 
 	        	 {
 	        		 IOHelper.print("Map is not valid.Please try again");
-
-	        		 
 	        	 }
 	         }
 	     });
@@ -118,11 +116,10 @@ public class GameController {
                     }
                     String continentToDelete = IOHelper.getNextString();
                     map.deleteContinent(continentToDelete);
-                    IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
                     try{
                         if (map.isMapValid()){
                             map.saveMap();
-                            IOHelper.print("Valid Map!");
+                            IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
                         }
                         else{
                             IOHelper.print("Map is not valid!");
@@ -140,21 +137,20 @@ public class GameController {
                     }
                     String countryToDelete = IOHelper.getNextString();
                     map.deleteCountry(countryToDelete);
-                    IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
                     map.saveMap();
                     if (map.isMapValid()){
                         map.saveMap();
-                        IOHelper.print("valid");
+                        IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
                     }else {
                         IOHelper.print("Not valid");
                     }
                     break;
                 case 3: //Add Continent
                     map.addContinentToMap();
-                    IOHelper.print("Continent added successfully!");
+                    map.saveMap(); // to check continent is added or not
                     if(map.isMapValid()){
                         map.saveMap();
-                        IOHelper.print("valid");
+                        IOHelper.print("Continent added successfully!");
                     }else{
                         IOHelper.print("Not valid");
                     }
@@ -171,10 +167,10 @@ public class GameController {
                     String continentName = IOHelper.getNextString();
 
                     map.addCountryToContinent(continentName,continentID);
-                    IOHelper.print("Country added successfuly!");
+                    map.saveMap();
                     if(map.isMapValid()){
                         map.saveMap();
-                        IOHelper.print("valid");
+                        IOHelper.print("Country added successfuly!");
                     }else {
                         IOHelper.print("Not valid");
                     }

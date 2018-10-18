@@ -1,13 +1,11 @@
-[Map]
-
 [Continents]
 Asia=3
 Europe=6
 
 [Territories]
-ind,1,1,Asia,pak,chn
-pak,1,4,Asia,ind,bhu
+ind,1,1,Asia,chn
 chn,2,2,Asia,ind
-bhu,2,2,Asia,pak
+bhu,2,2,Asia
+Pak,1,3,Asia,bhu,ind
 test,5,5,Europe,ind,test2
-test2,5,5,Europe,test,pak
+test2,5,5,Europe,test

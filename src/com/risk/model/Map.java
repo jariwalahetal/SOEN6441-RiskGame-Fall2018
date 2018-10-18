@@ -340,8 +340,7 @@ public class Map {
         return true;
     }
     /**
-     * This function checks if the map is connected or not ; it is a recursive funciton.
-     *
+     * This function checks if the map is connected or not ; it is a recursive funciton.     *
      * @param sourceCountry
      */
     public void DfsRecursive(Country sourceCountry) {
@@ -365,8 +364,7 @@ public class Map {
         }
     }
     /**
-     * This function saves the map into the disk.
-     *
+     * This method saves the map into the disk.     *
      */
     public void saveMap() {
         StringBuffer content = new StringBuffer();
@@ -386,8 +384,20 @@ public class Map {
                 content.append("\r\n");
             }
         }
-        //writeMapToDisk(content, this.mapName);
+        Path path = Paths.get(this.mapPath + this.mapName );
+        BufferedWriter writer = null;
+        try {
+            //Delete temporary file
+            Path tempFilePath = Paths.get(this.mapPath + "temp" + ".map");
+            Files.deleteIfExists(tempFilePath);
 
+            writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8);
+            writer.write(new String(content));
+            writer.close();
+        } catch (Exception e) {
+            IOHelper.printException(e);
+        }
+        System.out.println(content);
     }
 
     public boolean validateAndCreateMap(StringBuffer content, String nameOfTheMap) {
