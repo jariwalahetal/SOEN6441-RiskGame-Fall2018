@@ -1,0 +1,10 @@
+[Continents]
+Asia=3
+Europe=6
+
+[Territories]
+pak,1,4,Asia,bhu
+chn,2,2,Asia
+bhu,2,2,Asia,pak
+test,5,5,Europe,test2
+test2,5,5,Europe,test,pak

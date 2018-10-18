@@ -13,6 +13,7 @@ import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 /**
  * @author Binay Kumar
@@ -78,12 +79,7 @@ public class GameController {
 	        	 }
 	         }
 	     });
-
-		/*if (map.isMapValid())
-			map.saveMap();
-		else
-			IOHelper.print("Map is not valid");
-*/	}
+	}
 
 	/**@author Mandeep Kaur
 	 * This method lets the user to edit the Map.
@@ -104,7 +100,6 @@ public class GameController {
 		IOHelper.print("'"+selectedMapName+"'");
         newMap.readMap();
 
-
         while (true){
             IOHelper.print("\nEdit Map Menu: ");
             IOHelper.print("1. Delete Continent");
@@ -124,14 +119,18 @@ public class GameController {
                     }
                     String continentToDelete = IOHelper.getNextString();
                     map.deleteContinent(continentToDelete);
-                    if (newMap.isMapValid()){
-                        map.saveMap();
-                        IOHelper.print("Valid Map!");
-                    }
-                    else{
-                        IOHelper.print("Map is not valid!");
-                    }
                     IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
+                    try{
+                        if (newMap.isMapValid()){
+                            map.saveMap();
+                            IOHelper.print("Valid Map!");
+                        }
+                        else{
+                            IOHelper.print("Map is not valid!");
+                        }
+                    }catch (  Exception e){
+                        IOHelper.print(" Empty Map !");
+                    }
                     break;
                 case 2: //Delete Country
                     IOHelper.print("Enter name of the Country you wish to delete from the list given below:");
@@ -142,23 +141,24 @@ public class GameController {
                     }
                     String countryToDelete = IOHelper.getNextString();
                     map.deleteCountry(countryToDelete);
+                    IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
+                    map.saveMap();
                     if (newMap.isMapValid()){
                         map.saveMap();
+                        IOHelper.print("valid");
                     }else {
                         IOHelper.print("Not valid");
                     }
-
-                    IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
                     break;
                 case 3: //Add Continent
                     map.addContinentToMap();
+                    IOHelper.print("Continent added successfully!");
                     if(newMap.isMapValid()){
                         map.saveMap();
+                        IOHelper.print("valid");
                     }else{
                         IOHelper.print("Not valid");
                     }
-
-                    IOHelper.print("Continent added successfully!");
                     break;
                 case 4: //Add Country
                     IOHelper.print("Enter name of the continent where you want to add the country from the list given below: ");
@@ -172,14 +172,13 @@ public class GameController {
                     String continentName = IOHelper.getNextString();
 
                     map.addCountryToContinent(continentName,continentID);
+                    IOHelper.print("Country added successfuly!");
                     if(newMap.isMapValid()){
                         map.saveMap();
+                        IOHelper.print("valid");
                     }else {
                         IOHelper.print("Not valid");
                     }
-
-
-                    IOHelper.print("Country added successfuly!");
                     break;
                 case 5: // Exit from EditMap
                     startGame();
@@ -189,15 +188,6 @@ public class GameController {
                     break;
             }
         }
-        /*
-        * if (newMap.isMapValid()){
-                        map.saveMap();
-                        IOHelper.print("Valid Map!");
-                    }
-                    else{
-                        IOHelper.print("Map is not valid!");
-                    }*/
-
 	}
 
     /**
