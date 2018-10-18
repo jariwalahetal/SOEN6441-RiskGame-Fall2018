@@ -78,6 +78,8 @@ public class GameController {
 	        	 else 
 	        	 {
 	        		 IOHelper.print("Map is not valid.Please try again");
+
+	        		 
 	        	 }
 	         }
 	     });
@@ -195,6 +197,10 @@ public class GameController {
 		map.setMapName(selectedMapName);
 		map.readMap();
 		System.out.print("is map valid:" + map.isMapValid());
+		if(!map.isMapValid()){
+			GameController map=new GameController();
+			map.startGame();
+		}
 	}
 	/**
 	 * This function creates the player objects
