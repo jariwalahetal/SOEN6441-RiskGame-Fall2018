@@ -42,7 +42,7 @@ public class Common {
 	 * @param min
 	 *            integer
 	 * @param max
-	 *            integr
+	 *            integer
 	 * @return random integer
 	 */
 	public static int getRandomNumberInRange(int min, int max) {

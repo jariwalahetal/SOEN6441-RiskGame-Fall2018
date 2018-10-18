@@ -50,7 +50,7 @@ public class Country {
 		this.countryId = countryId;
 		this.countryName = countryName;
 	}
-
+	
 	/**
 	 * Get country id
 	 * 
@@ -211,6 +211,7 @@ public class Country {
 		return neighboursString;
 	}
 
+	
 	/**
 	 * Gets army count for the country
 	 * 
