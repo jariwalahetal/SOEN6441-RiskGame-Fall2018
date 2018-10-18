@@ -62,8 +62,8 @@ public class Country {
 	/**
 	 * Sets country id
 	 * 
-	 * @param countryId
-	 *            int
+	 * @param countryId int
+	 *            
 	 */
 	public void setCountryId(int countryId) {
 		this.countryId = countryId;
@@ -119,8 +119,8 @@ public class Country {
 	/**
 	 * Sets player id
 	 * 
-	 * @param playerId
-	 *            int
+	 * @param playerId int
+	 *            
 	 */
 	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
@@ -138,8 +138,8 @@ public class Country {
 	/**
 	 * Sets X-coordinate position
 	 * 
-	 * @param xCoordiate
-	 *            int
+	 * @param xCoordiate int
+	 *            
 	 */
 	public void setxCoordiate(int xCoordiate) {
 		this.xCoordiate = xCoordiate;
@@ -157,8 +157,8 @@ public class Country {
 	/**
 	 * Sets Y-coordinate position
 	 * 
-	 * @param yCoordiate
-	 *            int
+	 * @param yCoordiate int
+	 *            
 	 */
 	public void setyCoordiate(int yCoordiate) {
 		this.yCoordiate = yCoordiate;
@@ -208,8 +208,8 @@ public class Country {
 	/**
 	 * Increases the army count by given value
 	 * 
-	 * @param count
-	 *            int
+	 * @param count int
+	 *            
 	 */
 	public void increaseArmyCount(int count) {
 		noOfArmies += count;
@@ -226,8 +226,8 @@ public class Country {
 	/**
 	 * Decreases the army count by given value
 	 * 
-	 * @param count
-	 *            int
+	 * @param count int
+	 *            
 	 */
 	public void decreaseArmyCount(int count) {
 		noOfArmies -= count;

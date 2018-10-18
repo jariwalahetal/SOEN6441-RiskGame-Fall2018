@@ -161,14 +161,17 @@ public class Game extends Observable {
 		country.decreseArmyCount();
 	}
 
+	/**
+	 * Add army to the country for startup phase
+	 * 
+	 * @param countryName
+	 */
 	public boolean addArmyToCountryForStartup(String countryName) {
 		if (this.gamePhase != PhaseEnum.Startup) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
 			return false;
 		}
 
-		// Player player = playerList.stream().filter(p -> currentPlayerId ==
-		// p.getPlayerId()).findAny().orElse(null);
 		Player player = this.getCurrentPlayer();
 
 		if (player == null) {
@@ -192,6 +195,11 @@ public class Game extends Observable {
 		return true;
 	}
 	
+	/**
+	 * Add army to the country for reinforcement phase
+	 * 
+	 * @param countryName
+	 */
 	public boolean addArmyToCountryForReinforcement(String countryName) {
 		if (this.gamePhase != PhaseEnum.Reinforcement) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
@@ -221,6 +229,11 @@ public class Game extends Observable {
 		return true;
 	}
 	
+	/**
+	 * Add army to the country for fortification phase
+	 * 
+	 * @param countryName
+	 */
 	public void addArmyToCountry(String countryName)
 	{
 		if(gamePhase == PhaseEnum.Attack || gamePhase == PhaseEnum.Fortification)
@@ -417,7 +430,12 @@ public class Game extends Observable {
       return neighborCountriesName;
   	}
 	
-	
+	/**
+	 * Method to get armies assigned to the country
+	 * 
+	 * @param sourceCountryName int
+	 * @return noOfArmies
+	 */
 	public int getArmiesAssignedToCountry(String sourceCountryName)
 	{
 		 Player currentPlayer = this.getCurrentPlayer();
