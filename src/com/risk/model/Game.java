@@ -42,11 +42,17 @@ public class Game extends Observable {
 		this.map = map;
 		this.setGamePhase(gamePhase.Startup);
 	}
-
+	/**
+	 * This function returns the current player id.
+	 * 
+	 * @return currentPlayerId The current player Id.
+	 */
 	public int getCurrentPlayerId() {
 		return currentPlayerId;
 	}
-
+	/**
+	 * This function switches turn to the next player
+	 */
 	private void setNextPlayerTurn() {
 			currentPlayerId++;
 
@@ -54,7 +60,12 @@ public class Game extends Observable {
 			currentPlayerId = 0;
 		System.out.println("current player ID:" + currentPlayerId);
 	}
-
+	/**
+	 * This function returns the current player object
+	 * 
+	 * @return currentPlayer The current player object
+	 */
+			
 	public Player getCurrentPlayer() {
 
 		Player currentPlayer = playerList.get(currentPlayerId);
