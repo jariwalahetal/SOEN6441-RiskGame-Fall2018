@@ -114,6 +114,9 @@ public class Map {
 		} catch (Exception e) {
 			IOHelper.printException(e);
 		}
+		/*if(!map.isMapValid()){
+		 throw new Exception("map is not valid");
+        }*/
 
 	}
 	/**
@@ -399,8 +402,12 @@ public class Map {
 		if(this.writeMapToDisk(content, "temp"))
 		{
 			this.mapName = "temp.map";
-			this.readMap();
-			if(this.isMapValid())
+            try {
+                this.readMap();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if(this.isMapValid())
 			{
 				this.mapName = nameOfTheMap;
 				this.writeMapToDisk(content, nameOfTheMap);

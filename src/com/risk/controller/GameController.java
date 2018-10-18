@@ -4,14 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.ArrayList;
-
 import javax.swing.JLabel;
-
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.helper.PhaseEnum;
@@ -95,7 +90,6 @@ public class GameController {
 	 * This method lets the user to edit the Map.
 	 */
 	private void editMap() {
-		//System.out.println("Edit Map in MapController called");
 		IOHelper.print("\nEnter Map_Number of the Map you want to edit from the list given below:");
 		ArrayList<String> mapList = getListOfMaps();
 		int i = 1;
@@ -109,7 +103,8 @@ public class GameController {
 		map.setMapName(selectedMapName);
 		Map newMap = map;
 		IOHelper.print("'"+selectedMapName+"'");
-		newMap.readMap();
+        newMap.readMap();
+
 
         while (true){
             IOHelper.print("\nEdit Map Menu: ");
@@ -130,7 +125,13 @@ public class GameController {
                     }
                     String continentToDelete = IOHelper.getNextString();
                     map.deleteContinent(continentToDelete);
-                    map.saveMap();
+                    if (newMap.isMapValid()){
+                        map.saveMap();
+                        IOHelper.print("Valid Map!");
+                    }
+                    else{
+                        IOHelper.print("Map is not valid!");
+                    }
                     IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
                     break;
                 case 2: //Delete Country
@@ -142,12 +143,22 @@ public class GameController {
                     }
                     String countryToDelete = IOHelper.getNextString();
                     map.deleteCountry(countryToDelete);
-                    map.saveMap();
+                    if (newMap.isMapValid()){
+                        map.saveMap();
+                    }else {
+                        IOHelper.print("Not valid");
+                    }
+
                     IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
                     break;
                 case 3: //Add Continent
                     map.addContinentToMap();
-                    map.saveMap();
+                    if(newMap.isMapValid()){
+                        map.saveMap();
+                    }else{
+                        IOHelper.print("Not valid");
+                    }
+
                     IOHelper.print("Continent added successfully!");
                     break;
                 case 4: //Add Country
@@ -162,7 +173,13 @@ public class GameController {
                     String continentName = IOHelper.getNextString();
 
                     map.addCountryToContinent(continentName,continentID);
-                    map.saveMap();
+                    if(newMap.isMapValid()){
+                        map.saveMap();
+                    }else {
+                        IOHelper.print("Not valid");
+                    }
+
+
                     IOHelper.print("Country added successfuly!");
                     break;
                 case 5: // Exit from EditMap
@@ -173,12 +190,15 @@ public class GameController {
                     break;
             }
         }
-    /*  if (newMap.isMapValid()){
-			IOHelper.print("Valid Map!");
-		}
-		else{
-			IOHelper.print("Map is not valid!");
-		}*/
+        /*
+        * if (newMap.isMapValid()){
+                        map.saveMap();
+                        IOHelper.print("Valid Map!");
+                    }
+                    else{
+                        IOHelper.print("Map is not valid!");
+                    }*/
+
 	}
 
     /**
