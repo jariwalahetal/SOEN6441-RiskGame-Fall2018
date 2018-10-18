@@ -207,8 +207,7 @@ public class GameController {
 		map.readMap();
 		System.out.print("is map valid:" + map.isMapValid());
 		if(map.isMapValid()){
-			GameController map=new GameController();
-			map.startGame();
+			startGame();
 		}
 	}
 	/**

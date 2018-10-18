@@ -26,7 +26,7 @@ public class InitialPlayerSetup {
 		case 4:
 			return 30;
 		case 5:
-			return 10;
+			return 25;
 		default:
 			return 20;
 		}
