@@ -388,22 +388,6 @@ public class Map {
         }
         //writeMapToDisk(content, this.mapName);
 
-        Path path = Paths.get(this.mapPath + this.mapName );
-        BufferedWriter writer = null;
-        try {
-            //Delete temp file
-            Path tempFilePath = Paths.get(this.mapPath + "temp" + ".map");
-            Files.deleteIfExists(tempFilePath);
-
-            writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8);
-            writer.write(new String(content));
-            writer.close();
-        } catch (Exception e) {
-            IOHelper.printException(e);
-            //return false;
-        }
-        System.out.print(content);
-
     }
 
     public boolean validateAndCreateMap(StringBuffer content, String nameOfTheMap) {
