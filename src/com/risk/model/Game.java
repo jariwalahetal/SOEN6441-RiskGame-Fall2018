@@ -68,10 +68,8 @@ public class Game extends Observable {
 	public void startUpPhase() {
 		
 		// Assign countries based on number of players to all players
-	//	int NoOfArmies = map.getCountryList().size()/playerList.size();
 		for (int i = 0; i < playerList.size(); i++) {
 			playerList.get(i).setNoOfUnassignedArmies(InitialPlayerSetup.getInitialArmyCount(playerList.size()));
-	//	    playerList.get(i).setNoOfUnassignedArmies(NoOfArmies);
 		}
 		
 
@@ -109,8 +107,7 @@ public class Game extends Observable {
 	 */
 	public void assignCountryToPlayer(Player player, Country newCountry) {
 		if (playerCountry.containsKey(player)) {
-			ArrayList<Country> assignedCountries = playerCountry.get(player);
-			assignedCountries.add(newCountry);
+			playerCountry.get(player).add(newCountry);
 		} else {
 			ArrayList<Country> assignedCountries = new ArrayList<>();
 			assignedCountries.add(newCountry);
@@ -142,7 +139,9 @@ public class Game extends Observable {
 			return;
 		}
 
-		Player player = playerList.stream().filter(p -> currentPlayerId == p.getPlayerId()).findAny().orElse(null);
+//		Player player = playerList.stream().filter(p -> currentPlayerId == p.getPlayerId()).findAny().orElse(null);
+		Player player = this.getCurrentPlayer();
+		
 		if (player == null) {
 			IOHelper.print("Player id " + currentPlayerId + " does not exist");
 			setNextPlayerTurn();

@@ -243,9 +243,10 @@ public class GameController {
        
             public void mouseClicked(MouseEvent e) {
             JLabel jLabel=	(JLabel) e.getSource();
-           String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
-          	game.addArmyToCountry(Integer.parseInt(string));
-        	activateListenersOnView();
+            String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
+            if (game.getGamePhase()==PhaseEnum.Startup)
+               game.addArmyToCountry(Integer.parseInt(string));
+        	 activateListenersOnView();
             }
         });
 	}
@@ -257,6 +258,7 @@ public class GameController {
 		gameView.addActionListenToAddArmyButton(new ActionListener() {
         public void actionPerformed(ActionEvent  e) {        	
         	System.out.println("gameView.getAddArmyToCountryJcomboBox(): "+gameView.getAddArmyToCountryJcomboBox());
+            if (game.getGamePhase()==PhaseEnum.Reinforcement)
         	game.reinforcementPhase(gameView.getAddArmyToCountryJcomboBox());  
         	activateListenersOnView();
         }
@@ -282,7 +284,8 @@ public class GameController {
 		gameView.addActionListenToMoveArmyButton(new ActionListener() {
        
         public void actionPerformed(ActionEvent  e) {
-        	game.fortificationPhase(gameView.getSourceCountry(),gameView.getDestinationCountry(),gameView.getNoOfArmyToMoveJcomboBox());
+            if (game.getGamePhase()==PhaseEnum.Fortification) 
+            	game.fortificationPhase(gameView.getSourceCountry(),gameView.getDestinationCountry(),gameView.getNoOfArmyToMoveJcomboBox());
         	activateListenersOnView();
         }
         });
