@@ -173,7 +173,7 @@ public class GameView implements Observer {
 		 * fortificationJlabel.setVisible(true); }
 		 */
 
-		gameJframe.setSize(1200, 700);
+		gameJframe.setSize(1250, 700);
 		gameJframe.setVisible(true);
 		gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -302,7 +302,7 @@ public class GameView implements Observer {
 		destinationCountry.setBorder(new TitledBorder("Destination Country"));
 		destinationCountry.setBounds(sourceCountry.getX() + 20 + sourceCountry.getWidth() + 3, sourceCountry.getY(),
 				sourceCountry.getWidth(), sourceCountry.getHeight());
-
+		
 		ArrayList<Integer> NoOfArmies = new ArrayList<Integer>();
 		for (int i = 1; i <= Integer.parseInt(activePlayerUnassignedArmiesCount); i++) {
 			NoOfArmies.add(i);
@@ -418,6 +418,14 @@ public class GameView implements Observer {
      }
 	}
 
+		
+	public void populateDestinationCountryComboBox(ArrayList<String> destinationCountries)
+	{   destinationCountry.removeAllItems();
+		for(String countryName : destinationCountries)
+		   destinationCountry.addItem(countryName);
+			
+	}
+	
 	public void addActionListenToMapLabels(MouseListener listener) {
 		int n = mapJlabel.getComponentCount();
 		for (int i = 0; i < n; i++) {

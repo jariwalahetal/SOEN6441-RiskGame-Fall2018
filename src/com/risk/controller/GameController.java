@@ -255,7 +255,9 @@ public class GameController {
 		gameView.addActionListenToSourceCountryList(new ActionListener() {
        
         public void actionPerformed(ActionEvent  e) {
-           System.out.println("find neighbours of the selected country");        
+        	String countryName = gameView.getSourceCountry();
+        	ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
+        	gameView.populateDestinationCountryComboBox(neighborCountries);
         }
         });
 	}

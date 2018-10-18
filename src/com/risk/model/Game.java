@@ -332,8 +332,8 @@ public class Game extends Observable {
 		Country destinationCountry = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equals(destinationCountryName)).findAny().orElse(null);
 
-		decreasePlayerArmyInCountry(player, sourceCountry);
-		assignFromUnassigned(player, destinationCountry);
+		sourceCountry.decreaseArmyCount(noOfArmies);
+		destinationCountry.increaseArmyCount(noOfArmies);
 		this.setNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		notifyObserverslocal(this);
@@ -377,26 +377,54 @@ public class Game extends Observable {
 	 * @param countryId
 	 * @return ArrayList<Country> , returning array list of countries.
 	 */
-	public ArrayList<Country> getNeighbouringCountriesForFortification(int countryId) {
-		Country country = map.getCountryList().stream().filter(c -> c.getCountryId() == countryId).findAny()
-				.orElse(null);
+	public ArrayList<String> getNeighbouringCountries(String sourceCountryName) {
+	
+	   Player currentPlayer = playerList.get(currentPlayerId);
+       ArrayList<String> neighborCountriesName = null;
+       ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>() ; 
+      
+    		   
+      for(Country country: playerCountry.get(currentPlayer))
+       {  String countryName = country.getCountryName();
+    	  countriesAssignedToPlayer.add(countryName);
+    	  if(country.getCountryName().equals(sourceCountryName))
+    	     { neighborCountriesName = country.getNeighboursString();
+    	     }            
+       }
+             
+      Iterator<String> it = neighborCountriesName.iterator();
+      while(it.hasNext()) {  
+    	  String country = it.next();
+    	    if(!countriesAssignedToPlayer.contains(country))
+    	    {
+    	        it.remove();
+    	    }
+    	}
+
+      return neighborCountriesName;
+    	   
+/*
 		Player currentPlayer = playerList.get(currentPlayerId);
 
+		Country country = map.getCountryList().stream().filter(c -> c.getCountryId() == countryId).findAny()
+				.orElse(null);
+	
 		if (country == null || currentPlayer == null) {
 			IOHelper.print("Country id or player id is not valid");
 			return null;
 		}
 
-		ArrayList<Country> neighbhbouringCountries = new ArrayList<>();
+		ArrayList<String> neighbhbouringCountries = new ArrayList<>();
 
 		for (Country pCounty : playerCountry.get(currentPlayer)) {
 			Country matchedCountry = country.getNeighbours().stream().filter(c -> c.equals(pCounty)).findAny()
 					.orElse(null);
 			if (matchedCountry != null) {
-				neighbhbouringCountries.add(matchedCountry);
+				neighbhbouringCountries.add(matchedCountry.toString());
 			}
 		}
 		return neighbhbouringCountries;
+		*/
 	}
 	/**
 	 * Method to find out that countries belong to a player or not
