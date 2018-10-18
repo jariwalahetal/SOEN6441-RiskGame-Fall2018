@@ -13,8 +13,6 @@ import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
-import com.risk.viewmodel.CountryAdorner;
-import com.risk.viewmodel.PlayerAdorner;
 
 /**
  * @author Binay Kumar
@@ -28,7 +26,6 @@ public class GameController {
 	Map map;
 	Game game;
 	GameView gameView;
-	public static PlayerAdorner activePlayer;
 	public static final String ANSI_RED = "\u001B[31m";
 	/**
 	 * This function asks user either to createmap or edit map, the user can also start the game form here.
@@ -76,6 +73,8 @@ public class GameController {
 	        	 else 
 	        	 {
 	        		 IOHelper.print("Map is not valid.Please try again");
+
+	        		 
 	        	 }
 	         }
 	     });
@@ -218,38 +217,106 @@ public class GameController {
 		map.setMapName(selectedMapName);
 		map.readMap();
 		System.out.print("is map valid:" + map.isMapValid());
+		if(map.isMapValid()){
+			GameController map=new GameController();
+			map.startGame();
+		}
 	}
 	/**
 	 * This function creates the player objects
 	 */
 	private void initializeGame() {
 		game = new Game(map);
+		gameView=new GameView();
+		game.addObserver(gameView);
 		
-		
-		game.setGamePhase(PhaseEnum.Startup);
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
 		
-		for (int i = 1; i <= playerCount; i++) {
-			IOHelper.print("\nEnter the name of Player " + i);
+		for (int i = 0; i < playerCount; i++) {
+			IOHelper.print("\nEnter the name of Player " + (i+1));
 			String playerName = IOHelper.getNextString();
-			Player player = new Player(i, playerName, InitialPlayerSetup.getPlayerColor(i));
-			player.setNoOfUnassignedArmies(InitialPlayerSetup.getInitialArmyCount(playerCount));
+			Player player = new Player(i, playerName);
 			game.addPlayer(player);
 		}
-		// game.initialArmyAssignment();
-		game.assignCountriesToPlayer();
-		initializeMapView();
+		game.startUpPhase();
+		gameView.gameInitializer();
+		activateListenersOnView();
 
 	}
-	private void initializeMapView(){
-		gameView=new GameView();
-		updateView();
+	private void activateListenersOnView(){
+	    if(game.getGamePhase()==PhaseEnum.Startup)
+		  { addArmyImageClickListener();
+		  }
+		else if(game.getGamePhase()==PhaseEnum.Reinforcement)
+		  { System.out.println("phase is Reinforcement");
+			game.reinforcementPhaseSetup();
+			addArmyButtonClickListener();
+		  }
+		else if(game.getGamePhase()==PhaseEnum.Fortification)
+		  { System.out.println("phase is Fortification");
+			addSourceCountriesListener();
+			addMoveArmyButtonListener();
+		  }
 		
 	}
-	
+		
+	/**
+	 * to update view
+	 */
+	public void addArmyImageClickListener(){
+		gameView.addActionListenToMapLabels(new MouseAdapter() {
+       
+            public void mouseClicked(MouseEvent e) {
+            JLabel jLabel=	(JLabel) e.getSource();
+            String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
+            if (game.getGamePhase()==PhaseEnum.Startup)
+               game.addArmyToCountry(Integer.parseInt(string));
+        	 activateListenersOnView();
+            }
+        });
+	}
 
-	
+	/**
+	 * to update view
+	 */
+	public void addArmyButtonClickListener(){
+		gameView.addActionListenToAddArmyButton(new ActionListener() {
+        public void actionPerformed(ActionEvent  e) {        	
+        	System.out.println("gameView.getAddArmyToCountryJcomboBox(): "+gameView.getAddArmyToCountryJcomboBox());
+            if (game.getGamePhase()==PhaseEnum.Reinforcement)
+        	game.reinforcementPhase(gameView.getAddArmyToCountryJcomboBox());  
+        	activateListenersOnView();
+        }
+        });
+	}
+
+	/**
+	 * to update view
+	 */
+	public void addSourceCountriesListener(){
+		gameView.addActionListenToSourceCountryList(new ActionListener() {
+       
+        public void actionPerformed(ActionEvent  e) {
+           System.out.println("find neighbours of the selected country");        
+        }
+        });
+	}
+
+	/**
+	 * to update view
+	 */
+	public void addMoveArmyButtonListener(){
+		gameView.addActionListenToMoveArmyButton(new ActionListener() {
+       
+        public void actionPerformed(ActionEvent  e) {
+            if (game.getGamePhase()==PhaseEnum.Fortification) 
+            	game.fortificationPhase(gameView.getSourceCountry(),gameView.getDestinationCountry(),gameView.getNoOfArmyToMoveJcomboBox());
+        	activateListenersOnView();
+        }
+        });
+	}
+
 	/**
 	 * This function returns the list of all the maps in the assets/map directory.
 	 * 
@@ -269,27 +336,6 @@ public class GameController {
 		}
 		return fileNames;
 	}
-	
-	/**
-	 * to update view
-	 */
-	public void updateView(){
-		ArrayList<CountryAdorner> arrayList=new ArrayList<>();
-		arrayList=game.getMapViewData();
-		activePlayer=game.getNextPlayer();
-		gameView.gameInitializer(activePlayer,arrayList,game.getMap());
-		gameView.addActionListenToMapLabels(new MouseAdapter() {
-       
-            public void mouseClicked(MouseEvent e) {
-            JLabel jLabel=	(JLabel) e.getSource();
-           String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
-          	if(game.addArmyToCountry(activePlayer.getPlayerId(),Integer.parseInt(string)))
-          		updateView();
-    		
 
-            }
-        });
-	}
-	
 	
 }

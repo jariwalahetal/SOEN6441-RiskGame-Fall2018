@@ -11,16 +11,16 @@ import java.io.*;
  * This class runs the game.
  */
 
-public class GameRunner{
-	
-     /**
-     * start and initilization of game 
-     * @param args
-     * @throws IOException
-     */
-    public static void main(String []args) throws IOException
-     {
-    	 GameController gameController = new GameController();
-    	 gameController.startGame();
-     }
+public class GameRunner {
+
+	/**
+	 * start and initilization of game
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
+		GameController gameController = new GameController();
+		gameController.startGame();
+	}
 }
