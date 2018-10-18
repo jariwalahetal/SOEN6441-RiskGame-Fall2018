@@ -21,6 +21,7 @@ import com.risk.helper.PhaseEnum;
  * @version 1.0.0
  * @since 30-September-2018
  */
+
 public class Game extends Observable {
 
 	// Country and the army assigned to it
@@ -41,20 +42,30 @@ public class Game extends Observable {
 		this.map = map;
 		this.setGamePhase(gamePhase.Startup);
 	}
-
+	/**
+	 * This function returns the current player id.
+	 * 
+	 * @return currentPlayerId The current player Id.
+	 */
 	public int getCurrentPlayerId() {
 		return currentPlayerId;
 	}
-
+	/**
+	 * This function switches turn to the next player
+	 */
 	private void setNextPlayerTurn() {
-		if (getGamePhase() == PhaseEnum.Startup || getGamePhase() == PhaseEnum.Fortification)
 			currentPlayerId++;
 
 		if (currentPlayerId == playerList.size())
 			currentPlayerId = 0;
 		System.out.println("current player ID:" + currentPlayerId);
 	}
-
+	/**
+	 * This function returns the current player object
+	 * 
+	 * @return currentPlayer The current player object
+	 */
+			
 	public Player getCurrentPlayer() {
 
 		Player currentPlayer = playerList.get(currentPlayerId);
@@ -93,7 +104,7 @@ public class Game extends Observable {
 			Country newCountry = map.getCountryList().get(tempList.get(i));
 
 			assignCountryToPlayer(playerList.get(playerIndex), newCountry);
-			increasePlayerArmyInCountry(playerList.get(playerIndex), newCountry);
+			assignFromUnassigned(playerList.get(playerIndex), newCountry);
 			playerIndex++;
 		}
 		notifyObserverslocal(this);
@@ -118,23 +129,40 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * Increase one army for selected selected player in selected country
+	 * Increase one army for selected selected player in selected country from unassigned armies
 	 * 
 	 * @param player
 	 * @param country
 	 */
-	private void increasePlayerArmyInCountry(Player player, Country country) {
+	private void assignFromUnassigned(Player player, Country country) {
 		player.decreaseUnassignedArmyCount();
 		country.increaseArmyCount();
 	}
+	
+	/**
+	 * Increase one army for selected selected player in selected country from reinforcement armies
+	 * 
+	 * @param player
+	 * @param country
+	 */
+	private void assignFromReinforcement(Player player, Country country) {
+		player.decreaseReinforcementArmyCount();
+		country.increaseArmyCount();
+	}
 
+	/**
+	 * Decrease army of the player in the country
+	 * 
+	 * @param player
+	 * @param country
+	 */
 	private void decreasePlayerArmyInCountry(Player player, Country country) {
 		player.increaseUnassignedArmyCount();
 		country.decreseArmyCount();
 	}
 
-	public void addArmyToCountry(int countryId) {
-		if (this.gamePhase == PhaseEnum.Attack || this.gamePhase == PhaseEnum.Fortification) {
+	public void addArmyToCountryForStartup(int countryId) {
+		if (this.gamePhase != PhaseEnum.Startup) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
 			return;
 		}
@@ -145,15 +173,11 @@ public class Game extends Observable {
 
 		if (player == null) {
 			IOHelper.print("Player id " + currentPlayerId + " does not exist");
-			setNextPlayerTurn();
-			notifyObserverslocal(this);
 			return;
 		}
 
 		if (player.getNoOfUnassignedArmies() == 0) {
 			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies");
-			setNextPlayerTurn();
-			notifyObserverslocal(this);
 			return;
 		}
 
@@ -161,37 +185,100 @@ public class Game extends Observable {
 				.orElse(null);
 		if (country == null) {
 			IOHelper.print("Country id " + countryId + " does not exist");
-			notifyObserverslocal(this);
 			return;
 		}
 
-		increasePlayerArmyInCountry(player, country);
-		setNextPlayerTurn();
+		assignFromUnassigned(player, country);
+	}
+	
+	public void addArmyToCountryForReinforcement(int countryId) {
+		if (this.gamePhase != PhaseEnum.Reinforcement) {
+			IOHelper.print("Cannot assign army from player to country. Not valid phase");
+			return;
+		}
+
+		// Player player = playerList.stream().filter(p -> currentPlayerId ==
+		// p.getPlayerId()).findAny().orElse(null);
+		Player player = this.getCurrentPlayer();
+
+		if (player == null) {
+			IOHelper.print("Player id " + currentPlayerId + " does not exist");
+			return;
+		}
+
+		if (player.getNoOfReinforcedArmies() == 0) {
+			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies");
+			return;
+		}
+
+		Country country = playerCountry.get(player).stream().filter(c -> c.getCountryId() == countryId).findAny()
+				.orElse(null);
+		if (country == null) {
+			IOHelper.print("Country id " + countryId + " does not exist");
+			return;
+		}
+
+		assignFromReinforcement(player, country);
+	}
+	
+	public void addArmyToCountry(int countryId)
+	{
+		if(gamePhase == PhaseEnum.Attack || gamePhase == PhaseEnum.Fortification)
+		{
+			IOHelper.print("Cannot add army in attack or fortification phase");
+			return;
+		}
+		if(gamePhase == PhaseEnum.Startup) 
+		{
+			addArmyToCountryForStartup(countryId);
+			setNextPlayerTurn();
+		}
+		else if(gamePhase == PhaseEnum.Reinforcement)
+		{
+			addArmyToCountryForReinforcement(countryId);
+		}
 		updatePhase();
 
 		notifyObserverslocal(this);
 		// return true;
 	}
 
+	/**
+	 * Method to update the phase of the game
+	 * 
+	 */
 	private void updatePhase() {
-		// check if all player has unassigned armies as 0 then update phase
-		long pendingPlayersCount = playerList.stream().filter(p -> p.getNoOfUnassignedArmies() > 0).count();
 
-		if (pendingPlayersCount == 0) {
-			// Check if in startup phase then update to reinforcement
-			if (this.getGamePhase() == gamePhase.Startup) {
+		if(this.getGamePhase() == gamePhase.Startup)
+		{
+			//Check all players have assigned armies to country or not
+			long pendingPlayersCount = playerList.stream().filter(p -> p.getNoOfUnassignedArmies() > 0).count();
+			
+			if (pendingPlayersCount == 0) {
 				this.setGamePhase(gamePhase.Reinforcement);
 				currentPlayerId = 0;
 				reinforcementPhaseSetup();
-			} else if (this.getGamePhase() == gamePhase.Reinforcement) {
+			}
+		}
+		else if(this.getGamePhase() == gamePhase.Reinforcement)
+		{
+			//Check the current player reinforcement armies
+			if(getCurrentPlayer().getNoOfReinforcedArmies() == 0)
+			{
 				// We don't need to implement attack for now
 				this.setGamePhase(gamePhase.Attack);
-			} else if (this.getGamePhase() == gamePhase.Fortification) {
-				this.setGamePhase(gamePhase.Reinforcement);
 			}
+			
+		}
+		else if(this.getGamePhase() == gamePhase.Fortification)
+		{
+			this.setGamePhase(gamePhase.Reinforcement);
 		}
 	}
 
+	/**
+	 * Method to set up reinforcement phase
+	 */
 	public void reinforcementPhaseSetup() {
 
 		// count number of countries owned by player
@@ -219,15 +306,24 @@ public class Game extends Observable {
 		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS
 				: countriesCount;
 		System.out.println("countriesCount:" + countriesCount);
-		player.setNoOfUnassignedArmies(countriesCount);
-		notifyObserverslocal(this);
+		player.setNoOfReinforcedArmies(countriesCount);
 	}
 
+	/**
+	 * Method for performing attack phase 
+	 */
 	public void attackPhase() {
 		setGamePhase(gamePhase.Fortification);
 		notifyObserverslocal(this);
 	}
 
+	/**
+	 * Method to perform fortification phase
+	 * 
+	 * @param sourceCountryName
+	 * @param destinationCountryName
+	 * @param noOfArmies
+	 */
 	public void fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
 
 		Player player = getCurrentPlayer();
@@ -237,13 +333,16 @@ public class Game extends Observable {
 				.filter(c -> c.getCountryName().equals(destinationCountryName)).findAny().orElse(null);
 
 		decreasePlayerArmyInCountry(player, sourceCountry);
-		increasePlayerArmyInCountry(player, destinationCountry);
+		assignFromUnassigned(player, destinationCountry);
 		this.setNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		notifyObserverslocal(this);
 
 	}
 
+	/**
+	 * Method to find the next player to perform reinforcement
+	 */
 	public void setNextPlayerReinforcement() {
 		if (gamePhase != gamePhase.Fortification) {
 			IOHelper.print("Cannot set next player in reinforcement");
@@ -262,11 +361,22 @@ public class Game extends Observable {
 		this.playerList.add(player.getPlayerId(), player);
 	}
 
+	/**
+	 * Method to get countries corresponding to players
+	 * 
+	 * @return ArrayList<Country> , returning arraylist of countries.
+	 */
 	public ArrayList<Country> getPlayerCountries() {
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return playerCountry.get(currentPlayer);
 	}
 
+	/**
+	 * Method to get neighboring countries of a given country
+	 * 
+	 * @param countryId
+	 * @return ArrayList<Country> , returning array list of countries.
+	 */
 	public ArrayList<Country> getNeighbouringCountriesForFortification(int countryId) {
 		Country country = map.getCountryList().stream().filter(c -> c.getCountryId() == countryId).findAny()
 				.orElse(null);
@@ -288,7 +398,14 @@ public class Game extends Observable {
 		}
 		return neighbhbouringCountries;
 	}
-
+	/**
+	 * Method to find out that countries belong to a player or not
+	 * 
+	 * @param fromCountryId
+	 * @param toCountryId
+	 * @param fortifyArmiesCount
+	 * @return true if country belongs to player
+	 */
 	public boolean fortifyCountry(int fromCountryId, int toCountryId, int fortifyArmiesCount) {
 		Player currentPlayer = playerList.get(currentPlayerId);
 
@@ -315,27 +432,57 @@ public class Game extends Observable {
 		return true;
 	}
 
+	/**
+	 * Method used to get map
+	 * 
+	 * @return map
+	 */
 	public Map getMap() {
 		return map;
 	}
 
+	/**
+	 * method used to set map
+	 * 
+	 * @param map
+	 */
 	public void setMap(Map map) {
 		this.map = map;
 	}
 
+	/**
+	 * Method to get enum for game phase
+	 * 
+	 * @return gamePhase
+	 */
 	public PhaseEnum getGamePhase() {
 		return gamePhase;
 	}
 
+	/**
+	 * Method used to set phase of the game
+	 * 
+	 * @param gamePhase
+	 */
 	private void setGamePhase(PhaseEnum gamePhase) {
 		this.gamePhase = gamePhase;
 	}
 
+	/**
+	 * Method used to notify observer
+	 * 
+	 * @param game
+	 */
 	private void notifyObserverslocal(Game game) {
 		setChanged();
 		notifyObservers(this);
 	}
 
+	/**
+	 * Method use to get  arraylist of players
+	 * 
+	 * @return playerList
+	 */
 	public ArrayList<Player> getAllPlayers() {
 		return playerList;
 	}

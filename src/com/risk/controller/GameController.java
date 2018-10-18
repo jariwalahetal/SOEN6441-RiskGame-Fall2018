@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import com.risk.helper.IOHelper;
+import com.risk.helper.InitialPlayerSetup;
 import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
 import com.risk.view.GameView;
@@ -26,10 +27,8 @@ public class GameController {
 	Game game;
 	GameView gameView;
 	public static final String ANSI_RED = "\u001B[31m";
-
 	/**
-	 * This function asks user either to createmap or edit map, the user can
-	 * also start the game form here.
+	 * This function asks user either to createmap or edit map, the user can also start the game form here.
 	 */
 	public void startGame() {
 		map = new Map();
@@ -49,52 +48,61 @@ public class GameController {
 			initializeMap();
 			initializeGame();
 			// TODO: Play game
-		} else if (input == 4) {
-			System.exit(0);
 		}
+		else if(input == 4){
+		    System.exit(0);
+        }
 	}
-
 	/**
-	 * This function gives the user an editor to create the map and it saves the
-	 * map to the disk.
+	 * This function gives the user an editor to create the map and it saves the map to the disk.
 	 */
 	private void createMap() {
 		MapCreateView v = new MapCreateView();
-		v.showCreateView();
-		v.button2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(v.returnTextAreaText()),
-						v.returnMapNameText());
-				if (isMapCreated) {
-					IOHelper.print("Map Created successfully");
-					v.killFrame();
-					GameController map = new GameController();
-					map.startGame();
-				} else {
-					IOHelper.print("Map is not valid.Please try again");
+   	 	v.showCreateView();
+	   	v.button2.addActionListener(new ActionListener() {
+	         @Override
+	         public void actionPerformed(ActionEvent e) {
+	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
+	        	 if(isMapCreated)
+	        	 {	        		 
+	        		 IOHelper.print("Map Created successfully");
+		        	 v.killFrame();
+		        	 GameController map = new GameController();
+		        	 map.startGame();
+	        	 }
+	        	 else 
+	        	 {
+	        		 IOHelper.print("Map is not valid.Please try again");
 
-				}
-			}
-		});
+	        		 
+	        	 }
+	         }
+	     });
 	}
+
 
 	/**
 	 * @author Mandeep Kaur
      * This method lets the user to edit the Map.
+=======
+	/**@author Mandeep Kaur
+	 * This method lets the user to edit the Map.
+>>>>>>> a5ca92272b8178c66cc6a9aaf51f16d5f4f3f161
 	 */
 	private void editMap() {
 		IOHelper.print("\nEnter Map_Number of the Map you want to edit from the list given below:");
 		ArrayList<String> mapList = getListOfMaps();
 		int i = 1;
-		for (String nameOfMap : mapList) {
-			IOHelper.print(i + ")" + nameOfMap);
+		for (String nameOfMap: mapList)
+		{
+			IOHelper.print( i + ")" + nameOfMap);
 			i++;
 		}
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = mapList.get(mapNumber - 1);
 	//	IOHelper.print("selected map name: "+selectedMapName.getClass().getName());
 		map.setMapName(selectedMapName);
+
 		//Map newMap = map;
 		IOHelper.print("'"+selectedMapName+"'");
         //newMap.readMap();
@@ -197,7 +205,7 @@ public class GameController {
         }
 	}
 
-	/**
+    /**
 	 * This function validates the map and initializes the map.
 	 */
 	private void initializeMap() {
@@ -214,25 +222,23 @@ public class GameController {
 		map.setMapName(selectedMapName);
 		map.readMap();
 		System.out.print("is map valid:" + map.isMapValid());
-		if (map.isMapValid()) {
-			GameController map = new GameController();
-			map.startGame();
+		if(map.isMapValid()){
+			startGame();
 		}
 	}
-
 	/**
 	 * This function creates the player objects
 	 */
 	private void initializeGame() {
 		game = new Game(map);
-		gameView = new GameView();
+		gameView=new GameView();
 		game.addObserver(gameView);
-
+		
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
-
+		
 		for (int i = 0; i < playerCount; i++) {
-			IOHelper.print("\nEnter the name of Player " + (i + 1));
+			IOHelper.print("\nEnter the name of Player " + (i+1));
 			String playerName = IOHelper.getNextString();
 			Player player = new Player(i, playerName);
 			game.addPlayer(player);
@@ -242,58 +248,55 @@ public class GameController {
 		activateListenersOnView();
 
 	}
-
-	private void activateListenersOnView() {
-		addArmyImageClickListener();
-		addSourceCountriesListener();
+	private void activateListenersOnView(){
+	    addArmyImageClickListener();
+	    addSourceCountriesListener();
 		addMoveArmyButtonListener();
 	}
-
+		
 	/**
 	 * to update view
 	 */
-	public void addArmyImageClickListener() {
+	public void addArmyImageClickListener(){
 		gameView.addActionListenToMapLabels(new MouseAdapter() {
-
-			public void mouseClicked(MouseEvent e) {
-				JLabel jLabel = (JLabel) e.getSource();
-				String string = jLabel.getToolTipText().substring(0, jLabel.getToolTipText().indexOf("--"));
-				if (game.getGamePhase() == PhaseEnum.Startup || game.getGamePhase() == PhaseEnum.Reinforcement)
-					game.addArmyToCountry(Integer.parseInt(string));
-			}
-		});
+       
+            public void mouseClicked(MouseEvent e) {
+            JLabel jLabel=	(JLabel) e.getSource();
+            String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
+            if (game.getGamePhase()==PhaseEnum.Startup || game.getGamePhase() == PhaseEnum.Reinforcement)
+               game.addArmyToCountry(Integer.parseInt(string));
+            }
+        });
 	}
 
 	/**
 	 * to update view
 	 */
-	public void addSourceCountriesListener() {
+	public void addSourceCountriesListener(){
 		gameView.addActionListenToSourceCountryList(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("find neighbours of the selected country");
-			}
-		});
+       
+        public void actionPerformed(ActionEvent  e) {
+           System.out.println("find neighbours of the selected country");        
+        }
+        });
 	}
 
 	/**
 	 * to update view
 	 */
-	public void addMoveArmyButtonListener() {
+	public void addMoveArmyButtonListener(){
 		gameView.addActionListenToMoveArmyButton(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				if (game.getGamePhase() == PhaseEnum.Fortification)
-					game.fortificationPhase(gameView.getSourceCountry(), gameView.getDestinationCountry(),
-							gameView.getNoOfArmyToMoveJcomboBox());
-
-			}
-		});
+       
+        public void actionPerformed(ActionEvent  e) {
+            if (game.getGamePhase()==PhaseEnum.Fortification) 
+            	game.fortificationPhase(gameView.getSourceCountry(),gameView.getDestinationCountry(),gameView.getNoOfArmyToMoveJcomboBox());
+        
+        }
+        });
 	}
 
 	/**
-	 * This function returns the list of all the maps in the assets/map
-	 * directory.
+	 * This function returns the list of all the maps in the assets/map directory.
 	 * 
 	 * @return List of all the map files
 	 */
@@ -312,4 +315,5 @@ public class GameController {
 		return fileNames;
 	}
 
+	
 }
