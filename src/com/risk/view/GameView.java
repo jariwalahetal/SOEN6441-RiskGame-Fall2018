@@ -216,7 +216,9 @@ public class GameView implements Observer{
 		
 		// Recreate every components in Label
 		playersTurnJlabel = new JLabel(activePlayerName);
-		playersTurnJlabel.setBackground(Common.getColor(activePlayerColor));
+		Font font = new Font("Courier", Font.BOLD,24);
+		playersTurnJlabel.setFont(font);
+		playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
 		playersTurnJlabel.setBorder(new TitledBorder("Active Player"));
 		playersTurnJlabel.setBounds(15, 25, 220, 70);
 
