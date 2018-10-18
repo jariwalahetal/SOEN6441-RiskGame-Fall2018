@@ -84,10 +84,6 @@ public class GameController {
 	/**
 	 * @author Mandeep Kaur
      * This method lets the user to edit the Map.
-=======
-	/**@author Mandeep Kaur
-	 * This method lets the user to edit the Map.
->>>>>>> a5ca92272b8178c66cc6a9aaf51f16d5f4f3f161
 	 */
 	private void editMap() {
 		IOHelper.print("\nEnter Map_Number of the Map you want to edit from the list given below:");
@@ -100,21 +96,9 @@ public class GameController {
 		}
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = mapList.get(mapNumber - 1);
-	//	IOHelper.print("selected map name: "+selectedMapName.getClass().getName());
 		map.setMapName(selectedMapName);
-
-		//Map newMap = map;
 		IOHelper.print("'"+selectedMapName+"'");
-        //newMap.readMap();
         map.readMap();
-        //String mapName = map.getMapName();
-       // newMap.setMapName(mapName);
-       /* if (mapName.indexOf(".") > 0) {
-            mapName = mapName.substring(0, mapName.lastIndexOf("."));
-        }
-        IOHelper.print("new mapname: "+mapName);*/
-
-
         while (true){
             IOHelper.print("\nEdit Map Menu: ");
             IOHelper.print("1. Delete Continent");

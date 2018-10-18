@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/maps/temp.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/1.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/maps/1.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/maps/temp.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/risk/helper/Common.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/helper/Common.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/risk/helper/EnumColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/helper/EnumColor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/risk/helper/InitialPlayerSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/helper/InitialPlayerSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/risk/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/risk/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/risk/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/com/risk/model/GameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/risk/model/GameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Map.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +21,8 @@
       <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/risk/model/Map.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+            <state relative-caret-position="230">
+              <caret line="200" column="5" lean-forward="true" selection-start-line="200" selection-start-column="5" selection-end-line="200" selection-end-column="5" />
               <folding>
                 <element signature="e#778#786#0" expanded="true" />
                 <element signature="e#903#904#0" expanded="true" />
@@ -49,8 +45,8 @@
       <file leaf-file-name="GameController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1190">
-              <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
+            <state relative-caret-position="186">
+              <caret line="182" column="32" lean-forward="true" selection-start-line="182" selection-start-column="32" selection-end-line="182" selection-end-column="32" />
               <folding>
                 <element signature="e#12635#13063#0" expanded="true" />
                 <element signature="e#13062#13063#0" expanded="true" />
@@ -62,6 +58,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="1.map" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/maps/1.map">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
@@ -69,6 +74,7 @@
       <find>continentList</find>
       <find>newEditMap</find>
       <find>readMap</find>
+      <find>Algeria</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -83,9 +89,9 @@
         <option value="$PROJECT_DIR$/src/com/risk/model/Country.java" />
         <option value="$PROJECT_DIR$/src/com/risk/view/GameView.java" />
         <option value="$PROJECT_DIR$/assets/maps/1.map.map" />
-        <option value="$PROJECT_DIR$/assets/maps/1.map" />
-        <option value="$PROJECT_DIR$/src/com/risk/model/Map.java" />
         <option value="$PROJECT_DIR$/src/com/risk/controller/GameController.java" />
+        <option value="$PROJECT_DIR$/src/com/risk/model/Map.java" />
+        <option value="$PROJECT_DIR$/assets/maps/1.map" />
       </list>
     </option>
   </component>
@@ -184,6 +190,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -282,12 +289,12 @@
       <workItem from="1539112043092" duration="9141000" />
       <workItem from="1539278667842" duration="2114000" />
       <workItem from="1539472203379" duration="13920000" />
-      <workItem from="1539742012456" duration="14791000" />
+      <workItem from="1539742012456" duration="17090000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102546000" />
+    <option name="totallyTimeSpent" value="104845000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -312,7 +319,7 @@
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.6380368" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6303681" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20801815" />
       <window_info anchor="right" id="SciView" order="6" />
@@ -620,13 +627,6 @@
     <entry file="file://$PROJECT_DIR$/assets/maps/1.map.map.map">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/maps/Africa.map">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="11" column="16" lean-forward="true" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/maps/1.map.map">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -634,17 +634,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/maps/Africa.map">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="18" column="45" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/maps/1.map">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="25" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="10" selection-end-column="25" />
+        <state relative-caret-position="204">
+          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/model/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+        <state relative-caret-position="230">
+          <caret line="200" column="5" lean-forward="true" selection-start-line="200" selection-start-column="5" selection-end-line="200" selection-end-column="5" />
           <folding>
             <element signature="e#778#786#0" expanded="true" />
             <element signature="e#903#904#0" expanded="true" />
@@ -665,8 +672,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="82" lean-forward="true" selection-start-line="82" selection-end-line="82" />
+        <state relative-caret-position="186">
+          <caret line="182" column="32" lean-forward="true" selection-start-line="182" selection-start-column="32" selection-end-line="182" selection-end-column="32" />
           <folding>
             <element signature="e#12635#13063#0" expanded="true" />
             <element signature="e#13062#13063#0" expanded="true" />
