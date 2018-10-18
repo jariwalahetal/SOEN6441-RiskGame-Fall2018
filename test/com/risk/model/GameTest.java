@@ -36,7 +36,7 @@ public class GameTest {
 			Player player = new Player(i, playerName);
 			game.addPlayer(player);
 		}
-		game.assignCountriesToPlayer();
+		game.startUpPhase();
 		
 		//Loop untill all armies are assigned for all players
 		while(game.getGamePhase() == PhaseEnum.Startup)
@@ -95,7 +95,7 @@ public class GameTest {
 			assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
 			
 			//Do attack
-			game.doAttack();
+			game.attackPhase();
 			
 			//Randomly select a country to move armies from
 			Country fromCountry = playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size()-1));

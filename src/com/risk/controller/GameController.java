@@ -197,10 +197,10 @@ public class GameController {
 		map.setMapName(selectedMapName);
 		map.readMap();
 		System.out.print("is map valid:" + map.isMapValid());
-		if(!map.isMapValid()){
+		/*if(!map.isMapValid()){
 			GameController map=new GameController();
 			map.startGame();
-		}
+		}*/
 	}
 	/**
 	 * This function creates the player objects
@@ -225,20 +225,9 @@ public class GameController {
 
 	}
 	private void activateListenersOnView(){
-	    if(game.getGamePhase()==PhaseEnum.Startup)
-		  { addArmyImageClickListener();
-		  }
-		else if(game.getGamePhase()==PhaseEnum.Reinforcement)
-		  { System.out.println("phase is Reinforcement");
-			game.reinforcementPhaseSetup();
-			addArmyButtonClickListener();
-		  }
-		else if(game.getGamePhase()==PhaseEnum.Fortification)
-		  { System.out.println("phase is Fortification");
-			addSourceCountriesListener();
-			addMoveArmyButtonListener();
-		  }
-		
+	    addArmyImageClickListener();
+	    addSourceCountriesListener();
+		addMoveArmyButtonListener();
 	}
 		
 	/**
@@ -250,24 +239,9 @@ public class GameController {
             public void mouseClicked(MouseEvent e) {
             JLabel jLabel=	(JLabel) e.getSource();
             String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
-            if (game.getGamePhase()==PhaseEnum.Startup)
+            if (game.getGamePhase()==PhaseEnum.Startup || game.getGamePhase() == PhaseEnum.Reinforcement)
                game.addArmyToCountry(Integer.parseInt(string));
-        	 activateListenersOnView();
             }
-        });
-	}
-
-	/**
-	 * to update view
-	 */
-	public void addArmyButtonClickListener(){
-		gameView.addActionListenToAddArmyButton(new ActionListener() {
-        public void actionPerformed(ActionEvent  e) {        	
-        	System.out.println("gameView.getAddArmyToCountryJcomboBox(): "+gameView.getAddArmyToCountryJcomboBox());
-            if (game.getGamePhase()==PhaseEnum.Reinforcement)
-        	game.reinforcementPhase(gameView.getAddArmyToCountryJcomboBox());  
-        	activateListenersOnView();
-        }
         });
 	}
 
@@ -292,7 +266,7 @@ public class GameController {
         public void actionPerformed(ActionEvent  e) {
             if (game.getGamePhase()==PhaseEnum.Fortification) 
             	game.fortificationPhase(gameView.getSourceCountry(),gameView.getDestinationCountry(),gameView.getNoOfArmyToMoveJcomboBox());
-        	activateListenersOnView();
+        
         }
         });
 	}

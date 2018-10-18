@@ -115,17 +115,19 @@ public class GameView implements Observer{
 	private static JScrollPane mapScrollPane = null;
 	private static HashMap<String,Component> mapLabels= new HashMap<>();
 
+	//Phase label
+	private static JLabel gamePhaseJLabel;
+	private static JLabel gamePhaseNameJLabel;
+	
 	// Initialization Label
 	private static JLabel initializationJlabel;
 	private static JLabel playersTurnJlabel; 
 	private static JLabel armyLeftJlabel; 
-
+	
 	// Reinforcement Label
 	private static JLabel reinforcementsJlabel;
 	private static JLabel reinforcementplayersTurnJlabel;
 	private static JLabel reinforcementUnassignedUnit;
-	private static JComboBox<String> addArmyToCountryJcomboBox;
-	private static JButton addArmy = new JButton("Add Army");
 
 	// Fortification Label
 	private static JLabel fortificationJlabel;
@@ -150,7 +152,7 @@ public class GameView implements Observer{
 		loadingInitializationLabel();
 	    loadingReinforcementLabel();
         loadingFortificationLabel();
-
+        loadingPhaseLabel();
 		 
 		/*if(phase == PhaseEnum.Startup)
 		{ reinforcementsJlabel.setVisible(false);			
@@ -206,12 +208,12 @@ public class GameView implements Observer{
 		gameJframe.add(gameActionJpanel);
 	    
 	}
-
+	
 	public void loadingInitializationLabel() {
 		initializationJlabel = new JLabel();
-		initializationJlabel.setBorder(
-				BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+		
+		initializationJlabel.setBorder(BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		initializationJlabel.setBounds(mapScrollPane.getX() + 700, mapScrollPane.getY(), 490, 100);
 		
 		// Recreate every components in Label
@@ -243,7 +245,7 @@ public class GameView implements Observer{
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		reinforcementsJlabel.setBounds(initializationJlabel.getX(),
 				initializationJlabel.getY() + 10 + initializationJlabel.getHeight(), initializationJlabel.getWidth(),
-				140);
+				80);
 
 		reinforcementplayersTurnJlabel = new JLabel(activePlayerName);
 		reinforcementplayersTurnJlabel.setBorder(new TitledBorder("Player's Turn"));
@@ -257,27 +259,16 @@ public class GameView implements Observer{
              { countryNameList.add(tempCountry.getCountryName());
              }
 		}
-		
-		addArmyToCountryJcomboBox = new JComboBox(countryNameList.toArray());
-		addArmyToCountryJcomboBox.setBorder(new TitledBorder("Add Unit To Country"));
-		addArmyToCountryJcomboBox.setBounds(
+
+		reinforcementUnassignedUnit = new JLabel(activePlayerUnassignedArmiesCount);
+		reinforcementUnassignedUnit.setBorder(new TitledBorder("Reinforced Army Unit"));
+		reinforcementUnassignedUnit.setBounds(
 				reinforcementplayersTurnJlabel.getX() + 20 + reinforcementplayersTurnJlabel.getWidth() + 3,
 				reinforcementplayersTurnJlabel.getY(), reinforcementplayersTurnJlabel.getWidth(),
 				reinforcementplayersTurnJlabel.getHeight());
 
-		reinforcementUnassignedUnit = new JLabel(activePlayerUnassignedArmiesCount);
-		reinforcementUnassignedUnit.setBorder(new TitledBorder("Reinforced Army Unit"));
-		reinforcementUnassignedUnit.setBounds(reinforcementplayersTurnJlabel.getX(),
-				reinforcementplayersTurnJlabel.getY() + reinforcementplayersTurnJlabel.getHeight() + 5,
-				reinforcementplayersTurnJlabel.getWidth(), reinforcementplayersTurnJlabel.getHeight());
-
-		addArmy.setBounds(addArmyToCountryJcomboBox.getX(), reinforcementUnassignedUnit.getY(),
-				reinforcementUnassignedUnit.getWidth(), reinforcementUnassignedUnit.getHeight());
-
 		reinforcementsJlabel.add(reinforcementplayersTurnJlabel);
-		reinforcementsJlabel.add(addArmyToCountryJcomboBox);
 		reinforcementsJlabel.add(reinforcementUnassignedUnit);
-		reinforcementsJlabel.add(addArmy);
 		gameActionJpanel.add(reinforcementsJlabel);
 
 	}
@@ -336,6 +327,26 @@ public class GameView implements Observer{
 		gameActionJpanel.add(fortificationJlabel);
 	}
 
+	public void loadingPhaseLabel()
+	{
+		gamePhaseJLabel = new JLabel();
+		gamePhaseJLabel.setBorder(
+				BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+		gamePhaseJLabel.setBounds(reinforcementsJlabel.getX(),
+				fortificationJlabel.getY() + 10 + fortificationJlabel.getHeight(), fortificationJlabel.getWidth(),
+				70);
+		
+		gamePhaseNameJLabel = new JLabel("Initialization");
+		Font font = new Font("Courier", Font.BOLD,24);
+		gamePhaseNameJLabel.setFont(font);
+		gamePhaseNameJLabel.setBounds(15, 15, 220, 70);
+		
+		gamePhaseJLabel.add(gamePhaseNameJLabel);
+		
+		gameActionJpanel.add(gamePhaseJLabel);
+	}
+	
 	@Override
 	public void update(Observable obj, Object arg1) {
 		
@@ -366,7 +377,34 @@ public class GameView implements Observer{
         }
         countryList.add(viewCountry);
      }
-     
+     if(playersTurnJlabel != null)
+     {
+		playersTurnJlabel.setText(activePlayerName);
+		playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
+		armyLeftJlabel.setText(activePlayerUnassignedArmiesCount);
+		
+		reinforcementplayersTurnJlabel.setText(activePlayerName);
+		reinforcementplayersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
+		reinforcementUnassignedUnit.setText(activePlayerUnassignedArmiesCount);
+		
+		if(game.getGamePhase() == PhaseEnum.Startup)
+		{
+			gamePhaseNameJLabel.setText("Initialization");
+		}
+		else if(game.getGamePhase() == PhaseEnum.Reinforcement)
+		{
+			gamePhaseNameJLabel.setText("Reinforcement");
+		}
+		else if(game.getGamePhase() == PhaseEnum.Attack)
+		{
+			gamePhaseNameJLabel.setText("Attack - not implemented");
+			game.attackPhase();
+		}
+		else if(game.getGamePhase() == PhaseEnum.Fortification)
+		{
+			gamePhaseNameJLabel.setText("Fortification");
+		}
+     }
      
 /*     if (phase == PhaseEnum.Startup)
      {}
@@ -390,9 +428,6 @@ public class GameView implements Observer{
 		}		
 	}
 	
-	public void addActionListenToAddArmyButton(ActionListener listener) {
-		addArmy.addActionListener(listener);
-	}
 		
 	public void addActionListenToSourceCountryList(ActionListener listener) {
 		sourceCountry.addActionListener (listener);
@@ -400,11 +435,6 @@ public class GameView implements Observer{
 
 	public void addActionListenToMoveArmyButton(ActionListener listener) {
 		fortificationMoveButton.addActionListener(listener);
-	}
-
-	public static String getAddArmyToCountryJcomboBox() {
-	    String selectedCountry = (String) addArmyToCountryJcomboBox.getSelectedItem();
-		return selectedCountry;		
 	}
 
 /*
