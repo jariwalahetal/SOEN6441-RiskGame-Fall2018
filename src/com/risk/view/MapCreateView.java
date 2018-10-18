@@ -31,12 +31,14 @@ public class MapCreateView extends JFrame {
 	public void showCreateView() {
 		createJframe();
 	}
+
 	/**
 	 * This function destroys the Jframe.
 	 */
 	public void killFrame() {
 		frame.dispose();
 	}
+
 	/**
 	 * Returns map data
 	 */
@@ -55,7 +57,7 @@ public class MapCreateView extends JFrame {
 	 * Creates Jframe
 	 */
 	private void createJframe() {
-		
+
 		pane.setLayout(new BoxLayout(pane, BoxLayout.LINE_AXIS));
 
 		textBox.setSize(getMaximumSize());

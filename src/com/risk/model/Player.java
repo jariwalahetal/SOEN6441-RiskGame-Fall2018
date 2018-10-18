@@ -17,7 +17,8 @@ public class Player {
 	private int NoOfUnassignedArmies;
 
 	/**
-	 * This is a constructor of Player Class which sets playerId, name, and color.
+	 * This is a constructor of Player Class which sets playerId, name, and
+	 * color.
 	 * 
 	 * @param playerId
 	 * @param name
@@ -69,14 +70,13 @@ public class Player {
 		this.color = color;
 	}
 
-	public void decreaseUnassignedArmyCount()
-	{     if(NoOfUnassignedArmies>0)
-		    NoOfUnassignedArmies--;
+	public void decreaseUnassignedArmyCount() {
+		if (NoOfUnassignedArmies > 0)
+			NoOfUnassignedArmies--;
 	}
-	
-	public void increaseUnassignedArmyCount()
-	{
+
+	public void increaseUnassignedArmyCount() {
 		NoOfUnassignedArmies++;
 	}
-	
+
 }
