@@ -141,7 +141,7 @@ public class GameView implements Observer{
     String activePlayerName = null;
     int activePlayerId;
     EnumColor activePlayerColor = null;
-	String activePlayerUnassignedArmiesCount;   
+	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;   
     String mapPath;
     ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
     PhaseEnum phase;
@@ -251,16 +251,7 @@ public class GameView implements Observer{
 		reinforcementplayersTurnJlabel.setBorder(new TitledBorder("Player's Turn"));
 		reinforcementplayersTurnJlabel.setBounds(15, 25, 220, 50);
 
-		ArrayList<String> countryNameList = new ArrayList<String>();
-		
-		for (int i = 0; i < countryList.size(); i++) {
-			ViewCountries tempCountry = countryList.get(i);
-            if(activePlayerId == tempCountry.getPlayerID())
-             { countryNameList.add(tempCountry.getCountryName());
-             }
-		}
-
-		reinforcementUnassignedUnit = new JLabel(activePlayerUnassignedArmiesCount);
+		reinforcementUnassignedUnit = new JLabel(reinforcementUnassignedArmiesCount);
 		reinforcementUnassignedUnit.setBorder(new TitledBorder("Reinforced Army Unit"));
 		reinforcementUnassignedUnit.setBounds(
 				reinforcementplayersTurnJlabel.getX() + 20 + reinforcementplayersTurnJlabel.getWidth() + 3,
@@ -359,7 +350,8 @@ public class GameView implements Observer{
      activePlayerName = game.getCurrentPlayer().getName();
      activePlayerId = game.getCurrentPlayerId();
      activePlayerColor = game.getCurrentPlayer().getColor();
-     activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());  
+     activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies()); 
+     reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
      countryList.clear();
      for(Country country: map.getCountryList())
      {  ViewCountries viewCountry = new ViewCountries();
@@ -385,7 +377,7 @@ public class GameView implements Observer{
 		
 		reinforcementplayersTurnJlabel.setText(activePlayerName);
 		reinforcementplayersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
-		reinforcementUnassignedUnit.setText(activePlayerUnassignedArmiesCount);
+		reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
 		
 		if(game.getGamePhase() == PhaseEnum.Startup)
 		{

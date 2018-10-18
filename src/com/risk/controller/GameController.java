@@ -13,8 +13,6 @@ import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
 /**
  * @author Binay Kumar
  * @version 1.0.0
@@ -208,10 +206,8 @@ public class GameController {
 		map.readMap();
 		System.out.print("is map valid:" + map.isMapValid());
 		if(map.isMapValid()){
-			GameController map=new GameController();
-			map.startGame();
+			startGame();
 		}
-		}*/
 	}
 	/**
 	 * This function creates the player objects

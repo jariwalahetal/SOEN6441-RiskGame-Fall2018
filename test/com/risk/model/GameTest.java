@@ -84,15 +84,16 @@ public class GameTest {
 					: reinforcementCount;
 			
 			//varify generate reinforcement value with actual value
-			assertEquals(reinforcementCount, currentPlayer.getNoOfUnassignedArmies());
+			assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
 			
 			//place the armies on random countries for the player
-			while(currentPlayer.getNoOfUnassignedArmies() > 0)
+			while(currentPlayer.getNoOfReinforcedArmies() > 0)
 			{
 				game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size()-1)).getCountryId());
 			}
 			
 			assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
+			assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
 			
 			//Do attack
 			game.attackPhase();

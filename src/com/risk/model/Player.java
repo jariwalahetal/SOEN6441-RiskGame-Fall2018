@@ -14,8 +14,8 @@ public class Player {
 	private int playerId;
 	private String name;
 	private EnumColor color;
-	private int NoOfUnassignedArmies;
-
+	private int noOfUnassignedArmies;
+	private int noOfReinforcedArmies;
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
 	 * 
@@ -35,13 +35,22 @@ public class Player {
 	 */
 
 	public int getNoOfUnassignedArmies() {
-		return NoOfUnassignedArmies;
+		return noOfUnassignedArmies;
 	}
 
 	public void setNoOfUnassignedArmies(int noOfUnassignedArmies) {
-		NoOfUnassignedArmies = noOfUnassignedArmies;
+		this.noOfUnassignedArmies = noOfUnassignedArmies;
 	}
 
+	public int getNoOfReinforcedArmies ()
+	{
+		return noOfReinforcedArmies;
+	}
+	
+	public void setNoOfReinforcedArmies(int noOfReinforcedArmies) {
+		this.noOfReinforcedArmies = noOfReinforcedArmies;
+	}
+	
 	/**
 	 * getters and setters
 	 */
@@ -70,13 +79,18 @@ public class Player {
 	}
 
 	public void decreaseUnassignedArmyCount()
-	{     if(NoOfUnassignedArmies>0)
-		    NoOfUnassignedArmies--;
+	{     if(noOfUnassignedArmies>0)
+				noOfUnassignedArmies--;
 	}
 	
 	public void increaseUnassignedArmyCount()
 	{
-		NoOfUnassignedArmies++;
+		noOfUnassignedArmies++;
+	}
+	
+	public void decreaseReinforcementArmyCount()
+	{     if(noOfReinforcedArmies>0)
+			noOfReinforcedArmies--;
 	}
 	
 }

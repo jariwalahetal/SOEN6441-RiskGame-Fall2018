@@ -47,7 +47,6 @@ public class Game extends Observable {
 	}
 
 	private void setNextPlayerTurn() {
-		if(getGamePhase() == PhaseEnum.Startup || getGamePhase() == PhaseEnum.Fortification)
 			currentPlayerId++;
 		
 		if (currentPlayerId == playerList.size())
@@ -93,7 +92,7 @@ public class Game extends Observable {
 			Country newCountry = map.getCountryList().get(tempList.get(i));
 
 			assignCountryToPlayer(playerList.get(playerIndex), newCountry);
-			increasePlayerArmyInCountry(playerList.get(playerIndex), newCountry);
+			assignFromUnassigned(playerList.get(playerIndex), newCountry);
 			playerIndex++;
 		}
 		notifyObserverslocal(this);
@@ -118,13 +117,24 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * Increase one army for selected selected player in selected country
+	 * Increase one army for selected selected player in selected country from unassigned armies
 	 * 
 	 * @param player
 	 * @param country
 	 */
-	private void increasePlayerArmyInCountry(Player player, Country country) {
+	private void assignFromUnassigned(Player player, Country country) {
 		player.decreaseUnassignedArmyCount();
+		country.increaseArmyCount();
+	}
+	
+	/**
+	 * Increase one army for selected selected player in selected country from reinforcement armies
+	 * 
+	 * @param player
+	 * @param country
+	 */
+	private void assignFromReinforcement(Player player, Country country) {
+		player.decreaseReinforcementArmyCount();
 		country.increaseArmyCount();
 	}
 
@@ -133,8 +143,8 @@ public class Game extends Observable {
 		country.decreseArmyCount();
 	}
 
-	public void addArmyToCountry(int countryId) {
-		if (this.gamePhase == PhaseEnum.Attack || this.gamePhase == PhaseEnum.Fortification) {
+	public void addArmyToCountryForStartup(int countryId) {
+		if (this.gamePhase != PhaseEnum.Startup) {
 			IOHelper.print("Cannot assign army from player to country. Not valid phase");
 			return;
 		}
@@ -145,15 +155,11 @@ public class Game extends Observable {
 
 		if (player == null) {
 			IOHelper.print("Player id " + currentPlayerId + " does not exist");
-			setNextPlayerTurn();
-			notifyObserverslocal(this);
 			return;
 		}
 
 		if (player.getNoOfUnassignedArmies() == 0) {
 			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies");
-			setNextPlayerTurn();
-			notifyObserverslocal(this);
 			return;
 		}
 
@@ -161,12 +167,58 @@ public class Game extends Observable {
 				.orElse(null);
 		if (country == null) {
 			IOHelper.print("Country id " + countryId + " does not exist");
-			notifyObserverslocal(this);
 			return;
 		}
 
-		increasePlayerArmyInCountry(player, country);
-		setNextPlayerTurn();
+		assignFromUnassigned(player, country);
+	}
+	
+	public void addArmyToCountryForReinforcement(int countryId) {
+		if (this.gamePhase != PhaseEnum.Reinforcement) {
+			IOHelper.print("Cannot assign army from player to country. Not valid phase");
+			return;
+		}
+
+		// Player player = playerList.stream().filter(p -> currentPlayerId ==
+		// p.getPlayerId()).findAny().orElse(null);
+		Player player = this.getCurrentPlayer();
+
+		if (player == null) {
+			IOHelper.print("Player id " + currentPlayerId + " does not exist");
+			return;
+		}
+
+		if (player.getNoOfReinforcedArmies() == 0) {
+			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies");
+			return;
+		}
+
+		Country country = playerCountry.get(player).stream().filter(c -> c.getCountryId() == countryId).findAny()
+				.orElse(null);
+		if (country == null) {
+			IOHelper.print("Country id " + countryId + " does not exist");
+			return;
+		}
+
+		assignFromReinforcement(player, country);
+	}
+	
+	public void addArmyToCountry(int countryId)
+	{
+		if(gamePhase == PhaseEnum.Attack || gamePhase == PhaseEnum.Fortification)
+		{
+			IOHelper.print("Cannot add army in attack or fortification phase");
+			return;
+		}
+		if(gamePhase == PhaseEnum.Startup) 
+		{
+			addArmyToCountryForStartup(countryId);
+			setNextPlayerTurn();
+		}
+		else if(gamePhase == PhaseEnum.Reinforcement)
+		{
+			addArmyToCountryForReinforcement(countryId);
+		}
 		updatePhase();
 
 		notifyObserverslocal(this);
@@ -174,23 +226,31 @@ public class Game extends Observable {
 	}
 
 	private void updatePhase() {
-		// check if all player has unassigned armies as 0 then update phase
-		long pendingPlayersCount = playerList.stream().filter(p -> p.getNoOfUnassignedArmies() > 0).count();
 		
-		if (pendingPlayersCount == 0) {
-			// Check if in startup phase then update to reinforcement
-			if (this.getGamePhase() == gamePhase.Startup) {
+		if(this.getGamePhase() == gamePhase.Startup)
+		{
+			//Check all players have assigned armies to country or not
+			long pendingPlayersCount = playerList.stream().filter(p -> p.getNoOfUnassignedArmies() > 0).count();
+			
+			if (pendingPlayersCount == 0) {
 				this.setGamePhase(gamePhase.Reinforcement);
 				currentPlayerId = 0;
 				reinforcementPhaseSetup();
-			} else if (this.getGamePhase() == gamePhase.Reinforcement) {
+			}
+		}
+		else if(this.getGamePhase() == gamePhase.Reinforcement)
+		{
+			//Check the current player reinforcement armies
+			if(getCurrentPlayer().getNoOfReinforcedArmies() == 0)
+			{
 				// We don't need to implement attack for now
 				this.setGamePhase(gamePhase.Attack);
 			}
-			else if(this.getGamePhase() == gamePhase.Fortification)
-			{
-				this.setGamePhase(gamePhase.Reinforcement);
-			}
+			
+		}
+		else if(this.getGamePhase() == gamePhase.Fortification)
+		{
+			this.setGamePhase(gamePhase.Reinforcement);
 		}
 	}
 
@@ -221,8 +281,7 @@ public class Game extends Observable {
 		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS
 				: countriesCount;
 		System.out.println("countriesCount:" + countriesCount);
-		player.setNoOfUnassignedArmies(countriesCount);
-		notifyObserverslocal(this);
+		player.setNoOfReinforcedArmies(countriesCount);
 	}
 
 	public void attackPhase() {
@@ -239,7 +298,7 @@ public class Game extends Observable {
 				.filter(c -> c.getCountryName().equals(destinationCountryName)).findAny().orElse(null);
 
 		decreasePlayerArmyInCountry(player, sourceCountry);
-		increasePlayerArmyInCountry(player, destinationCountry);
+		assignFromUnassigned(player, destinationCountry);
 		this.setNextPlayerTurn();
 		setGamePhase(gamePhase.Reinforcement);
 		notifyObserverslocal(this);
