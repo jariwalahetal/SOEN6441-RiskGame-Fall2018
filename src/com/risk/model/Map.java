@@ -343,6 +343,7 @@ public class Map {
      * @param sourceCountry
      */
     public void DfsRecursive(Country sourceCountry) {
+    	visitedList.clear();
         visitedList.add(sourceCountry.getCountryName());
         for (String neighbourCountry : sourceCountry.getNeighboursString()) {
             if (visitedList.contains(neighbourCountry)) {

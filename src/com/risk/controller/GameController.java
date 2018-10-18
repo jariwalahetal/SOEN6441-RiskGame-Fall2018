@@ -77,7 +77,6 @@ public class GameController {
 	     });
 	}
 
-
 	/**
 	 * @author Mandeep Kaur
      * This method lets the user to edit the Map.
@@ -200,9 +199,10 @@ public class GameController {
 		String selectedMapName = maps.get(mapNumber - 1);
 		map.setMapName(selectedMapName);
 		map.readMap();
-		System.out.print("is map valid:" + map.isMapValid());
-		if(map.isMapValid()){
-			startGame();
+
+		if(!map.isMapValid()){
+			IOHelper.print("\nInvalid Map. Select Again");
+		    initializeMap();
 		}
 	}
 	/**
