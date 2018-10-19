@@ -194,16 +194,8 @@ public class GameTest {
 			for(Country singleCountry:playersCountries) {
 				totalArmies +=singleCountry.getnoOfArmies();
 			}
-			assertsEqual(totalArmies,InitialPlayerSetup.getInitialArmyCount(playerCount));
+			assertEquals(totalArmies,InitialPlayerSetup.getInitialArmyCount(playerCount));
 			totalArmies = 0;
 		}
-		//System.out.print("safdasfdasfd"+totalArmies);
-		//System.out.print(InitialPlayerSetup.getInitialArmyCount(playerCount));
-	}
-
-
-	private void assertsEqual(int totalArmies, int initialArmyCount) {
-		// TODO Auto-generated method stub
-		
 	}
 }
