@@ -72,7 +72,7 @@ public class GameController {
 	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
 	        	 if(isMapCreated)
 	        	 {	        		 
-	        		 IOHelper.print("Map Created successfully");
+	        		 IOHelper.print("Map Created successfully!");
 		        	 v.killFrame();
 		        	 GameController map = new GameController();
 		        	 map.startGame();
@@ -201,13 +201,14 @@ public class GameController {
 	 */
 	private void initializeMap() {
 		int i = 1;
+
 		ArrayList<String> maps = getListOfMaps();
-		IOHelper.print("\nPress number to load file.\n");
 		for (String file : maps) {
 			IOHelper.print("\n" + i + ")" + file);
 			i++;
 		}
-		IOHelper.print("\n");
+        IOHelper.print("\nPress number to load file.\n");
+        IOHelper.print("\n");
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = maps.get(mapNumber - 1);
 		map.setMapName(selectedMapName);
