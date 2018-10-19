@@ -19,9 +19,9 @@ public class Continent {
 	 * This is a Constructor for Continent Class This constructor sets name and
 	 * control value of the class
 	 * 
-	 * @param contId
-	 * @param contName
-	 * @param controlValue
+	 * @param contId , Id of the continent
+	 * @param contName , Name of the continent
+	 * @param controlValue, Control Value of the continent
 	 *
 	 */
 	public Continent(int contId, String contName, int controlValue) {
@@ -43,7 +43,7 @@ public class Continent {
 	/**
 	 * This function sets the continent ID of the continent.
 	 * 
-	 * @param contId
+	 * @param contId ,Id of the continent
 	 */
 	public void setContId(int contId) {
 		this.contId = contId;
@@ -61,7 +61,7 @@ public class Continent {
 	/**
 	 * This function sets the continent name.
 	 * 
-	 * @param contName
+	 * @param contName , Name of the continent
 	 */
 	public void setContName(String contName) {
 		this.contName = contName;
@@ -79,7 +79,7 @@ public class Continent {
 	/**
 	 * This function sets the control value of the continent object.
 	 * 
-	 * @param controlValue
+	 * @param controlValue, Control Value of the continent
 	 */
 	public void setControlValue(int controlValue) {
 		this.controlValue = controlValue;
@@ -88,7 +88,7 @@ public class Continent {
 	/**
 	 * This function adds the country object into the country list.
 	 * 
-	 * @param country
+	 * @param country , Name of the country
 	 */
 	public void addCountry(Country country) {
 		this.countryList.add(country);

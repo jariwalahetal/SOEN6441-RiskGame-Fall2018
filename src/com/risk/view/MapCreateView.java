@@ -41,6 +41,7 @@ public class MapCreateView extends JFrame {
 
 	/**
 	 * Returns map data
+	 * @return String textbox text
 	 */
 	public String returnTextAreaText() {
 		return textBox.getText();
@@ -48,6 +49,7 @@ public class MapCreateView extends JFrame {
 
 	/**
 	 * Returns map name
+	 * @return String mapName
 	 */
 	public String returnMapNameText() {
 		return mapName.getText();
