@@ -494,7 +494,7 @@ public class GameView implements Observer {
 		fortificationMoveButton.addActionListener(listener);
 	}
 
-<<<<<<< HEAD
+
 	/*
 	 * public static void setAddArmyToCountryJcomboBox(JComboBox<String>
 	 * addArmyToCountryJcomboBox) { GameView.addArmyToCountryJcomboBox =
@@ -512,9 +512,7 @@ public class GameView implements Observer {
 		
 	}
 	
-=======
 
->>>>>>> b3db060c947caaab1f3101919d4c97c4e15a43b1
 	/**
 	 * Static method to populate all source countries
 	 * @return selectedCountry
