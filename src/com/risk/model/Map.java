@@ -126,7 +126,7 @@ public class Map {
      * This method allows user to to edit map and add new continent.
      */
     public void addContinentToMap(){
-        IOHelper.print("\nEnter the number of continents you want to create\n");
+        IOHelper.print("\nEnter the number of continents you want to create:\n");
         int totalNumberOfContinents = IOHelper.getNextInteger();
         for (int i = 0; i < totalNumberOfContinents; i++) {
             IOHelper.print("\nEnter continent name for continent number " + (i + 1)
@@ -135,14 +135,14 @@ public class Map {
             int controlValue = IOHelper.getNextInteger();
             Continent continent = new Continent(i, continentName, controlValue);
 
-            IOHelper.print("Enter the number of countries you want to create in this continent\n");
+            IOHelper.print("Enter the number of countries you want to create in this continent:\n");
             int numberOfCountries = IOHelper.getNextInteger();
             for (int j = 0; j < numberOfCountries; j++) {
                 IOHelper.print("Enter country name for country number " + (j + 1));
                 String countryName = IOHelper.getNextString();
-
-                IOHelper.print("Enter x coordinate and y coordinate)");
+                IOHelper.print("Enter x coordinate:");
                 int x = IOHelper.getNextInteger();
+                IOHelper.print("Enter y coordinate:");
                 int y = IOHelper.getNextInteger();
 
                 Country country = new Country(j, countryName);
@@ -172,14 +172,14 @@ public class Map {
                 .findAny()
                 .orElse(null);
 
-        IOHelper.print("Enter the number of countries you want to create in this continent\n");
+        IOHelper.print("Enter the number of countries you want to create in this continent:\n");
         int numberOfCountries = IOHelper.getNextInteger();
         for (int j = 0; j < numberOfCountries; j++) {
-            IOHelper.print("Enter country name for country number " + (j + 1));
+            IOHelper.print("Enter country name for country number: " + (j + 1));
             String countryName = IOHelper.getNextString();
-
-            IOHelper.print("Enter x coordinate and y coordinate)");
+            IOHelper.print("Enter x coordinate:");
             int x = IOHelper.getNextInteger();
+            IOHelper.print("Enter y coordinate:");
             int y = IOHelper.getNextInteger();
 
             Country country = new Country(j, countryName);
@@ -189,7 +189,7 @@ public class Map {
             IOHelper.print("\nEnter the number of adjacent countries you want to create:\n");
             int adjacentCountries = IOHelper.getNextInteger();
             for (int k = 0; k < adjacentCountries; k++) {
-                IOHelper.print("\nEnter country name for adjacency country number " + (k + 1) + "\n");
+                IOHelper.print("\nEnter country name for adjacency country number: " + (k + 1) + "\n");
                 String neighbourName = IOHelper.getNextString();
                 country.addNeighboursString(neighbourName);
             }
@@ -197,10 +197,9 @@ public class Map {
         }
     }
 
-
-
     /**
      * @author Mandeep Kaur
+     *
      * This function deletes the Continent from the existing Map file.
      * @param continentToDelete
      */
@@ -212,7 +211,7 @@ public class Map {
                 .findAny()
                 .orElse(null);
         if(currentContinent==null){
-            IOHelper.print("Continent does not exists.");
+            IOHelper.print("Continent does not exists!");
             return;
         }
         countriesListOfCurrentContinent = currentContinent.getCountryList();
@@ -234,6 +233,7 @@ public class Map {
 
     /**
      * @author Mandeep Kaur
+     *
      * This function deletes the Country from the existing Map file.
      * @param countryToDelete
      */

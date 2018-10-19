@@ -173,26 +173,26 @@ public class Game extends Observable {
 	 */
 	public boolean addArmyToCountryForStartup(String countryName) {
 		if (this.gamePhase != PhaseEnum.Startup) {
-			IOHelper.print("Cannot assign army from player to country. Not valid phase");
+			IOHelper.print("Cannot assign army from player to country. Phase not valid!");
 			return false;
 		}
 
 		Player player = this.getCurrentPlayer();
 
 		if (player == null) {
-			IOHelper.print("Player id " + currentPlayerId + " does not exist");
+			IOHelper.print("Player id " + currentPlayerId + " does not exist!");
 			return false;
 		}
 
 		if (player.getNoOfUnassignedArmies() == 0) {
-			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies");
+			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies!");
 			return true;
 		}
 
 		Country country = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 		if (country == null) {
-			IOHelper.print("Country name -  " + countryName + " does not exist");
+			IOHelper.print("Country name -  " + countryName + " does not exist!");
 			return false;
 		}
 
@@ -207,26 +207,26 @@ public class Game extends Observable {
 	 */
 	public boolean addArmyToCountryForReinforcement(String countryName) {
 		if (this.gamePhase != PhaseEnum.Reinforcement) {
-			IOHelper.print("Cannot assign army from player to country. Not valid phase");
+			IOHelper.print("Cannot assign army from player to country. Phase not valid!");
 			return false;
 		}
 
 		Player player = this.getCurrentPlayer();
 
 		if (player == null) {
-			IOHelper.print("Player id " + currentPlayerId + " does not exist");
+			IOHelper.print("Player id " + currentPlayerId + " does not exist!");
 			return false;
 		}
 
 		if (player.getNoOfReinforcedArmies() == 0) {
-			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies");
+			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies!");
 			return false;
 		}
 
 		Country country = playerCountry.get(player).stream()
 				.filter(c -> c.getCountryName().equalsIgnoreCase(countryName)).findAny().orElse(null);
 		if (country == null) {
-			IOHelper.print("Country name - " + countryName + " does not exist");
+			IOHelper.print("Country name - " + countryName + " does not exist!");
 			return false;
 		}
 
@@ -343,7 +343,7 @@ public class Game extends Observable {
 				.filter(c -> c.getCountryName().equalsIgnoreCase(destinationCountryName)).findAny().orElse(null);
 
 		if (sourceCountry == null || destinationCountry == null) {
-			IOHelper.print("Source or destination country is invalid");
+			IOHelper.print("Source or destination country is invalid!");
 			return;
 		}
 
@@ -382,12 +382,8 @@ public class Game extends Observable {
 
 	/**
 	 * Method to get countries corresponding to players
-	 * 
-<<<<<<< HEAD
+	 *
 	 * @return ArrayList<Country> , returning array list of countries.
-=======
-	 * @return ArrayList , returning arraylist of countries.
->>>>>>> ba0407b50775cacfddf1ac8a3afa5c1580f5bfdf
 	 */
 	public ArrayList<Country> getCurrentPlayerCountries() {
 		Player currentPlayer = playerList.get(currentPlayerId);
@@ -399,11 +395,9 @@ public class Game extends Observable {
 	 * @return The countries which the player occupies
 	 */
 	public ArrayList<Country> getPlayersCountry(Player currentPlayer) {
-		return playerCountry.get(currentPlayer);
+	    return playerCountry.get(currentPlayer);
 	}
 	
-	
-
 	private Boolean phaseCheckValidation(PhaseEnum phase) {
 		System.out.println("phase :" + gamePhase);
 		if (phase == this.gamePhase)

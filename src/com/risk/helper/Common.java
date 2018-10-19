@@ -53,9 +53,8 @@ public class Common {
 	public static int getRandomNumberInRange(int min, int max) {
 
 		if (min >= max) {
-			throw new IllegalArgumentException("max must be greater than min");
+			throw new IllegalArgumentException("Max value must be greater than Min value!");
 		}
-
 		Random r = new Random();
 		return r.nextInt((max - min) + 1) + min;
 	}

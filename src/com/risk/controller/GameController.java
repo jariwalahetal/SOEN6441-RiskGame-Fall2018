@@ -18,8 +18,9 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 /**
  * @author Binay Kumar
  * @version 1.0.0
- * @since 27-September-2018 This class is used to handle operations related to
- *        MAP.
+ * @since 27-September-2018
+ *
+ * This class is used to handle operations related to MAP.
  */
 
 public class GameController {
@@ -33,31 +34,34 @@ public class GameController {
 	 */
 	public void startGame() {
 		map = new Map();
-		IOHelper.print("\t\t+__________________________________________________________+");
-		IOHelper.print("\t\t|=====_==============================================_=====|");
-		IOHelper.print("\t\t|    (_)                                            (_)    |");
-        IOHelper.print("\t\t|   (___)            WELCOME TO RISK GAME          (___)   |");
-        IOHelper.print("\t\t|   _}_{_                                          _}_{_   |");
-        IOHelper.print("\t\t|__[_____]________________________________________[_____]__|");
-        IOHelper.print("\t\t+==========================================================+");
-
-		IOHelper.print("\t\t\t\t\t\t\t+======_Game Menu_======+");
-		IOHelper.print("\t\t\t\t\t\t\t1. Create Map");
-		IOHelper.print("\t\t\t\t\t\t\t2. Edit Map");
-		IOHelper.print("\t\t\t\t\t\t\t3. Play Game");
-		IOHelper.print("\t\t\t\t\t\t\t4. Exit");
-		int input = IOHelper.getNextInteger();
-		if (input == 1)
-			createMap();
-		else if (input == 2)
-			editMap();
-		else if (input == 3) {
-			initializeMap();
-			initializeGame();
-			// TODO: Play game
-		}
-		else if(input == 4){
-		    System.exit(0);
+        IOHelper.print("+__________________________________________________________+");
+        IOHelper.print("|=====_==============================================_=====|");
+        IOHelper.print("|    (_)                                            (_)    |");
+        IOHelper.print("|   (___)            WELCOME TO RISK GAME          (___)   |");
+        IOHelper.print("|   _}_{_                                          _}_{_   |");
+        IOHelper.print("|__[_____]________________________________________[_____]__|");
+        IOHelper.print("+==========================================================+");
+		while(true){
+            IOHelper.print("+======_Game Menu_======+");
+            IOHelper.print("1. Create Map");
+            IOHelper.print("2. Edit Map");
+            IOHelper.print("3. Play Game");
+            IOHelper.print("4. Exit");
+            int input = IOHelper.getNextInteger();
+            switch (input){
+                case 1:
+                    createMap();
+                case 2:
+                    editMap();
+                case 3:
+                    initializeMap();
+                    initializeGame();
+                    //TODO: Play Game
+                case 4:
+                    System.exit(0);
+                default:
+                    IOHelper.print("\nInvalid choice. Select Again!\n");
+            }
         }
 	}
 	/**
@@ -70,15 +74,13 @@ public class GameController {
 	         @Override
 	         public void actionPerformed(ActionEvent e) {
 	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
-	        	 if(isMapCreated)
-	        	 {	        		 
+	        	 if(isMapCreated) {
 	        		 IOHelper.print("Map Created successfully!");
 		        	 v.killFrame();
 		        	 GameController map = new GameController();
 		        	 map.startGame();
 	        	 }
-	        	 else 
-	        	 {
+	        	 else {
 	        		 IOHelper.print("Map is not valid.Please try again");
 	        	 }
 	         }
@@ -93,8 +95,7 @@ public class GameController {
 		IOHelper.print("List of Maps :- ");
 		ArrayList<String> mapList = getListOfMaps();
 		int i = 1;
-		for (String nameOfMap: mapList)
-		{
+		for (String nameOfMap: mapList) {
 			IOHelper.print( i + ")" + nameOfMap);
 			i++;
 		}
@@ -119,8 +120,7 @@ public class GameController {
                 case 1: //Delete Continent
                     IOHelper.print("List of Continents:");
                     ArrayList<Continent> continentList = map.getContinentList();
-                    for (Continent nameOfContinent: continentList )
-                    {
+                    for (Continent nameOfContinent: continentList ) {
                         IOHelper.print("->"+nameOfContinent.getContName());
                     }
                     IOHelper.print("Enter name of the Continent you want to delete:");
@@ -141,8 +141,7 @@ public class GameController {
                 case 2: //Delete Country
                     IOHelper.print("List of Countries:");
                     ArrayList<Country> countryList = map.getCountryList();
-                    for (Country nameOfCountry: countryList )
-                    {
+                    for (Country nameOfCountry: countryList ) {
                         IOHelper.print("->"+nameOfCountry.getCountryName());
                     }
                     IOHelper.print("Enter name of the Country you want to delete from the list given below:");
@@ -167,16 +166,15 @@ public class GameController {
                     }
                     break;
                 case 4: //Add Country
-                    IOHelper.print("Enter name of the continent where you want to add the country from the list given below: ");
+                    IOHelper.print("List of Continents:-");
                     ArrayList<Continent> continentsList = map.getContinentList();
                     int continentID = 0;
-                    for (Continent continent: continentsList )
-                    {
+                    for (Continent continent: continentsList ) {
                         IOHelper.print("-> "+continent.getContName());
                         continentID = continent.getContId();
                     }
+                    IOHelper.print("Enter name of the continent where you want to add new country(from above list): ");
                     String continentName = IOHelper.getNextString();
-
                     map.addCountryToContinent(continentName,continentID);
                     map.saveMap();
                     if(map.isMapValid()){
@@ -190,7 +188,7 @@ public class GameController {
                     startGame();
                     break;
                 default:
-                    IOHelper.print("Option not Available! Enter Again");
+                    IOHelper.print("Option not Available. Select Again!");
                     break;
             }
         }
@@ -201,21 +199,20 @@ public class GameController {
 	 */
 	private void initializeMap() {
 		int i = 1;
-
+		IOHelper.print("List of Maps:-");
 		ArrayList<String> maps = getListOfMaps();
 		for (String file : maps) {
-			IOHelper.print("\n" + i + ")" + file);
+			IOHelper.print( i + ")" + file);
 			i++;
 		}
-        IOHelper.print("\nPress number to load file.\n");
-        IOHelper.print("\n");
+        IOHelper.print("\nEnter Map number to load Map file:\n");
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = maps.get(mapNumber - 1);
 		map.setMapName(selectedMapName);
 		map.readMap();
 
 		if(!map.isMapValid()){
-			IOHelper.print("\nInvalid Map. Select Again");
+			IOHelper.print("\nInvalid Map. Select Again!");
 		    initializeMap();
 		}
 	}
@@ -226,7 +223,6 @@ public class GameController {
 		game = new Game(map);
 		gameView=new GameView();
 		game.addObserver(gameView);
-		
 		IOHelper.print("\nEnter the number of Players:");
 		int playerCount = IOHelper.getNextInteger();
 		
@@ -289,8 +285,7 @@ public class GameController {
         public void actionPerformed(ActionEvent  e) {
             if (game.getGamePhase()==PhaseEnum.Fortification) 
             	game.fortificationPhase(gameView.getSourceCountry(),gameView.getDestinationCountry(),gameView.getNoOfArmyToMoveJcomboBox());
-        
-        }
+             }
         });
 	}
 
@@ -313,6 +308,4 @@ public class GameController {
 		}
 		return fileNames;
 	}
-
-	
 }
