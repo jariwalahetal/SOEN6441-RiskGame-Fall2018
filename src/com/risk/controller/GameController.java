@@ -85,7 +85,6 @@ public class GameController {
 	     });
 	}
 
-
 	/**
 	 * @author Mandeep Kaur
      * This method lets the user to edit the Map.
@@ -213,9 +212,10 @@ public class GameController {
 		String selectedMapName = maps.get(mapNumber - 1);
 		map.setMapName(selectedMapName);
 		map.readMap();
-		System.out.print("is map valid:" + map.isMapValid());
-		if(map.isMapValid()){
-			startGame();
+
+		if(!map.isMapValid()){
+			IOHelper.print("\nInvalid Map. Select Again");
+		    initializeMap();
 		}
 	}
 	/**
@@ -254,9 +254,9 @@ public class GameController {
        
             public void mouseClicked(MouseEvent e) {
             JLabel jLabel=	(JLabel) e.getSource();
-            String string=jLabel.getToolTipText().substring(0,jLabel.getToolTipText().indexOf("--"));
+            String string=jLabel.getToolTipText();
             if (game.getGamePhase()==PhaseEnum.Startup || game.getGamePhase() == PhaseEnum.Reinforcement)
-               game.addArmyToCountry(Integer.parseInt(string));
+               game.addArmyToCountry(string);
             }
         });
 	}
@@ -268,7 +268,13 @@ public class GameController {
 		gameView.addActionListenToSourceCountryList(new ActionListener() {
        
         public void actionPerformed(ActionEvent  e) {
-           System.out.println("find neighbours of the selected country");        
+        	String countryName = gameView.getSourceCountry();
+        	if(countryName!=null)
+        	{ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
+        	int armyCount = game.getArmiesAssignedToCountry(countryName);
+        	gameView.populateDestinationCountryComboBox(neighborCountries);
+        	gameView.populateNoOfArmyToMoveJcomboBox(armyCount);
+        	}
         }
         });
 	}

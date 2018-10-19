@@ -20,6 +20,12 @@ public class MapTest {
 	ArrayList<String> testMapContinents = new ArrayList<String>();
 	ArrayList<String> testMapCountries = new ArrayList<String>();
 
+	/**
+	 * Method to compare two array list
+	 * @param one
+	 * @param two
+	 * @return true if two array list are equal
+	 */
 	public boolean equalLists(ArrayList<String> one, ArrayList<String> two) {
 		if (one == null && two == null) {
 			return true;
@@ -39,6 +45,9 @@ public class MapTest {
 		return one.equals(two);
 	}
 
+	/**
+	 * Test Method to set up initial map
+	 */
 	@Before
 	public void setUp() {
 		sb = new StringBuffer();
@@ -137,6 +146,9 @@ public class MapTest {
 		assertFalse(isMapCreated);
 	}
 
+	/**
+	 * Test method to read map
+	 */
 	@Test
 	public void readMapTest() {
 		ArrayList<String> testContinents = new ArrayList<String>();

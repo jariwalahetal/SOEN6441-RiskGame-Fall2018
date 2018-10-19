@@ -18,7 +18,6 @@ public class Country {
 	private int playerId;
 	private int xCoordiate;
 	private int yCoordiate;
-	private ArrayList<Country> neighbours = new ArrayList<>();
 	private ArrayList<String> neighboursString = new ArrayList<>();
 	private int noOfArmies;
 	private EnumColor countryColor;
@@ -50,7 +49,7 @@ public class Country {
 		this.countryId = countryId;
 		this.countryName = countryName;
 	}
-
+	
 	/**
 	 * Get country id
 	 * 
@@ -63,8 +62,8 @@ public class Country {
 	/**
 	 * Sets country id
 	 * 
-	 * @param countryId
-	 *            int
+	 * @param countryId int
+	 *            
 	 */
 	public void setCountryId(int countryId) {
 		this.countryId = countryId;
@@ -120,8 +119,8 @@ public class Country {
 	/**
 	 * Sets player id
 	 * 
-	 * @param playerId
-	 *            int
+	 * @param playerId int
+	 *            
 	 */
 	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
@@ -139,8 +138,8 @@ public class Country {
 	/**
 	 * Sets X-coordinate position
 	 * 
-	 * @param xCoordiate
-	 *            int
+	 * @param xCoordiate int
+	 *            
 	 */
 	public void setxCoordiate(int xCoordiate) {
 		this.xCoordiate = xCoordiate;
@@ -158,34 +157,11 @@ public class Country {
 	/**
 	 * Sets Y-coordinate position
 	 * 
-	 * @param yCoordiate
-	 *            int
+	 * @param yCoordiate int
+	 *            
 	 */
 	public void setyCoordiate(int yCoordiate) {
 		this.yCoordiate = yCoordiate;
-	}
-
-	/**
-	 * Get neighbours country list
-	 * 
-	 * @return neighbours ArrayList<Country>
-	 */
-	public ArrayList<Country> getNeighbours() {
-		return neighbours;
-	}
-
-	public void addNeighbour(Country country) {
-		this.neighbours.add(country);
-	}
-
-	/**
-	 * Sets neighbours country list
-	 * 
-	 * @param neighbours
-	 *            ArrayList<Country>
-	 */
-	public void setNeighbours(ArrayList<Country> neighbours) {
-		this.neighbours = neighbours;
 	}
 
 	/**
@@ -205,12 +181,13 @@ public class Country {
 	/**
 	 * Gets list of neighbours stings
 	 * 
-	 * @return neighboursString ArrayList<String>
+	 * @return neighboursString 
 	 */
 	public ArrayList<String> getNeighboursString() {
 		return neighboursString;
 	}
 
+	
 	/**
 	 * Gets army count for the country
 	 * 
@@ -231,8 +208,8 @@ public class Country {
 	/**
 	 * Increases the army count by given value
 	 * 
-	 * @param count
-	 *            int
+	 * @param count int
+	 *            
 	 */
 	public void increaseArmyCount(int count) {
 		noOfArmies += count;
@@ -249,8 +226,8 @@ public class Country {
 	/**
 	 * Decreases the army count by given value
 	 * 
-	 * @param count
-	 *            int
+	 * @param count int
+	 *            
 	 */
 	public void decreaseArmyCount(int count) {
 		noOfArmies -= count;
