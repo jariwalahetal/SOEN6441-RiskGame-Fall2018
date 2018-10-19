@@ -158,7 +158,6 @@ public class Map {
                 }
                 continent.addCountry(country);
             }
-            //map.addContinent(continent);
             addContinent(continent);
         }
     }
@@ -194,7 +193,6 @@ public class Map {
                 String neighbourName = IOHelper.getNextString();
                 country.addNeighboursString(neighbourName);
             }
-            // continent.addCountry(country);
             currentContinent.addCountry(country);
         }
     }
@@ -220,14 +218,11 @@ public class Map {
         countriesListOfCurrentContinent = currentContinent.getCountryList();
         for ( Continent continent: continentsList){
             for (Country country : continent.getCountryList()) {
-                //IOHelper.print("neighbour"+country.getNeighboursString());
                 for (int i = 0; i < country.getNeighboursString().size() ; i++) {
                     if (country.getNeighboursString().get(i).equalsIgnoreCase(countriesListOfCurrentContinent.get(i).getCountryName())){
-                        //IOHelper.print("got neighbour");
                         country.getNeighboursString().remove(i);
                     }
                     else{
-                        //IOHelper.print("neighbor not found");
                     }
                 }
             }
@@ -251,11 +246,9 @@ public class Map {
         for (Country country: countriesList) {
             for (int i = 0; i < country.getNeighboursString().size() ; i++) {
                 if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
-                    //IOHelper.print("got neighbour");
                     country.getNeighboursString().remove(i);
                 }
                 else{
-                    //IOHelper.print("neighbor not found");
                 }
             }
         }
@@ -293,7 +286,7 @@ public class Map {
                 }
                 for (String eachNeighbourCountry : singleCountry.getNeighboursString()) {
                     if (listOfAllCountries.contains(eachNeighbourCountry)) {
-                        // nada
+                        
                     } else {
                         listOfAllCountries.add(eachNeighbourCountry);
                     }
@@ -339,14 +332,13 @@ public class Map {
         return true;
     }
     /**
-     * This function checks if the map is connected or not ; it is a recursive funciton.     *
+     * This function checks if the map is connected or not ; it is a recursive function.     *
      * @param sourceCountry
      */
     public void DfsRecursive(Country sourceCountry) {
-        visitedList.add(sourceCountry.getCountryName());
+    	visitedList.add(sourceCountry.getCountryName());
         for (String neighbourCountry : sourceCountry.getNeighboursString()) {
             if (visitedList.contains(neighbourCountry)) {
-                // nada
             } else {
                 Country countryyy = null;
                 for (Continent cont : this.continentsList) {
