@@ -383,12 +383,26 @@ public class Game extends Observable {
 	/**
 	 * Method to get countries corresponding to players
 	 * 
+<<<<<<< HEAD
+	 * @return ArrayList<Country> , returning array list of countries.
+=======
 	 * @return ArrayList , returning arraylist of countries.
+>>>>>>> ba0407b50775cacfddf1ac8a3afa5c1580f5bfdf
 	 */
-	public ArrayList<Country> getPlayerCountries() {
+	public ArrayList<Country> getCurrentPlayerCountries() {
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return playerCountry.get(currentPlayer);
 	}
+	/**
+	 * This method returns the list of countries that the player has.
+	 * @param currentPlayer 
+	 * @return The countries which the player occupies
+	 */
+	public ArrayList<Country> getPlayersCountry(Player currentPlayer) {
+		return playerCountry.get(currentPlayer);
+	}
+	
+	
 
 	private Boolean phaseCheckValidation(PhaseEnum phase) {
 		System.out.println("phase :" + gamePhase);

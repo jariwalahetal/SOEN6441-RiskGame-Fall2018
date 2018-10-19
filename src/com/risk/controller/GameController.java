@@ -13,6 +13,7 @@ import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 /**
  * @author Binay Kumar
@@ -32,12 +33,19 @@ public class GameController {
 	 */
 	public void startGame() {
 		map = new Map();
-		IOHelper.print("Welcome to the Risk Game");
-		IOHelper.print("Game Menu");
-		IOHelper.print("1. Create Map");
-		IOHelper.print("2. Edit Map");
-		IOHelper.print("3. Play Game");
-		IOHelper.print("4. Exit");
+		IOHelper.print("\t\t+__________________________________________________________+");
+		IOHelper.print("\t\t|=====_==============================================_=====|");
+		IOHelper.print("\t\t|    (_)                                            (_)    |");
+        IOHelper.print("\t\t|   (___)            WELCOME TO RISK GAME          (___)   |");
+        IOHelper.print("\t\t|   _}_{_                                          _}_{_   |");
+        IOHelper.print("\t\t|__[_____]________________________________________[_____]__|");
+        IOHelper.print("\t\t+==========================================================+");
+
+		IOHelper.print("\t\t\t\t\t\t\t+======_Game Menu_======+");
+		IOHelper.print("\t\t\t\t\t\t\t1. Create Map");
+		IOHelper.print("\t\t\t\t\t\t\t2. Edit Map");
+		IOHelper.print("\t\t\t\t\t\t\t3. Play Game");
+		IOHelper.print("\t\t\t\t\t\t\t4. Exit");
 		int input = IOHelper.getNextInteger();
 		if (input == 1)
 			createMap();
@@ -82,7 +90,7 @@ public class GameController {
      * This method lets the user to edit the Map.
 	 */
 	private void editMap() {
-		IOHelper.print("\nEnter Map_Number of the Map you want to edit from the list given below:");
+		IOHelper.print("List of Maps :- ");
 		ArrayList<String> mapList = getListOfMaps();
 		int i = 1;
 		for (String nameOfMap: mapList)
@@ -90,28 +98,32 @@ public class GameController {
 			IOHelper.print( i + ")" + nameOfMap);
 			i++;
 		}
+        IOHelper.print("\nEnter Map_Number that you want to edit from above list:");
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = mapList.get(mapNumber - 1);
 		map.setMapName(selectedMapName);
 		IOHelper.print("'"+selectedMapName+"'");
         map.readMap();
         while (true){
-            IOHelper.print("\nEdit Map Menu: ");
-            IOHelper.print("1. Delete Continent");
-            IOHelper.print("2. Delete Country");
-            IOHelper.print("3. Add Continent");
-            IOHelper.print("4. Add Country");
-            IOHelper.print("5. Exit");
-            IOHelper.print("Enter option:");
+            IOHelper.print("+------------------------------+");
+            IOHelper.print("|________ Edit Map Menu________| ");
+            IOHelper.print("|    1. Delete Continent       |");
+            IOHelper.print("|    2. Delete Country         |");
+            IOHelper.print("|    3. Add Continent          |");
+            IOHelper.print("|    4. Add Country            |");
+            IOHelper.print("|    5. Exit                   |");
+            IOHelper.print("+------------------------------+");
+            IOHelper.print(" Enter option:");
             int input = IOHelper.getNextInteger();
             switch (input){
                 case 1: //Delete Continent
-                    IOHelper.print("Enter name of the Continent you wish to delete:");
+                    IOHelper.print("List of Continents:");
                     ArrayList<Continent> continentList = map.getContinentList();
                     for (Continent nameOfContinent: continentList )
                     {
                         IOHelper.print("->"+nameOfContinent.getContName());
                     }
+                    IOHelper.print("Enter name of the Continent you want to delete:");
                     String continentToDelete = IOHelper.getNextString();
                     map.deleteContinent(continentToDelete);
                     try{
@@ -120,19 +132,20 @@ public class GameController {
                             IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
                         }
                         else{
-                            IOHelper.print("Map is not valid!");
+                            IOHelper.print("Map is invalid!");
                         }
                     }catch (  Exception e){
                         IOHelper.print(" Empty Map !");
                     }
                     break;
                 case 2: //Delete Country
-                    IOHelper.print("Enter name of the Country you wish to delete from the list given below:");
+                    IOHelper.print("List of Countries:");
                     ArrayList<Country> countryList = map.getCountryList();
                     for (Country nameOfCountry: countryList )
                     {
                         IOHelper.print("->"+nameOfCountry.getCountryName());
                     }
+                    IOHelper.print("Enter name of the Country you want to delete from the list given below:");
                     String countryToDelete = IOHelper.getNextString();
                     map.deleteCountry(countryToDelete);
                     map.saveMap();
@@ -140,7 +153,7 @@ public class GameController {
                         map.saveMap();
                         IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
                     }else {
-                        IOHelper.print("Not valid");
+                        IOHelper.print("Map is invalid!");
                     }
                     break;
                 case 3: //Add Continent
@@ -150,7 +163,7 @@ public class GameController {
                         map.saveMap();
                         IOHelper.print("Continent added successfully!");
                     }else{
-                        IOHelper.print("Not valid");
+                        IOHelper.print("Map is invalid!");
                     }
                     break;
                 case 4: //Add Country
@@ -170,7 +183,7 @@ public class GameController {
                         map.saveMap();
                         IOHelper.print("Country added successfuly!");
                     }else {
-                        IOHelper.print("Not valid");
+                        IOHelper.print("Map is invalid!");
                     }
                     break;
                 case 5: // Exit from EditMap

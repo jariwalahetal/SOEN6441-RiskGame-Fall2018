@@ -54,7 +54,7 @@ public class GameTest {
 		// Loop until all armies are assigned for all players
 		while (game.getGamePhase() == PhaseEnum.Startup) {
 			// Randomly increase army for the country of player
-			ArrayList<Country> playerCountries = game.getPlayerCountries();
+			ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
 
 			int id = Common.getRandomNumberInRange(0, playerCountries.size() - 1);
 
@@ -66,7 +66,6 @@ public class GameTest {
 	/**
 	 * Test method for checking current reinforcement phase
 	 */
-
 	@Test
 	public void testCurrentPhaseIsReinforcement() {
 		// Phase should be updated directly by model
@@ -172,19 +171,31 @@ public class GameTest {
 		}
 	}
 	
-//	@Test
-//	public void totalArmiesTest(){
-//		Map map2 = new Map();
-//		map2.setMapName(mapToTest);
-//		map2.readMap();
-//		
-//		Game game2 = new Game(map2);
-//		for (int i = 0; i < playerCount; i++) {
-//			String playerName = "Bestplayer " + i;
-//			Player player = new Player(i, playerName);
-//			assert(player.getNoOfUnassignedArmies()+);
-//			game2.addPlayer(player);
-//		}
-//		game2.startUpPhase();
-//	}
+	@Test
+	public void totalArmiesTest(){
+		Map map2 = new Map();
+		InitialPlayerSetup setup = new InitialPlayerSetup();
+		map2.setMapName(mapToTest);
+		map2.readMap();
+		int totalArmies=0;
+		
+		Game game2 = new Game(map2);
+		for (int i = 0; i < playerCount; i++) {
+			String playerName = "Bestplayer " + i;
+			Player player = new Player(i, playerName);
+		
+			game2.addPlayer(player);
+		}
+		game2.startUpPhase();
+		ArrayList<Player> players = game2.getAllPlayers();
+		for(Player player:players) {
+			totalArmies += player.getNoOfUnassignedArmies();
+			ArrayList<Country> playersCountries = game2.getPlayersCountry(player);
+			for(Country singleCountry:playersCountries) {
+				totalArmies +=singleCountry.getnoOfArmies();
+			}
+			assertEquals(totalArmies,InitialPlayerSetup.getInitialArmyCount(playerCount));
+			totalArmies = 0;
+		}
+	}
 }
