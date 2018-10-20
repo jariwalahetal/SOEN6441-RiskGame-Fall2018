@@ -22,10 +22,20 @@ public class Country {
 	private int noOfArmies;
 	private EnumColor countryColor;
 
+	/**
+	 * Method to get color of the country
+	 * 
+	 * @return countryColor,color of the country
+	 */
 	public EnumColor getCountryColor() {
 		return countryColor;
 	}
 
+	/**
+	 * Method to set color of the country
+	 * 
+	 * @param countryColor, color of the country
+	 */
 	public void setCountryColor(EnumColor countryColor) {
 		this.countryColor = countryColor;
 	}
@@ -48,6 +58,12 @@ public class Country {
 		this.noOfArmies = noOfArmies;
 	}
 
+	/**
+	 *  This is a Constructor for Country class which sets name and id
+	 * 
+	 * @param countryId ,id of the country
+	 * @param countryName,name of the country
+	 */
 	public Country(int countryId, String countryName) {
 		this.countryId = countryId;
 		this.countryName = countryName;

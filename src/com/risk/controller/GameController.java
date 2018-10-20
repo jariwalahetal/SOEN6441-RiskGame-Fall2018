@@ -14,11 +14,11 @@ import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
 
 /**
+ * This class is used to handle operations related to MAP.
  * @author Binay Kumar
  * @version 1.0.0
  * @since 27-September-2018
  *
- *        This class is used to handle operations related to MAP.
  */
 
 public class GameController {
@@ -97,7 +97,7 @@ public class GameController {
 	}
 
 	/**
-	 * @author Mandeep Kaur This method lets the user to edit the Map.
+	 * Method for edit map functionality for all the cases
 	 */
 	private void editMap() {
 		IOHelper.print("List of Maps :- ");
