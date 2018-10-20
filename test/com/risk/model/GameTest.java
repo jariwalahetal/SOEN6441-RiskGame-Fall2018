@@ -198,4 +198,47 @@ public class GameTest {
 			totalArmies = 0;
 		}
 	}
+
+	@Test
+	public void getNeighbouringCountriesTest() {
+		Map map3 = new Map();
+		map3.setMapName(mapToTest);
+		map3.readMap();
+		
+		Game game3 = new Game(map3);
+		for (int i = 0; i < 2; i++) {
+			String playerName = "Bestplayer " + i;
+			Player player = new Player(i, playerName);
+			game3.addPlayer(player);
+		}
+		game3.startUpPhase();
+//		ArrayList<String> neighCountries = game3.getNeighbouringCountries("Morocco");
+		Country country = game3.getMap().getCountryList().stream().
+				filter(x->x.getCountryName().equalsIgnoreCase("Morocco"))
+				.findAny().orElse(null);
+		if(country!=null) {
+			ArrayList<String> neighCountries = country.getNeighboursString();
+			ArrayList<String> actualNeigboursList = new ArrayList<String>();
+			actualNeigboursList.add("Western Sahara");
+			actualNeigboursList.add("Algeria");		
+			assertTrue(isTwoArrayListsWithSameValues(neighCountries,actualNeigboursList));
+		}
+	}
+	
+	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
+        if (list1 == null && list2 == null)
+            return true;
+        if ((list1 == null && list2 != null) || (list1 != null && list2 == null))
+            return false;
+
+        if (list1.size() != list2.size())
+            return false;
+        for (String itemList1 : list1) {
+            if (!list2.contains(itemList1))
+                return false;
+        }
+        return true;
+    }
 }
+
+

@@ -5,7 +5,6 @@ image=Africa.bmp
 Continent1=10
 Continent2=20
 [Territories]
-Country1,127,46,Continent2,Country2,Country3
 Country1,127,46,Continent1,Country2,Country3
 Country2,193,85,Continent1,Country1,Country3,Country4
 Country3,252,33,Continent1,Country5,Country1,Country2

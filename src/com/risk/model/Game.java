@@ -453,9 +453,7 @@ public class Game extends Observable {
 				noOfArmies = country.getnoOfArmies();
 			}
 		}
-
 		return noOfArmies;
-
 	}
 
 	/**
