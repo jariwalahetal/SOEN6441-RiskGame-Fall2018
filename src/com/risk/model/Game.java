@@ -346,6 +346,7 @@ public class Game extends Observable {
 	 *            name of the destination country of the player
 	 * @param noOfArmies,
 	 *            number of armies to be moved
+	 *  @return  true if no army need to move and false if source and destination countries are null
 	 */
 	public boolean fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
 

@@ -230,11 +230,10 @@ public class Map {
 	}
 
 	/**
-	 * @author Mandeep Kaur
-	 *
-	 *         This function deletes the Continent from the existing Map file.
-	 * @param continentToDelete,
-	 *            name of the continent to be deleted
+	 * This function deletes the Continent from the existing Map file.
+	 * 
+	 * @param continentToDelete, name of the continent to be deleted      
+	 * @return true if continent is deleted otherwise false.
 	 */
 	public boolean deleteContinent(String continentToDelete) {
 
