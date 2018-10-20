@@ -46,24 +46,31 @@ public class GameController {
 		IOHelper.print("2. Edit Map");
 		IOHelper.print("3. Play Game");
 		IOHelper.print("4. Exit");
-		int input = IOHelper.getNextInteger();
-		switch (input) {
-		case 1:
-			createMap();
-			break;
-		case 2:
-			editMap();
-			break;
-		case 3:
-			initializeMap();
-			initializeGame();
-			break;
-		// TODO: Play Game
-		case 4:
-			System.exit(0);
-		default:
-			IOHelper.print("\nInvalid choice. Select Again!\n");
+		try {
+			int input = IOHelper.getNextInteger();
+
+			switch (input) {
+			case 1:
+				createMap();
+				break;
+			case 2:
+				editMap();
+				break;
+			case 3:
+				initializeMap();
+				initializeGame();
+				break;
+			// TODO: Play Game
+			case 4:
+				System.exit(0);
+			default:
+				IOHelper.print("\nInvalid choice. Select Again!\n");
+			}
+		} catch (Exception e) {
+			IOHelper.printException(e);
+			IOHelper.print("Please try again with the right option");
 		}
+
 	}
 
 	/**

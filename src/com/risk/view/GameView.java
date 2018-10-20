@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
+import com.risk.helper.IOHelper;
 import com.risk.helper.PhaseEnum;
 import com.risk.model.Country;
 import com.risk.model.Game;
@@ -273,8 +274,7 @@ public class GameView implements Observer {
 			image = ImageIO.read(imageFile);
 			icon = new ImageIcon(image);
 		} catch (IOException e) {
-
-			e.printStackTrace();
+			IOHelper.printException(e);
 		}
 
 		mapJlabel = new JLabel(icon);
