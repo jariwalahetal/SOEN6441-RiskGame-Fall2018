@@ -76,8 +76,8 @@ public class GameTest {
 	 */
 
 	@Test
-	public void testGamePlayRandomTimes() {
-		int iterationCount = Common.getRandomNumberInRange(10, 25);
+	public void testGamePlay() {
+		int iterationCount = 15;
 
 		while (iterationCount > 0) {
 			// Generate reinforcement for player
