@@ -119,7 +119,7 @@ public class GameController {
             IOHelper.print(" Enter option:");
             int input = IOHelper.getNextInteger();
             switch (input){
-                case 1: //Delete Continent
+                case 1:
                     IOHelper.print("List of Continents:");
                     ArrayList<Continent> continentList = map.getContinentList();
                     for (Continent nameOfContinent: continentList ) {
@@ -140,7 +140,7 @@ public class GameController {
                         IOHelper.print(" Empty Map !");
                     }
                     break;
-                case 2: //Delete Country
+                case 2:
                     IOHelper.print("List of Countries:");
                     ArrayList<Country> countryList = map.getCountryList();
                     for (Country nameOfCountry: countryList ) {
@@ -157,9 +157,8 @@ public class GameController {
                         IOHelper.print("Map is invalid!");
                     }
                     break;
-                case 3: //Add Continent
+                case 3:
                     map.addContinentToMap();
-                    map.saveMap(); // to check continent is added or not
                     if(map.isMapValid()){
                         map.saveMap();
                         IOHelper.print("Continent added successfully!");
@@ -178,7 +177,6 @@ public class GameController {
                     IOHelper.print("Enter name of the continent where you want to add new country(from above list): ");
                     String continentName = IOHelper.getNextString();
                     map.addCountryToContinent(continentName,continentID);
-                    map.saveMap();
                     if(map.isMapValid()){
                         map.saveMap();
                         IOHelper.print("Country added successfuly!");
@@ -186,7 +184,7 @@ public class GameController {
                         IOHelper.print("Map is invalid!");
                     }
                     break;
-                case 5: // Exit from EditMap
+                case 5:
                     startGame();
                     break;
                 default:
@@ -305,7 +303,6 @@ public class GameController {
 			if (listOfFiles[i].isFile()) {
 				fileNames.add(listOfFiles[i].getName());
 			} else if (listOfFiles[i].isDirectory()) {
-				// nada
 			}
 		}
 		return fileNames;
