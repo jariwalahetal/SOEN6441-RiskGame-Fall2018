@@ -39,48 +39,48 @@ public class GameController {
         IOHelper.print("|   _}_{_                                          _}_{_   |");
         IOHelper.print("|__[_____]________________________________________[_____]__|");
         IOHelper.print("+==========================================================+");
-		while(true){
-            IOHelper.print("+======_Game Menu_======+");
-            IOHelper.print("1. Create Map");
-            IOHelper.print("2. Edit Map");
-            IOHelper.print("3. Play Game");
-            IOHelper.print("4. Exit");
-            int input = IOHelper.getNextInteger();
-            switch (input){
-                case 1:
-                    createMap();
-                case 2:
-                    editMap();
-                case 3:
-                    initializeMap();
-                    initializeGame();
-                    //TODO: Play Game
-                case 4:
-                    System.exit(0);
-                default:
-                    IOHelper.print("\nInvalid choice. Select Again!\n");
-            }
+        IOHelper.print("+======_Game Menu_======+");
+        IOHelper.print("1. Create Map");
+        IOHelper.print("2. Edit Map");
+        IOHelper.print("3. Play Game");
+        IOHelper.print("4. Exit");
+        int input = IOHelper.getNextInteger();
+        switch (input){
+            case 1:
+                createMap();
+                break;
+            case 2:
+                editMap();
+                break;
+            case 3:
+                initializeMap();
+                initializeGame();
+                break;
+                //TODO: Play Game
+            case 4:
+                System.exit(0);
+            default:
+                IOHelper.print("\nInvalid choice. Select Again!\n");
         }
 	}
 	/**
 	 * This function gives the user an editor to create the map and it saves the map to the disk.
 	 */
 	private void createMap() {
-		MapCreateView v = new MapCreateView();
-   	 	v.showCreateView();
-	   	v.button2.addActionListener(new ActionListener() {
+		MapCreateView mapView = new MapCreateView();
+   	 	mapView.showCreateView();
+	   	mapView.saveMapButton.addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent e) {
-	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
+	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(mapView.returnTextAreaText()), mapView.returnMapNameText());
 	        	 if(isMapCreated) {
 	        		 IOHelper.print("Map Created successfully!");
-		        	 v.killFrame();
-		        	 GameController map = new GameController();
-		        	 map.startGame();
 	        	 }
 	        	 else {
 	        		 IOHelper.print("Map is not valid.Please try again");
 	        	 }
+	        	 mapView.killFrame();
+	        	 startGame();
 	         }
 	     });
 	}
@@ -115,7 +115,7 @@ public class GameController {
             IOHelper.print(" Enter option:");
             int input = IOHelper.getNextInteger();
             switch (input){
-                case 1: //Delete Continent
+                case 1:
                     IOHelper.print("List of Continents:");
                     ArrayList<Continent> continentList = map.getContinentList();
                     for (Continent nameOfContinent: continentList ) {
@@ -123,20 +123,26 @@ public class GameController {
                     }
                     IOHelper.print("Enter name of the Continent you want to delete:");
                     String continentToDelete = IOHelper.getNextString();
-                    map.deleteContinent(continentToDelete);
-                    try{
-                        if (map.isMapValid()){
-                            map.saveMap();
-                            IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
-                        }
-                        else{
-                            IOHelper.print("Map is invalid!");
-                        }
-                    }catch (  Exception e){
-                        IOHelper.print(" Empty Map !");
+                    boolean isContinentDeleted = map.deleteContinent(continentToDelete);
+                    if(isContinentDeleted){
+	                    try{
+	                        if (map.isMapValid()){
+	                            map.saveMap();
+	                            IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
+	                        }
+	                        else{
+	                            IOHelper.print("Map is invalid!");
+	                        }
+	                    }catch (  Exception e){
+	                        IOHelper.print(" Empty Map !");
+	                    }
                     }
+                    else {
+                    	IOHelper.print("Continent can not deleted");
+                    }
+                    
                     break;
-                case 2: //Delete Country
+                case 2:
                     IOHelper.print("List of Countries:");
                     ArrayList<Country> countryList = map.getCountryList();
                     for (Country nameOfCountry: countryList ) {
@@ -144,18 +150,18 @@ public class GameController {
                     }
                     IOHelper.print("Enter name of the Country you want to delete from the list given below:");
                     String countryToDelete = IOHelper.getNextString();
-                    map.deleteCountry(countryToDelete);
-                    map.saveMap();
-                    if (map.isMapValid()){
-                        map.saveMap();
-                        IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
-                    }else {
-                        IOHelper.print("Map is invalid!");
+                    boolean isCountryDeleted = map.deleteCountry(countryToDelete);
+                    if(isCountryDeleted){
+	                    if (map.isMapValid()){
+	                        map.saveMap();
+	                        IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
+	                    }else {
+	                        IOHelper.print("Map is invalid!");
+	                    }
                     }
                     break;
-                case 3: //Add Continent
+                case 3:
                     map.addContinentToMap();
-                    map.saveMap(); // to check continent is added or not
                     if(map.isMapValid()){
                         map.saveMap();
                         IOHelper.print("Continent added successfully!");
@@ -174,7 +180,6 @@ public class GameController {
                     IOHelper.print("Enter name of the continent where you want to add new country(from above list): ");
                     String continentName = IOHelper.getNextString();
                     map.addCountryToContinent(continentName,continentID);
-                    map.saveMap();
                     if(map.isMapValid()){
                         map.saveMap();
                         IOHelper.print("Country added successfuly!");
@@ -182,7 +187,7 @@ public class GameController {
                         IOHelper.print("Map is invalid!");
                     }
                     break;
-                case 5: // Exit from EditMap
+                case 5:
                     startGame();
                     break;
                 default:
@@ -299,9 +304,9 @@ public class GameController {
 
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
-				fileNames.add(listOfFiles[i].getName());
+				if(listOfFiles[i].getName().toLowerCase().contains(".map")) 
+					fileNames.add(listOfFiles[i].getName());
 			} else if (listOfFiles[i].isDirectory()) {
-				// nada
 			}
 		}
 		return fileNames;

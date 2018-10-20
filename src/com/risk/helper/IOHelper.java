@@ -13,7 +13,7 @@ public class IOHelper {
 	/**
 	 * Method to print output on the command line
 	 * 
-	 * @param string
+	 * @param string, string parameter to print 
 	 */
 	public static void print(String string) {
 		System.out.println(string);
@@ -32,7 +32,7 @@ public class IOHelper {
 
 	/**
 	 * Method to take Integer input from user on command line
-	 * 
+	 * @return int, next integer
 	 */
 	public static int getNextInteger() {
 		String s = sc.nextLine();
@@ -42,7 +42,7 @@ public class IOHelper {
 	/**
 	 * Method to print and handle Exceptions
 	 * 
-	 * @param exception
+	 * @param exception,object of exception class
 	 */
 	public static void printException(Exception exception) {
 		System.out.println("Exception: " + exception.getMessage());

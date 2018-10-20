@@ -20,7 +20,7 @@ public class MapCreateView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel pane = new JPanel();
 	private JFrame frame = new JFrame(getClass().getSimpleName());
-	public JButton button2 = new JButton("SAVE MAP");
+	public JButton saveMapButton = new JButton("SAVE MAP");
 	String saveNameText = "Enter Map Name here";
 	private JTextArea textBox = new JTextArea("[Continents]\n\n\n[Territories]");
 	private JTextField mapName = new JTextField(saveNameText);
@@ -83,7 +83,7 @@ public class MapCreateView extends JFrame {
 			}
 		});
 
-		pane.add(button2);
+		pane.add(saveMapButton);
 		pane.add(mapName);
 		pane.add(Box.createHorizontalGlue());
 

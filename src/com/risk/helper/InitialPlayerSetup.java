@@ -6,6 +6,7 @@ public class InitialPlayerSetup {
 	/**
 	 * This returns the player color.
 	 * @param playerID the id of the player
+	 * @return EnumColor,color of the player
 	 */
 	public static EnumColor getPlayerColor(int playerID) {
 		switch (playerID) {
@@ -31,11 +32,11 @@ public class InitialPlayerSetup {
 	public static int getInitialArmyCount(int playerCount) {
 		switch (playerCount) {
 		case 3:
-			return 18;
+			return 35;
 		case 4:
-			return 10;
+			return 30;
 		case 5:
-			return 10;
+			return 25;
 		default:
 			return 20;
 		}

@@ -21,8 +21,8 @@ public class Player {
 	 * This is a constructor of Player Class which sets playerId, name, and
 	 * color.
 	 * 
-	 * @param playerId
-	 * @param name
+	 * @param playerId,id of the player
+	 * @param name,name of the player
 	 */
 	public Player(int playerId, String name) {
 		super();
@@ -42,7 +42,7 @@ public class Player {
 	
 	/**
 	 * This method set the number of unassigned army unit
-	 * @param noOfUnassignedArmies
+	 * @param noOfUnassignedArmies, number of unassigned armies
 	 */
 	public void setNoOfUnassignedArmies(int noOfUnassignedArmies) {
 		this.noOfUnassignedArmies = noOfUnassignedArmies;

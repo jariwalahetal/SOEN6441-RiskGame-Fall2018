@@ -75,7 +75,7 @@ public class GameTest {
 	/**
 	 * Test Method for game play functionality
 	 */
-	/*
+	
 	@Test
 	public void testGamePlayRandomTimes() {
 		int iterationCount = Common.getRandomNumberInRange(10, 25);
@@ -83,9 +83,9 @@ public class GameTest {
 		while (iterationCount > 0) {
 			// Generate reinforcement for player
 			Player currentPlayer = game.getCurrentPlayer();
-			ArrayList<Country> playerCountries = game.getPlayerCountries();
+			ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
 			List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
-
+			boolean isPhaseUpdated = false;
 			int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
 
 			for (Continent continent : map.getContinentList()) {
@@ -103,7 +103,7 @@ public class GameTest {
 			//place the armies on random countries for the player
 			while(currentPlayer.getNoOfReinforcedArmies() > 0)
 			{
-				game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size()-1)).getCountryId());
+				game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size()-1)).getCountryName());
 			}
 
 			assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
@@ -117,38 +117,41 @@ public class GameTest {
 			int previousFromCountryArmiesCount = fromCountry.getnoOfArmies();
 
 			// Randomly select a neighboring country to move armies in
-			ArrayList<Country> neigbouringCountries = game
-					.getNeighbouringCountriesForFortification(fromCountry.getCountryId());
+			ArrayList<String> neigbouringCountries = game
+					.getNeighbouringCountries(fromCountry.getCountryName());
 
 			if (neigbouringCountries != null && neigbouringCountries.size() > 0) {
-				Country toCountry;
+				String toCountryName;
 				if (neigbouringCountries.size() == 1) {
-					toCountry = neigbouringCountries.get(0);
+					toCountryName = neigbouringCountries.get(0);
 				} else {
-					toCountry = neigbouringCountries
+					toCountryName = neigbouringCountries
 							.get(Common.getRandomNumberInRange(0, neigbouringCountries.size() - 1));
 				}
-				int previousToCountryCount = toCountry.getnoOfArmies();
+
+				
 
 				// Randomly generate army count to move
 				// Because we don't want to move all countries
 				if (previousFromCountryArmiesCount > 1) {
 					int armyCountToMove = Common.getRandomNumberInRange(0, previousFromCountryArmiesCount - 1);
 
-					boolean isFortifySuccessFull = game.fortifyCountry(fromCountry.getCountryId(),
-							toCountry.getCountryId(), armyCountToMove);
+					boolean isFortifySuccessFull = game.fortificationPhase(fromCountry.getCountryName(), toCountryName, armyCountToMove);
 					assertTrue(isFortifySuccessFull);
-
+					
 					assertEquals(previousFromCountryArmiesCount - armyCountToMove, fromCountry.getnoOfArmies());
-					assertEquals(previousToCountryCount + armyCountToMove, toCountry.getnoOfArmies());
+					isPhaseUpdated = isFortifySuccessFull;	
 				}
 			}
-			game.setNextPlayerReinforcement();
 			iterationCount--;
+			if(!isPhaseUpdated) {
+				game.setGamePhase(PhaseEnum.Reinforcement);
+				game.reinforcementPhaseSetup();
+			}
 		}
 	}
 	
-	*/
+	
 	@Test
 	public void assignCountryToPlayerTest() {
 		
