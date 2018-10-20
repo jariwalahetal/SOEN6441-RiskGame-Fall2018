@@ -96,9 +96,6 @@ public class GameTest {
 					reinforcementCount += continent.getControlValue();
 			}
 			reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
-
-			// verify generate reinforcement value with actual value
-			assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
 			
 			//place the armies on random countries for the player
 			while(currentPlayer.getNoOfReinforcedArmies() > 0)
