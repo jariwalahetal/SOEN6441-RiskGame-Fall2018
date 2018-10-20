@@ -157,6 +157,11 @@ public class Map {
                     IOHelper.print("\nEnter country name for adjacency country number " + (k + 1) + "\n");
                     String neighbourName = IOHelper.getNextString();
                     country.addNeighboursString(neighbourName);
+                    for (Country c: getCountryList()) {
+                        if (c.getCountryName().equalsIgnoreCase(neighbourName)){
+                            c.addNeighboursString(countryName);
+                        }
+                    }
                 }
                 continent.addCountry(country);
             }
@@ -170,7 +175,7 @@ public class Map {
      * @param contID, id of the continent
      */
     public void addCountryToContinent(String continentName,int contID) {
-
+        ArrayList<Country> countriesList = getCountryList();
         Continent currentContinent = continentsList.stream()
                 .filter(x-> x.getContName().equalsIgnoreCase(continentName))
                 .findAny()
@@ -196,7 +201,22 @@ public class Map {
                 IOHelper.print("\nEnter country name for adjacency country number: " + (k + 1) + "\n");
                 String neighbourName = IOHelper.getNextString();
                 country.addNeighboursString(neighbourName);
+                /*Country neighborCountry = countriesList.stream()
+                        .filter(cont-> cont.getCountryName().equalsIgnoreCase(neighbourName))
+                        .findAny()
+                        .orElse(null);
+*/
+                for (Country c: getCountryList()) {
+                    if (c.getCountryName().equalsIgnoreCase(neighbourName)){
+                        c.addNeighboursString(countryName);
+                    }
+                }
+
             }
+
+
+
+
             currentContinent.addCountry(country);
         }
     }

@@ -5,3 +5,4 @@ Europe=7
 [Territories]
 ind,2,2,Asia,pak
 pak,2,2,Asia,ind
+chn,2,2,Europe,ind

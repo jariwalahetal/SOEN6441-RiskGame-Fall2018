@@ -106,7 +106,11 @@ public class GameController {
 		String selectedMapName = mapList.get(mapNumber - 1);
 		map.setMapName(selectedMapName);
 		IOHelper.print("'"+selectedMapName+"'");
+
         map.readMap();
+        if (!map.isMapValid()){
+            IOHelper.print("Map is Invalid !");
+        }
         while (true){
             IOHelper.print("+------------------------------+");
             IOHelper.print("|________ Edit Map Menu________| ");
@@ -159,6 +163,7 @@ public class GameController {
                     break;
                 case 3:
                     map.addContinentToMap();
+                    map.saveMap();
                     if(map.isMapValid()){
                         map.saveMap();
                         IOHelper.print("Continent added successfully!");
@@ -166,7 +171,7 @@ public class GameController {
                         IOHelper.print("Map is invalid!");
                     }
                     break;
-                case 4: //Add Country
+                case 4:
                     IOHelper.print("List of Continents:-");
                     ArrayList<Continent> continentsList = map.getContinentList();
                     int continentID = 0;
@@ -177,6 +182,7 @@ public class GameController {
                     IOHelper.print("Enter name of the continent where you want to add new country(from above list): ");
                     String continentName = IOHelper.getNextString();
                     map.addCountryToContinent(continentName,continentID);
+                    map.saveMap();
                     if(map.isMapValid()){
                         map.saveMap();
                         IOHelper.print("Country added successfuly!");
