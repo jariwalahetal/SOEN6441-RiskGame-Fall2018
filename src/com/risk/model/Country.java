@@ -34,9 +34,12 @@ public class Country {
 	 * This is a Constructor for Country class which sets name, continent,
 	 * neighbooring countries and xaxis , yaxis and player of the country.
 	 * 
-	 * @param countryId , Id of the country
-	 * @param countryName, Name of the country
-	 * @param noOfArmies, Number of armies the country
+	 * @param countryId
+	 *            , Id of the country
+	 * @param countryName,
+	 *            Name of the country
+	 * @param noOfArmies,
+	 *            Number of armies the country
 	 */
 	public Country(int countryId, String countryName, int noOfArmies) {
 		super();
@@ -49,7 +52,7 @@ public class Country {
 		this.countryId = countryId;
 		this.countryName = countryName;
 	}
-	
+
 	/**
 	 * Get country id
 	 * 
@@ -62,8 +65,9 @@ public class Country {
 	/**
 	 * Sets country id
 	 * 
-	 * @param countryId int
-	 *            
+	 * @param countryId
+	 *            int
+	 * 
 	 */
 	public void setCountryId(int countryId) {
 		this.countryId = countryId;
@@ -100,7 +104,8 @@ public class Country {
 	/**
 	 * Sets continent id
 	 * 
-	 * @param contId,, Id of the continent
+	 * @param contId,,
+	 *            Id of the continent
 	 */
 	public void setContId(int contId) {
 		this.contId = contId;
@@ -119,8 +124,9 @@ public class Country {
 	/**
 	 * Sets player id
 	 * 
-	 * @param playerId int
-	 *            
+	 * @param playerId
+	 *            int
+	 * 
 	 */
 	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
@@ -138,8 +144,9 @@ public class Country {
 	/**
 	 * Sets X-coordinate position
 	 * 
-	 * @param xCoordiate int
-	 *            
+	 * @param xCoordiate
+	 *            int
+	 * 
 	 */
 	public void setxCoordiate(int xCoordiate) {
 		this.xCoordiate = xCoordiate;
@@ -157,8 +164,9 @@ public class Country {
 	/**
 	 * Sets Y-coordinate position
 	 * 
-	 * @param yCoordiate int
-	 *            
+	 * @param yCoordiate
+	 *            int
+	 * 
 	 */
 	public void setyCoordiate(int yCoordiate) {
 		this.yCoordiate = yCoordiate;
@@ -181,13 +189,12 @@ public class Country {
 	/**
 	 * Gets list of neighbours stings
 	 * 
-	 * @return neighboursString 
+	 * @return neighboursString
 	 */
 	public ArrayList<String> getNeighboursString() {
 		return neighboursString;
 	}
 
-	
 	/**
 	 * Gets army count for the country
 	 * 
@@ -208,8 +215,9 @@ public class Country {
 	/**
 	 * Increases the army count by given value
 	 * 
-	 * @param count int
-	 *            
+	 * @param count
+	 *            int
+	 * 
 	 */
 	public void increaseArmyCount(int count) {
 		noOfArmies += count;
@@ -226,8 +234,9 @@ public class Country {
 	/**
 	 * Decreases the army count by given value
 	 * 
-	 * @param count int
-	 *            
+	 * @param count
+	 *            int
+	 * 
 	 */
 	public void decreaseArmyCount(int count) {
 		noOfArmies -= count;
