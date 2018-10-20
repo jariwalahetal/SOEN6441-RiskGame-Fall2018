@@ -207,7 +207,7 @@ public class Map {
      * This function deletes the Continent from the existing Map file.
      * @param continentToDelete, name of the continent to be deleted
      */
-    public void deleteContinent(String continentToDelete){
+    public boolean deleteContinent(String continentToDelete){
 
         ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
         Continent currentContinent = continentsList.stream()
@@ -215,8 +215,8 @@ public class Map {
                 .findAny()
                 .orElse(null);
         if(currentContinent==null){
-            IOHelper.print("Continent does not exists!");
-            return;
+            IOHelper.print("Continent name is invalid");
+            return false;
         }
         countriesListOfCurrentContinent = currentContinent.getCountryList();
         for ( Continent continent: continentsList){
@@ -232,21 +232,26 @@ public class Map {
         }
         continentsList.remove(currentContinent);
 
-        this.getContinentList();
+        return false;
     }
 
     /**
      * @author Mandeep Kaur
-     *
      * This function deletes the Country from the existing Map file.
      * @param countryToDelete, name of the country need to be deleted
+     * @return true if country is deleted
      */
-    public void deleteCountry(String countryToDelete) {
+    public boolean deleteCountry(String countryToDelete) {
         ArrayList<Country> countriesList = getCountryList();
         Country currentCountry = countriesList.stream()
                 .filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
                 .findAny()
                 .orElse(null);
+        
+        if(currentCountry == null){
+        	IOHelper.print("Country name is invalid");
+        	return false;
+        }
         for (Country country: countriesList) {
             for (int i = 0; i < country.getNeighboursString().size() ; i++) {
                 if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
@@ -259,6 +264,7 @@ public class Map {
         for (Continent continent:continentsList) {
             continent.getCountryList().remove(currentCountry);
         }
+        return true;
     }
 
     /**

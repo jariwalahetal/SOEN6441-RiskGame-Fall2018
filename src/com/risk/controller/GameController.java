@@ -126,17 +126,19 @@ public class GameController {
                     }
                     IOHelper.print("Enter name of the Continent you want to delete:");
                     String continentToDelete = IOHelper.getNextString();
-                    map.deleteContinent(continentToDelete);
-                    try{
-                        if (map.isMapValid()){
-                            map.saveMap();
-                            IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
-                        }
-                        else{
-                            IOHelper.print("Map is invalid!");
-                        }
-                    }catch (  Exception e){
-                        IOHelper.print(" Empty Map !");
+                    boolean isContinentDeleted = map.deleteContinent(continentToDelete);
+                    if(isContinentDeleted){
+	                    try{
+	                        if (map.isMapValid()){
+	                            map.saveMap();
+	                            IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
+	                        }
+	                        else{
+	                            IOHelper.print("Map is invalid!");
+	                        }
+	                    }catch (  Exception e){
+	                        IOHelper.print(" Empty Map !");
+	                    }
                     }
                     break;
                 case 2: //Delete Country
@@ -147,13 +149,15 @@ public class GameController {
                     }
                     IOHelper.print("Enter name of the Country you want to delete from the list given below:");
                     String countryToDelete = IOHelper.getNextString();
-                    map.deleteCountry(countryToDelete);
-                    map.saveMap();
-                    if (map.isMapValid()){
-                        map.saveMap();
-                        IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
-                    }else {
-                        IOHelper.print("Map is invalid!");
+                    boolean isCountryDeleted = map.deleteCountry(countryToDelete);
+                    if(isCountryDeleted){
+	                    map.saveMap();
+	                    if (map.isMapValid()){
+	                        map.saveMap();
+	                        IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
+	                    }else {
+	                        IOHelper.print("Map is invalid!");
+	                    }
                     }
                     break;
                 case 3: //Add Continent
@@ -302,7 +306,8 @@ public class GameController {
 
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
-				fileNames.add(listOfFiles[i].getName());
+				if(listOfFiles[i].getName().toLowerCase().contains(".map")) 
+					fileNames.add(listOfFiles[i].getName());
 			} else if (listOfFiles[i].isDirectory()) {
 				// nada
 			}
