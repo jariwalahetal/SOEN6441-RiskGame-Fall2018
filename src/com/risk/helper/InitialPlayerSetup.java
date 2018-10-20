@@ -6,6 +6,7 @@ public class InitialPlayerSetup {
 	/**
 	 * This returns the player color.
 	 * @param playerID the id of the player
+	 * @return EnumColor,color of the player
 	 */
 	public static EnumColor getPlayerColor(int playerID) {
 		switch (playerID) {

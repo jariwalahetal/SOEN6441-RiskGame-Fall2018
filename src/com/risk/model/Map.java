@@ -40,7 +40,8 @@ public class Map {
     }
 
     /**
-     * getters and setters
+     * Method to get name of the map
+     * @return mapName, only name of map without extension
      */
     public String getMapName() {
 
@@ -49,6 +50,7 @@ public class Map {
 
     /**
      * This function sets the map name.
+     * @param mapName, name of the map
      */
     public void setMapName(String mapName) {
         this.mapName = mapName;
@@ -116,7 +118,7 @@ public class Map {
     /**
      * This adds a continent to the continent list
      *
-     * @param continent
+     * @param continent, object of the continent
      */
     public void addContinent(Continent continent) {
 
@@ -164,6 +166,8 @@ public class Map {
 
     /**
      * This method allows user to edit map and add country to the existing continent in the map.
+     * @param continentName, name of the continent
+     * @param contID, id of the continent
      */
     public void addCountryToContinent(String continentName,int contID) {
 
@@ -201,7 +205,7 @@ public class Map {
      * @author Mandeep Kaur
      *
      * This function deletes the Continent from the existing Map file.
-     * @param continentToDelete
+     * @param continentToDelete, name of the continent to be deleted
      */
     public void deleteContinent(String continentToDelete){
 
@@ -235,7 +239,7 @@ public class Map {
      * @author Mandeep Kaur
      *
      * This function deletes the Country from the existing Map file.
-     * @param countryToDelete
+     * @param countryToDelete, name of the country need to be deleted
      */
     public void deleteCountry(String countryToDelete) {
         ArrayList<Country> countriesList = getCountryList();
@@ -333,7 +337,7 @@ public class Map {
     }
     /**
      * This function checks if the map is connected or not ; it is a recursive function.     *
-     * @param sourceCountry
+     * @param sourceCountry, name of the source country
      */
     public void DfsRecursive(Country sourceCountry) {
     	visitedList.add(sourceCountry.getCountryName());
@@ -417,8 +421,9 @@ public class Map {
     /**
      * This writes the content to the disk with the name passed to the funciton.
      *
-     * @param  content
-     * @param  nameOfTheMap
+     * @param  content, content need to be added
+     * @param  nameOfTheMap, name of the map
+     * @return true, if data is written on file otherwise false
      */
     private boolean writeMapToDisk(StringBuffer content, String nameOfTheMap) {
         Path path = Paths.get(this.mapPath + nameOfTheMap + ".map");
@@ -439,6 +444,7 @@ public class Map {
     }
     /**
      * This function returns the country list.
+     * @return ArrayList,Arraylist of countries
      *
      */
     public ArrayList<Country> getCountryList()
@@ -453,17 +459,25 @@ public class Map {
     /**
      * This function returns the continent list.
      *
-     * @return ArrayList
+     * @return ArrayList, array list of continent
      */
     public ArrayList<Continent> getContinentList()
     {
         return continentsList;
     }
 
+    /**
+     * Method to get path of the map
+     * @return mapPath, path of the math
+     */
     public String getMapPath() {
         return mapPath;
     }
 
+    /**
+     * Method to set path of the map
+     * @param mapPath, path of the map
+     */
     public void setMapPath(String mapPath) {
         this.mapPath = mapPath;
     }

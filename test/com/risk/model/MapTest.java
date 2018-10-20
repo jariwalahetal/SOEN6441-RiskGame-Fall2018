@@ -22,8 +22,8 @@ public class MapTest {
 
 	/**
 	 * Method to compare two array list
-	 * @param one
-	 * @param two
+	 * @param one, first arraylist
+	 * @param two, second arraylist
 	 * @return true if two array list are equal
 	 */
 	public boolean equalLists(ArrayList<String> one, ArrayList<String> two) {
