@@ -51,11 +51,14 @@ public class GameController {
             switch (input){
                 case 1:
                     createMap();
+                    break;
                 case 2:
                     editMap();
+                    break;
                 case 3:
                     initializeMap();
                     initializeGame();
+                    break;
                     //TODO: Play Game
                 case 4:
                     System.exit(0);
@@ -68,15 +71,15 @@ public class GameController {
 	 * This function gives the user an editor to create the map and it saves the map to the disk.
 	 */
 	private void createMap() {
-		MapCreateView v = new MapCreateView();
-   	 	v.showCreateView();
-	   	v.button2.addActionListener(new ActionListener() {
+		MapCreateView mapView = new MapCreateView();
+   	 	mapView.showCreateView();
+	   	mapView.saveMapButton.addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent e) {
-	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(v.returnTextAreaText()), v.returnMapNameText());
+	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(mapView.returnTextAreaText()), mapView.returnMapNameText());
 	        	 if(isMapCreated) {
 	        		 IOHelper.print("Map Created successfully!");
-		        	 v.killFrame();
+		        	 mapView.killFrame();
 		        	 GameController map = new GameController();
 		        	 map.startGame();
 	        	 }

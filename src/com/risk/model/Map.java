@@ -393,27 +393,23 @@ public class Map {
 
     public boolean validateAndCreateMap(StringBuffer content, String nameOfTheMap) {
 
-        if(this.writeMapToDisk(content, "temp"))
-        {
+        if(this.writeMapToDisk(content, "temp")) {
             this.mapName = "temp.map";
             try {
                 this.readMap();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if(this.isMapValid())
-            {
+            if(this.isMapValid()) {
                 this.mapName = nameOfTheMap;
                 this.writeMapToDisk(content, nameOfTheMap);
                 return true;
             }
-            else
-            {
+            else {
                 return false;
             }
         }
-        else
-        {
+        else {
             return false;
         }
     }
