@@ -44,26 +44,23 @@ public class GameController {
         IOHelper.print("2. Edit Map");
         IOHelper.print("3. Play Game");
         IOHelper.print("4. Exit");
-        while(true){
-
-            int input = IOHelper.getNextInteger();
-            switch (input){
-                case 1:
-                    createMap();
-                    break;
-                case 2:
-                    editMap();
-                    break;
-                case 3:
-                    initializeMap();
-                    initializeGame();
-                    break;
-                    //TODO: Play Game
-                case 4:
-                    System.exit(0);
-                default:
-                    IOHelper.print("\nInvalid choice. Select Again!\n");
-            }
+        int input = IOHelper.getNextInteger();
+        switch (input){
+            case 1:
+                createMap();
+                break;
+            case 2:
+                editMap();
+                break;
+            case 3:
+                initializeMap();
+                initializeGame();
+                break;
+                //TODO: Play Game
+            case 4:
+                System.exit(0);
+            default:
+                IOHelper.print("\nInvalid choice. Select Again!\n");
         }
 	}
 	/**
@@ -78,13 +75,12 @@ public class GameController {
 	        	 boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(mapView.returnTextAreaText()), mapView.returnMapNameText());
 	        	 if(isMapCreated) {
 	        		 IOHelper.print("Map Created successfully!");
-		        	 mapView.killFrame();
-		        	 GameController map = new GameController();
-		        	 map.startGame();
 	        	 }
 	        	 else {
 	        		 IOHelper.print("Map is not valid.Please try again");
 	        	 }
+	        	 mapView.killFrame();
+	        	 startGame();
 	         }
 	     });
 	}
@@ -131,18 +127,24 @@ public class GameController {
                     }
                     IOHelper.print("Enter name of the Continent you want to delete:");
                     String continentToDelete = IOHelper.getNextString();
-                    map.deleteContinent(continentToDelete);
-                    try{
-                        if (map.isMapValid()){
-                            map.saveMap();
-                            IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
-                        }
-                        else{
-                            IOHelper.print("Map is invalid!");
-                        }
-                    }catch (  Exception e){
-                        IOHelper.print(" Empty Map !");
+                    boolean isContinentDeleted = map.deleteContinent(continentToDelete);
+                    if(isContinentDeleted){
+	                    try{
+	                        if (map.isMapValid()){
+	                            map.saveMap();
+	                            IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
+	                        }
+	                        else{
+	                            IOHelper.print("Map is invalid!");
+	                        }
+	                    }catch (  Exception e){
+	                        IOHelper.print(" Empty Map !");
+	                    }
                     }
+                    else {
+                    	IOHelper.print("Continent can not deleted");
+                    }
+                    
                     break;
                 case 2:
                     IOHelper.print("List of Countries:");
@@ -152,13 +154,14 @@ public class GameController {
                     }
                     IOHelper.print("Enter name of the Country you want to delete from the list given below:");
                     String countryToDelete = IOHelper.getNextString();
-                    map.deleteCountry(countryToDelete);
-                    map.saveMap();
-                    if (map.isMapValid()){
-                        map.saveMap();
-                        IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
-                    }else {
-                        IOHelper.print("Map is invalid!");
+                    boolean isCountryDeleted = map.deleteCountry(countryToDelete);
+                    if(isCountryDeleted){
+	                    if (map.isMapValid()){
+	                        map.saveMap();
+	                        IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
+	                    }else {
+	                        IOHelper.print("Map is invalid!");
+	                    }
                     }
                     break;
                 case 3:
@@ -307,7 +310,8 @@ public class GameController {
 
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
-				fileNames.add(listOfFiles[i].getName());
+				if(listOfFiles[i].getName().toLowerCase().contains(".map")) 
+					fileNames.add(listOfFiles[i].getName());
 			} else if (listOfFiles[i].isDirectory()) {
 			}
 		}

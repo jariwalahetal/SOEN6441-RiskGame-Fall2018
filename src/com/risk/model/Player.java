@@ -144,5 +144,4 @@ public class Player {
 	{     if(noOfReinforcedArmies>0)
 			noOfReinforcedArmies--;
 	}
-	
 }

@@ -70,7 +70,7 @@ public class Map {
             int countryID = 0;
 
             while ((readLine = bufferedReader.readLine()) != null) {
-                IOHelper.print(readLine);
+                //IOHelper.print(readLine);
                 if (readLine.trim().length() == 0)
                     continue;
                 else if ((readLine.trim()).equals("[Continents]")) {
@@ -227,7 +227,7 @@ public class Map {
      * This function deletes the Continent from the existing Map file.
      * @param continentToDelete, name of the continent to be deleted
      */
-    public void deleteContinent(String continentToDelete){
+    public boolean deleteContinent(String continentToDelete){
 
         ArrayList<Country> countriesListOfCurrentContinent = new ArrayList<>();
         Continent currentContinent = continentsList.stream()
@@ -235,14 +235,18 @@ public class Map {
                 .findAny()
                 .orElse(null);
         if(currentContinent==null){
-            IOHelper.print("Continent does not exists!");
-            return;
+            IOHelper.print("Continent name is invalid");
+            return false;
         }
         countriesListOfCurrentContinent = currentContinent.getCountryList();
         for ( Continent continent: continentsList){
             for (Country country : continent.getCountryList()) {
                 for (int i = 0; i < country.getNeighboursString().size() ; i++) {
-                    if (country.getNeighboursString().get(i).equalsIgnoreCase(countriesListOfCurrentContinent.get(i).getCountryName())){
+                	String coutryNameToDelete = country.getNeighboursString().get(i);
+                	Country c = countriesListOfCurrentContinent.stream()
+                				.filter(x -> x.getCountryName().equalsIgnoreCase(coutryNameToDelete))
+                				.findAny().orElse(null);
+                    if (c!=null){
                         country.getNeighboursString().remove(i);
                     }
                     else{
@@ -252,21 +256,26 @@ public class Map {
         }
         continentsList.remove(currentContinent);
 
-        this.getContinentList();
+        return true;
     }
 
     /**
      * @author Mandeep Kaur
-     *
      * This function deletes the Country from the existing Map file.
      * @param countryToDelete, name of the country need to be deleted
+     * @return true if country is deleted
      */
-    public void deleteCountry(String countryToDelete) {
+    public boolean deleteCountry(String countryToDelete) {
         ArrayList<Country> countriesList = getCountryList();
         Country currentCountry = countriesList.stream()
                 .filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
                 .findAny()
                 .orElse(null);
+        
+        if(currentCountry == null){
+        	IOHelper.print("Country name is invalid");
+        	return false;
+        }
         for (Country country: countriesList) {
             for (int i = 0; i < country.getNeighboursString().size() ; i++) {
                 if (country.getNeighboursString().get(i).equalsIgnoreCase(countryToDelete)){
@@ -279,6 +288,7 @@ public class Map {
         for (Continent continent:continentsList) {
             continent.getCountryList().remove(currentCountry);
         }
+        return true;
     }
 
     /**
@@ -287,51 +297,57 @@ public class Map {
      * @return true
      */
     public boolean isMapValid() {
-        boolean oneCountryInTwoContinents = false;
-        boolean atLeastOneCountryInAllContinents = true;
-        ArrayList<String> listOfAllCountries = new ArrayList<String>();
-        ArrayList<String> listOfMainCountries = new ArrayList<String>();
-        for (Continent singleContinent : this.continentsList) {
-            if(singleContinent.getCountryList().isEmpty()) {
-                atLeastOneCountryInAllContinents = false;
-            }
-            for (Country singleCountry : singleContinent.getCountryList()) {
-                if (!listOfAllCountries.contains(singleCountry.getCountryName())) {
-                    listOfAllCountries.add(singleCountry.getCountryName());
-                }
-                if (listOfMainCountries.contains(singleCountry.getCountryName())) {
-                    oneCountryInTwoContinents = true;
-                    if(oneCountryInTwoContinents) {
-                        System.out.println("Same country cannot be in two continents.");
-                        return false;
-                    }
-                }else {
-                    listOfMainCountries.add(singleCountry.getCountryName());
-                }
-                for (String eachNeighbourCountry : singleCountry.getNeighboursString()) {
-                    if (listOfAllCountries.contains(eachNeighbourCountry)) {
-                        
-                    } else {
-                        listOfAllCountries.add(eachNeighbourCountry);
-                    }
-                }
-            }
-        }
-        Collections.sort(listOfAllCountries);
-
-        Country sourceCountry = ((this.continentsList.get(0)).getCountryList()).get(0);
-        DfsRecursive(sourceCountry);
-        // 1.check if the graph is connected or not
-        Collections.sort(visitedList);
-        if(!atLeastOneCountryInAllContinents) {
-            System.out.println("Each continent should have atleast one country");
-            return false;
-        }
-        if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
-            return true;
-        } else {
-            return false;
-        }
+    	try {
+	        boolean oneCountryInTwoContinents = false;
+	        boolean atLeastOneCountryInAllContinents = true;
+	        ArrayList<String> listOfAllCountries = new ArrayList<String>();
+	        ArrayList<String> listOfMainCountries = new ArrayList<String>();
+	        for (Continent singleContinent : this.continentsList) {
+	            if(singleContinent.getCountryList().isEmpty()) {
+	                atLeastOneCountryInAllContinents = false;
+	            }
+	            for (Country singleCountry : singleContinent.getCountryList()) {
+	                if (!listOfAllCountries.contains(singleCountry.getCountryName())) {
+	                    listOfAllCountries.add(singleCountry.getCountryName());
+	                }
+	                if (listOfMainCountries.contains(singleCountry.getCountryName())) {
+	                    oneCountryInTwoContinents = true;
+	                    if(oneCountryInTwoContinents) {
+	                        System.out.println("Same country cannot be in two continents.");
+	                        return false;
+	                    }
+	                }else {
+	                    listOfMainCountries.add(singleCountry.getCountryName());
+	                }
+	                for (String eachNeighbourCountry : singleCountry.getNeighboursString()) {
+	                    if (listOfAllCountries.contains(eachNeighbourCountry)) {
+	                        
+	                    } else {
+	                        listOfAllCountries.add(eachNeighbourCountry);
+	                    }
+	                }
+	            }
+	        }
+	        Collections.sort(listOfAllCountries);
+	
+	        Country sourceCountry = ((this.continentsList.get(0)).getCountryList()).get(0);
+	        visitedList.clear();
+	        DfsRecursive(sourceCountry);
+	        // 1.check if the graph is connected or not
+	        Collections.sort(visitedList);
+	        if(!atLeastOneCountryInAllContinents) {
+	            System.out.println("Each continent should have atleast one country");
+	            return false;
+	        }
+	        if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+    	}
+    	catch (Exception e) {
+    		return false;
+    	}
     }
     /**
      * Checks if two array lists are same or not

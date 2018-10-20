@@ -53,7 +53,7 @@ public class Game extends Observable {
 	/**
 	 * This function switches turn to the next player
 	 */
-	private void setNextPlayerTurn() {
+	public void setNextPlayerTurn() {
 		currentPlayerId++;
 
 		if (currentPlayerId == playerList.size())
@@ -334,7 +334,7 @@ public class Game extends Observable {
 	 * @param destinationCountryName, name of the destination country of the player
 	 * @param noOfArmies, number of armies to be moved
 	 */
-	public void fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
+	public boolean fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
 
 		Player player = getCurrentPlayer();
 		Country sourceCountry = playerCountry.get(player).stream()
@@ -344,18 +344,20 @@ public class Game extends Observable {
 
 		if (sourceCountry == null || destinationCountry == null) {
 			IOHelper.print("Source or destination country is invalid!");
-			return;
+			return false;
 		}
 
 		if (noOfArmies == 0) {
 			IOHelper.print("No armies to move");
+			return true;
 		}
 		sourceCountry.decreaseArmyCount(noOfArmies);
 		destinationCountry.increaseArmyCount(noOfArmies);
 		this.setNextPlayerTurn();
-		setGamePhase(gamePhase.Reinforcement);
+		setGamePhase(PhaseEnum.Reinforcement);
 		reinforcementPhaseSetup();
 		notifyObserverslocal(this);
+		return true;
 
 	}
 
@@ -453,9 +455,7 @@ public class Game extends Observable {
 				noOfArmies = country.getnoOfArmies();
 			}
 		}
-
 		return noOfArmies;
-
 	}
 
 	/**
@@ -490,7 +490,7 @@ public class Game extends Observable {
 	 * 
 	 * @param gamePhase, name of the game phase
 	 */
-	private void setGamePhase(PhaseEnum gamePhase) {
+	public void setGamePhase(PhaseEnum gamePhase) {
 		this.gamePhase = gamePhase;
 	}
 
