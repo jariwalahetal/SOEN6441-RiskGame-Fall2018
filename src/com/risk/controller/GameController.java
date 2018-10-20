@@ -39,12 +39,13 @@ public class GameController {
         IOHelper.print("|   _}_{_                                          _}_{_   |");
         IOHelper.print("|__[_____]________________________________________[_____]__|");
         IOHelper.print("+==========================================================+");
-		while(true){
-            IOHelper.print("+======_Game Menu_======+");
-            IOHelper.print("1. Create Map");
-            IOHelper.print("2. Edit Map");
-            IOHelper.print("3. Play Game");
-            IOHelper.print("4. Exit");
+        IOHelper.print("+======_Game Menu_======+");
+        IOHelper.print("1. Create Map");
+        IOHelper.print("2. Edit Map");
+        IOHelper.print("3. Play Game");
+        IOHelper.print("4. Exit");
+        while(true){
+
             int input = IOHelper.getNextInteger();
             switch (input){
                 case 1:
