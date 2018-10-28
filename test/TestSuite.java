@@ -1,6 +1,3 @@
-/**
- * @author Jasraj.Bedi
- */
 
 //JUnit 4 test suite
 import org.junit.runner.RunWith;

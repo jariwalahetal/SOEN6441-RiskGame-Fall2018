@@ -17,7 +17,6 @@ import com.risk.helper.PhaseEnum;
 
 /**
  * Test class for testing game functionality
- * @author jasraj
  *
  */
 public class GameTest {
