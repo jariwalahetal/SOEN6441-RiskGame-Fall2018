@@ -13,7 +13,9 @@ public class Common {
 
 	/**
 	 * Method to convert the enum color into color object of swings
-	 * @param selectedColor,selected color from color enum
+	 * 
+	 * @param selectedColor,selected
+	 *            color from color enum
 	 * @return Color based on the objects
 	 */
 	public static Color getColor(EnumColor selectedColor) {

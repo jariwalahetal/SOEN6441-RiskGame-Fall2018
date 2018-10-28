@@ -16,13 +16,14 @@ public class Player {
 	private EnumColor color;
 	private int noOfUnassignedArmies;
 	private int noOfReinforcedArmies;
-	
+
 	/**
-	 * This is a constructor of Player Class which sets playerId, name, and
-	 * color.
+	 * This is a constructor of Player Class which sets playerId, name, and color.
 	 * 
-	 * @param playerId,id of the player
-	 * @param name,name of the player
+	 * @param playerId,id
+	 *            of the player
+	 * @param name,name
+	 *            of the player
 	 */
 	public Player(int playerId, String name) {
 		super();
@@ -39,10 +40,12 @@ public class Player {
 	public int getNoOfUnassignedArmies() {
 		return noOfUnassignedArmies;
 	}
-	
+
 	/**
 	 * This method set the number of unassigned army unit
-	 * @param noOfUnassignedArmies, number of unassigned armies
+	 * 
+	 * @param noOfUnassignedArmies,
+	 *            number of unassigned armies
 	 */
 	public void setNoOfUnassignedArmies(int noOfUnassignedArmies) {
 		this.noOfUnassignedArmies = noOfUnassignedArmies;
@@ -53,20 +56,20 @@ public class Player {
 	 * 
 	 * @return noOfReinforcedArmies int
 	 */
-	public int getNoOfReinforcedArmies ()
-	{
+	public int getNoOfReinforcedArmies() {
 		return noOfReinforcedArmies;
 	}
-	
+
 	/**
 	 * This method set the number of reinforcement army units
 	 * 
-	 * @param noOfReinforcedArmies int
+	 * @param noOfReinforcedArmies
+	 *            int
 	 */
 	public void setNoOfReinforcedArmies(int noOfReinforcedArmies) {
 		this.noOfReinforcedArmies = noOfReinforcedArmies;
 	}
-	
+
 	/**
 	 * This method return the id of the player
 	 * 
@@ -79,7 +82,8 @@ public class Player {
 	/**
 	 * This method set the id of the player
 	 * 
-	 * @param playerId int
+	 * @param playerId
+	 *            int
 	 */
 	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
@@ -97,7 +101,8 @@ public class Player {
 	/**
 	 * This method set name of the player
 	 * 
-	 * @param name String
+	 * @param name
+	 *            String
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -115,18 +120,19 @@ public class Player {
 	/**
 	 * This method set color of the EnumColor class
 	 * 
-	 * @param color EnumColor
+	 * @param color
+	 *            EnumColor
 	 */
 	public void setColor(EnumColor color) {
 		this.color = color;
 	}
 
 	/**
-	 * This method decreases unassigned army count 
+	 * This method decreases unassigned army count
 	 */
-	public void decreaseUnassignedArmyCount()
-	{     if(noOfUnassignedArmies>0)
-				noOfUnassignedArmies--;
+	public void decreaseUnassignedArmyCount() {
+		if (noOfUnassignedArmies > 0)
+			noOfUnassignedArmies--;
 	}
 
 	/**
@@ -140,8 +146,8 @@ public class Player {
 	 * This method decreases reinforcement link
 	 * 
 	 */
-	public void decreaseReinforcementArmyCount()
-	{     if(noOfReinforcedArmies>0)
+	public void decreaseReinforcementArmyCount() {
+		if (noOfReinforcedArmies > 0)
 			noOfReinforcedArmies--;
 	}
 }

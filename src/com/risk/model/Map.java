@@ -24,7 +24,6 @@ import com.risk.helper.IOHelper;
  * @since 27-September-2018
  */
 public class Map {
-
     Map map;
     private String mapName;
     private String mapPath = "assets/maps/";
@@ -157,11 +156,6 @@ public class Map {
                     IOHelper.print("\nEnter country name for adjacency country number " + (k + 1) + "\n");
                     String neighbourName = IOHelper.getNextString();
                     country.addNeighboursString(neighbourName);
-                    for (Country c: getCountryList()) {
-                        if (c.getCountryName().equalsIgnoreCase(neighbourName)){
-                            c.addNeighboursString(countryName);
-                        }
-                    }
                 }
                 continent.addCountry(country);
             }*/
@@ -175,7 +169,7 @@ public class Map {
      * @param contID, id of the continent
      */
     public void addCountryToContinent(String continentName,int contID) {
-        ArrayList<Country> countriesList = getCountryList();
+
         Continent currentContinent = continentsList.stream()
                 .filter(x-> x.getContName().equalsIgnoreCase(continentName))
                 .findAny()
@@ -201,22 +195,7 @@ public class Map {
                 IOHelper.print("\nEnter country name for adjacency country number: " + (k + 1) + "\n");
                 String neighbourName = IOHelper.getNextString();
                 country.addNeighboursString(neighbourName);
-                /*Country neighborCountry = countriesList.stream()
-                        .filter(cont-> cont.getCountryName().equalsIgnoreCase(neighbourName))
-                        .findAny()
-                        .orElse(null);
-*/
-                for (Country c: getCountryList()) {
-                    if (c.getCountryName().equalsIgnoreCase(neighbourName)){
-                        c.addNeighboursString(countryName);
-                    }
-                }
-
             }
-
-
-
-
             currentContinent.addCountry(country);
         }
     }
@@ -297,6 +276,8 @@ public class Map {
      * @return true
      */
     public boolean isMapValid() {
+    	String oneCountryInTwoContinentsCountryName = null;
+    	String atLeastOneCountryInAllContinentsContinentName = null;
     	try {
 	        boolean oneCountryInTwoContinents = false;
 	        boolean atLeastOneCountryInAllContinents = true;
@@ -305,15 +286,17 @@ public class Map {
 	        for (Continent singleContinent : this.continentsList) {
 	            if(singleContinent.getCountryList().isEmpty()) {
 	                atLeastOneCountryInAllContinents = false;
+	                atLeastOneCountryInAllContinentsContinentName = singleContinent.getContName();
 	            }
 	            for (Country singleCountry : singleContinent.getCountryList()) {
 	                if (!listOfAllCountries.contains(singleCountry.getCountryName())) {
 	                    listOfAllCountries.add(singleCountry.getCountryName());
 	                }
 	                if (listOfMainCountries.contains(singleCountry.getCountryName())) {
+	                	oneCountryInTwoContinentsCountryName = singleCountry.getCountryName();
 	                    oneCountryInTwoContinents = true;
 	                    if(oneCountryInTwoContinents) {
-	                        System.out.println("Same country cannot be in two continents.");
+	                        System.out.println("Same country ("+oneCountryInTwoContinentsCountryName+") cannot be in two continents.");
 	                        return false;
 	                    }
 	                }else {
@@ -321,7 +304,7 @@ public class Map {
 	                }
 	                for (String eachNeighbourCountry : singleCountry.getNeighboursString()) {
 	                    if (listOfAllCountries.contains(eachNeighbourCountry)) {
-	                        
+	                        //nada
 	                    } else {
 	                        listOfAllCountries.add(eachNeighbourCountry);
 	                    }
@@ -336,12 +319,25 @@ public class Map {
 	        // 1.check if the graph is connected or not
 	        Collections.sort(visitedList);
 	        if(!atLeastOneCountryInAllContinents) {
-	            System.out.println("Each continent should have atleast one country");
+	            System.out.println("Each continent should have atleast one country. "+atLeastOneCountryInAllContinentsContinentName+" is empty.");
 	            return false;
 	        }
 	        if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
 	            return true;
 	        } else {
+	        	System.out.println("List of disconnected countires:");
+	        	if(visitedList.size() > listOfAllCountries.size()) {
+	        		visitedList.removeAll(listOfAllCountries);
+	        		for(String list: visitedList) {
+	        			System.out.print(list+" ");
+	        		}
+	        	}else {
+	        		listOfAllCountries.removeAll(visitedList);
+					for(String list: visitedList) {
+						System.out.print(list+" ");  			
+					}
+	        	}
+	        	System.out.println(); 
 	            return false;
 	        }
     	}
@@ -517,5 +513,4 @@ public class Map {
     public void setMapPath(String mapPath) {
         this.mapPath = mapPath;
     }
-
 }
