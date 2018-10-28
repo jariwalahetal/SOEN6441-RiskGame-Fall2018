@@ -113,7 +113,8 @@ public class GameController {
             IOHelper.print("|    2. Delete Country         |");
             IOHelper.print("|    3. Add Continent          |");
             IOHelper.print("|    4. Add Country            |");
-            IOHelper.print("|    5. Exit                   |");
+			IOHelper.print("|    5. Save Map               |");
+			IOHelper.print("|    6. Exit                   |");
             IOHelper.print("+------------------------------+");
             IOHelper.print(" Enter option:");
             int input = IOHelper.getNextInteger();
@@ -126,24 +127,8 @@ public class GameController {
                     }
                     IOHelper.print("Enter name of the Continent you want to delete:");
                     String continentToDelete = IOHelper.getNextString();
-                    boolean isContinentDeleted = map.deleteContinent(continentToDelete);
-                    if(isContinentDeleted){
-	                    try{
-	                        if (map.isMapValid()){
-	                            map.saveMap();
-	                            IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
-	                        }
-	                        else{
-	                            IOHelper.print("Map is invalid!");
-	                        }
-	                    }catch (  Exception e){
-	                        IOHelper.print(" Empty Map !");
-	                    }
-                    }
-                    else {
-                    	IOHelper.print("Continent can not deleted");
-                    }
-                    
+                    map.deleteContinent(continentToDelete);
+					IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
                     break;
                 case 2:
                     IOHelper.print("List of Countries:");
@@ -153,24 +138,12 @@ public class GameController {
                     }
                     IOHelper.print("Enter name of the Country you want to delete from the list given below:");
                     String countryToDelete = IOHelper.getNextString();
-                    boolean isCountryDeleted = map.deleteCountry(countryToDelete);
-                    if(isCountryDeleted){
-	                    if (map.isMapValid()){
-	                        map.saveMap();
-	                        IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
-	                    }else {
-	                        IOHelper.print("Map is invalid!");
-	                    }
-                    }
+                    map.deleteCountry(countryToDelete);
+					IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
                     break;
                 case 3:
                     map.addContinentToMap();
-                    if(map.isMapValid()){
-                        map.saveMap();
-                        IOHelper.print("Continent added successfully!");
-                    }else{
-                        IOHelper.print("Map is invalid!");
-                    }
+					IOHelper.print("Continent added successfully!");
                     break;
                 case 4:
                     IOHelper.print("List of Continents:-");
@@ -183,14 +156,17 @@ public class GameController {
                     IOHelper.print("Enter name of the continent where you want to add new country(from above list): ");
                     String continentName = IOHelper.getNextString();
                     map.addCountryToContinent(continentName,continentID);
-                    if(map.isMapValid()){
-                        map.saveMap();
-                        IOHelper.print("Country added successfuly!");
-                    }else {
-                        IOHelper.print("Map is invalid!");
-                    }
+					IOHelper.print("Country added successfuly!");
                     break;
                 case 5:
+                	if (map.isMapValid()){
+						map.saveMap();
+						IOHelper.print("Map saved!");
+					}else {
+                		IOHelper.print("Map saved is invalid!");
+					}
+					break;
+                case 6:
                     startGame();
                     break;
                 default:

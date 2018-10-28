@@ -137,7 +137,7 @@ public class Map {
             int controlValue = IOHelper.getNextInteger();
             Continent continent = new Continent(i, continentName, controlValue);
 
-            IOHelper.print("Enter the number of countries you want to create in this continent:\n");
+            /*IOHelper.print("Enter the number of countries you want to create in this continent:\n");
             int numberOfCountries = IOHelper.getNextInteger();
             for (int j = 0; j < numberOfCountries; j++) {
                 IOHelper.print("Enter country name for country number " + (j + 1));
@@ -164,7 +164,7 @@ public class Map {
                     }
                 }
                 continent.addCountry(country);
-            }
+            }*/
             addContinent(continent);
         }
     }
