@@ -24,7 +24,6 @@ import com.risk.helper.IOHelper;
  * @since 27-September-2018
  */
 public class Map {
-
     Map map;
     private String mapName;
     private String mapPath = "assets/maps/";
@@ -514,5 +513,4 @@ public class Map {
     public void setMapPath(String mapPath) {
         this.mapPath = mapPath;
     }
-
 }

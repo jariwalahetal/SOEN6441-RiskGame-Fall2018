@@ -2,11 +2,8 @@ package com.risk.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.HashMap;
 
 import javax.swing.*;
 
@@ -41,6 +38,7 @@ public class MapCreateView extends JFrame {
 
 	/**
 	 * Returns map data
+	 * 
 	 * @return String textbox text
 	 */
 	public String returnTextAreaText() {
@@ -49,6 +47,7 @@ public class MapCreateView extends JFrame {
 
 	/**
 	 * Returns map name
+	 * 
 	 * @return String mapName
 	 */
 	public String returnMapNameText() {

@@ -26,8 +26,8 @@ public class ContinentTest {
 	}
 
 	/**
-	 * This method tests if the addcountry method actually adds the country into
-	 * the list or not.
+	 * This method tests if the addcountry method actually adds the country into the
+	 * list or not.
 	 */
 	@Test
 	public void checkAddCountry() {

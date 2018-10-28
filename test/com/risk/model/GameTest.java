@@ -40,7 +40,6 @@ public class GameTest {
 		map = new Map();
 		map.setMapName(mapToTest);
 		map.readMap();
-		
 
 		game = new Game(map);
 		for (int i = 0; i < playerCount; i++) {
@@ -61,7 +60,6 @@ public class GameTest {
 		}
 	}
 
-
 	/**
 	 * Test method for checking current reinforcement phase
 	 */
@@ -74,10 +72,10 @@ public class GameTest {
 	/**
 	 * Test Method for game play functionality
 	 */
-	
+
 	@Test
-	public void testGamePlayRandomTimes() {
-		int iterationCount = Common.getRandomNumberInRange(10, 25);
+	public void testGamePlay() {
+		int iterationCount = 15;
 
 		while (iterationCount > 0) {
 			// Generate reinforcement for player
@@ -96,19 +94,16 @@ public class GameTest {
 			}
 			reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
 
-			// verify generate reinforcement value with actual value
-			assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
-			
-			//place the armies on random countries for the player
-			while(currentPlayer.getNoOfReinforcedArmies() > 0)
-			{
-				game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size()-1)).getCountryName());
+			// place the armies on random countries for the player
+			while (currentPlayer.getNoOfReinforcedArmies() > 0) {
+				game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1))
+						.getCountryName());
 			}
 
 			assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
 			assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
-			
-			//Do attack
+
+			// Do attack
 			game.attackPhase();
 
 			// Randomly select a country to move armies from
@@ -116,8 +111,7 @@ public class GameTest {
 			int previousFromCountryArmiesCount = fromCountry.getnoOfArmies();
 
 			// Randomly select a neighboring country to move armies in
-			ArrayList<String> neigbouringCountries = game
-					.getNeighbouringCountries(fromCountry.getCountryName());
+			ArrayList<String> neigbouringCountries = game.getNeighbouringCountries(fromCountry.getCountryName());
 
 			if (neigbouringCountries != null && neigbouringCountries.size() > 0) {
 				String toCountryName;
@@ -128,36 +122,34 @@ public class GameTest {
 							.get(Common.getRandomNumberInRange(0, neigbouringCountries.size() - 1));
 				}
 
-				
-
 				// Randomly generate army count to move
 				// Because we don't want to move all countries
 				if (previousFromCountryArmiesCount > 1) {
 					int armyCountToMove = Common.getRandomNumberInRange(0, previousFromCountryArmiesCount - 1);
 
-					boolean isFortifySuccessFull = game.fortificationPhase(fromCountry.getCountryName(), toCountryName, armyCountToMove);
+					boolean isFortifySuccessFull = game.fortificationPhase(fromCountry.getCountryName(), toCountryName,
+							armyCountToMove);
 					assertTrue(isFortifySuccessFull);
-					
+
 					assertEquals(previousFromCountryArmiesCount - armyCountToMove, fromCountry.getnoOfArmies());
-					isPhaseUpdated = isFortifySuccessFull;	
+					isPhaseUpdated = isFortifySuccessFull;
 				}
 			}
 			iterationCount--;
-			if(!isPhaseUpdated) {
+			if (!isPhaseUpdated) {
 				game.setGamePhase(PhaseEnum.Reinforcement);
 				game.reinforcementPhaseSetup();
 			}
 		}
 	}
-	
-	
+
 	@Test
 	public void assignCountryToPlayerTest() {
-		
+
 		Map map1 = new Map();
 		map1.setMapName(mapToTest);
 		map1.readMap();
-		
+
 		Game game1 = new Game(map1);
 		for (int i = 0; i < 2; i++) {
 			String playerName = "Bestplayer " + i;
@@ -165,38 +157,38 @@ public class GameTest {
 			game1.addPlayer(player);
 		}
 		game1.startUpPhase();
-		
-		for(Continent c: map1.getContinentList()) {
-			for(Country countryToTest :c.getCountryList()) {
-				assertEquals(1,countryToTest.getnoOfArmies());
+
+		for (Continent c : map1.getContinentList()) {
+			for (Country countryToTest : c.getCountryList()) {
+				assertEquals(1, countryToTest.getnoOfArmies());
 			}
 		}
 	}
-	
+
 	@Test
-	public void totalArmiesTest(){
+	public void totalArmiesTest() {
 		Map map2 = new Map();
 		InitialPlayerSetup setup = new InitialPlayerSetup();
 		map2.setMapName(mapToTest);
 		map2.readMap();
-		int totalArmies=0;
-		
+		int totalArmies = 0;
+
 		Game game2 = new Game(map2);
 		for (int i = 0; i < playerCount; i++) {
 			String playerName = "Bestplayer " + i;
 			Player player = new Player(i, playerName);
-		
+
 			game2.addPlayer(player);
 		}
 		game2.startUpPhase();
 		ArrayList<Player> players = game2.getAllPlayers();
-		for(Player player:players) {
+		for (Player player : players) {
 			totalArmies += player.getNoOfUnassignedArmies();
 			ArrayList<Country> playersCountries = game2.getPlayersCountry(player);
-			for(Country singleCountry:playersCountries) {
-				totalArmies +=singleCountry.getnoOfArmies();
+			for (Country singleCountry : playersCountries) {
+				totalArmies += singleCountry.getnoOfArmies();
 			}
-			assertEquals(totalArmies,InitialPlayerSetup.getInitialArmyCount(playerCount));
+			assertEquals(totalArmies, InitialPlayerSetup.getInitialArmyCount(playerCount));
 			totalArmies = 0;
 		}
 	}
@@ -206,7 +198,7 @@ public class GameTest {
 		Map map3 = new Map();
 		map3.setMapName(mapToTest);
 		map3.readMap();
-		
+
 		Game game3 = new Game(map3);
 		for (int i = 0; i < 2; i++) {
 			String playerName = "Bestplayer " + i;
@@ -214,33 +206,30 @@ public class GameTest {
 			game3.addPlayer(player);
 		}
 		game3.startUpPhase();
-//		ArrayList<String> neighCountries = game3.getNeighbouringCountries("Morocco");
-		Country country = game3.getMap().getCountryList().stream().
-				filter(x->x.getCountryName().equalsIgnoreCase("Morocco"))
-				.findAny().orElse(null);
-		if(country!=null) {
+		// ArrayList<String> neighCountries = game3.getNeighbouringCountries("Morocco");
+		Country country = game3.getMap().getCountryList().stream()
+				.filter(x -> x.getCountryName().equalsIgnoreCase("Morocco")).findAny().orElse(null);
+		if (country != null) {
 			ArrayList<String> neighCountries = country.getNeighboursString();
 			ArrayList<String> actualNeigboursList = new ArrayList<String>();
 			actualNeigboursList.add("Western Sahara");
-			actualNeigboursList.add("Algeria");		
-			assertTrue(isTwoArrayListsWithSameValues(neighCountries,actualNeigboursList));
+			actualNeigboursList.add("Algeria");
+			assertTrue(isTwoArrayListsWithSameValues(neighCountries, actualNeigboursList));
 		}
 	}
-	
+
 	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
-        if (list1 == null && list2 == null)
-            return true;
-        if ((list1 == null && list2 != null) || (list1 != null && list2 == null))
-            return false;
+		if (list1 == null && list2 == null)
+			return true;
+		if ((list1 == null && list2 != null) || (list1 != null && list2 == null))
+			return false;
 
-        if (list1.size() != list2.size())
-            return false;
-        for (String itemList1 : list1) {
-            if (!list2.contains(itemList1))
-                return false;
-        }
-        return true;
-    }
+		if (list1.size() != list2.size())
+			return false;
+		for (String itemList1 : list1) {
+			if (!list2.contains(itemList1))
+				return false;
+		}
+		return true;
+	}
 }
-
-

@@ -24,8 +24,8 @@ public class CountryTest {
 	}
 
 	/**
-	 * This method tests if the add neighbour method actually adds the country
-	 * into the list or not.
+	 * This method tests if the add neighbour method actually adds the country into
+	 * the list or not.
 	 */
 	@Test
 	public void checkAddNeighbour() {

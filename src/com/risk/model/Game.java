@@ -33,7 +33,8 @@ public class Game extends Observable {
 	/**
 	 * This is a constructor of Game class which will initialize the Map
 	 * 
-	 * @param map, object of the map
+	 * @param map,
+	 *            object of the map
 	 */
 	public Game(Map map) {
 		super();
@@ -58,7 +59,6 @@ public class Game extends Observable {
 
 		if (currentPlayerId == playerList.size())
 			currentPlayerId = 0;
-		System.out.println("current player ID:" + currentPlayerId);
 	}
 
 	/**
@@ -114,8 +114,10 @@ public class Game extends Observable {
 	/**
 	 * Assigns the newCountry to selected player
 	 * 
-	 * @param player, object of the player
-	 * @param newCountry,object of country
+	 * @param player,
+	 *            object of the player
+	 * @param newCountry,object
+	 *            of country
 	 */
 	public void assignCountryToPlayer(Player player, Country newCountry) {
 		if (playerCountry.containsKey(player)) {
@@ -133,8 +135,10 @@ public class Game extends Observable {
 	 * Increase one army for selected selected player in selected country from
 	 * unassigned armies
 	 * 
-	 * @param player,object of the player
-	 * @param country,object of the country
+	 * @param player,object
+	 *            of the player
+	 * @param country,object
+	 *            of the country
 	 */
 	private void assignFromUnassigned(Player player, Country country) {
 		player.decreaseUnassignedArmyCount();
@@ -145,8 +149,10 @@ public class Game extends Observable {
 	 * Increase one army for selected selected player in selected country from
 	 * reinforcement armies
 	 * 
-	 * @param player,name of the player
-	 * @param country,object of the country
+	 * @param player,name
+	 *            of the player
+	 * @param country,object
+	 *            of the country
 	 */
 	private void assignFromReinforcement(Player player, Country country) {
 		player.decreaseReinforcementArmyCount();
@@ -156,8 +162,10 @@ public class Game extends Observable {
 	/**
 	 * Decrease army of the player in the country
 	 * 
-	 * @param player,object of the player
-	 * @param country, object of the country
+	 * @param player,object
+	 *            of the player
+	 * @param country,
+	 *            object of the country
 	 */
 	private void decreasePlayerArmyInCountry(Player player, Country country) {
 		player.increaseUnassignedArmyCount();
@@ -167,7 +175,8 @@ public class Game extends Observable {
 	/**
 	 * Add army to the country for startup phase
 	 * 
-	 * @param countryName,name of thr country
+	 * @param countryName,name
+	 *            of thr country
 	 * @return false, if phase is not valid otherwise return true
 	 */
 	public boolean addArmyToCountryForStartup(String countryName) {
@@ -202,7 +211,8 @@ public class Game extends Observable {
 	/**
 	 * Add army to the country for reinforcement phase
 	 * 
-	 * @param countryName,name of the country
+	 * @param countryName,name
+	 *            of the country
 	 * @return false, if phase is not valid otherwise return true
 	 */
 	public boolean addArmyToCountryForReinforcement(String countryName) {
@@ -237,7 +247,8 @@ public class Game extends Observable {
 	/**
 	 * Add army to the country for fortification phase
 	 * 
-	 * @param countryName, name of the country
+	 * @param countryName,
+	 *            name of the country
 	 */
 	public void addArmyToCountry(String countryName) {
 		if (gamePhase == PhaseEnum.Attack || gamePhase == PhaseEnum.Fortification) {
@@ -315,7 +326,6 @@ public class Game extends Observable {
 
 		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS
 				: countriesCount;
-		System.out.println("countriesCount:" + countriesCount);
 		player.setNoOfReinforcedArmies(countriesCount);
 	}
 
@@ -330,9 +340,13 @@ public class Game extends Observable {
 	/**
 	 * Method to perform fortification phase
 	 * 
-	 * @param sourceCountryName, name of the source country of player
-	 * @param destinationCountryName, name of the destination country of the player
-	 * @param noOfArmies, number of armies to be moved
+	 * @param sourceCountryName,
+	 *            name of the source country of player
+	 * @param destinationCountryName,
+	 *            name of the destination country of the player
+	 * @param noOfArmies,
+	 *            number of armies to be moved
+	 *  @return  true if no army need to move and false if source and destination countries are null
 	 */
 	public boolean fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
 
@@ -376,7 +390,8 @@ public class Game extends Observable {
 	/**
 	 * This function will add the player to the game(playerList)
 	 * 
-	 * @param player, object of the player
+	 * @param player,
+	 *            object of the player
 	 */
 	public void addPlayer(Player player) {
 		this.playerList.add(player.getPlayerId(), player);
@@ -391,17 +406,19 @@ public class Game extends Observable {
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return playerCountry.get(currentPlayer);
 	}
+
 	/**
 	 * This method returns the list of countries that the player has.
-	 * @param currentPlayer , object of the player
+	 * 
+	 * @param currentPlayer
+	 *            , object of the player
 	 * @return The countries which the player occupies
 	 */
 	public ArrayList<Country> getPlayersCountry(Player currentPlayer) {
-	    return playerCountry.get(currentPlayer);
+		return playerCountry.get(currentPlayer);
 	}
-	
+
 	private Boolean phaseCheckValidation(PhaseEnum phase) {
-		System.out.println("phase :" + gamePhase);
 		if (phase == this.gamePhase)
 			return true;
 		else
@@ -411,39 +428,40 @@ public class Game extends Observable {
 	/**
 	 * Method to get neighbouring countries of a given country
 	 * 
-	 * @param sourceCountryName, name of the source country of player
+	 * @param sourceCountryName,
+	 *            name of the source country of player
 	 * @return ArrayList , returning array list of countries.
 	 */
 	public ArrayList<String> getNeighbouringCountries(String sourceCountryName) {
 		ArrayList<String> neighborCountriesName = null;
-		System.out.println("sourceCountryName :" + sourceCountryName);
 
-			Player currentPlayer = this.getCurrentPlayer();
-			ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
+		Player currentPlayer = this.getCurrentPlayer();
+		ArrayList<String> countriesAssignedToPlayer = new ArrayList<String>();
 
-			for (Country country : playerCountry.get(currentPlayer)) {
-				String countryName = country.getCountryName();
-				countriesAssignedToPlayer.add(countryName);
-				if (country.getCountryName().equals(sourceCountryName)) {
-					neighborCountriesName = country.getNeighboursString();
-					break;
-				}
+		for (Country country : playerCountry.get(currentPlayer)) {
+			String countryName = country.getCountryName();
+			countriesAssignedToPlayer.add(countryName);
+			if (country.getCountryName().equals(sourceCountryName)) {
+				neighborCountriesName = country.getNeighboursString();
+				break;
 			}
+		}
 
-			Iterator<String> it = neighborCountriesName.iterator();
-			while (it.hasNext()) {
-				String country = it.next();
-				if (!countriesAssignedToPlayer.contains(country)) {
-					it.remove();
-				}
+		Iterator<String> it = neighborCountriesName.iterator();
+		while (it.hasNext()) {
+			String country = it.next();
+			if (!countriesAssignedToPlayer.contains(country)) {
+				it.remove();
 			}
+		}
 		return neighborCountriesName;
 	}
 
 	/**
 	 * Method to get armies assigned to the country
 	 * 
-	 * @param sourceCountryName,name of the source country of player
+	 * @param sourceCountryName,name
+	 *            of the source country of player
 	 * @return noOfArmies, number of armies
 	 */
 	public int getArmiesAssignedToCountry(String sourceCountryName) {
@@ -461,7 +479,7 @@ public class Game extends Observable {
 	/**
 	 * Method used to get map
 	 * 
-	 * @return map, object of map 
+	 * @return map, object of map
 	 */
 	public Map getMap() {
 		return map;
@@ -470,7 +488,8 @@ public class Game extends Observable {
 	/**
 	 * method used to set map
 	 * 
-	 * @param map, object of the map
+	 * @param map,
+	 *            object of the map
 	 */
 	public void setMap(Map map) {
 		this.map = map;
@@ -488,7 +507,8 @@ public class Game extends Observable {
 	/**
 	 * Method used to set phase of the game
 	 * 
-	 * @param gamePhase, name of the game phase
+	 * @param gamePhase,
+	 *            name of the game phase
 	 */
 	public void setGamePhase(PhaseEnum gamePhase) {
 		this.gamePhase = gamePhase;
@@ -497,7 +517,8 @@ public class Game extends Observable {
 	/**
 	 * Method used to notify observer
 	 * 
-	 * @param game, object of the game
+	 * @param game,
+	 *            object of the game
 	 */
 	private void notifyObserverslocal(Game game) {
 		setChanged();
