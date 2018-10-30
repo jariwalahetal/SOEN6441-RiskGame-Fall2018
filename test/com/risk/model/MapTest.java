@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -171,5 +172,16 @@ public class MapTest {
 		Collections.sort(testContinents);
 		assertTrue(equalLists(testContinents, testMapContinents));
 		assertTrue(equalLists(testCountries, testMapCountries));
+	}
+	/**
+	 * This method tears down the testvariables.
+	 */
+	@After
+	public void tearDown() {
+		sb = null;
+		sb2 = null;
+		map1 = null;
+		testMapContinents = null;
+		testMapCountries = null;
 	}
 }
