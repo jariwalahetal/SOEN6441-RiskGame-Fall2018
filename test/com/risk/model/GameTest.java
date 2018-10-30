@@ -143,7 +143,9 @@ public class GameTest {
 			}
 		}
 	}
-
+	/**
+	 * This method tests if country is assigned to the player or not.
+	 */
 	@Test
 	public void assignCountryToPlayerTest() {
 
@@ -165,7 +167,9 @@ public class GameTest {
 			}
 		}
 	}
-
+	/**
+	 * This method tests the total armies.
+	 */
 	@Test
 	public void totalArmiesTest() {
 		Map map2 = new Map();
@@ -193,7 +197,9 @@ public class GameTest {
 			totalArmies = 0;
 		}
 	}
-
+	/**
+	 * This method tests the neighboring countries in the startup phase
+	 */
 	@Test
 	public void getNeighbouringCountriesTest() {
 		Map map3 = new Map();
@@ -233,7 +239,12 @@ public class GameTest {
 		c2 = null;
 
 	}
-
+	/**
+	 * This method tests the total armies.
+	 * @param list1 array list number 1
+	 * @param list2 array list number 2
+	 * @return boolean
+	 */
 	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
 		if (list1 == null && list2 == null)
 			return true;
