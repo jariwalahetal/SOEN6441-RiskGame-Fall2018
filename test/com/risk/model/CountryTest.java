@@ -33,6 +33,9 @@ public class CountryTest {
 		neighbourStringList = c1.getNeighboursString();
 		assertTrue(neighbourStringList.contains(neighbourToadd));
 	}
+	/**
+	 * This method will tear down variables.
+	 */
 	@After
 	public void tearDown() {
 		c1 = null;

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -216,6 +217,21 @@ public class GameTest {
 			actualNeigboursList.add("Algeria");
 			assertTrue(isTwoArrayListsWithSameValues(neighCountries, actualNeigboursList));
 		}
+	}
+	/**
+	 * This method will tear down variables.
+	 */
+	@After
+	public void tearDown() {
+		map = null;
+		game = null;
+		game2 = null;
+		mapToTest = null;
+		playerCount = null;
+		p1 = null;
+		c1 = null;
+		c2 = null;
+
 	}
 
 	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
