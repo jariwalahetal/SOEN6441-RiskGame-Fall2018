@@ -37,4 +37,15 @@ public class ContinentTest {
 				.map(x -> x.getCountryName()).collect(Collectors.joining());
 		assertEquals(countryNameInList, countryName);
 	}
+	/**
+	 * This method will tear down variables.
+	 */
+	@After
+	public void tearDown() {
+		c1 =null;
+		cont1 = null;
+		countryName = null;
+		listOfCountries = null;
+		countryNameInList = null;
+	}
 }
