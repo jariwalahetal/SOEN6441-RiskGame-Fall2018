@@ -33,5 +33,10 @@ public class CountryTest {
 		neighbourStringList = c1.getNeighboursString();
 		assertTrue(neighbourStringList.contains(neighbourToadd));
 	}
-
+	@After
+	public void tearDown() {
+		c1 = null;
+		neighbourToadd = null;
+		neighbourStringList = null;
+	}
 }
