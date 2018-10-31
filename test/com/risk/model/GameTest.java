@@ -70,6 +70,69 @@ public class GameTest {
 		assertEquals(PhaseEnum.Reinforcement, game.getGamePhase());
 	}
 
+
+	/**
+	 * Test Method for calcluation for reinforcement armies
+	 */
+
+	@Test
+	public void testReinforcementPhase() {
+	
+		// Generate reinforcement for player
+		Player currentPlayer = game.getCurrentPlayer();
+		ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
+		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+		boolean isPhaseUpdated = false;
+		int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
+
+		for (Continent continent : map.getContinentList()) {
+			List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
+					.collect(Collectors.toList());
+			boolean hasPlayerAllCountries = countryIds.containsAll(continentCountryIds);
+			if (hasPlayerAllCountries)
+				reinforcementCount += continent.getControlValue();
+		}
+		reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
+
+		assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
+	}
+	
+	/**
+	 * Test Method for calcluation for assignment of armies and phase should be shifted to attack at end
+	 */
+
+	@Test
+	public void testReinforcementAndArmiesAssignment() {
+	
+		// Generate reinforcement for player
+		Player currentPlayer = game.getCurrentPlayer();
+		ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
+		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+		boolean isPhaseUpdated = false;
+		int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
+
+		for (Continent continent : map.getContinentList()) {
+			List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
+					.collect(Collectors.toList());
+			boolean hasPlayerAllCountries = countryIds.containsAll(continentCountryIds);
+			if (hasPlayerAllCountries)
+				reinforcementCount += continent.getControlValue();
+		}
+		reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
+
+		assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
+		
+		// place the armies on random countries for the player
+		while (currentPlayer.getNoOfReinforcedArmies() > 0) {
+			game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1))
+					.getCountryName());
+		}
+
+		assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
+		assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
+		assertEquals(PhaseEnum.Attack, game.getGamePhase());
+	}
+	
 	/**
 	 * Test Method for game play functionality
 	 */
