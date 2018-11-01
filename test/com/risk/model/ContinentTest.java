@@ -21,7 +21,8 @@ public class ContinentTest {
 	 */
 	@Before
 	public void setUp() {
-		c1 = new Country(2, countryName, 2);
+		c1 = new Country(2, countryName, 10,10);
+		c1.setNoOfArmies(2);
 		cont1 = new Continent(12, "BestContinent", 2);
 	}
 

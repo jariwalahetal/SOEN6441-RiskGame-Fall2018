@@ -89,9 +89,9 @@ public class Map {
                 } else if (captureCountries) {
                     String[] parsedTerritoriesArray = readLine.split(",");
                     String continentName = parsedTerritoriesArray[3];
-                    Country country = new Country(countryID++, parsedTerritoriesArray[0],0);
-                    country.setxCoordiate(Integer.parseInt(parsedTerritoriesArray[1]));
-                    country.setyCoordiate(Integer.parseInt(parsedTerritoriesArray[2]));
+                    int xCoordinate = Integer.parseInt(parsedTerritoriesArray[1]);
+                    int yCoordinate = Integer.parseInt(parsedTerritoriesArray[2]);
+                    Country country = new Country(countryID++, parsedTerritoriesArray[0],xCoordinate, yCoordinate);
                     int k = 0;
                     for (String neighborCountry : parsedTerritoriesArray) {
                         if (k > 3) {
@@ -185,9 +185,7 @@ public class Map {
             IOHelper.print("Enter y coordinate:");
             int y = IOHelper.getNextInteger();
 
-            Country country = new Country(j, countryName);
-            country.setxCoordiate(x);
-            country.setyCoordiate(y);
+            Country country = new Country(j, countryName, x, y);
             country.setContId(contID);
             IOHelper.print("\nEnter the number of adjacent countries you want to create:\n");
             int adjacentCountries = IOHelper.getNextInteger();

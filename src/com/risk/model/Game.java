@@ -142,7 +142,7 @@ public class Game extends Observable {
 	 */
 	private void assignFromUnassigned(Player player, Country country) {
 		player.decreaseUnassignedArmyCount();
-		country.increaseArmyCount();
+		country.increaseArmyCount(1);
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class Game extends Observable {
 	 */
 	private void assignFromReinforcement(Player player, Country country) {
 		player.decreaseReinforcementArmyCount();
-		country.increaseArmyCount();
+		country.increaseArmyCount(1);
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class Game extends Observable {
 	 */
 	private void decreasePlayerArmyInCountry(Player player, Country country) {
 		player.increaseUnassignedArmyCount();
-		country.decreseArmyCount();
+		country.decreaseArmyCount(1);
 	}
 
 	/**
