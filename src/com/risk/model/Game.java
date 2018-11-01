@@ -28,7 +28,7 @@ public class Game extends Observable {
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
 	private Map map;
-	private final int MINIMUM_REINFORCEMENT_PlAYERS = 3;
+	private final int MINIMUM_REINFORCEMENT_PLAYERS = 3;
 
 	/**
 	 * This is a constructor of Game class which will initialize the Map
@@ -324,7 +324,7 @@ public class Game extends Observable {
 			}
 		}
 
-		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PlAYERS ? MINIMUM_REINFORCEMENT_PlAYERS
+		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PLAYERS ? MINIMUM_REINFORCEMENT_PLAYERS
 				: countriesCount;
 		player.setNoOfReinforcedArmies(countriesCount);
 	}
