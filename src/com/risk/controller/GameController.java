@@ -211,7 +211,7 @@ public class GameController {
 	}
 
 	/**
-	 * This function creates the player objects
+	 * This function creates the player objects for initializing Game
 	 */
 	private void initializeGame() {
 		game = new Game(map);
