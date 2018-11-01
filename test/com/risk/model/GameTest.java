@@ -38,8 +38,7 @@ public class GameTest {
 	@Before
 	public void readMapAndAssignCountries() {
 		IOHelper.print("Test: creating maps and generating player randomly");
-		map = new Map();
-		map.setMapName(mapToTest);
+		map = new Map(mapToTest);
 		map.readMap();
 
 		game = new Game(map);
@@ -212,8 +211,7 @@ public class GameTest {
 	@Test
 	public void assignCountryToPlayerTest() {
 
-		Map map1 = new Map();
-		map1.setMapName(mapToTest);
+		Map map1 = new Map(mapToTest);
 		map1.readMap();
 
 		Game game1 = new Game(map1);
@@ -235,9 +233,8 @@ public class GameTest {
 	 */
 	@Test
 	public void totalArmiesTest() {
-		Map map2 = new Map();
+		Map map2 = new Map(mapToTest);
 		InitialPlayerSetup setup = new InitialPlayerSetup();
-		map2.setMapName(mapToTest);
 		map2.readMap();
 		int totalArmies = 0;
 
@@ -265,8 +262,7 @@ public class GameTest {
 	 */
 	@Test
 	public void getNeighbouringCountriesTest() {
-		Map map3 = new Map();
-		map3.setMapName(mapToTest);
+		Map map3 = new Map(mapToTest);
 		map3.readMap();
 
 		Game game3 = new Game(map3);

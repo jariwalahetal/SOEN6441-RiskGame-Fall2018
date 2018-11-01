@@ -33,7 +33,6 @@ public class GameController {
 	 * start the game form here.
 	 */
 	public void startGame() {
-		map = new Map();
 		IOHelper.print("+__________________________________________________________+");
 		IOHelper.print("|=====_==============================================_=====|");
 		IOHelper.print("|    (_)                                            (_)    |");
@@ -110,7 +109,8 @@ public class GameController {
 		IOHelper.print("\nEnter Map_Number that you want to edit from above list:");
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = mapList.get(mapNumber - 1);
-		map.setMapName(selectedMapName);
+		map = new Map(selectedMapName);
+//		map.setMapName();
 		IOHelper.print("'"+selectedMapName+"'");
         map.readMap();
         if (!map.isMapValid()){
@@ -200,7 +200,8 @@ public class GameController {
 		IOHelper.print("\nEnter Map number to load Map file:\n");
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = maps.get(mapNumber - 1);
-		map.setMapName(selectedMapName);
+		Map map = new Map(selectedMapName);
+//		map.setMapName(selectedMapName);
 		map.readMap();
 
 		if (!map.isMapValid()) {
