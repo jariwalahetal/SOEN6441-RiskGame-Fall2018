@@ -486,16 +486,6 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * method used to set map
-	 * 
-	 * @param map,
-	 *            object of the map
-	 */
-	public void setMap(Map map) {
-		this.map = map;
-	}
-
-	/**
 	 * Method to get enum for game phase
 	 * 
 	 * @return gamePhase
