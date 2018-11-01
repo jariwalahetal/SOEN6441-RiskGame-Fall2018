@@ -80,16 +80,6 @@ public class Player {
 	}
 
 	/**
-	 * This method set the id of the player
-	 * 
-	 * @param playerId
-	 *            int
-	 */
-	public void setPlayerId(int playerId) {
-		this.playerId = playerId;
-	}
-
-	/**
 	 * This method return the name of the player
 	 * 
 	 * @return name String
@@ -99,32 +89,12 @@ public class Player {
 	}
 
 	/**
-	 * This method set name of the player
-	 * 
-	 * @param name
-	 *            String
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
 	 * This method return color of the EnumColor class
 	 * 
 	 * @return color EnumColor
 	 */
 	public EnumColor getColor() {
 		return color;
-	}
-
-	/**
-	 * This method set color of the EnumColor class
-	 * 
-	 * @param color
-	 *            EnumColor
-	 */
-	public void setColor(EnumColor color) {
-		this.color = color;
 	}
 
 	/**
