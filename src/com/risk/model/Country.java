@@ -55,26 +55,6 @@ public class Country {
 	}
 
 	/**
-	 * This is a Constructor for Country class which sets name, continent,
-	 * neighbooring countries and xaxis , yaxis and player of the country.
-	 * 
-	 * @param countryId
-	 *            , Id of the country
-	 * @param countryName,
-	 *            Name of the country
-	 * @param noOfArmies,
-	 *            Number of armies the country
-	 */
-/*	public Country(int countryId, String countryName, int noOfArmies) {
-		super();
-		this.countryId = countryId;
-		this.countryName = countryName;
-		this.noOfArmies = noOfArmies;
-	}
-*/
-
-
-	/**
 	 * Get country id
 	 * 
 	 * @return countryId int
