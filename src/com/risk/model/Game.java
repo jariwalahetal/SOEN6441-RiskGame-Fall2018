@@ -149,7 +149,7 @@ public class Game extends Observable {
 			if (getCurrentPlayer().getNoOfReinforcedArmies() == 0) {
 				// We don't need to implement attack for now
 				this.setGamePhase(gamePhase.Attack);
-				attackPhase();
+		//		attackPhase();
 			}
 
 		} else if (this.getGamePhase() == gamePhase.Fortification) {
