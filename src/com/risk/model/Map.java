@@ -11,7 +11,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import com.risk.helper.IOHelper;
@@ -24,7 +23,6 @@ import com.risk.helper.IOHelper;
  * @since 27-September-2018
  */
 public class Map {
-    Map map;
     private String mapName;
     private String mapPath = "assets/maps/";
     private ArrayList<Continent> continentsList = new ArrayList<>();
@@ -34,8 +32,10 @@ public class Map {
      * This is a constructor of Map Class which sets mapId and mapName.
      *
      */
-    public Map() {
+    public Map(String mapName) {
         super();
+        this.mapName = mapName;
+
     }
 
     /**
@@ -51,10 +51,10 @@ public class Map {
      * This function sets the map name.
      * @param mapName, name of the map
      */
-    public void setMapName(String mapName) {
+/*    public void setMapName(String mapName) {
         this.mapName = mapName;
     }
-
+*/
     /**
      * This function loads the Map into the memory
      */
@@ -89,9 +89,9 @@ public class Map {
                 } else if (captureCountries) {
                     String[] parsedTerritoriesArray = readLine.split(",");
                     String continentName = parsedTerritoriesArray[3];
-                    Country country = new Country(countryID++, parsedTerritoriesArray[0],0);
-                    country.setxCoordiate(Integer.parseInt(parsedTerritoriesArray[1]));
-                    country.setyCoordiate(Integer.parseInt(parsedTerritoriesArray[2]));
+                    int xCoordinate = Integer.parseInt(parsedTerritoriesArray[1]);
+                    int yCoordinate = Integer.parseInt(parsedTerritoriesArray[2]);
+                    Country country = new Country(countryID++, parsedTerritoriesArray[0],xCoordinate, yCoordinate);
                     int k = 0;
                     for (String neighborCountry : parsedTerritoriesArray) {
                         if (k > 3) {
@@ -185,9 +185,7 @@ public class Map {
             IOHelper.print("Enter y coordinate:");
             int y = IOHelper.getNextInteger();
 
-            Country country = new Country(j, countryName);
-            country.setxCoordiate(x);
-            country.setyCoordiate(y);
+            Country country = new Country(j, countryName, x, y);
             country.setContId(contID);
             IOHelper.print("\nEnter the number of adjacent countries you want to create:\n");
             int adjacentCountries = IOHelper.getNextInteger();
@@ -345,6 +343,7 @@ public class Map {
     		return false;
     	}
     }
+    
     /**
      * Checks if two array lists are same or not
      *
@@ -367,6 +366,7 @@ public class Map {
         }
         return true;
     }
+    
     /**
      * This function checks if the map is connected or not ; it is a recursive function.     *
      * @param sourceCountry, name of the source country
@@ -390,6 +390,7 @@ public class Map {
             }
         }
     }
+    
     /**
      * This method saves the map into the disk.     *
      */
@@ -474,6 +475,7 @@ public class Map {
             return false;
         }
     }
+    
     /**
      * This function returns the country list.
      * @return ArrayList,Arraylist of countries
@@ -488,6 +490,7 @@ public class Map {
         }
         return countriesList;
     }
+   
     /**
      * This function returns the continent list.
      *

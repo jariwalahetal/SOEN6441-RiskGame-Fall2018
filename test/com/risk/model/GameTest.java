@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -37,8 +38,7 @@ public class GameTest {
 	@Before
 	public void readMapAndAssignCountries() {
 		IOHelper.print("Test: creating maps and generating player randomly");
-		map = new Map();
-		map.setMapName(mapToTest);
+		map = new Map(mapToTest);
 		map.readMap();
 
 		game = new Game(map);
@@ -69,6 +69,69 @@ public class GameTest {
 		assertEquals(PhaseEnum.Reinforcement, game.getGamePhase());
 	}
 
+
+	/**
+	 * Test Method for calculation for reinforcement armies
+	 */
+
+	@Test
+	public void testReinforcementPhase() {
+	
+		// Generate reinforcement for player
+		Player currentPlayer = game.getCurrentPlayer();
+		ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
+		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+		boolean isPhaseUpdated = false;
+		int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
+
+		for (Continent continent : map.getContinentList()) {
+			List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
+					.collect(Collectors.toList());
+			boolean hasPlayerAllCountries = countryIds.containsAll(continentCountryIds);
+			if (hasPlayerAllCountries)
+				reinforcementCount += continent.getControlValue();
+		}
+		reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
+
+		assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
+	}
+	
+	/**
+	 * Test Method for calcluation for assignment of armies and phase should be shifted to attack at end
+	 */
+
+	@Test
+	public void testReinforcementAndArmiesAssignment() {
+	
+		// Generate reinforcement for player
+		Player currentPlayer = game.getCurrentPlayer();
+		ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
+		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+		boolean isPhaseUpdated = false;
+		int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
+
+		for (Continent continent : map.getContinentList()) {
+			List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
+					.collect(Collectors.toList());
+			boolean hasPlayerAllCountries = countryIds.containsAll(continentCountryIds);
+			if (hasPlayerAllCountries)
+				reinforcementCount += continent.getControlValue();
+		}
+		reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
+
+		assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
+		
+		// place the armies on random countries for the player
+		while (currentPlayer.getNoOfReinforcedArmies() > 0) {
+			game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1))
+					.getCountryName());
+		}
+
+		assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
+		assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
+		assertEquals(PhaseEnum.Attack, game.getGamePhase());
+	}
+	
 	/**
 	 * Test Method for game play functionality
 	 */
@@ -142,12 +205,13 @@ public class GameTest {
 			}
 		}
 	}
-
+	/**
+	 * This method tests if country is assigned to the player or not.
+	 */
 	@Test
 	public void assignCountryToPlayerTest() {
 
-		Map map1 = new Map();
-		map1.setMapName(mapToTest);
+		Map map1 = new Map(mapToTest);
 		map1.readMap();
 
 		Game game1 = new Game(map1);
@@ -164,12 +228,13 @@ public class GameTest {
 			}
 		}
 	}
-
+	/**
+	 * This method tests the total armies.
+	 */
 	@Test
 	public void totalArmiesTest() {
-		Map map2 = new Map();
+		Map map2 = new Map(mapToTest);
 		InitialPlayerSetup setup = new InitialPlayerSetup();
-		map2.setMapName(mapToTest);
 		map2.readMap();
 		int totalArmies = 0;
 
@@ -184,19 +249,22 @@ public class GameTest {
 		ArrayList<Player> players = game2.getAllPlayers();
 		for (Player player : players) {
 			totalArmies += player.getNoOfUnassignedArmies();
-			ArrayList<Country> playersCountries = game2.getPlayersCountry(player);
+			ArrayList<Country> playersCountries = player.getAssignedCountryList();
+			//getPlayersCountry(player);
 			for (Country singleCountry : playersCountries) {
-				totalArmies += singleCountry.getnoOfArmies();
+				totalArmies += singleCountry.getnoOfArmies();			
 			}
+			
 			assertEquals(totalArmies, InitialPlayerSetup.getInitialArmyCount(playerCount));
 			totalArmies = 0;
 		}
 	}
-
+	/**
+	 * This method tests the neighboring countries in the startup phase
+	 */
 	@Test
 	public void getNeighbouringCountriesTest() {
-		Map map3 = new Map();
-		map3.setMapName(mapToTest);
+		Map map3 = new Map(mapToTest);
 		map3.readMap();
 
 		Game game3 = new Game(map3);
@@ -217,7 +285,27 @@ public class GameTest {
 			assertTrue(isTwoArrayListsWithSameValues(neighCountries, actualNeigboursList));
 		}
 	}
+	/**
+	 * This method will tear down variables.
+	 */
+	@After
+	public void tearDown() {
+		map = null;
+		game = null;
+		game2 = null;
+		mapToTest = null;
+		playerCount = null;
+		p1 = null;
+		c1 = null;
+		c2 = null;
 
+	}
+	/**
+	 * This method tests the total armies.
+	 * @param list1 array list number 1
+	 * @param list2 array list number 2
+	 * @return boolean
+	 */
 	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
 		if (list1 == null && list2 == null)
 			return true;

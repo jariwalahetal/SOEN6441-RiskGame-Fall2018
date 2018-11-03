@@ -19,7 +19,8 @@ public class CountryTest {
 	 */
 	@Before
 	public void setUp() {
-		c1 = new Country(12, "TheBestCountry", 2);
+		c1 = new Country(12, "TheBestCountry", 10, 10);
+		c1.setNoOfArmies(2);
 		neighbourToadd = "neighbourCountry";
 	}
 
@@ -33,5 +34,13 @@ public class CountryTest {
 		neighbourStringList = c1.getNeighboursString();
 		assertTrue(neighbourStringList.contains(neighbourToadd));
 	}
-
+	/**
+	 * This method will tear down variables.
+	 */
+	@After
+	public void tearDown() {
+		c1 = null;
+		neighbourToadd = null;
+		neighbourStringList = null;
+	}
 }

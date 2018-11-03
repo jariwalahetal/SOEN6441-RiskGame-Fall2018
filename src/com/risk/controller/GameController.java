@@ -23,7 +23,6 @@ import com.risk.view.MapCreateView;
 
 public class GameController {
 
-	Map map;
 	Game game;
 	GameView gameView;
 	public static final String ANSI_RED = "\u001B[31m";
@@ -33,7 +32,6 @@ public class GameController {
 	 * start the game form here.
 	 */
 	public void startGame() {
-		map = new Map();
 		IOHelper.print("+__________________________________________________________+");
 		IOHelper.print("|=====_==============================================_=====|");
 		IOHelper.print("|    (_)                                            (_)    |");
@@ -57,8 +55,8 @@ public class GameController {
 				editMap();
 				break;
 			case 3:
-				initializeMap();
-				initializeGame();
+				Map map = initializeMap();
+				initializeGame(map);
 				break;
 			// TODO: Play Game
 			case 4:
@@ -83,8 +81,10 @@ public class GameController {
 		mapView.saveMapButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boolean isMapCreated = map.validateAndCreateMap(new StringBuffer(mapView.returnTextAreaText()),
-						mapView.returnMapNameText());
+				StringBuffer mapContent = new StringBuffer(mapView.returnTextAreaText());
+				String mapname = mapView.returnMapNameText();
+				Map map = new Map(mapname);
+				boolean isMapCreated = map.validateAndCreateMap(mapContent,mapname);
 				if (isMapCreated) {
 					IOHelper.print("Map Created successfully!");
 				} else {
@@ -110,7 +110,7 @@ public class GameController {
 		IOHelper.print("\nEnter Map_Number that you want to edit from above list:");
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = mapList.get(mapNumber - 1);
-		map.setMapName(selectedMapName);
+		Map map = new Map(selectedMapName);
 		IOHelper.print("'"+selectedMapName+"'");
         map.readMap();
         if (!map.isMapValid()){
@@ -189,7 +189,7 @@ public class GameController {
 	/**
 	 * This function validates the map and initializes the map.
 	 */
-	private void initializeMap() {
+	private Map initializeMap() {
 		int i = 1;
 		IOHelper.print("List of Maps:-");
 		ArrayList<String> maps = getListOfMaps();
@@ -200,19 +200,20 @@ public class GameController {
 		IOHelper.print("\nEnter Map number to load Map file:\n");
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = maps.get(mapNumber - 1);
-		map.setMapName(selectedMapName);
+		Map map = new Map(selectedMapName);
 		map.readMap();
 
 		if (!map.isMapValid()) {
 			IOHelper.print("\nInvalid Map. Select Again!");
-			initializeMap();
+			map = initializeMap();
 		}
+		return map;
 	}
 
 	/**
-	 * This function creates the player objects
+	 * This function creates the player objects for initializing Game
 	 */
-	private void initializeGame() {
+	private void initializeGame(Map map) {
 		game = new Game(map);
 		gameView = new GameView();
 		game.addObserver(gameView);
