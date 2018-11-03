@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import com.risk.helper.Common;
 
 public class CardExchangeView {
 	private static JFrame cardFrame = null;
@@ -27,14 +26,14 @@ public class CardExchangeView {
 	public void exchangeInitializerView() {
 		cardFrame = new JFrame("Card Exchange View");
 		cardPanel = new JPanel(null);
-		cardFrame.setSize(800, 700);
+		cardFrame.setSize(800, 600);
 		
 		cardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		cardExchangeLabel = new JLabel();
 		cardExchangeLabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Exchange Card", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		cardExchangeLabel.setBounds(100, 100, 600, 460);
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLACK	));
+		cardExchangeLabel.setBounds(100, 100, 600, 400);
 		playersTurnJlabel = new JLabel("Player Name");
 		Font font = new Font("Courier", Font.BOLD, 24);
 		playersTurnJlabel.setFont(font);
@@ -46,10 +45,10 @@ public class CardExchangeView {
 		palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
 		palyerOwnedCard.setBounds(310, 45, 250, 70);
 		totalNewArmies = new JLabel("50");
-		totalNewArmies.setBorder(new TitledBorder("New  Armies"));
-		totalNewArmies.setBounds(250,150,250,70);
-		exchangeButton.setBounds(30,195,100,70);
-		exitButton.setBounds(280,195,100,70);
+		totalNewArmies.setBorder(new TitledBorder("New  Armies Assigned"));
+		totalNewArmies.setBounds(180,150,250,70);
+		exchangeButton.setBounds(120,255,160,40);
+		exitButton.setBounds(310,255,160,40);
 		cardExchangeLabel.add(totalNewArmies);
 		cardExchangeLabel.add(palyerOwnedCard);
 		cardExchangeLabel.add(playersTurnJlabel);
@@ -61,9 +60,5 @@ public class CardExchangeView {
 		
 	}
 	
-	public static void main(String args[]) {
-		CardExchangeView cardExchangeView=new CardExchangeView();
-		cardExchangeView.exchangeInitializerView();
-	}
 
 }
