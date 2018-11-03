@@ -1,9 +1,7 @@
 package com.risk.view;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Image;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -13,14 +11,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
@@ -220,7 +211,6 @@ public class GameView implements Observer {
 	private static JLabel gamePhaseNameJLabel;
 
 	// Phase View Actions Label
-	private static JLabel gamePhaseViewJLabel;
 	private static JLabel gamePhaseViewActionsJLabel;
 
 	// Initialization Label
@@ -235,6 +225,9 @@ public class GameView implements Observer {
 	// Fortification Label
 	private static JLabel fortificationJlabel;
 	private static JComboBox<String> sourceCountry;
+
+	// Player World Domination Button
+	private static JButton playerWorldDominationViewJButton;
 
 	private static JComboBox<String> destinationCountry;
 	private static JComboBox<String> noOfArmyToMoveJcomboBox;
@@ -259,6 +252,7 @@ public class GameView implements Observer {
 		loadingFortificationLabel();
 		loadingPhaseLabel();
 		loadingPhaseActionLabel();
+		loadPlayerWorldDominationView();
 		gameJframe.setSize(1250, 700);
 		gameJframe.setVisible(true);
 		gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -431,13 +425,34 @@ public class GameView implements Observer {
 	 * Method to display the actions performed during each phase
 	 * */
 	public void loadingPhaseActionLabel() {
-		gamePhaseViewJLabel = new JLabel();
-		gamePhaseViewJLabel.setBorder(
+		gamePhaseViewActionsJLabel = new JLabel();
+		gamePhaseViewActionsJLabel.setBorder(
 				BorderFactory.createTitledBorder(null,"Phase Actions Performed",TitledBorder.DEFAULT_JUSTIFICATION,
 				TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		gamePhaseViewJLabel.setBounds(reinforcementsJlabel.getX(),gamePhaseJLabel.getY()+10+gamePhaseJLabel.getHeight(),
+		gamePhaseViewActionsJLabel.setBounds(reinforcementsJlabel.getX(),gamePhaseJLabel.getY()+10+gamePhaseJLabel.getHeight(),
 				gamePhaseJLabel.getWidth(),70);
-		gameActionJpanel.add(gamePhaseViewJLabel);
+		gameActionJpanel.add(gamePhaseViewActionsJLabel);
+	}
+
+	public void loadPlayerWorldDominationView() {
+		playerWorldDominationViewJButton = new JButton("Player World Domination View");
+		playerWorldDominationViewJButton.setBounds(
+				gamePhaseViewActionsJLabel.getX(), gamePhaseViewActionsJLabel.getY()+10+gamePhaseViewActionsJLabel.getHeight(),
+				destinationCountry.getWidth(), destinationCountry.getHeight());
+		playerWorldDominationViewJButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
+				JPanel playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
+				JTable playerRecordsJTable = new JTable();
+				playerWorldDominationViewJFrame.setSize(600,400);
+				playerWorldDominationViewJFrame.setVisible(true);
+
+				playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
+
+			}
+		});
+		gameActionJpanel.add(playerWorldDominationViewJButton);
 	}
 
 	/**
