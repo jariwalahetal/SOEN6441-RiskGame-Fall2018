@@ -71,7 +71,7 @@ public class GameTest {
 
 
 	/**
-	 * Test Method for calcluation for reinforcement armies
+	 * Test Method for calculation for reinforcement armies
 	 */
 
 	@Test
@@ -249,10 +249,12 @@ public class GameTest {
 		ArrayList<Player> players = game2.getAllPlayers();
 		for (Player player : players) {
 			totalArmies += player.getNoOfUnassignedArmies();
-			ArrayList<Country> playersCountries = game2.getPlayersCountry(player);
+			ArrayList<Country> playersCountries = player.getAssignedCountryList();
+			//getPlayersCountry(player);
 			for (Country singleCountry : playersCountries) {
-				totalArmies += singleCountry.getnoOfArmies();
+				totalArmies += singleCountry.getnoOfArmies();			
 			}
+			
 			assertEquals(totalArmies, InitialPlayerSetup.getInitialArmyCount(playerCount));
 			totalArmies = 0;
 		}
