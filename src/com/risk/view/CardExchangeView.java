@@ -21,7 +21,7 @@ public class CardExchangeView {
 	private static JComboBox<String> palyerOwnedCard;
 	private static JLabel totalNewArmies;
 	private static JButton exchangeButton = new JButton("Exchange Cards");
-	private static JButton exitButton = new JButton("Exit");
+	private static JButton exitButton = new JButton("No Exchange And Exit");
 		
 	
 	public void exchangeInitializerView() {
@@ -34,16 +34,29 @@ public class CardExchangeView {
 		cardExchangeLabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Exchange Card", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		cardExchangeLabel.setBounds(100, 100, 500, 500);
+		cardExchangeLabel.setBounds(100, 100, 600, 460);
 		playersTurnJlabel = new JLabel("Player Name");
 		Font font = new Font("Courier", Font.BOLD, 24);
 		playersTurnJlabel.setFont(font);
 		playersTurnJlabel.setForeground(Color.RED);
 		playersTurnJlabel.setBorder(new TitledBorder("Active Player"));
-		playersTurnJlabel.setBounds(15, 25, 220, 70);
+		playersTurnJlabel.setBounds(30, 45, 250, 70);
+		String typeOfCards[]= {"Type A", "Type B", "Type C"};
+		palyerOwnedCard = new JComboBox<>(typeOfCards);
+		palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
+		palyerOwnedCard.setBounds(310, 45, 250, 70);
+		totalNewArmies = new JLabel("50");
+		totalNewArmies.setBorder(new TitledBorder("New  Armies"));
+		totalNewArmies.setBounds(250,150,250,70);
+		exchangeButton.setBounds(30,195,100,70);
+		exitButton.setBounds(280,195,100,70);
+		cardExchangeLabel.add(totalNewArmies);
+		cardExchangeLabel.add(palyerOwnedCard);
 		cardExchangeLabel.add(playersTurnJlabel);
+		cardExchangeLabel.add(exchangeButton);
+		cardExchangeLabel.add(exitButton);
 		cardPanel.add(cardExchangeLabel);
-		cardFrame.add(cardPanel);
+		cardFrame.add(cardPanel);	
 		cardFrame.setVisible(true);
 		
 	}
