@@ -314,4 +314,19 @@ public class Game extends Observable {
 		return neighborCountriesName;
 	}
 
+	/**
+	 * Method to get neighbouring countries of a given country
+	 * 
+	 * @param sourceCountryName,
+	 *            name of the source country of player
+	 * @return ArrayList , returning array list of countries.
+	 */
+	public ArrayList<String> getNeighbouringCountriesForAttack(String sourceCountryName) {
+
+		// need to be changed
+		ArrayList<String> neighborCountriesName = this.getCurrentPlayer().getNeighbouringCountries(sourceCountryName);
+		return neighborCountriesName;
+	}
+	
+	
 }

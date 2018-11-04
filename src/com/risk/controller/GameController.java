@@ -20,7 +20,6 @@ import com.risk.view.MapCreateView;
  * @since 27-September-2018
  *
  */
-
 public class GameController {
 
 	Game game;
@@ -234,6 +233,9 @@ public class GameController {
 
 	private void activateListenersOnView() {
 		addArmyImageClickListener();
+		addAttackButtonListener();
+		addAllOutButtonListener();
+		addSkipButtonListener();
 		addSourceCountriesListener();
 		addMoveArmyButtonListener();
 	}
@@ -256,6 +258,24 @@ public class GameController {
 	/**
 	 * to update view
 	 */
+	public void addAttackerCountryListener() {
+		gameView.addActionListenToAttackerCountryList(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				String countryName = gameView.getAttackerCountry();
+				if (countryName != null) {
+					ArrayList<String> neighborCountries = game.getNeighbouringCountriesForAttack(countryName);
+					gameView.populateDefenderCountryComboBox(neighborCountries);;
+				}
+			}
+		});
+	}
+	
+	
+	
+	/**
+	 * to update view
+	 */
 	public void addSourceCountriesListener() {
 		gameView.addActionListenToSourceCountryList(new ActionListener() {
 
@@ -271,6 +291,56 @@ public class GameController {
 		});
 	}
 
+	/**
+	 * to update view
+	 */
+	public void addAttackButtonListener() {
+		gameView.addActionListenToAttackButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == PhaseEnum.Attack) {
+					String attackerCountryName = GameView.getAttackerCountry();
+					String defenderCountryName = GameView.getDefenderCountry();
+					String attackerDiceNo = GameView.getAttackerNoOfDice();
+					String defenderDiceNo = GameView.getDefenderNoOfDice();
+					game.attackPhase();
+					}
+			}
+		});
+	}
+	
+	/**
+	 * to update view
+	 */
+	public void addAllOutButtonListener() {
+		gameView.addActionListenToAllOutButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == PhaseEnum.Attack)
+				{   //Call to Model
+					
+				}
+			}
+		});
+	}
+	
+	/**
+	 * to update view
+	 */
+	public void addSkipButtonListener() {
+		gameView.addActionListenToSkipButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == PhaseEnum.Attack)
+				{   //Call to Model
+					
+				}			
+				}
+		});
+	}
+	
+	
+	
 	/**
 	 * to update view
 	 */

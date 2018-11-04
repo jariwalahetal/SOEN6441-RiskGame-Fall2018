@@ -609,9 +609,34 @@ public class GameView implements Observer {
 		destinationCountry.removeAllItems();
 		for (String countryName : destinationCountries)
 			destinationCountry.addItem(countryName);
-
 	}
 
+	
+	/**
+	 * Method used to populate value in the attackerCountry combobox
+	 * 
+	 * @param destinationCountries
+	 *            ArrayList
+	 */
+	public void populateAttackerCountryComboBox(ArrayList<String> attackerCountries) {
+		attackerCountry.removeAllItems();
+		for (String countryName : attackerCountries)
+			attackerCountry.addItem(countryName);
+	}	
+
+	/**
+	 * Method used to populate value in the defenderCountry combobox
+	 * 
+	 * @param destinationCountries
+	 *            ArrayList
+	 */
+	public void populateDefenderCountryComboBox(ArrayList<String> defenderCountries) {
+		defenderCountry.removeAllItems();
+		for (String countryName : defenderCountries)
+			defenderCountry.addItem(countryName);
+	}	
+
+		
 	/**
 	 * Method used perform the on mouse click and add army in the country
 	 * 
@@ -632,6 +657,17 @@ public class GameView implements Observer {
 	 * @param listener
 	 *            ActionListener
 	 */
+	public void addActionListenToAttackerCountryList(ActionListener listener) {
+		attackerCountry.addActionListener(listener);
+	}	
+	
+	
+	/**
+	 * Method used to add Action Listener to Source Country
+	 * 
+	 * @param listener
+	 *            ActionListener
+	 */
 	public void addActionListenToSourceCountryList(ActionListener listener) {
 		sourceCountry.addActionListener(listener);
 	}
@@ -646,6 +682,74 @@ public class GameView implements Observer {
 		fortificationMoveButton.addActionListener(listener);
 	}
 
+	/**
+	 * Static method to get the Attacker country
+	 * 
+	 * @return selectedCountry
+	 */
+	public static String getAttackerCountry() {
+		return (String) attackerCountry.getSelectedItem();
+	}
+	
+	/**
+	 * Static method to get the Defender country
+	 * 
+	 * @return selectedCountry
+	 */
+	public static String getDefenderCountry() {
+		return (String) defenderCountry.getSelectedItem();
+	}
+	
+	/**
+	 * Static method to get the attackerNoOfDice 
+	 * 
+	 * @return 
+	 */
+	public static String getAttackerNoOfDice() {
+		return (String) attackerNoOfDice.getSelectedItem();
+	}
+	
+	/**
+	 * Static method to get the attackerNoOfDice 
+	 * 
+	 * @return 
+	 */
+	public static String getDefenderNoOfDice() {
+		return (String) defenderNoOfDice.getSelectedItem();
+	}
+	
+	/**
+	 * Method for performing action listener on attack Button
+	 * 
+	 * @param listener
+	 *            ActionListener
+	 */
+	public void addActionListenToAttackButton(ActionListener listener) {
+		this.attackButton.addActionListener(listener);
+	}
+	
+	/**
+	 * Method for performing action listener on allOutButton
+	 * 
+	 * @param listener
+	 *            ActionListener
+	 */
+	public void addActionListenToAllOutButton(ActionListener listener) {
+		this.allOutButton.addActionListener(listener);
+	}
+	
+	
+	/**
+	 * Method for performing action listener on skipButton
+	 * 
+	 * @param listener
+	 *            ActionListener
+	 */
+	public void addActionListenToSkipButton(ActionListener listener) {
+		this.skipButton.addActionListener(listener);
+	}
+	
+	
 	/*
 	 * public static void setAddArmyToCountryJcomboBox(JComboBox<String>
 	 * addArmyToCountryJcomboBox) { GameView.addArmyToCountryJcomboBox =
@@ -663,8 +767,10 @@ public class GameView implements Observer {
 
 	}
 
+	
+	
 	/**
-	 * Static method to populate all source countries
+	 * Static method to get the source country
 	 * 
 	 * @return selectedCountry
 	 */
