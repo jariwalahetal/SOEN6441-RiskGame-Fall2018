@@ -272,6 +272,7 @@ public class Player {
 		return noOfArmies;
 	}
 
+
 	/**
 	 * Method to get neighbouring countries of a given country
 	 * 
@@ -279,11 +280,8 @@ public class Player {
 	 *            name of the source country of player
 	 * @return ArrayList , returning array list of countries.
 	 */
-	public ArrayList<String> getNeighbouringCountries(String sourceCountryName) {
-
+	public ArrayList<String> getNeighbouringCountries(String sourceCountryName,ArrayList<String> assignedCountriesName) {
 		ArrayList<String> neighborCountriesName = null;
-		ArrayList<String> assignedCountriesName = new ArrayList<String>();
-
 		for (Country country : assignedCountryList) {
 			String countryName = country.getCountryName();
 			assignedCountriesName.add(countryName);
@@ -291,7 +289,22 @@ public class Player {
 				neighborCountriesName = country.getNeighboursString();
 			}
 		}
+		return neighborCountriesName;
+	}
 
+	
+	
+	/**
+	 * Method to get neighbouring countries of a given country
+	 * 
+	 * @param sourceCountryName,
+	 *            name of the source country of player
+	 * @return ArrayList , returning array list of countries.
+	 */
+	public ArrayList<String> getAssignedNeighbouringCountries(String sourceCountryName) {
+		ArrayList<String> assignedCountriesName =  new ArrayList<String>();
+		ArrayList<String> neighborCountriesName = this.getNeighbouringCountries(sourceCountryName, assignedCountriesName);
+		
 		Iterator<String> it = neighborCountriesName.iterator();
 		while (it.hasNext()) {
 			String country = it.next();
@@ -302,4 +315,25 @@ public class Player {
 		return neighborCountriesName;
 	}
 
+	/**
+	 * Method to get neighbouring countries of a given country
+	 * 
+	 * @param sourceCountryName,
+	 *            name of the source country of player
+	 * @return ArrayList , returning array list of countries.
+	 */
+	public ArrayList<String> getUnAssignedNeighbouringCountries(String sourceCountryName) {
+		ArrayList<String> assignedCountriesName =  new ArrayList<String>();
+		ArrayList<String> neighborCountriesName = this.getNeighbouringCountries(sourceCountryName, assignedCountriesName);
+		
+		Iterator<String> it = neighborCountriesName.iterator();
+		while (it.hasNext()) {
+			String country = it.next();
+			if (assignedCountriesName.contains(country)) {
+				it.remove();
+			}
+		}
+		return neighborCountriesName;
+	}	
+	
 }

@@ -310,12 +310,12 @@ public class Game extends Observable {
 	 */
 	public ArrayList<String> getNeighbouringCountries(String sourceCountryName) {
 
-		ArrayList<String> neighborCountriesName = this.getCurrentPlayer().getNeighbouringCountries(sourceCountryName);
+		ArrayList<String> neighborCountriesName = this.getCurrentPlayer().getAssignedNeighbouringCountries(sourceCountryName);
 		return neighborCountriesName;
 	}
 
 	/**
-	 * Method to get neighbouring countries of a given country
+	 * Method to get neighbouring countries of a given country for attack Phase
 	 * 
 	 * @param sourceCountryName,
 	 *            name of the source country of player
@@ -324,7 +324,7 @@ public class Game extends Observable {
 	public ArrayList<String> getNeighbouringCountriesForAttack(String sourceCountryName) {
 
 		// need to be changed
-		ArrayList<String> neighborCountriesName = this.getCurrentPlayer().getNeighbouringCountries(sourceCountryName);
+		ArrayList<String> neighborCountriesName = this.getCurrentPlayer().getUnAssignedNeighbouringCountries(sourceCountryName);
 		return neighborCountriesName;
 	}
 	
