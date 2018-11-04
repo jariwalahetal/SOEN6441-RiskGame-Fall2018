@@ -222,16 +222,26 @@ public class GameView implements Observer {
 	private static JLabel reinforcementsJlabel;
 	private static JLabel reinforcementUnassignedUnit;
 
+   //Attack Label
+	private static JLabel attackJlabel;
+	private static JComboBox<String> attackerCountry;
+	private static JComboBox<String> defenderCountry;
+	private static JComboBox<String> attackerNoOfDice;
+	private static JComboBox<String> defenderNoOfDice;
+	private static JButton attackButton = new JButton("Attack");
+	private static JButton allOutButton = new JButton("All Out");
+	private static JButton skipButton = new JButton("Skip");
+		
 	// Fortification Label
 	private static JLabel fortificationJlabel;
 	private static JComboBox<String> sourceCountry;
+	private static JComboBox<String> destinationCountry;
+	private static JComboBox<String> noOfArmyToMoveJcomboBox;
+	private static JButton fortificationMoveButton = new JButton("Move Army");
 
 	// Player World Domination Button
 	private static JButton playerWorldDominationViewJButton;
 
-	private static JComboBox<String> destinationCountry;
-	private static JComboBox<String> noOfArmyToMoveJcomboBox;
-	private static JButton fortificationMoveButton = new JButton("Move Army");
 
 	String activePlayerName = null;
 	int activePlayerId;
@@ -249,6 +259,7 @@ public class GameView implements Observer {
 		loadGameActionView();
 		loadingInitializationLabel();
 		loadingReinforcementLabel();
+	    loadingAttackLabel();
 		loadingFortificationLabel();
 		loadingPhaseLabel();
 		loadingPhaseActionLabel();
@@ -309,7 +320,7 @@ public class GameView implements Observer {
 		initializationJlabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Initialization Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		initializationJlabel.setBounds(mapScrollPane.getX() + 700, mapScrollPane.getY(), 490, 100);
+		initializationJlabel.setBounds(mapScrollPane.getX() + 700, mapScrollPane.getY(), 490, 60);
 
 		// Recreate every components in Label
 		playersTurnJlabel = new JLabel(activePlayerName);
@@ -317,15 +328,14 @@ public class GameView implements Observer {
 		playersTurnJlabel.setFont(font);
 		playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
 		playersTurnJlabel.setBorder(new TitledBorder("Active Player"));
-		playersTurnJlabel.setBounds(15, 25, 220, 70);
+		playersTurnJlabel.setBounds(12, 15, 220, 40);
 
 		armyLeftJlabel = new JLabel("" + activePlayerUnassignedArmiesCount);
 		armyLeftJlabel.setBorder(new TitledBorder("Armies Left"));
 		armyLeftJlabel.setBounds(playersTurnJlabel.getX() + 240,
-				playersTurnJlabel.getY() - 70 + playersTurnJlabel.getHeight(), playersTurnJlabel.getWidth(),
+				playersTurnJlabel.getY() , playersTurnJlabel.getWidth(),
 				playersTurnJlabel.getHeight());
 
-		initializationJlabel.add(playersTurnJlabel);
 		initializationJlabel.add(playersTurnJlabel);
 		initializationJlabel.add(armyLeftJlabel);
 
@@ -343,17 +353,74 @@ public class GameView implements Observer {
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		reinforcementsJlabel.setBounds(initializationJlabel.getX(),
 				initializationJlabel.getY() + 10 + initializationJlabel.getHeight(), initializationJlabel.getWidth(),
-				80);
+				60);
 
 		reinforcementUnassignedUnit = new JLabel(reinforcementUnassignedArmiesCount);
 		reinforcementUnassignedUnit.setBorder(new TitledBorder("Reinforced Army Unit"));
-		reinforcementUnassignedUnit.setBounds(15, 25, 460, 50);
+		reinforcementUnassignedUnit.setBounds(12, 15, 460, 40);
 
 		reinforcementsJlabel.add(reinforcementUnassignedUnit);
 		gameActionJpanel.add(reinforcementsJlabel);
 
 	}
 
+	
+	/**
+	 * Method used to perform Attack phase of game
+	 */
+	public void loadingAttackLabel() {
+		attackJlabel = new JLabel();
+		attackJlabel.setBorder(
+				BorderFactory.createTitledBorder(null, "Attack Phase", TitledBorder.DEFAULT_JUSTIFICATION,
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
+		attackJlabel.setBounds(reinforcementsJlabel.getX(),
+				reinforcementsJlabel.getY() + 10 + reinforcementsJlabel.getHeight(), reinforcementsJlabel.getWidth(),
+					180);
+
+		attackerCountry = new JComboBox();
+		attackerCountry.setBorder(new TitledBorder("Attack From"));
+		attackerCountry.setBounds(15, 15, 220, 50);
+
+		defenderCountry = new JComboBox();
+		defenderCountry.setBorder(new TitledBorder("Attack To"));
+		defenderCountry.setBounds(attackerCountry.getX() + 20 + attackerCountry.getWidth() + 3, attackerCountry.getY(),
+				attackerCountry.getWidth(), attackerCountry.getHeight());
+
+		String attackerNoOfDiceRoll[] = { " 1", "2", "3" };
+		attackerNoOfDice =  new JComboBox<>(attackerNoOfDiceRoll);
+		attackerNoOfDice.setBorder(new TitledBorder("Attacker's No Of Dice"));
+		attackerNoOfDice.setBounds(attackerCountry.getX(), attackerCountry.getY() + 10 + attackerCountry.getHeight(),
+				attackerCountry.getWidth(), attackerCountry.getHeight());
+
+		String defenderNoOfDiceRoll[] = { " 1", "2"};
+		defenderNoOfDice =  new JComboBox<>(defenderNoOfDiceRoll);
+		defenderNoOfDice.setBorder(new TitledBorder("Defender's No Of Dice"));
+		defenderNoOfDice.setBounds(attackerNoOfDice.getX() + 20 + attackerNoOfDice.getWidth() + 3, attackerNoOfDice.getY(),
+				attackerNoOfDice.getWidth(), attackerNoOfDice.getHeight());
+
+		attackButton.setBounds(attackerNoOfDice.getX(), attackerNoOfDice.getY()+ 10 + attackerNoOfDice.getHeight(),
+				100, 30);
+
+		allOutButton.setBounds(attackButton.getX()+ 20 + attackButton.getWidth() + 3, attackButton.getY(),
+				attackButton.getWidth(), attackButton.getHeight());
+
+		skipButton.setBounds(allOutButton.getX() + 20 + allOutButton.getWidth() + 3, allOutButton.getY(),
+				allOutButton.getWidth(), allOutButton.getHeight());
+
+			
+		attackJlabel.add(attackerCountry);
+		attackJlabel.add(defenderCountry);
+		attackJlabel.add(attackerNoOfDice);
+		attackJlabel.add(defenderNoOfDice);
+		attackJlabel.add(attackButton);
+		attackJlabel.add(allOutButton);
+		attackJlabel.add(skipButton);
+		
+		gameActionJpanel.add(attackJlabel);
+
+	}
+	
+	
 	/**
 	 * Method used to perform fortification phase
 	 */
@@ -362,14 +429,14 @@ public class GameView implements Observer {
 		fortificationJlabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Fortification Phase", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		fortificationJlabel.setBounds(reinforcementsJlabel.getX(),
-				reinforcementsJlabel.getY() + 10 + reinforcementsJlabel.getHeight(), reinforcementsJlabel.getWidth(),
-				140);
+		fortificationJlabel.setBounds(attackJlabel.getX(),
+				attackJlabel.getY() + 10 + attackJlabel.getHeight(), attackJlabel.getWidth(),
+				130);
 
 		// sourceCountry = new JComboBox(conquerdCountries.toArray());
 		sourceCountry = new JComboBox();
 		sourceCountry.setBorder(new TitledBorder("Source Country"));
-		sourceCountry.setBounds(15, 25, 220, 50);
+		sourceCountry.setBounds(15, 15, 220, 50);
 
 		String destinationCountries[] = { " " };
 		destinationCountry = new JComboBox<>(destinationCountries);
@@ -388,8 +455,8 @@ public class GameView implements Observer {
 				sourceCountry.getWidth(), sourceCountry.getHeight());
 		noOfArmyToMoveJcomboBox.setBorder(new TitledBorder("Total number of army to move"));
 
-		fortificationMoveButton.setBounds(destinationCountry.getX(), noOfArmyToMoveJcomboBox.getY(),
-				destinationCountry.getWidth(), destinationCountry.getHeight());
+		fortificationMoveButton.setBounds(destinationCountry.getX(), destinationCountry.getHeight() + destinationCountry.getY() + 17,
+				destinationCountry.getWidth(), 30);
 
 		// Add all components in Label
 		fortificationJlabel.add(sourceCountry);
@@ -409,12 +476,12 @@ public class GameView implements Observer {
 				BorderFactory.createTitledBorder(null, "Phase Information", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		gamePhaseJLabel.setBounds(reinforcementsJlabel.getX(),
-				fortificationJlabel.getY() + 10 + fortificationJlabel.getHeight(), fortificationJlabel.getWidth(), 70);
+				fortificationJlabel.getY() + 10 + fortificationJlabel.getHeight(), fortificationJlabel.getWidth(), 50);
 
 		gamePhaseNameJLabel = new JLabel("Initialization");
 		Font font = new Font("Courier", Font.BOLD, 24);
 		gamePhaseNameJLabel.setFont(font);
-		gamePhaseNameJLabel.setBounds(15, 15, 220, 70);
+		gamePhaseNameJLabel.setBounds(15, 15, 220, 40);
 
 		gamePhaseJLabel.add(gamePhaseNameJLabel);
 
@@ -524,7 +591,7 @@ public class GameView implements Observer {
 				gamePhaseNameJLabel.setText("Reinforcement");
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
 				gamePhaseNameJLabel.setText("Attack - not implemented");
-				game.attackPhase();
+//				game.attackPhase();
 			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
 				gamePhaseNameJLabel.setText("Fortification");
 				setSourceCountryComboBox();
