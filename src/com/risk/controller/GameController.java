@@ -141,7 +141,7 @@ public class GameController {
                     break;
                 case 2:
                     IOHelper.print("List of Countries:");
-                    ArrayList<Country> countryList = map.getCountryList();
+                    ArrayList<Country> countryList = map.getCurrentPlayerCountryList();
                     for (Country nameOfCountry: countryList ) {
                         IOHelper.print("->"+nameOfCountry.getCountryName());
                     }

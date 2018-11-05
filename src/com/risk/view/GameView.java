@@ -554,7 +554,7 @@ public class GameView implements Observer {
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());
 		reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
 		countryList.clear();
-		for (Country country : map.getCountryList()) {
+		for (Country country : map.getCurrentPlayerCountryList()) {
 			ViewCountries viewCountry = new ViewCountries();
 			viewCountry.setCountryId(country.getCountryId());
 			viewCountry.setCountryColor(country.getCountryColor());

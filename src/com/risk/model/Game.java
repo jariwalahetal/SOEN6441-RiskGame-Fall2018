@@ -76,7 +76,7 @@ public class Game extends Observable {
 			playerList.get(i).setNoOfUnassignedArmies(noOfInitialArmies);
 		}
 
-		int countriesCount = map.getCountryList().size();
+		int countriesCount = map.getCurrentPlayerCountryList().size();
 		int playerIndex = 0, playerCount = playerList.size();
 		ArrayList<Integer> tempList = new ArrayList<>();
 		// Here creating the list with indexes
@@ -93,7 +93,7 @@ public class Game extends Observable {
 			if (playerIndex == playerCount)
 				playerIndex = 0;
 
-			Country newCountry = map.getCountryList().get(tempList.get(i));
+			Country newCountry = map.getCurrentPlayerCountryList().get(tempList.get(i));
 			playerList.get(playerIndex).assignCountryToPlayer(newCountry);
 			playerList.get(playerIndex).decreaseUnassignedArmyCount();
 			newCountry.increaseArmyCount(1);
