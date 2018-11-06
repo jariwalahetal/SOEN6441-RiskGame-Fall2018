@@ -2,6 +2,7 @@ package com.risk.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
 import com.risk.helper.IOHelper;
@@ -76,7 +77,7 @@ public class Game extends Observable {
 			playerList.get(i).setNoOfUnassignedArmies(noOfInitialArmies);
 		}
 
-		int countriesCount = map.getCurrentPlayerCountryList().size();
+		int countriesCount = map.getCountryList().size();
 		int playerIndex = 0, playerCount = playerList.size();
 		ArrayList<Integer> tempList = new ArrayList<>();
 		// Here creating the list with indexes
@@ -93,7 +94,7 @@ public class Game extends Observable {
 			if (playerIndex == playerCount)
 				playerIndex = 0;
 
-			Country newCountry = map.getCurrentPlayerCountryList().get(tempList.get(i));
+			Country newCountry = map.getCountryList().get(tempList.get(i));
 			playerList.get(playerIndex).assignCountryToPlayer(newCountry);
 			playerList.get(playerIndex).decreaseUnassignedArmyCount();
 			newCountry.increaseArmyCount(1);
@@ -323,10 +324,49 @@ public class Game extends Observable {
 	 */
 	public ArrayList<String> getNeighbouringCountriesForAttack(String sourceCountryName) {
 
-		// need to be changed
-		ArrayList<String> neighborCountriesName = this.getCurrentPlayer().getUnAssignedNeighbouringCountries(sourceCountryName);
+		ArrayList<String> neighborCountriesName = new ArrayList<>();
+		
+		//Get country by country name
+		Country attackingCountry  = getCurrentPlayer().getAssignedCountryList().stream()
+						.filter(x -> x.getCountryName().equals(sourceCountryName))
+						.findAny().orElse(null);
+		
+		if(attackingCountry != null) {
+			//get neighbours for the country and if belongs to another player then add in list
+			
+			for(String ns : attackingCountry.getNeighboursString()) {
+				Country c = getCurrentPlayer().getAssignedCountryList().stream()
+						.filter(x -> x.getCountryName().equals(ns))
+						.findAny().orElse(null);
+				
+				//null means the country is not assigned to this player
+				if(c == null) {
+					neighborCountriesName.add(ns);
+				}
+			}
+		}
+		
 		return neighborCountriesName;
 	}
+	
+	/**
+     * This function returns the country list of current player who are eligible to attack
+     * 
+     * @return ArrayList,Arraylist of countries
+     *
+     */
+    public ArrayList<Country> getCoutriesForAttack()
+    {
+        ArrayList<Country> countriesList = new ArrayList<>();
+        for(Country c: getCurrentPlayerCountries())
+        {
+        	if(c.getnoOfArmies() > 1)
+        	{
+        		countriesList.add(c);
+        	}
+        }
+        return countriesList;
+    }
 	
 	
 }

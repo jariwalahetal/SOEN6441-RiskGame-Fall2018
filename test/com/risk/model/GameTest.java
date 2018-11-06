@@ -275,7 +275,7 @@ public class GameTest {
 		}
 		game3.startUpPhase();
 		// ArrayList<String> neighCountries = game3.getNeighbouringCountries("Morocco");
-		Country country = game3.getMap().getCurrentPlayerCountryList().stream()
+		Country country = game3.getMap().getCountryList().stream()
 				.filter(x -> x.getCountryName().equalsIgnoreCase("Morocco")).findAny().orElse(null);
 		if (country != null) {
 			ArrayList<String> neighCountries = country.getNeighboursString();

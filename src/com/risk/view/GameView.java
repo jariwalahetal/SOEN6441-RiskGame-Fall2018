@@ -36,7 +36,7 @@ class ViewCountries {
 	private EnumColor CountryColor;
 	private int playerID;
 	private ArrayList<String> neighboursString = new ArrayList<>();
-
+	
 	/**
 	 * This method return id of the country
 	 * 
@@ -198,6 +198,8 @@ class ViewCountries {
  *
  */
 public class GameView implements Observer {
+	private static String defaultSelection = "--Select--";
+	
 	private static JFrame gameJframe = null;
 	private static JPanel gameActionJpanel;
 
@@ -248,6 +250,7 @@ public class GameView implements Observer {
 	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;
 	String mapPath;
 	ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
+	ArrayList<ViewCountries> attackingCountryList = new ArrayList<>();
 	PhaseEnum phase;
 
 	/**
@@ -554,7 +557,8 @@ public class GameView implements Observer {
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());
 		reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
 		countryList.clear();
-		for (Country country : map.getCurrentPlayerCountryList()) {
+		attackingCountryList.clear();
+		for (Country country : map.getCountryList()) {
 			ViewCountries viewCountry = new ViewCountries();
 			viewCountry.setCountryId(country.getCountryId());
 			viewCountry.setCountryColor(country.getCountryColor());
@@ -583,6 +587,15 @@ public class GameView implements Observer {
 				gamePhaseNameJLabel.setText("Reinforcement");
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
 				gamePhaseNameJLabel.setText("Attack Phase");
+				
+				for (Country country : game.getCoutriesForAttack()) {
+					ViewCountries viewCountry = new ViewCountries();
+					viewCountry.setCountryId(country.getCountryId());
+					viewCountry.setCountryColor(country.getCountryColor());
+					viewCountry.setCountryName(country.getCountryName());
+					attackingCountryList.add(viewCountry);
+				}
+				
 				setAttackerCountry();
 				// game.attackPhase();
 			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
@@ -624,6 +637,7 @@ public class GameView implements Observer {
 	 */
 	public void populateDefenderCountryComboBox(ArrayList<String> defenderCountries) {
 		defenderCountry.removeAllItems();
+		defenderCountry.addItem(defaultSelection);
 		for (String countryName : defenderCountries)
 			defenderCountry.addItem(countryName);
 	}
@@ -678,13 +692,11 @@ public class GameView implements Observer {
 	 * @return selectedCountry
 	 */
 	public void setAttackerCountry() {
-		
 		attackerCountry.removeAllItems();
-		for (int i = 0; i < countryList.size(); i++) {
-			ViewCountries tempCountry = countryList.get(i);
-			if (activePlayerId == tempCountry.getPlayerID()) {
-				attackerCountry.addItem(tempCountry.getCountryName());
-			}
+		attackerCountry.addItem(defaultSelection);
+		for (int i = 0; i < attackingCountryList.size(); i++) {
+			ViewCountries tempCountry = attackingCountryList.get(i);
+			attackerCountry.addItem(tempCountry.getCountryName());
 		}
 	}
 	
@@ -696,7 +708,10 @@ public class GameView implements Observer {
 	 * @return selectedCountry
 	 */
 	public static String getAttackerCountry() {
-		return (String) attackerCountry.getSelectedItem();
+		if(attackerCountry.getSelectedItem().equals(defaultSelection))
+			return null;
+		else 
+			return (String) attackerCountry.getSelectedItem();
 	}
 
 	/**

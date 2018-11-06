@@ -243,7 +243,7 @@ public class Map {
      * @return true if country is deleted
      */
     public boolean deleteCountry(String countryToDelete) {
-        ArrayList<Country> countriesList = getCurrentPlayerCountryList();
+        ArrayList<Country> countriesList = getCountryList();
         Country currentCountry = countriesList.stream()
                 .filter(x-> x.getCountryName().equalsIgnoreCase(countryToDelete))
                 .findAny()
@@ -481,7 +481,7 @@ public class Map {
      * @return ArrayList,Arraylist of countries
      *
      */
-    public ArrayList<Country> getCurrentPlayerCountryList()
+    public ArrayList<Country> getCountryList()
     {
         ArrayList<Country> countriesList = new ArrayList<>();
         for(Iterator<Continent> continents= continentsList.iterator(); continents.hasNext(); )
