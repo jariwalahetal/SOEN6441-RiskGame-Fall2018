@@ -17,11 +17,14 @@ import com.risk.helper.PhaseEnum;
  * @since 30-September-2018
  */
 public class Game extends Observable {
-
+	private final int MAXIMUM_ATTACKING_DICE = 3;
+	private final int MAXIMUM_DEFENDING_DICE = 2;
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
 	private Map map;
+	private String attackingCountry;
+	private String defendingCountry;
 
 	/**
 	 * This is a constructor of Game class which will initialize the Map
@@ -64,7 +67,97 @@ public class Game extends Observable {
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return currentPlayer;
 	}
+	
+	/**
+	 * Validate is phase is Attack 
+	 * 
+	 * @return true if Phase is Attack else false
+	 */
+	private Boolean isAttackPhase()
+	{
+		if(gamePhase != PhaseEnum.Attack)
+		{
+			IOHelper.print("Invalid Phase");
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Set attacking country for game
+	 * 
+	 * @param countryName
+	 */
+	
+	public void SetAttackingCountry(String countryName) {
+		
+		if(isAttackPhase()) {	
+			attackingCountry = countryName;
+		}
+		else {
+			attackingCountry = "";
+		}
+	}
 
+	/**
+	 * Set defending country for game
+	 * 
+	 * @param countryName
+	 */
+	
+	public void SetDefendingCountry(String countryName) {
+		
+		if(isAttackPhase()) {	
+			defendingCountry = countryName;
+		}
+		else {
+			defendingCountry = "";		
+		}
+	}
+	
+	/**
+	 * Returns allowable dices for attacking country
+	 * 
+	 * @return Integer
+	 */
+	public int GetMaximumAllowableDicesForAttacker() {
+		if(isAttackPhase()) {
+			//Get country from player object. 
+			//Will also add validation if the attacker is assigned to player or not
+			
+			Country c = getCurrentPlayer().getAssignedCountryList().stream()
+							.filter(x -> x.getCountryName().equals(attackingCountry))
+							.findAny().orElse(null);
+			
+			if (c!=null) {
+				int allowableAttackingArmies = c.getnoOfArmies() - 1;
+				return allowableAttackingArmies >= MAXIMUM_ATTACKING_DICE ? MAXIMUM_ATTACKING_DICE :  allowableAttackingArmies;
+			}			
+		}
+		return 0;
+	}
+	
+	/**
+	 * Returns allowable dices for defending country
+	 * 
+	 * @return Integer
+	 */
+	public int GetMaximumAllowableDicesForDefender() {
+		if(isAttackPhase()) {
+			
+			Country c = map.getCountryList().stream()
+							.filter(x -> x.getCountryName().equals(defendingCountry))
+							.findAny().orElse(null);
+			
+			if (c!=null) {
+				int allowableAttackingArmies = c.getnoOfArmies();
+				return allowableAttackingArmies >= MAXIMUM_DEFENDING_DICE ? MAXIMUM_DEFENDING_DICE :  allowableAttackingArmies;
+			}			
+		}
+		return 0;
+	}
+	
+	
 	/**
 	 * This function will randomly assign Countries to all players and assign one
 	 * army to each country for a player
@@ -322,19 +415,19 @@ public class Game extends Observable {
 	 *            name of the source country of player
 	 * @return ArrayList , returning array list of countries.
 	 */
-	public ArrayList<String> getNeighbouringCountriesForAttack(String sourceCountryName) {
+	public ArrayList<String> getNeighbouringCountriesForAttack() {
 
 		ArrayList<String> neighborCountriesName = new ArrayList<>();
 		
 		//Get country by country name
-		Country attackingCountry  = getCurrentPlayer().getAssignedCountryList().stream()
-						.filter(x -> x.getCountryName().equals(sourceCountryName))
+		Country attackingC  = getCurrentPlayer().getAssignedCountryList().stream()
+						.filter(x -> x.getCountryName().equals(attackingCountry))
 						.findAny().orElse(null);
 		
-		if(attackingCountry != null) {
+		if(attackingC != null) {
 			//get neighbours for the country and if belongs to another player then add in list
 			
-			for(String ns : attackingCountry.getNeighboursString()) {
+			for(String ns : attackingC.getNeighboursString()) {
 				Country c = getCurrentPlayer().getAssignedCountryList().stream()
 						.filter(x -> x.getCountryName().equals(ns))
 						.findAny().orElse(null);

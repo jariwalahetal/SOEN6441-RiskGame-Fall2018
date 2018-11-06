@@ -239,6 +239,7 @@ public class GameController {
 		addSourceCountriesListener();
 		addMoveArmyButtonListener();
 		addAttackerCountryListener();
+		addDefenderCountryListener();
 	}
 
 	/**
@@ -265,13 +266,30 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getAttackerCountry();
 				if (countryName != null) {
-					ArrayList<String> neighborCountries = game.getNeighbouringCountriesForAttack(countryName);
-					gameView.populateDefenderCountryComboBox(neighborCountries);;
+					game.SetAttackingCountry(countryName);
+					ArrayList<String> neighborCountries = game.getNeighbouringCountriesForAttack();
+					gameView.populateDefenderCountryComboBox(neighborCountries);
+					gameView.populateAttackingDiceComboBox(game.GetMaximumAllowableDicesForAttacker());
 				}
 			}
 		});
 	}
 	
+	/**
+	 * to update view
+	 */
+	public void addDefenderCountryListener() {
+		gameView.addActionListenToDefendingCountryList(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				String countryName = gameView.getDefenderCountry();
+				if (countryName != null) {
+					game.SetDefendingCountry(countryName);
+					gameView.populateDefendingDiceComboBox(game.GetMaximumAllowableDicesForDefender());
+				}
+			}
+		});
+	}
 	
 	
 	/**

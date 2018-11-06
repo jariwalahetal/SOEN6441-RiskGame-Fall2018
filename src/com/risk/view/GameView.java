@@ -386,14 +386,12 @@ public class GameView implements Observer {
 		defenderCountry.setBounds(attackerCountry.getX() + 20 + attackerCountry.getWidth() + 3, attackerCountry.getY(),
 				attackerCountry.getWidth(), attackerCountry.getHeight());
 
-		String attackerNoOfDiceRoll[] = { " 1", "2", "3" };
-		attackerNoOfDice = new JComboBox<>(attackerNoOfDiceRoll);
+		attackerNoOfDice = new JComboBox<>();
 		attackerNoOfDice.setBorder(new TitledBorder("Attacker's No Of Dice"));
 		attackerNoOfDice.setBounds(attackerCountry.getX(), attackerCountry.getY() + 10 + attackerCountry.getHeight(),
 				attackerCountry.getWidth(), attackerCountry.getHeight());
 
-		String defenderNoOfDiceRoll[] = { " 1", "2" };
-		defenderNoOfDice = new JComboBox<>(defenderNoOfDiceRoll);
+		defenderNoOfDice = new JComboBox<>();
 		defenderNoOfDice.setBorder(new TitledBorder("Defender's No Of Dice"));
 		defenderNoOfDice.setBounds(attackerNoOfDice.getX() + 20 + attackerNoOfDice.getWidth() + 3,
 				attackerNoOfDice.getY(), attackerNoOfDice.getWidth(), attackerNoOfDice.getHeight());
@@ -657,7 +655,7 @@ public class GameView implements Observer {
 	}
 
 	/**
-	 * Method used to add Action Listener to Source Country
+	 * Method used to add Action Listener to Attacker Country
 	 * 
 	 * @param listener
 	 *            ActionListener
@@ -666,6 +664,16 @@ public class GameView implements Observer {
 		attackerCountry.addActionListener(listener);
 	}
 
+	/**
+	 * Method used to add Action Listener to Defending Country
+	 * 
+	 * @param listener
+	 *            ActionListener
+	 */
+	public void addActionListenToDefendingCountryList(ActionListener listener) {
+		defenderCountry.addActionListener(listener);
+	}
+	
 	/**
 	 * Method used to add Action Listener to Source Country
 	 * 
@@ -840,6 +848,32 @@ public class GameView implements Observer {
 		noOfArmyToMoveJcomboBox.removeAllItems();
 		for (Integer i = 0; i < NoOfArmies; i++)
 			noOfArmyToMoveJcomboBox.addItem(i.toString());
+	}
+	
+	/**
+	 * Method used to populate value in the attacking dice
+	 * 
+	 * @param allowableDices
+	 *            int
+	 */
+	public void populateAttackingDiceComboBox(int allowableDices) {
+		attackerNoOfDice.removeAllItems();
+		for(int i=1; i<= allowableDices;i++) {
+			attackerNoOfDice.addItem(Integer.toString(i));
+		}
+	}
+	
+	/**
+	 * Method used to populate value in the defending dice
+	 * 
+	 * @param allowableDices
+	 *            int
+	 */
+	public void populateDefendingDiceComboBox(int allowableDices) {
+		defenderNoOfDice.removeAllItems();
+		for(int i=1; i<= allowableDices;i++) {
+			defenderNoOfDice.addItem(Integer.toString(i));
+		}
 	}
 
 }
