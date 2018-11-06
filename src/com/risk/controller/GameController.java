@@ -238,6 +238,7 @@ public class GameController {
 		addSkipButtonListener();
 		addSourceCountriesListener();
 		addMoveArmyButtonListener();
+		addAttackerCountryListener();
 	}
 
 	/**
