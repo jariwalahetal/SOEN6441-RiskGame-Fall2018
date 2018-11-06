@@ -1,9 +1,12 @@
 package com.risk.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
@@ -137,12 +140,24 @@ public class Player {
 			noOfReinforcedArmies--;
 	}
 
+	/**
+	 * Assigns the current coutry to player
+	 * @param newCountry
+	 */
 	public void assignCountryToPlayer(Country newCountry) {
 		assignedCountryList.add(newCountry);
 		newCountry.setCountryColor(this.getColor());
 		newCountry.setPlayerId(this.getPlayerId());
 	}
 
+	/**
+	 * UnAssigns the current coutry to player
+	 * @param newCountry
+	 */
+	public void unAssignCountryToPlayer(Country newCountry) {
+		assignedCountryList.remove(newCountry);
+	}
+	
 	/**
 	 * Add army to the country for startup phase
 	 * 
@@ -336,4 +351,82 @@ public class Player {
 		return neighborCountriesName;
 	}	
 	
+	/**
+	 * This method will process attack on given player 
+	 * @param defenderPlayer Player
+	 * @param attackingCountry Attacking country
+	 * @param defendingCuntry Defending country
+	 * @param attackingDices attacking dices
+	 * @param denfendingDices defending dices
+	 * @return true if suceessful
+	 */
+	public boolean ProcessAttack(Player defenderPlayer, Country attackingCountry,Country defendingCuntry,
+								ArrayList<Integer> attackingDices, ArrayList<Integer> denfendingDices)
+	{
+		IOHelper.print("Attacker's dices -- " + attackingDices);
+		Common.PhaseActions.add("Attacker's dices -- " + attackingDices);
+		
+		IOHelper.print("Defender's dices -- " + denfendingDices);
+		Common.PhaseActions.add("Defender's dices -- " + denfendingDices);
+		
+		Collections.sort(attackingDices, Collections.reverseOrder());
+		Collections.sort(denfendingDices, Collections.reverseOrder());
+		
+		int totalComparisions = attackingDices.size() < denfendingDices.size() ? attackingDices.size() : denfendingDices.size();
+		
+		for(int i=0;i<totalComparisions;i++) {
+			
+			int attackerDice = attackingDices.get(i);
+			int defencerDice = denfendingDices.get(i);
+			
+			IOHelper.print("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
+			Common.PhaseActions.add("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
+			
+			if(attackerDice > defencerDice) {
+				IOHelper.print("----> attacker wins for dice " + (i+1));
+				Common.PhaseActions.add("----> attacker wins for dice " + (i+1));
+				
+				
+				//Decrease one army from defender by one
+				defendingCuntry.decreaseArmyCount(1);
+				
+			}
+			else {
+				IOHelper.print("----> defender wins for dice " + (i+1));
+				Common.PhaseActions.add("----> defender wins for dice " + (i+1));
+				
+				//Decrese one amy from attacker
+				attackingCountry.decreaseArmyCount(1);
+			}
+			
+		}
+		
+		//Check if defending armies are 0 then acquire the country
+		if(defendingCuntry.getnoOfArmies() == 0)
+		{
+			defendingCuntry.setPlayerId(playerId);
+			defenderPlayer.unAssignCountryToPlayer(defendingCuntry);
+			this.assignCountryToPlayer(defendingCuntry);
+			defendingCuntry.setPlayerId(playerId);
+			attackingCountry.decreaseArmyCount(1);
+			defendingCuntry.increaseArmyCount(1);
+		}
+		return true;
+	}
+	
+	public boolean MoveArmyAfterAttack(Country sourceCountry, Country destinationCountry, int armiesCount) {
+		
+		if (sourceCountry == null || destinationCountry == null) {
+			IOHelper.print("Source or destination country is invalid!");
+			return false;
+		}
+		
+		if(armiesCount >= sourceCountry.getnoOfArmies()) {
+			IOHelper.print("Cannot move " + armiesCount + " armies from " + sourceCountry.getnoOfArmies() + " armies");
+			return false;
+		}
+		sourceCountry.decreaseArmyCount(armiesCount);
+		destinationCountry.increaseArmyCount(armiesCount);
+		return true;
+	}
 }

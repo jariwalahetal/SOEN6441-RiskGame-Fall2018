@@ -30,7 +30,7 @@ public class Game extends Observable {
 	private String defendingCountry;
 	private ArrayList<Integer> attackingDicesList = new ArrayList<>();
 	private ArrayList<Integer> defendingDicesList = new ArrayList<>();
-
+	private boolean moveArmyToDefender = false;
 	/**
 	 * This is a constructor of Game class which will initialize the Map
 	 * 
@@ -95,6 +95,8 @@ public class Game extends Observable {
 	 */
 	
 	public void SetAttackingCountry(String countryName) {
+		if(moveArmyToDefender) 
+			return;
 		
 		if(isAttackPhase()) {	
 			attackingCountry = countryName;
@@ -104,6 +106,23 @@ public class Game extends Observable {
 		}
 	}
 
+	/**
+	 * Get attacking country for game
+	 * 
+	 * @return Country
+	 */
+	public Country GetAttackingCountry()
+	{
+		if(isAttackPhase()) {
+			Country attackerCountry = map.getCountryList().stream()
+					.filter(x -> x.getCountryName().equals(attackingCountry))
+					.findAny().orElse(null);
+			
+			return attackerCountry;
+		}
+		return null;
+	}
+	
 	/**
 	 * Set defending country for game
 	 * 
@@ -120,6 +139,38 @@ public class Game extends Observable {
 		}
 	}
 	
+	/**
+	 * Get defending country for game
+	 * 
+	 * @return Country
+	 */
+	public Country GetDefendingCountry()
+	{
+		if(isAttackPhase()) {
+			Country defenderCountry = map.getCountryList().stream()
+					.filter(x -> x.getCountryName().equals(defendingCountry))
+					.findAny().orElse(null);
+			
+			return defenderCountry;
+		}
+		return null;		
+	}
+	
+	/**
+	 * Get number armies allowed to move from attacker to defending country
+	 * 
+	 * @return Integer
+	 */ 
+	public Integer GetAllowableArmiesMoveFromAttackerToDefender() {
+		if(isAttackPhase())
+		{
+			if(moveArmyToDefender)
+			{
+				return GetAttackingCountry().getnoOfArmies() - 1;
+			}
+		}
+		return -1;
+	}
 	/**
 	 * Returns allowable dices for attacking country
 	 * 
@@ -259,7 +310,20 @@ public class Game extends Observable {
 	/**
 	 * Method for performing attack phase
 	 */
-	public void attackPhase(int attackingDiceCount, int defendingDiceCount) {
+	public Boolean attackPhase(int attackingDiceCount, int defendingDiceCount) {
+		Common.PhaseActions.clear();
+		moveArmyToDefender = false;
+		if(this.GetDefendingCountry() == null || this.GetAttackingCountry() == null)
+		{
+			IOHelper.print("Set attacking and defending countries first");
+			return false;
+		}
+		
+		if(this.GetDefendingCountry().getnoOfArmies() < defendingDiceCount)
+		{
+			IOHelper.print("Defender has no sufficient armies");
+			return false;
+		}
 		
 		attackingDicesList.clear();
 		defendingDicesList.clear();
@@ -274,49 +338,34 @@ public class Game extends Observable {
 			defendingDicesList.add(Common.getRandomNumberInRange(1, 6));
 		}
 		
-		Collections.sort(attackingDicesList);
-		Collections.sort(defendingDicesList);
-		
-		int totalComparisions = attackingDicesList.size() < defendingDicesList.size() ? attackingDicesList.size() : defendingDicesList.size();
-		
-		Country defenderCountry = map.getCountryList().stream()
-				.filter(x -> x.getCountryName().equals(defendingCountry))
+		//Get defender player
+		Player defenderPlayer = playerList.stream()
+				.filter(p -> p.getAssignedCountryList().contains(GetDefendingCountry()))
 				.findAny().orElse(null);
 		
-		Country attackerCountry = map.getCountryList().stream()
-				.filter(x -> x.getCountryName().equals(attackingCountry))
-				.findAny().orElse(null);
-		
-		for(int i=0;i<totalComparisions;i++) {
-			
-			int attackerDice = attackingDicesList.get(i);
-			int defencerDice = attackingDicesList.get(i);
-			
-			IOHelper.print("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
-			
-			if(attackerDice > defencerDice) {
-				IOHelper.print("----> attacker wins");
-								 
-				
-				
-				//Decrease one army from defender by one
-				defenderCountry.decreaseArmyCount(1);
-				
-			}
-			else {
-				IOHelper.print("----> defender wins");
-				
-				//Decrese one amy from attacker
-				attackerCountry.decreaseArmyCount(1);
-			}
-			
+		if(defenderPlayer == null) {
+			IOHelper.print("Cannot find defender player");
+			return false;
 		}
 		
-		//Check if defender has any armies left
-		
-		
-				
+		int defenderPreviousCountry = GetDefendingCountry().getPlayerId();
+		if(this.getCurrentPlayer().ProcessAttack(defenderPlayer,
+				GetAttackingCountry(), GetDefendingCountry(),
+				attackingDicesList, defendingDicesList))
+		{
+			//Check if the defender country is not owned by attacker then allow
+			// armies transfer from attacker to defender
+			if(GetAttackingCountry().getPlayerId() != defenderPreviousCountry) {
+				moveArmyToDefender = true;
+			}
+			else {
+				attackingCountry = "";
+				defendingCountry = "";
+			}
+		}
 		notifyObserverslocal(this);
+		
+		return true;
 	}
 
 	/**
@@ -521,5 +570,36 @@ public class Game extends Observable {
         return countriesList;
     }
 	
+    /**
+     * Move armies after player win in attack
+     * 
+     * @param noOfArmies Integer
+     * @return
+     */
+    public boolean MoveArmyAfterAttack(int noOfArmies)
+    {
+    	if(!moveArmyToDefender) 
+    	{
+    		IOHelper.print("Cannot perform this operation defend player first");
+    		return false; 
+    	}
+    	
+    	boolean result = getCurrentPlayer().MoveArmyAfterAttack(GetAttackingCountry(), GetDefendingCountry(), noOfArmies);
+    	if(result)
+    	{
+    		attackingCountry = "";
+    		defendingCountry = "";
+    		moveArmyToDefender = false;
+    		notifyObserverslocal(this);
+    	}
+    	return result;
+    }
 	
+    /**
+     * Set phase to fotification if in attck phase
+     */
+    public void SetFortificationPhase() {
+    	gamePhase = PhaseEnum.Fortification;
+		notifyObserverslocal(this);
+    }
 }

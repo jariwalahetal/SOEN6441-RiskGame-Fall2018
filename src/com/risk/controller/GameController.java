@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import com.risk.helper.IOHelper;
 import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
@@ -240,6 +242,7 @@ public class GameController {
 		addMoveArmyButtonListener();
 		addAttackerCountryListener();
 		addDefenderCountryListener();
+		addAttackArmyMoveButtonListner();
 	}
 
 	/**
@@ -317,10 +320,31 @@ public class GameController {
 		gameView.addActionListenToAttackButton(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (game.getGamePhase() == PhaseEnum.Attack) {
-					Integer attackerDiceCount = Integer.parseInt(GameView.getAttackerNoOfDice());
-					Integer defenderDiceCount = Integer.parseInt(GameView.getDefenderNoOfDice());
-					game.attackPhase(attackerDiceCount,defenderDiceCount);
+				if(gameView.getAttackerCountry() != null && gameView.getDefenderCountry() != null) {
+					if (game.getGamePhase() == PhaseEnum.Attack) {
+						Integer attackerDiceCount = Integer.parseInt(GameView.getAttackerNoOfDice());
+						Integer defenderDiceCount = Integer.parseInt(GameView.getDefenderNoOfDice());
+						game.attackPhase(attackerDiceCount,defenderDiceCount);
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Selecting attacking and defending countries");
+				}
+			}
+		});
+	}
+	
+	/**
+	 * to update view
+	 */
+	public void addAttackArmyMoveButtonListner() {
+		gameView.addActionListenToAttackMoveArmiesButton(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(GameView.getAttackMoveArmies() != null && game.GetAllowableArmiesMoveFromAttackerToDefender() >= 0) {
+					game.MoveArmyAfterAttack(Integer.parseInt(GameView.getAttackMoveArmies()));
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Cannot perform action");
 				}
 			}
 		});
@@ -349,7 +373,8 @@ public class GameController {
 
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == PhaseEnum.Attack)
-				{   //Call to Model
+				{   
+					game.SetFortificationPhase();
 					
 				}			
 				}
