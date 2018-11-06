@@ -318,12 +318,10 @@ public class GameController {
 
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == PhaseEnum.Attack) {
-					String attackerCountryName = GameView.getAttackerCountry();
-					String defenderCountryName = GameView.getDefenderCountry();
-					String attackerDiceNo = GameView.getAttackerNoOfDice();
-					String defenderDiceNo = GameView.getDefenderNoOfDice();
-					game.attackPhase();
-					}
+					Integer attackerDiceCount = Integer.parseInt(GameView.getAttackerNoOfDice());
+					Integer defenderDiceCount = Integer.parseInt(GameView.getDefenderNoOfDice());
+					game.attackPhase(attackerDiceCount,defenderDiceCount);
+				}
 			}
 		});
 	}

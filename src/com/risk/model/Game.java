@@ -1,10 +1,13 @@
 package com.risk.model;
 
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
+
+import com.risk.helper.Common;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.helper.PhaseEnum;
@@ -25,6 +28,8 @@ public class Game extends Observable {
 	private Map map;
 	private String attackingCountry;
 	private String defendingCountry;
+	private ArrayList<Integer> attackingDicesList = new ArrayList<>();
+	private ArrayList<Integer> defendingDicesList = new ArrayList<>();
 
 	/**
 	 * This is a constructor of Game class which will initialize the Map
@@ -254,8 +259,63 @@ public class Game extends Observable {
 	/**
 	 * Method for performing attack phase
 	 */
-	public void attackPhase() {
-		setGamePhase(gamePhase.Fortification);
+	public void attackPhase(int attackingDiceCount, int defendingDiceCount) {
+		
+		attackingDicesList.clear();
+		defendingDicesList.clear();
+		
+		//Generate results for attacking dices
+		for(int i=0; i< attackingDiceCount; i++) {
+			attackingDicesList.add(Common.getRandomNumberInRange(1, 6));
+		}
+		
+		//Generate results for defending dices
+		for(int i=0;i<defendingDiceCount; i++) {
+			defendingDicesList.add(Common.getRandomNumberInRange(1, 6));
+		}
+		
+		Collections.sort(attackingDicesList);
+		Collections.sort(defendingDicesList);
+		
+		int totalComparisions = attackingDicesList.size() < defendingDicesList.size() ? attackingDicesList.size() : defendingDicesList.size();
+		
+		Country defenderCountry = map.getCountryList().stream()
+				.filter(x -> x.getCountryName().equals(defendingCountry))
+				.findAny().orElse(null);
+		
+		Country attackerCountry = map.getCountryList().stream()
+				.filter(x -> x.getCountryName().equals(attackingCountry))
+				.findAny().orElse(null);
+		
+		for(int i=0;i<totalComparisions;i++) {
+			
+			int attackerDice = attackingDicesList.get(i);
+			int defencerDice = attackingDicesList.get(i);
+			
+			IOHelper.print("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
+			
+			if(attackerDice > defencerDice) {
+				IOHelper.print("----> attacker wins");
+								 
+				
+				
+				//Decrease one army from defender by one
+				defenderCountry.decreaseArmyCount(1);
+				
+			}
+			else {
+				IOHelper.print("----> defender wins");
+				
+				//Decrese one amy from attacker
+				attackerCountry.decreaseArmyCount(1);
+			}
+			
+		}
+		
+		//Check if defender has any armies left
+		
+		
+				
 		notifyObserverslocal(this);
 	}
 
