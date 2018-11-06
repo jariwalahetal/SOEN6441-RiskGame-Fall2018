@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
@@ -26,6 +27,10 @@ public class Player {
 	private int noOfReinforcedArmies;
 	private ArrayList<Country> assignedCountryList = new ArrayList<Country>();
 	private final int MINIMUM_REINFORCEMENT_PLAYERS = 3;
+	private ArrayList<CardEnum> playerCards = new ArrayList<>();
+	
+	//TODO: implement lost logic in game check whole flow
+	private boolean isLost = false;
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
@@ -80,6 +85,21 @@ public class Player {
 	}
 
 	/**
+	 * Mark player as lost
+	 */
+	public void setLost() {
+		isLost = true;
+	}
+	
+	/**
+	 * Gets is player is lost 
+	 * @return isLost boolean
+	 */
+	public boolean getIsLost() {
+		return isLost;
+	}
+	
+	/**
 	 * This method set the number of reinforcement army units
 	 * 
 	 * @param noOfReinforcedArmies
@@ -115,6 +135,7 @@ public class Player {
 	public EnumColor getColor() {
 		return color;
 	}
+
 
 	/**
 	 * This method decreases unassigned army count
@@ -355,12 +376,12 @@ public class Player {
 	 * This method will process attack on given player 
 	 * @param defenderPlayer Player
 	 * @param attackingCountry Attacking country
-	 * @param defendingCuntry Defending country
+	 * @param defendingCountry Defending country
 	 * @param attackingDices attacking dices
 	 * @param denfendingDices defending dices
 	 * @return true if suceessful
 	 */
-	public boolean ProcessAttack(Player defenderPlayer, Country attackingCountry,Country defendingCuntry,
+	public boolean ProcessAttack(Player defenderPlayer, Country attackingCountry,Country defendingCountry,
 								ArrayList<Integer> attackingDices, ArrayList<Integer> denfendingDices)
 	{
 		IOHelper.print("Attacker's dices -- " + attackingDices);
@@ -374,6 +395,8 @@ public class Player {
 		
 		int totalComparisions = attackingDices.size() < denfendingDices.size() ? attackingDices.size() : denfendingDices.size();
 		
+		int attackerTroops = attackingDices.size();
+		int defendingTroops = denfendingDices.size();
 		for(int i=0;i<totalComparisions;i++) {
 			
 			int attackerDice = attackingDices.get(i);
@@ -388,8 +411,8 @@ public class Player {
 				
 				
 				//Decrease one army from defender by one
-				defendingCuntry.decreaseArmyCount(1);
-				
+				defendingCountry.decreaseArmyCount(1);
+				defendingTroops--;
 			}
 			else {
 				IOHelper.print("----> defender wins for dice " + (i+1));
@@ -397,19 +420,44 @@ public class Player {
 				
 				//Decrese one amy from attacker
 				attackingCountry.decreaseArmyCount(1);
+				attackerTroops--;
 			}
 			
 		}
 		
-		//Check if defending armies are 0 then acquire the country
-		if(defendingCuntry.getnoOfArmies() == 0)
+		//Check if defending armies are 0 then acquire the country with cards
+		if(defendingCountry.getnoOfArmies() == 0)
 		{
-			defendingCuntry.setPlayerId(playerId);
-			defenderPlayer.unAssignCountryToPlayer(defendingCuntry);
-			this.assignCountryToPlayer(defendingCuntry);
-			defendingCuntry.setPlayerId(playerId);
-			attackingCountry.decreaseArmyCount(1);
-			defendingCuntry.increaseArmyCount(1);
+			//addign new player to defending country
+			defendingCountry.setPlayerId(playerId);
+			
+			//unassign defending country from defending player
+			defenderPlayer.unAssignCountryToPlayer(defendingCountry);
+			
+			//assign defending country to attacking player
+			this.assignCountryToPlayer(defendingCountry);
+			
+			//attacker has to put all the attakking troops to defending country (By Game rules)
+			attackingCountry.decreaseArmyCount(attackerTroops);
+			defendingCountry.increaseArmyCount(attackerTroops);
+			
+			//check if the defending country still has any country assigned
+			//if not then get all cards from player and remove from player list
+			if(defenderPlayer.getAssignedCountryList().size() == 0) {
+				ArrayList<CardEnum> defenderCards = defenderPlayer.getCards();
+				
+				//add all cards of dender to attacker
+				for(CardEnum card: defenderCards) {
+					this.addCardToPlayer(card);
+				}
+				
+				//remove cards from defender
+				defenderPlayer.RemoveAllCardsFromPlayer();
+				
+				//set defender as lost player
+				defenderPlayer.setLost();
+				
+			}
 		}
 		return true;
 	}
@@ -428,5 +476,29 @@ public class Player {
 		sourceCountry.decreaseArmyCount(armiesCount);
 		destinationCountry.increaseArmyCount(armiesCount);
 		return true;
+	}
+	
+	
+	/**
+	 * Get player cards
+	 * @return playerCars ArrayList<CardEnum>
+	 */
+	public ArrayList<CardEnum> getCards() {
+		return playerCards;
+	} 
+	
+	/**
+	 * Remove all cards from player
+	 */
+	public void RemoveAllCardsFromPlayer() {
+		playerCards.clear();
+	}
+	
+	/**
+	 * Add card to player 
+	 * @param card
+	 */
+	public void addCardToPlayer(CardEnum card) {
+		playerCards.add(card);
 	}
 }

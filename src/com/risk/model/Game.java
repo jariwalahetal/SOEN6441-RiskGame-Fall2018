@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
 
+import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
@@ -31,6 +32,8 @@ public class Game extends Observable {
 	private ArrayList<Integer> attackingDicesList = new ArrayList<>();
 	private ArrayList<Integer> defendingDicesList = new ArrayList<>();
 	private boolean moveArmyToDefender = false;
+	private ArrayList<CardEnum> gameCards = new ArrayList<>();
+	
 	/**
 	 * This is a constructor of Game class which will initialize the Map
 	 * 
@@ -221,6 +224,8 @@ public class Game extends Observable {
 	 */
 	public void startUpPhase() {
 
+		initilizeCardDeck();
+		
 		int noOfInitialArmies = InitialPlayerSetup.getInitialArmyCount(playerList.size());
 		for (int i = 0; i < playerList.size(); i++) {
 			playerList.get(i).setNoOfUnassignedArmies(noOfInitialArmies);
@@ -355,8 +360,11 @@ public class Game extends Observable {
 		{
 			//Check if the defender country is not owned by attacker then allow
 			// armies transfer from attacker to defender
+			// And also give one card to player
 			if(GetAttackingCountry().getPlayerId() != defenderPreviousCountry) {
 				moveArmyToDefender = true;
+				
+			
 			}
 			else {
 				attackingCountry = "";
@@ -601,5 +609,59 @@ public class Game extends Observable {
     public void SetFortificationPhase() {
     	gamePhase = PhaseEnum.Fortification;
 		notifyObserverslocal(this);
+    }
+    
+    /**
+     * To inilize list of cards
+     */
+    private void initilizeCardDeck() {
+    	int countriesCount = map.getCountryList().size();
+    	
+    	gameCards.clear();
+    	
+		// Here creating the list of cards
+    	int t = 0;
+		for (int i = 0; i < countriesCount; i++) {
+			if(t == 0) {
+				gameCards.add(CardEnum.Artillery);
+			}
+			else if(t == 1) {
+				gameCards.add(CardEnum.Cavalry);
+			}
+			else if(t==2){
+				gameCards.add(CardEnum.Infantry);
+			}
+			t++;
+			if(t==3) t=0;
+		}
+
+		// Shuffling the list for randomness
+		Collections.shuffle(gameCards, new Random());
+    }
+    
+    /**
+     * Returns a card from deck (note this function will remove card from deck
+     * So assign to player immediately
+     * @return CardEnum
+     */
+    private CardEnum getCardFromDeck()
+    {
+	    if(gameCards.size() > 0) {
+	    	CardEnum card = gameCards.get(0);
+	    	gameCards.remove(card);
+    	}
+    	return null;
+    }
+    
+    /**
+     * Adds the given card again to deck at random position
+     * @param card
+     */
+    private void addCardToDeck(CardEnum card) {
+    	int random = 0;
+    	if(gameCards.size() > 0) {
+    		random = Common.getRandomNumberInRange(0, gameCards.size() - 1);
+    	}
+    	gameCards.add(random, card);
     }
 }
