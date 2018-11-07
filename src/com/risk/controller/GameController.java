@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import com.risk.helper.IOHelper;
 import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
@@ -20,7 +22,6 @@ import com.risk.view.MapCreateView;
  * @since 27-September-2018
  *
  */
-
 public class GameController {
 
 	Game game;
@@ -234,8 +235,14 @@ public class GameController {
 
 	private void activateListenersOnView() {
 		addArmyImageClickListener();
+		addAttackButtonListener();
+		addAllOutButtonListener();
+		addEndAttackButtonListener();
 		addSourceCountriesListener();
 		addMoveArmyButtonListener();
+		addAttackerCountryListener();
+		addDefenderCountryListener();
+		addAttackArmyMoveButtonListner();
 	}
 
 	/**
@@ -256,6 +263,41 @@ public class GameController {
 	/**
 	 * to update view
 	 */
+	public void addAttackerCountryListener() {
+		gameView.addActionListenToAttackerCountryList(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				String countryName = gameView.getAttackerCountry();
+				if (countryName != null) {
+					game.SetAttackingCountry(countryName);
+					ArrayList<String> neighborCountries = game.getNeighbouringCountriesForAttack();
+					gameView.populateDefenderCountryComboBox(neighborCountries);
+					gameView.populateAttackingDiceComboBox(game.GetMaximumAllowableDicesForAttacker());
+				}
+			}
+		});
+	}
+	
+	/**
+	 * to update view
+	 */
+	public void addDefenderCountryListener() {
+		gameView.addActionListenToDefendingCountryList(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				String countryName = gameView.getDefenderCountry();
+				if (countryName != null) {
+					game.SetDefendingCountry(countryName);
+					gameView.populateDefendingDiceComboBox(game.GetMaximumAllowableDicesForDefender());
+				}
+			}
+		});
+	}
+	
+	
+	/**
+	 * to update view
+	 */
 	public void addSourceCountriesListener() {
 		gameView.addActionListenToSourceCountryList(new ActionListener() {
 
@@ -271,6 +313,72 @@ public class GameController {
 		});
 	}
 
+	/**
+	 * to update view
+	 */
+	public void addAttackButtonListener() {
+		gameView.addActionListenToAttackButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if(gameView.getAttackerCountry() != null && gameView.getDefenderCountry() != null) {
+					if (game.getGamePhase() == PhaseEnum.Attack) {
+						Integer attackerDiceCount = Integer.parseInt(GameView.getAttackerNoOfDice());
+						Integer defenderDiceCount = Integer.parseInt(GameView.getDefenderNoOfDice());
+						game.attackPhase(attackerDiceCount,defenderDiceCount);
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Selecting attacking and defending countries");
+				}
+			}
+		});
+	}
+	
+	/**
+	 * to update view
+	 */
+	public void addAttackArmyMoveButtonListner() {
+		gameView.addActionListenToAttackMoveArmiesButton(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(GameView.getAttackMoveArmies() != null && game.GetAllowableArmiesMoveFromAttackerToDefender() >= 0) {
+					game.MoveArmyAfterAttack(Integer.parseInt(GameView.getAttackMoveArmies()));
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Cannot perform action");
+				}
+			}
+		});
+	}
+	
+	/**
+	 * to update view
+	 */
+	public void addAllOutButtonListener() {
+		gameView.addActionListenToAllOutButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == PhaseEnum.Attack)
+				{   //Call to Model
+					
+				}
+			}
+		});
+	}
+	
+	/**
+	 * to update view
+	 */
+	public void addEndAttackButtonListener() {
+		gameView.addActionListenToEndAttackButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == PhaseEnum.Attack) {   
+					game.SetFortificationPhase();		
+				}			
+			}
+		});
+	}
+		
 	/**
 	 * to update view
 	 */

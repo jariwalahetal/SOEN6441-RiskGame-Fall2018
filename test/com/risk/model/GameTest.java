@@ -167,7 +167,8 @@ public class GameTest {
 			assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
 
 			// Do attack
-			game.attackPhase();
+			//TODO: change this
+			//game.attackPhase();
 
 			// Randomly select a country to move armies from
 			Country fromCountry = playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1));

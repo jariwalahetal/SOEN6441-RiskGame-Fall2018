@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import com.risk.helper.Common;
 
 public class CardExchangeView {
 	private static JFrame cardFrame = null;
@@ -21,36 +20,45 @@ public class CardExchangeView {
 	private static JComboBox<String> palyerOwnedCard;
 	private static JLabel totalNewArmies;
 	private static JButton exchangeButton = new JButton("Exchange Cards");
-	private static JButton exitButton = new JButton("Exit");
+	private static JButton exitButton = new JButton("No Exchange And Exit");
 		
 	
 	public void exchangeInitializerView() {
 		cardFrame = new JFrame("Card Exchange View");
 		cardPanel = new JPanel(null);
-		cardFrame.setSize(800, 700);
+		cardFrame.setSize(800, 600);
 		
 		cardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		cardExchangeLabel = new JLabel();
 		cardExchangeLabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Exchange Card", TitledBorder.DEFAULT_JUSTIFICATION,
-						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-		cardExchangeLabel.setBounds(100, 100, 500, 500);
+						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLACK	));
+		cardExchangeLabel.setBounds(100, 100, 600, 400);
 		playersTurnJlabel = new JLabel("Player Name");
 		Font font = new Font("Courier", Font.BOLD, 24);
 		playersTurnJlabel.setFont(font);
 		playersTurnJlabel.setForeground(Color.RED);
 		playersTurnJlabel.setBorder(new TitledBorder("Active Player"));
-		playersTurnJlabel.setBounds(15, 25, 220, 70);
+		playersTurnJlabel.setBounds(30, 45, 250, 70);
+		String typeOfCards[]= {"Type A", "Type B", "Type C"};
+		palyerOwnedCard = new JComboBox<>(typeOfCards);
+		palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
+		palyerOwnedCard.setBounds(310, 45, 250, 70);
+		totalNewArmies = new JLabel("50");
+		totalNewArmies.setBorder(new TitledBorder("New  Armies Assigned"));
+		totalNewArmies.setBounds(180,150,250,70);
+		exchangeButton.setBounds(120,255,160,40);
+		exitButton.setBounds(310,255,160,40);
+		cardExchangeLabel.add(totalNewArmies);
+		cardExchangeLabel.add(palyerOwnedCard);
 		cardExchangeLabel.add(playersTurnJlabel);
+		cardExchangeLabel.add(exchangeButton);
+		cardExchangeLabel.add(exitButton);
 		cardPanel.add(cardExchangeLabel);
-		cardFrame.add(cardPanel);
+		cardFrame.add(cardPanel);	
 		cardFrame.setVisible(true);
 		
 	}
 	
-	public static void main(String args[]) {
-		CardExchangeView cardExchangeView=new CardExchangeView();
-		cardExchangeView.exchangeInitializerView();
-	}
 
 }
