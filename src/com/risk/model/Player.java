@@ -25,12 +25,15 @@ public class Player {
 	private EnumColor color;
 	private int noOfUnassignedArmies;
 	private int noOfReinforcedArmies;
+	private int noOfTradedArmies;
+	private int tradingCount;
 	private ArrayList<Country> assignedCountryList = new ArrayList<Country>();
 	private final int MINIMUM_REINFORCEMENT_PLAYERS = 3;
 	private ArrayList<CardEnum> playerCards = new ArrayList<>();
 	private int countryDefendedInCurrentTurn = 0;
 	//TODO: implement lost logic in game check whole flow
 	private boolean isLost = false;
+	
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
@@ -97,6 +100,22 @@ public class Player {
 	 */
 	public boolean getIsLost() {
 		return isLost;
+	}
+	
+	/**
+	 * Returns trading count
+	 * @return tradingCount Integer
+	 */
+	public int getTradingCount() {
+		return tradingCount;
+	}
+	
+	/**
+	 * Sets trading count
+	 * @param tradingCount Integer
+	 */
+	public void setTradingCount(int tradingCount) {
+		this.tradingCount = tradingCount;
 	}
 	
 	/**

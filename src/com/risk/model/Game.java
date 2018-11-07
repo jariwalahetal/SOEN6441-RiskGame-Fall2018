@@ -9,6 +9,7 @@ import java.util.Random;
 
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
+import com.risk.helper.GetArmiesByTrading;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.helper.PhaseEnum;
@@ -675,5 +676,51 @@ public class Game extends Observable {
     		random = Common.getRandomNumberInRange(0, gameCards.size() - 1);
     	}
     	gameCards.add(random, card);
+    }
+    
+    public boolean tradeCards(ArrayList<CardEnum> cards) {
+    	if(cards.size() == 3) {
+    		
+    		CardEnum firstCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(0))
+					.findFirst().orElse(null);
+
+			CardEnum secondCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(1))
+					.findFirst().orElse(null);
+			
+			CardEnum thirdCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(2))
+					.findFirst().orElse(null);
+    		
+    		if(firstCard == null || secondCard == null || thirdCard==null) {
+    			IOHelper.print("One of the card doesn't belong to player");
+    			return false;
+    		}
+    		
+    		boolean isAllSameTypeOfCards = (firstCard == secondCard) && (secondCard == thirdCard);
+    		boolean isAllDifferentTypeOfCars = (firstCard != secondCard) &&
+    											(secondCard != thirdCard) &&
+    											(firstCard != thirdCard);
+    	
+    		if(isAllDifferentTypeOfCars || isAllDifferentTypeOfCars) {
+    			int tradingCount = getCurrentPlayer().getTradingCount() + 1;
+    			int tradingArmies = GetArmiesByTrading.getArmies(tradingCount);
+    			
+    			//Remove cards from player
+    			getCurrentPlayer().getCards().remove(firstCard);
+    			getCurrentPlayer().getCards().remove(secondCard);
+    			getCurrentPlayer().getCards().remove(thirdCard);
+    			
+    			//Add cards to deck
+    			addCardToDeck(firstCard);
+    			addCardToDeck(secondCard);
+    			addCardToDeck(thirdCard);
+    		}
+    		else {
+    			IOHelper.print("Provide either all same type of cards or one of each kind of card");
+    		}
+    	}
+    	else {
+    		IOHelper.print("Provide three set of cards");
+    	}
+    	return false;
     }
 }
