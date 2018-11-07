@@ -70,7 +70,7 @@ public class Game extends Observable {
 	 * This function returns a hash map which contains player id of all the players with their percentage of map acquired.
 	 * @return returnMap hash map of player id to percentage of map acquired.
 	 */
-	public HashMap<Integer, Float> getPercentageOfMapControlledByEachPlayer() {
+	public HashMap<Integer, Float> getPercentageOfMapControlledForEachPlayer() {
 		HashMap<Integer, Float> returnMap = new HashMap<Integer, Float>();
 		float totalCountries = 0;
 		ArrayList<Continent> allContinents =  this.map.getContinentList(); 
@@ -89,7 +89,7 @@ public class Game extends Observable {
 	 * This function returns a hash map which contains player id of all the players with the number of continents they aquire.
 	 * @return returnMap hash map of player id to total number of continents acquired.
 	 */
-	public HashMap<Integer, Integer> getNumberOfContinentsControlledByEachPlayer() {
+	public HashMap<Integer, Integer> getNumberOfContinentsControlledForEachPlayer() {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 		ArrayList<Continent> allContinents =  this.map.getContinentList(); 
 		for(Player player :this.playerList) {
@@ -114,13 +114,21 @@ public class Game extends Observable {
 		}
 		return returnMap;
 	}
+	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
+		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
+		for(Player player :this.playerList) {
+			for(Country country :player.getAssignedCountryList()) {
+				returnMap.put(key, value);country.getnoOfArmies()
+			}
+		}
+		return returnMap;
+	}
 	/**
 	 * This function returns the current player object
 	 * 
 	 * @return currentPlayer The current player object
 	 */
 	public Player getCurrentPlayer() {
-
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return currentPlayer;
 	}
