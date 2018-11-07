@@ -86,7 +86,7 @@ public class Game extends Observable {
 		return returnMap;
 	}
 	/**
-	 * This function returns a hash map which contains player id of all the players with the number of continents they aquire.
+	 * This function returns a hash map which contains player id of all the players with the number of continents they acquire.
 	 * @return returnMap hash map of player id to total number of continents acquired.
 	 */
 	public HashMap<Integer, Integer> getNumberOfContinentsControlledForEachPlayer() {
