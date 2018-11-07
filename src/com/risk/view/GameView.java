@@ -13,6 +13,8 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.JTableHeader;
+
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
@@ -443,33 +445,26 @@ public class GameView implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				String[] columns_header = {"S.No.","Player A","Player B","Player C","Player D", "Player E"};
+				String[] columns_header = {"Attributes","Player A","Player B","Player C","Player D", "Player E"};
 				String[][] rows = {{"percentage","10","2","5","6","3"},
 						{"continents controlled","1","0","0","0","0"},
 						{"total army","50","10","12","0","18"}};
+
 				JFrame playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
 				JPanel playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
-				JLabel playerRecordsJLabel = new JLabel();
 				JTable playerRecordsJTable = new JTable(rows,columns_header);
-
-//				JScrollPane playerJScrollPane = new JScrollPane(playerRecordsJTable);
-//				playerJScrollPane.setSize(550,350);
-//				playerJScrollPane.setVisible(true);
+				JTableHeader header = playerRecordsJTable.getTableHeader();
 
 				playerRecordsJTable.setBounds(20,
-						playerRecordsJLabel.getY()+20+playerRecordsJLabel.getHeight(),
+						playerWorldDominationViewJFrame.getY()+20+playerWorldDominationViewJFrame.getHeight(),
 						550,350);
 
-				playerRecordsJLabel.setBorder(BorderFactory.createTitledBorder(null,"Player Records Table",
-						TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("SansSerif",
-						Font.PLAIN, 12), Color.BLUE));
-				playerRecordsJLabel.setBounds(10,10,600,400);
-				playerRecordsJLabel.add(playerRecordsJTable);
-
-				playerWorldDominationViewJFrame.setSize(600,400);
+				playerWorldDominationViewJFrame.setSize(600,200);
+				playerWorldDominationViewJFrame.setLocationRelativeTo(null);
 				playerWorldDominationViewJFrame.setVisible(true);
 				playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
-				playerWorldDominationViewJPanel.add(playerRecordsJLabel);
+				playerWorldDominationViewJPanel.add(header,BorderLayout.NORTH);
+				playerWorldDominationViewJPanel.add(playerRecordsJTable,BorderLayout.CENTER);
 
 
 			}
