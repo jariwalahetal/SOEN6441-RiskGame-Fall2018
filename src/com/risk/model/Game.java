@@ -114,11 +114,15 @@ public class Game extends Observable {
 		}
 		return returnMap;
 	}
+	/**
+	 * This function returns a hash map which contains player id of all the players with the number of armies they acquire.
+	 * @return returnMap hash map of player id to total number of armies acquired.
+	 */
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 		for(Player player :this.playerList) {
 			for(Country country :player.getAssignedCountryList()) {
-				returnMap.put(key, value);country.getnoOfArmies()
+				returnMap.put(player.getPlayerId(), country.getnoOfArmies());
 			}
 		}
 		return returnMap;
