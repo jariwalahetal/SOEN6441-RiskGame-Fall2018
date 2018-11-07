@@ -302,9 +302,11 @@ public class Game extends Observable {
 		} else if (this.getGamePhase() == gamePhase.Reinforcement) {
 			// Check the current player reinforcement armies
 			if (getCurrentPlayer().getNoOfReinforcedArmies() == 0) {
-				// We don't need to implement attack for now
+			
+				//Reset number of defended countries count
+				this.getCurrentPlayer().ResetCountryDefendedInCurrentTurn();
+				
 				this.setGamePhase(gamePhase.Attack);
-		//		attackPhase();
 			}
 
 		} else if (this.getGamePhase() == gamePhase.Fortification) {
@@ -607,6 +609,15 @@ public class Game extends Observable {
      * Set phase to fotification if in attck phase
      */
     public void SetFortificationPhase() {
+    	if(getCurrentPlayer().GetCountryDefendedInCurrentTurn() > 0) {
+    		CardEnum card = this.getCardFromDeck();
+    		if(card == null) {
+    			IOHelper.print("No card available");
+    		}
+    		else {
+    			this.getCurrentPlayer().addCardToPlayer(card);
+    		}
+    	}
     	gamePhase = PhaseEnum.Fortification;
 		notifyObserverslocal(this);
     }
@@ -649,6 +660,7 @@ public class Game extends Observable {
 	    if(gameCards.size() > 0) {
 	    	CardEnum card = gameCards.get(0);
 	    	gameCards.remove(card);
+	    	return card;
     	}
     	return null;
     }

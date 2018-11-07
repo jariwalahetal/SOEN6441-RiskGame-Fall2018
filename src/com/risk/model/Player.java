@@ -28,7 +28,7 @@ public class Player {
 	private ArrayList<Country> assignedCountryList = new ArrayList<Country>();
 	private final int MINIMUM_REINFORCEMENT_PLAYERS = 3;
 	private ArrayList<CardEnum> playerCards = new ArrayList<>();
-	
+	private int countryDefendedInCurrentTurn = 0;
 	//TODO: implement lost logic in game check whole flow
 	private boolean isLost = false;
 
@@ -97,6 +97,22 @@ public class Player {
 	 */
 	public boolean getIsLost() {
 		return isLost;
+	}
+	
+	/**
+	 * Gets number of countries defended in current turn
+	 * @return countryDefendedInCurrentTurn Integer
+	 */
+	public int GetCountryDefendedInCurrentTurn() {
+		return countryDefendedInCurrentTurn;
+	}
+	
+	/**
+	 * Resets number of countries defended in current turn 
+	 * @return
+	 */
+	public void ResetCountryDefendedInCurrentTurn() {
+		countryDefendedInCurrentTurn = 0;
 	}
 	
 	/**
@@ -395,8 +411,6 @@ public class Player {
 		
 		int totalComparisions = attackingDices.size() < denfendingDices.size() ? attackingDices.size() : denfendingDices.size();
 		
-		int attackerTroops = attackingDices.size();
-		int defendingTroops = denfendingDices.size();
 		for(int i=0;i<totalComparisions;i++) {
 			
 			int attackerDice = attackingDices.get(i);
@@ -412,7 +426,6 @@ public class Player {
 				
 				//Decrease one army from defender by one
 				defendingCountry.decreaseArmyCount(1);
-				defendingTroops--;
 			}
 			else {
 				IOHelper.print("----> defender wins for dice " + (i+1));
@@ -420,7 +433,6 @@ public class Player {
 				
 				//Decrese one amy from attacker
 				attackingCountry.decreaseArmyCount(1);
-				attackerTroops--;
 			}
 			
 		}
@@ -428,6 +440,7 @@ public class Player {
 		//Check if defending armies are 0 then acquire the country with cards
 		if(defendingCountry.getnoOfArmies() == 0)
 		{
+			this.countryDefendedInCurrentTurn++;
 			//addign new player to defending country
 			defendingCountry.setPlayerId(playerId);
 			
@@ -437,9 +450,9 @@ public class Player {
 			//assign defending country to attacking player
 			this.assignCountryToPlayer(defendingCountry);
 			
-			//attacker has to put all the attakking troops to defending country (By Game rules)
-			attackingCountry.decreaseArmyCount(attackerTroops);
-			defendingCountry.increaseArmyCount(attackerTroops);
+			//attacker has to put minimum one army defending country (By Game rules)
+			attackingCountry.decreaseArmyCount(1);
+			defendingCountry.increaseArmyCount(1);
 			
 			//check if the defending country still has any country assigned
 			//if not then get all cards from player and remove from player list
@@ -500,5 +513,7 @@ public class Player {
 	 */
 	public void addCardToPlayer(CardEnum card) {
 		playerCards.add(card);
+		IOHelper.print("Added " + card + " card to player");
+		Common.PhaseActions.add("Added " + card + " card to player");
 	}
 }

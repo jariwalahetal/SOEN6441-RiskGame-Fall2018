@@ -234,7 +234,7 @@ public class GameView implements Observer {
 	private static JButton moveArmiesButton  = new JButton("Move");
 	private static JButton attackButton = new JButton("Attack");
 	private static JButton allOutButton = new JButton("All Out");
-	private static JButton skipButton = new JButton("Skip");
+	private static JButton endAttackButton = new JButton("End Attack");
 
 	// Fortification Label
 	private static JLabel fortificationJlabel;
@@ -414,9 +414,9 @@ public class GameView implements Observer {
 		allOutButton.setBounds(attackMoveArmies.getX() + attackButton.getWidth() + 10, attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
 				100, 30);
 
-		skipButton.setBounds(allOutButton.getX() + allOutButton.getWidth() + 10, attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
+		endAttackButton.setBounds(allOutButton.getX() + allOutButton.getWidth() + 10, attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
 				100, 30);
-
+		 
 		attackJlabel.add(attackerCountry);
 		attackJlabel.add(defenderCountry);
 		attackJlabel.add(attackerNoOfDice);
@@ -425,7 +425,7 @@ public class GameView implements Observer {
 		attackJlabel.add(moveArmiesButton);
 		attackJlabel.add(attackButton);
 		attackJlabel.add(allOutButton);
-		attackJlabel.add(skipButton);
+		attackJlabel.add(endAttackButton);
 
 		gameActionJpanel.add(attackJlabel);
 
@@ -795,14 +795,15 @@ public class GameView implements Observer {
 	}
 
 	/**
-	 * Method for performing action listener on skipButton
+	 * Method for performing action listener on endAttack button
 	 * 
 	 * @param listener
 	 *            ActionListener
 	 */
-	public void addActionListenToSkipButton(ActionListener listener) {
-		this.skipButton.addActionListener(listener);
+	public void addActionListenToEndAttackButton(ActionListener listener) {
+		this.endAttackButton.addActionListener(listener);
 	}
+	
 
 	/*
 	 * public static void setAddArmyToCountryJcomboBox(JComboBox<String>
