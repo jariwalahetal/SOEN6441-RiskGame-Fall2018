@@ -67,8 +67,8 @@ public class Game extends Observable {
 			currentPlayerId = 0;
 	}
 	/**
-	 * This function returns a hashmap which contains player id of all the players with their percentage of map acquired.
-	 * @return returnMap hashmap of player id to percentage of map acquired.
+	 * This function returns a hash map which contains player id of all the players with their percentage of map acquired.
+	 * @return returnMap hash map of player id to percentage of map acquired.
 	 */
 	public HashMap<Integer, Float> getPercentageOfMapControlledByEachPlayer() {
 		HashMap<Integer, Float> returnMap = new HashMap<Integer, Float>();
@@ -85,7 +85,35 @@ public class Game extends Observable {
 		}
 		return returnMap;
 	}
-
+	/**
+	 * This function returns a hash map which contains player id of all the players with the number of continents they aquire.
+	 * @return returnMap hash map of player id to total number of continents acquired.
+	 */
+	public HashMap<Integer, Integer> getNumberOfContinentsControlledByEachPlayer() {
+		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
+		ArrayList<Continent> allContinents =  this.map.getContinentList(); 
+		for(Player player :this.playerList) {
+			boolean goToOuterLoop = false;
+			int numberOfContinentsAquired = 0;
+			for(Continent continent:allContinents) {
+				for(Country country:  continent.getCountryList()) {
+					if(player.getAssignedCountryList().contains(country)) {
+						//nada
+					}else {
+						goToOuterLoop = true;
+						break;
+					}
+				}
+				if(goToOuterLoop) {
+					goToOuterLoop = false;
+					continue;
+				}
+				numberOfContinentsAquired ++;
+			}
+			returnMap.put(player.getPlayerId(), numberOfContinentsAquired);
+		}
+		return returnMap;
+	}
 	/**
 	 * This function returns the current player object
 	 * 
