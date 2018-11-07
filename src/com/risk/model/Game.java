@@ -279,7 +279,6 @@ public class Game extends Observable {
 			getCurrentPlayer().addArmyToCountryForReinforcement(countryName);
 		}
 		updatePhase();
-
 		notifyObserverslocal(this);
 		// return true;
 	}
@@ -297,7 +296,9 @@ public class Game extends Observable {
 			if (pendingPlayersCount == 0) {
 				this.setGamePhase(gamePhase.Reinforcement);
 				currentPlayerId = 0;
-				reinforcementPhaseSetup();
+				if(!getCurrentPlayer().IsCardsAvailableForTradeInReinforcement()) {
+					reinforcementPhaseSetup();
+				}
 
 			}
 		} else if (this.getGamePhase() == gamePhase.Reinforcement) {
@@ -401,9 +402,12 @@ public class Game extends Observable {
 		return true;
 	}
 
+	/**
+	 * Set up reinformcement phase
+	 */
 	public void reinforcementPhaseSetup() {
 		ArrayList<Continent> continents = map.getContinentList();
-		this.getCurrentPlayer().reinforcementPhaseSetup(continents);
+		this.getCurrentPlayer().setReinformcementArmies(continents);
 	}
 
 	/**
@@ -678,6 +682,11 @@ public class Game extends Observable {
     	gameCards.add(random, card);
     }
     
+    /**
+     * Trade cards to armies
+     * @param cards
+     * @return
+     */
     public boolean tradeCards(ArrayList<CardEnum> cards) {
     	if(cards.size() == 3) {
     		
@@ -713,6 +722,10 @@ public class Game extends Observable {
     			addCardToDeck(firstCard);
     			addCardToDeck(secondCard);
     			addCardToDeck(thirdCard);
+    			
+    			//set trade armies
+    			this.getCurrentPlayer().setNoOfTradedArmies(tradingArmies);
+    			this.getCurrentPlayer().setTradingCount(tradingCount);
     		}
     		else {
     			IOHelper.print("Provide either all same type of cards or one of each kind of card");

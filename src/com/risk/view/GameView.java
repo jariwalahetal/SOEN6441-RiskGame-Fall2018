@@ -599,7 +599,7 @@ public class GameView implements Observer {
 			if (game.getGamePhase() == PhaseEnum.Startup) {
 				gamePhaseNameJLabel.setText("Initialization");
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
-				if(game.getCurrentPlayer().getCards().size() > 3) {
+				if(game.getCurrentPlayer().IsCardsAvailableForTradeInReinforcement()) {
 					//TODO: @Sadgi 
 					//Open card trade view here
 				}

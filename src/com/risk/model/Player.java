@@ -122,6 +122,22 @@ public class Player {
 	}
 	
 	/**
+	 * Gets no of traded armies
+	 * @return noOfTradedArmies Integer
+	 */
+	public int getNoOfTradedArmies() {
+		return noOfTradedArmies;
+	}
+	
+	/**
+	 * Set no of traded armies
+	 * @param nofOfTradedArmies Integer
+	 */
+	public void setNoOfTradedArmies(int nofOfTradedArmies) {
+		this.noOfTradedArmies = nofOfTradedArmies;
+	}
+	
+	/**
 	 * Gets number of countries defended in current turn
 	 * @return countryDefendedInCurrentTurn Integer
 	 */
@@ -278,10 +294,20 @@ public class Player {
 	}
 
 	/**
+	 * Returns true if cards available for trading in reinforcement
+	 * @return
+	 */
+	public boolean IsCardsAvailableForTradeInReinforcement() {
+		if(this.playerCards.size() >= 3)
+			return true;
+		else 
+			return false;
+	}
+	
+	/**
 	 * Method to set up reinforcement phase
 	 */
-	public void reinforcementPhaseSetup(ArrayList<Continent> continents) {
-
+	public void setReinformcementArmies(ArrayList<Continent> continents) {
 		// get reinforcement country count based on countries owned by player
 		int countriesCount = (int) Math.floor(assignedCountryList.size() / 3);
 
