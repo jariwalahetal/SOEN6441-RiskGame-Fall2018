@@ -48,6 +48,9 @@ public class Player {
 		this.playerId = playerId;
 		this.name = name;
 		this.color = InitialPlayerSetup.getPlayerColor(playerId);
+		this.playerCards.add(CardEnum.Artillery);
+		this.playerCards.add(CardEnum.Artillery);
+		this.playerCards.add(CardEnum.Artillery);
 	}
 
 	/**
