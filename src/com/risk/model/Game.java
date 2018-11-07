@@ -3,6 +3,7 @@ package com.risk.model;
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Random;
@@ -64,6 +65,25 @@ public class Game extends Observable {
 
 		if (currentPlayerId == playerList.size())
 			currentPlayerId = 0;
+	}
+	/**
+	 * This function returns a hashmap which contains player id of all the players with their percentage of map acquired.
+	 * @return returnMap hashmap of player id to percentage of map acquired.
+	 */
+	public HashMap<Integer, Float> getPercentageOfMapControlledByEachPlayer() {
+		HashMap<Integer, Float> returnMap = new HashMap<Integer, Float>();
+		float totalCountries = 0;
+		ArrayList<Continent> allContinents =  this.map.getContinentList(); 
+		for(Continent continent:allContinents) {
+			ArrayList<Country> country= continent.getCountryList();
+			totalCountries = totalCountries + country.size();
+		}
+		for(Player player :this.playerList) {
+			float playerNumberOfCountries = player.getAssignedCountryList().size();
+			float percentage = (playerNumberOfCountries/totalCountries)*100;
+			returnMap.put(player.getPlayerId(),percentage);
+		}
+		return returnMap;
 	}
 
 	/**
