@@ -467,11 +467,16 @@ public class Game extends Observable {
 	 * @return
 	 */
 	public boolean MoveArmyAfterAttack(int noOfArmies) {
-		boolean result = getCurrentPlayer().MoveArmyAfterAttack(noOfArmies);
-		if (result) {
-			notifyObserverslocal(this);
+		if (this.getCurrentPlayer().isConquered) {
+		getCurrentPlayer().MoveArmyAfterAttack(noOfArmies);
+		getCurrentPlayer().addCardToPlayer(this.getCardFromDeck());
+		notifyObserverslocal(this);
+		return true;
 		}
-		return result;
+		else {
+			IOHelper.print("Cannot perform this operation defend player first");
+			return false;
+		}
 	}
 
 	/**

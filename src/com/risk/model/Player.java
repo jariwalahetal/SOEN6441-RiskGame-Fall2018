@@ -572,7 +572,6 @@ public class Player {
 	}
 
 	public boolean MoveArmyAfterAttack(int armiesCount) {
-		if (isConquered) {
 			if (attackingCountry == null || attackedCountry == null) {
 				IOHelper.print("Source or destination country is invalid!");
 				return false;
@@ -582,10 +581,6 @@ public class Player {
 			attackedCountry.increaseArmyCount(armiesCount);
 			isConquered = false;
 			return true;
-		} else {
-			IOHelper.print("Cannot perform this operation defend player first");
-			return false;
-		}
 	}
 
 	/**
