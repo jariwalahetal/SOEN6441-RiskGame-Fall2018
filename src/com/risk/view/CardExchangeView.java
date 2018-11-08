@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +25,7 @@ import com.risk.model.Game;
  * @version 1.0.0
  * @since 01-November-2018
  */
-public class CardExchangeView {
+public class CardExchangeView implements Observer  {
 	private static JFrame cardFrame = null;
 	private static JPanel cardPanel;
 	private static JLabel cardExchangeLabel;
@@ -77,10 +80,7 @@ public class CardExchangeView {
 		exitButton.setBounds(310, 255, 160, 40);
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean cardBalance = game.getCurrentPlayer().IsCardsAvailableForTradeInReinforcement();
-				if (cardBalance) {
-					IOHelper.print("Cannot Exit Without Exchange");
-				} else {
+			
 					boolean checkCount = game.getCurrentPlayer().IsAssigningReinforcementArmiesAllowed();
 					if (checkCount) {
 						cardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +91,7 @@ public class CardExchangeView {
 
 				}
 
-			}
+			
 		});
 		cardExchangeLabel.add(totalNewArmies);
 		cardExchangeLabel.add(palyerOwnedCard);
@@ -102,6 +102,12 @@ public class CardExchangeView {
 		cardFrame.add(cardPanel);
 		cardFrame.setVisible(true);
 
+	}
+
+	@Override
+	public void update(Observable obj, Object arg) {
+		Game game = ((Game) obj);
+	 exchangeInitializerView(game); 
 	}
 
 }
