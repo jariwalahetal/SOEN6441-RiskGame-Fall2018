@@ -82,7 +82,7 @@ public class CardExchangeView implements Observer  {
 			
 					boolean checkCount = game.getCurrentPlayer().IsAssigningReinforcementArmiesAllowed();
 					if (checkCount) {
-						cardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						cardFrame.dispose();
 						game.reinforcementPhaseSetup();
 					} else {
 						IOHelper.print("Cannot Exit Without Exchange");

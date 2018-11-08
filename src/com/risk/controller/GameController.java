@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import com.risk.helper.IOHelper;
 import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
+import com.risk.view.CardExchangeView;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
 
@@ -26,6 +27,7 @@ public class GameController {
 
 	Game game;
 	GameView gameView;
+	CardExchangeView cardExchangeView;
 	public static final String ANSI_RED = "\u001B[31m";
 
 	/**
@@ -217,9 +219,11 @@ public class GameController {
 	 */
 	private void initializeGame(Map map) {		
 		game = new Game(map);
-		
+		cardExchangeView=new CardExchangeView();
 		gameView = new GameView();
+		
 		game.addObserver(gameView);
+		game.addObserver(cardExchangeView);
 		IOHelper.print("\nEnter the number of Players between 3 to 5");
 		
 		int playerCount = IOHelper.getNextInteger();
