@@ -557,7 +557,7 @@ public class Game extends Observable {
 			boolean isAllDifferentTypeOfCars = (firstCard != secondCard) && (secondCard != thirdCard)
 					&& (firstCard != thirdCard);
 
-			if (isAllDifferentTypeOfCars || isAllDifferentTypeOfCars) {
+			if (isAllSameTypeOfCards || isAllDifferentTypeOfCars) {
 				int tradingCount = getCurrentPlayer().getTradingCount() + 1;
 				int tradingArmies = GetArmiesByTrading.getArmies(tradingCount);
 
