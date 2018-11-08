@@ -237,7 +237,7 @@ public class GameController {
 		addArmyImageClickListener();
 		addAttackButtonListener();
 		addAllOutButtonListener();
-		addSkipButtonListener();
+		addEndAttackButtonListener();
 		addSourceCountriesListener();
 		addMoveArmyButtonListener();
 		addAttackerCountryListener();
@@ -370,18 +370,17 @@ public class GameController {
 	/**
 	 * to update view
 	 */
-	public void addSkipButtonListener() {
-		gameView.addActionListenToSkipButton(new ActionListener() {
+	public void addEndAttackButtonListener() {
+		gameView.addActionListenToEndAttackButton(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == PhaseEnum.Attack)
 				{   game.updatePhase();					
 				}			
-				}
+			}
 		});
 	}
 		
-	
 	/**
 	 * to update view
 	 */

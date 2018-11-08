@@ -13,6 +13,8 @@ import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.JTableHeader;
+
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
@@ -234,7 +236,7 @@ public class GameView implements Observer {
 	private static JButton moveArmiesButton  = new JButton("Move");
 	private static JButton attackButton = new JButton("Attack");
 	private static JButton allOutButton = new JButton("All Out");
-	private static JButton skipButton = new JButton("Skip");
+	private static JButton endAttackButton = new JButton("End Attack");
 
 	// Fortification Label
 	private static JLabel fortificationJlabel;
@@ -414,9 +416,9 @@ public class GameView implements Observer {
 		allOutButton.setBounds(attackMoveArmies.getX() + attackButton.getWidth() + 10, attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
 				100, 30);
 
-		skipButton.setBounds(allOutButton.getX() + allOutButton.getWidth() + 10, attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
+		endAttackButton.setBounds(allOutButton.getX() + allOutButton.getWidth() + 10, attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
 				100, 30);
-
+		 
 		attackJlabel.add(attackerCountry);
 		attackJlabel.add(defenderCountry);
 		attackJlabel.add(attackerNoOfDice);
@@ -425,7 +427,7 @@ public class GameView implements Observer {
 		attackJlabel.add(moveArmiesButton);
 		attackJlabel.add(attackButton);
 		attackJlabel.add(allOutButton);
-		attackJlabel.add(skipButton);
+		attackJlabel.add(endAttackButton);
 
 		gameActionJpanel.add(attackJlabel);
 
@@ -521,32 +523,26 @@ public class GameView implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				String[] columns_header = { "S.No.", "Player A", "Player B", "Player C", "Player D", "Player E" };
-				String[][] rows = { { "percentage", "10", "2", "5", "6", "3" },
-						{ "continents controlled", "1", "0", "0", "0", "0" },
-						{ "total army", "50", "10", "12", "0", "18" } };
+				String[] columns_header = {"Attributes","Player A","Player B","Player C","Player D", "Player E"};
+				String[][] rows = {{"percentage","10","2","5","6","3"},
+						{"continents controlled","1","0","0","0","0"},
+						{"total army","50","10","12","0","18"}};
+
 				JFrame playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
 				JPanel playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
-				JLabel playerRecordsJLabel = new JLabel();
-				JTable playerRecordsJTable = new JTable(rows, columns_header);
+				JTable playerRecordsJTable = new JTable(rows,columns_header);
+				JTableHeader header = playerRecordsJTable.getTableHeader();
 
-				// JScrollPane playerJScrollPane = new JScrollPane(playerRecordsJTable);
-				// playerJScrollPane.setSize(550,350);
-				// playerJScrollPane.setVisible(true);
+				playerRecordsJTable.setBounds(20,
+						playerWorldDominationViewJFrame.getY()+20+playerWorldDominationViewJFrame.getHeight(),
+						550,350);
 
-				playerRecordsJTable.setBounds(20, playerRecordsJLabel.getY() + 20 + playerRecordsJLabel.getHeight(),
-						550, 350);
-
-				playerRecordsJLabel.setBorder(BorderFactory.createTitledBorder(null, "Player Records Table",
-						TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION,
-						new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
-				playerRecordsJLabel.setBounds(10, 10, 600, 400);
-				playerRecordsJLabel.add(playerRecordsJTable);
-
-				playerWorldDominationViewJFrame.setSize(600, 400);
+				playerWorldDominationViewJFrame.setSize(600,200);
+				playerWorldDominationViewJFrame.setLocationRelativeTo(null);
 				playerWorldDominationViewJFrame.setVisible(true);
 				playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
-				playerWorldDominationViewJPanel.add(playerRecordsJLabel);
+				playerWorldDominationViewJPanel.add(header,BorderLayout.NORTH);
+				playerWorldDominationViewJPanel.add(playerRecordsJTable,BorderLayout.CENTER);
 
 			}
 		});
@@ -606,6 +602,10 @@ public class GameView implements Observer {
 				gamePhaseNameJLabel.setText("Initialization");
 			
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
+				if(game.getCurrentPlayer().getCards().size() > 3) {
+				CardExchangeView cardExchangeView=new CardExchangeView();
+				cardExchangeView.exchangeInitializerView();
+				}
 				gamePhaseNameJLabel.setText("Reinforcement");
 			
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
@@ -637,9 +637,24 @@ public class GameView implements Observer {
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Method used to populate value in the attackerCountry combobox
+	 * 
+	 * @param attackerCountries
+	 *            ArrayList
+	 */
+	public void populateAttackerCountryComboBox(ArrayList<String> attackerCountries) {
+		attackerCountry.removeAllItems();
+		for (String countryName : attackerCountries)
+			attackerCountry.addItem(countryName);
+	}
+
+	/**
+>>>>>>> f2baf1e3c179b50df3602f8caf683eeb664a9a10
 	 * Method used to populate value in the defenderCountry combobox
 	 * 
-	 * @param destinationCountries
+	 * @param defenderCountries
 	 *            ArrayList
 	 */
 	public void setDefenderCountryComboBox(ArrayList<String> defenderCountries) {
@@ -837,14 +852,15 @@ public class GameView implements Observer {
 	}
 
 	/**
-	 * Method for performing action listener on skipButton
+	 * Method for performing action listener on endAttack button
 	 * 
 	 * @param listener
 	 *            ActionListener
 	 */
-	public void addActionListenToSkipButton(ActionListener listener) {
-		this.skipButton.addActionListener(listener);
+	public void addActionListenToEndAttackButton(ActionListener listener) {
+		this.endAttackButton.addActionListener(listener);
 	}
+	
 
 	/**
 	 * Method for performing action listener on move armies attack Button
