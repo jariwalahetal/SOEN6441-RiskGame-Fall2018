@@ -24,7 +24,6 @@ public class Game extends Observable {
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
 	private Map map;
-	private boolean moveArmyToDefender = false;
 	private ArrayList<CardEnum> gameCards = new ArrayList<>();
 
 	/**
