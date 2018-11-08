@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
-
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
@@ -587,8 +586,6 @@ public class GameView implements Observer {
 		activePlayerId = game.getCurrentPlayerId();
 		activePlayerColor = game.getCurrentPlayer().getColor();
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());
-		reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
-//		attackingCountryList.clear();
 		populateCountriesData(map);
 		
 		if (playersTurnJlabel != null) {
@@ -596,17 +593,19 @@ public class GameView implements Observer {
 			playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
 			armyLeftJlabel.setText(activePlayerUnassignedArmiesCount);
 
-			reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
-
 			if (game.getGamePhase() == PhaseEnum.Startup) {
 				gamePhaseNameJLabel.setText("Initialization");
 			
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
+				reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
+				reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
+				gamePhaseNameJLabel.setText("Reinforcement");
+
 				if(game.getCurrentPlayer().getCards().size() > 3) {
 				CardExchangeView cardExchangeView=new CardExchangeView();
 				cardExchangeView.exchangeInitializerView();
 				}
-				gamePhaseNameJLabel.setText("Reinforcement");
+
 			
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
 				gamePhaseNameJLabel.setText("Attack Phase");
@@ -615,6 +614,8 @@ public class GameView implements Observer {
 			
 			} 
 			else if (game.getGamePhase() == PhaseEnum.Fortification) {
+				this.defenderCountry.removeAll();
+				this.attackerCountry.removeAll();
 				gamePhaseNameJLabel.setText("Fortification");
 //				setSourceCountryComboBox();
 			}
@@ -637,8 +638,6 @@ public class GameView implements Observer {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
 	 * Method used to populate value in the attackerCountry combobox
 	 * 
 	 * @param attackerCountries
@@ -651,7 +650,6 @@ public class GameView implements Observer {
 	}
 
 	/**
->>>>>>> f2baf1e3c179b50df3602f8caf683eeb664a9a10
 	 * Method used to populate value in the defenderCountry combobox
 	 * 
 	 * @param defenderCountries
@@ -838,7 +836,7 @@ public class GameView implements Observer {
 	 *            ActionListener
 	 */
 	public void addActionListenToAttackButton(ActionListener listener) {
-		this.attackButton.addActionListener(listener);
+		attackButton.addActionListener(listener);
 	}
 
 	/**
