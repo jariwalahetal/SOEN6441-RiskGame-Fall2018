@@ -2,6 +2,9 @@ package com.risk.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -10,6 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
+import com.risk.helper.CardEnum;
+import com.risk.model.Game;
 
 
 public class CardExchangeView {
@@ -23,7 +29,7 @@ public class CardExchangeView {
 	private static JButton exitButton = new JButton("No Exchange And Exit");
 		
 	
-	public void exchangeInitializerView() {
+	public void exchangeInitializerView(Game game) {
 		cardFrame = new JFrame("Card Exchange View");
 		cardPanel = new JPanel(null);
 		cardFrame.setSize(800, 600);
@@ -34,20 +40,31 @@ public class CardExchangeView {
 				BorderFactory.createTitledBorder(null, "Exchange Card", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLACK	));
 		cardExchangeLabel.setBounds(100, 100, 600, 400);
-		playersTurnJlabel = new JLabel("Player Name");
+		playersTurnJlabel = new JLabel(game.getCurrentPlayer().getName());
 		Font font = new Font("Courier", Font.BOLD, 24);
 		playersTurnJlabel.setFont(font);
 		playersTurnJlabel.setForeground(Color.RED);
 		playersTurnJlabel.setBorder(new TitledBorder("Active Player"));
 		playersTurnJlabel.setBounds(30, 45, 250, 70);
-		String typeOfCards[]= {"Type A", "Type B", "Type C"};
-		palyerOwnedCard = new JComboBox<>(typeOfCards);
+		ArrayList<CardEnum> typeOfCards= game.getCurrentPlayer().getCards();
+		String cards[]=new String[typeOfCards.size()];
+		for(int i=0;i<typeOfCards.size();i++) {
+			cards[i]=typeOfCards.get(i).toString();
+		}
+		palyerOwnedCard = new JComboBox<>(cards);
 		palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
 		palyerOwnedCard.setBounds(310, 45, 250, 70);
-		totalNewArmies = new JLabel("50");
+		totalNewArmies = new JLabel(""+game.getCurrentPlayer().getNoOfTradedArmies());
 		totalNewArmies.setBorder(new TitledBorder("New  Armies Assigned"));
 		totalNewArmies.setBounds(180,150,250,70);
 		exchangeButton.setBounds(120,255,160,40);
+		exchangeButton.addActionListener(new ActionListener() { 
+		
+			ArrayList<CardEnum> selectedCards=(ArrayList<CardEnum>) palyerOwnedCard.getSelectedItem();
+		    public void actionPerformed(ActionEvent e) { 
+		       game.tradeCards(selectedCards);
+		    } 
+		});
 		exitButton.setBounds(310,255,160,40);
 		cardExchangeLabel.add(totalNewArmies);
 		cardExchangeLabel.add(palyerOwnedCard);
