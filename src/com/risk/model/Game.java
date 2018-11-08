@@ -574,6 +574,8 @@ public class Game extends Observable {
 				// set trade armies
 				this.getCurrentPlayer().setNoOfTradedArmies(tradingArmies);
 				this.getCurrentPlayer().setTradingCount(tradingCount);
+				notifyObserverslocal(this);
+				return true;
 			} else {
 				IOHelper.print("Provide either all same type of cards or one of each kind of card");
 			}
