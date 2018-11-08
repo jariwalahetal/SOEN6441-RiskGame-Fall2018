@@ -314,13 +314,8 @@ public class Game extends Observable {
 
 			}
 		} else if (this.phaseCheckValidation(PhaseEnum.Reinforcement)) {
-			// Check the current player reinforcement armies
 			if (getCurrentPlayer().getNoOfReinforcedArmies() == 0) {
-
-				// We don't need to implement attack for now
 				this.setGamePhase(PhaseEnum.Attack);
-				// Reset number of defended countries count
-				this.getCurrentPlayer().ResetCountryDefendedInCurrentTurn();
 			}
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {

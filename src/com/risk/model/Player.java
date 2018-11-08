@@ -32,7 +32,6 @@ public class Player {
 	Country attackedCountry;
 	Boolean isConquered = false;
 	private ArrayList<CardEnum> playerCards = new ArrayList<>();
-	private int countryDefendedInCurrentTurn = 0;
 	// TODO: implement lost logic in game check whole flow
 	private boolean isLost = false;
 	private ArrayList<Integer> diceOutComes = new ArrayList<>();
@@ -162,18 +161,18 @@ public class Player {
 	 * 
 	 * @return countryDefendedInCurrentTurn Integer
 	 */
-	public int GetCountryDefendedInCurrentTurn() {
-		return countryDefendedInCurrentTurn;
-	}
+//	public int GetCountryDefendedInCurrentTurn() {
+//		return countryDefendedInCurrentTurn;
+//	}
 
 	/**
 	 * Resets number of countries defended in current turn
 	 * 
 	 * @return
 	 */
-	public void ResetCountryDefendedInCurrentTurn() {
-		countryDefendedInCurrentTurn = 0;
-	}
+//	public void ResetCountryDefendedInCurrentTurn() {
+//		countryDefendedInCurrentTurn = 0;
+//	}
 
 	/**
 	 * This method set the number of reinforcement army units
@@ -553,7 +552,6 @@ public class Player {
 
 		// Check if defending armies are 0 then acquire the country with cards
 		if (defendingCountry.getnoOfArmies() == 0) {
-			this.countryDefendedInCurrentTurn++;
 			defendingCountry.setPlayerId(playerId);
 			defenderPlayer.unAssignCountryToPlayer(defendingCountry);
 			assignCountryToPlayer(defendingCountry);
