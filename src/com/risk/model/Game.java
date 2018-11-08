@@ -24,7 +24,6 @@ public class Game extends Observable {
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
 	private Map map;
-	private boolean moveArmyToDefender = false;
 	private ArrayList<CardEnum> gameCards = new ArrayList<>();
 
 	/**
@@ -307,7 +306,7 @@ public class Game extends Observable {
 			if (pendingPlayersCount == 0) {
 				this.setGamePhase(PhaseEnum.Reinforcement);
 				currentPlayerId = 0;
-				/*
+		/*
 				 * if(!getCurrentPlayer().IsCardsAvailableForTradeInReinforcement()) {
 				 * reinforcementPhaseSetup(); }
 				 */
@@ -536,16 +535,16 @@ public class Game extends Observable {
 	 * @param cards
 	 * @return
 	 */
-	public boolean tradeCards(ArrayList<CardEnum> cards) {
+	public boolean tradeCards(ArrayList<String> cards) {
 		if (cards.size() == 3) {
 
-			CardEnum firstCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(0)).findFirst()
+			CardEnum firstCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(0))).findFirst()
 					.orElse(null);
 
-			CardEnum secondCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(1)).findFirst()
+			CardEnum secondCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(1))).findFirst()
 					.orElse(null);
 
-			CardEnum thirdCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(2)).findFirst()
+			CardEnum thirdCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(2))).findFirst()
 					.orElse(null);
 
 			if (firstCard == null || secondCard == null || thirdCard == null) {
@@ -557,7 +556,7 @@ public class Game extends Observable {
 			boolean isAllDifferentTypeOfCars = (firstCard != secondCard) && (secondCard != thirdCard)
 					&& (firstCard != thirdCard);
 
-			if (isAllDifferentTypeOfCars || isAllDifferentTypeOfCars) {
+			if (isAllSameTypeOfCards || isAllDifferentTypeOfCars) {
 				int tradingCount = getCurrentPlayer().getTradingCount() + 1;
 				int tradingArmies = GetArmiesByTrading.getArmies(tradingCount);
 
@@ -574,6 +573,8 @@ public class Game extends Observable {
 				// set trade armies
 				this.getCurrentPlayer().setNoOfTradedArmies(tradingArmies);
 				this.getCurrentPlayer().setTradingCount(tradingCount);
+				notifyObserverslocal(this);
+				return true;
 			} else {
 				IOHelper.print("Provide either all same type of cards or one of each kind of card");
 			}

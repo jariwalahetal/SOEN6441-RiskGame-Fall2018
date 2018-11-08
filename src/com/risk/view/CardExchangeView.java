@@ -61,9 +61,8 @@ public class CardExchangeView {
 		totalNewArmies.setBounds(180,150,250,70);
 		exchangeButton.setBounds(120,255,160,40);
 		exchangeButton.addActionListener(new ActionListener() { 
-			
+
 			ArrayList<String> selectedCards= (ArrayList<String>) palyerOwnedCard.getSelectedValuesList();
-			
 		    public void actionPerformed(ActionEvent e) { 
 		      game.tradeCards(selectedCards);
 		    } 
@@ -72,7 +71,7 @@ public class CardExchangeView {
 		exitButton.addActionListener(new ActionListener() { 
 		    public void actionPerformed(ActionEvent e) { 
 		        boolean cardBalance = game.getCurrentPlayer().IsCardsAvailableForTradeInReinforcement();
-		        if(cardBalance)
+		       
 		    } 
 		});
 		cardExchangeLabel.add(totalNewArmies);

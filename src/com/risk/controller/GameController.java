@@ -66,7 +66,8 @@ public class GameController {
 				IOHelper.print("\nInvalid choice. Select Again!\n");
 			}
 		} catch (Exception e) {
-			IOHelper.printException(e);
+			//IOHelper.printException(e);
+			e.printStackTrace();
 			IOHelper.print("Please try again with the right option");
 		}
 
@@ -214,8 +215,9 @@ public class GameController {
 	/**
 	 * This function creates the player objects for initializing Game
 	 */
-	private void initializeGame(Map map) {
+	private void initializeGame(Map map) {		
 		game = new Game(map);
+		
 		gameView = new GameView();
 		game.addObserver(gameView);
 		IOHelper.print("\nEnter the number of Players:");
