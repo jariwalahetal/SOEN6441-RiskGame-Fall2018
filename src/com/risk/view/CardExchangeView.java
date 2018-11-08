@@ -60,7 +60,7 @@ public class CardExchangeView {
 		exchangeButton.setBounds(120,255,160,40);
 		exchangeButton.addActionListener(new ActionListener() { 
 		
-			ArrayList<CardEnum> selectedCards=(ArrayList<CardEnum>) palyerOwnedCard.getSelectedItem();
+			ArrayList<String> selectedCards=(ArrayList<String>) palyerOwnedCard.getSelectedItem();
 		    public void actionPerformed(ActionEvent e) { 
 		       game.tradeCards(selectedCards);
 		    } 
