@@ -269,10 +269,10 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getAttackerCountry();
 				if (countryName != null) {
-					game.SetAttackingCountry(countryName);
-					ArrayList<String> neighborCountries = game.getNeighbouringCountriesForAttack();
-					gameView.populateDefenderCountryComboBox(neighborCountries);
-					gameView.populateAttackingDiceComboBox(game.GetMaximumAllowableDicesForAttacker());
+					ArrayList<String> neighborCountries = game.getCurrentPlayer().getUnAssignedNeighbouringCountries(countryName);
+					gameView.setDefenderCountryComboBox(neighborCountries);
+					int diceCount = game.getMaximumAllowableDices(countryName,"Attacker");
+					gameView.setAttackingDiceComboBox(diceCount);
 				}
 			}
 		});
@@ -287,8 +287,8 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getDefenderCountry();
 				if (countryName != null) {
-					game.SetDefendingCountry(countryName);
-					gameView.populateDefendingDiceComboBox(game.GetMaximumAllowableDicesForDefender());
+					int diceCount = game.getMaximumAllowableDices(countryName,"Defender");
+					gameView.setDefendingDiceComboBox(diceCount);
 				}
 			}
 		});
@@ -304,10 +304,10 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getSourceCountry();
 				if (countryName != null) {
-					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
+					ArrayList<String> neighborCountries = game.getCurrentPlayer().getAssignedNeighbouringCountries(countryName);
 					int armyCount = game.getArmiesAssignedToCountry(countryName);
-					gameView.populateDestinationCountryComboBox(neighborCountries);
-					gameView.populateNoOfArmyToMoveJcomboBox(armyCount);
+					gameView.setDestinationCountryComboBox(neighborCountries);
+					gameView.setNoOfArmyToMoveJcomboBox(armyCount);
 				}
 			}
 		});
@@ -320,11 +320,13 @@ public class GameController {
 		gameView.addActionListenToAttackButton(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if(gameView.getAttackerCountry() != null && gameView.getDefenderCountry() != null) {
+				String attackerCountry = gameView.getAttackerCountry();
+				String defenderCountry = gameView.getDefenderCountry();
+				if(attackerCountry != null && defenderCountry!= null) {
 					if (game.getGamePhase() == PhaseEnum.Attack) {
 						Integer attackerDiceCount = Integer.parseInt(GameView.getAttackerNoOfDice());
 						Integer defenderDiceCount = Integer.parseInt(GameView.getDefenderNoOfDice());
-						game.attackPhase(attackerDiceCount,defenderDiceCount);
+						game.attackPhase(attackerCountry,defenderCountry, attackerDiceCount,defenderDiceCount);
 					}
 				}
 				else {
@@ -340,7 +342,7 @@ public class GameController {
 	public void addAttackArmyMoveButtonListner() {
 		gameView.addActionListenToAttackMoveArmiesButton(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(GameView.getAttackMoveArmies() != null && game.GetAllowableArmiesMoveFromAttackerToDefender() >= 0) {
+				if(GameView.getAttackMoveArmies() != null && game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender() >= 0) {
 					game.MoveArmyAfterAttack(Integer.parseInt(GameView.getAttackMoveArmies()));
 				}
 				else {
@@ -373,15 +375,12 @@ public class GameController {
 
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == PhaseEnum.Attack)
-				{   
-					game.SetFortificationPhase();
-					
+				{   game.updatePhase();					
 				}			
 				}
 		});
 	}
-	
-	
+		
 	
 	/**
 	 * to update view

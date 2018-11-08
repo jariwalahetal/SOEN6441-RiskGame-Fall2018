@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
@@ -26,6 +25,9 @@ public class Player {
 	private int noOfReinforcedArmies;
 	private ArrayList<Country> assignedCountryList = new ArrayList<Country>();
 	private final int MINIMUM_REINFORCEMENT_PLAYERS = 3;
+	Country attackingCountry;
+	Country attackedCountry;	
+	Boolean isConquered = false;
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
@@ -184,6 +186,8 @@ public class Player {
 		return true;
 	}
 
+	
+	
 	/**
 	 * Method to perform fortification phase
 	 * 
@@ -287,7 +291,6 @@ public class Player {
 		return noOfArmies;
 	}
 
-
 	/**
 	 * Method to get neighbouring countries of a given country
 	 * 
@@ -306,8 +309,6 @@ public class Player {
 		}
 		return neighborCountriesName;
 	}
-
-	
 	
 	/**
 	 * Method to get neighbouring countries of a given country
@@ -360,14 +361,16 @@ public class Player {
 	 * @param denfendingDices defending dices
 	 * @return true if suceessful
 	 */
-	public boolean ProcessAttack(Player defenderPlayer, Country attackingCountry,Country defendingCuntry,
+	public boolean attackPhase(Player defenderPlayer, Country attackingCountry,Country defendingCuntry,
 								ArrayList<Integer> attackingDices, ArrayList<Integer> denfendingDices)
-	{
-		IOHelper.print("Attacker's dices -- " + attackingDices);
+	{   IOHelper.print("Attacker's dices -- " + attackingDices);
 		Common.PhaseActions.add("Attacker's dices -- " + attackingDices);
 		
 		IOHelper.print("Defender's dices -- " + denfendingDices);
 		Common.PhaseActions.add("Defender's dices -- " + denfendingDices);
+		
+		this.attackingCountry = attackingCountry;
+		this.attackedCountry = defendingCuntry;
 		
 		Collections.sort(attackingDices, Collections.reverseOrder());
 		Collections.sort(denfendingDices, Collections.reverseOrder());
@@ -385,8 +388,7 @@ public class Player {
 			if(attackerDice > defencerDice) {
 				IOHelper.print("----> attacker wins for dice " + (i+1));
 				Common.PhaseActions.add("----> attacker wins for dice " + (i+1));
-				
-				
+								
 				//Decrease one army from defender by one
 				defendingCuntry.decreaseArmyCount(1);
 				
@@ -410,23 +412,70 @@ public class Player {
 			defendingCuntry.setPlayerId(playerId);
 			attackingCountry.decreaseArmyCount(1);
 			defendingCuntry.increaseArmyCount(1);
+			isConquered = true;
 		}
 		return true;
 	}
 	
-	public boolean MoveArmyAfterAttack(Country sourceCountry, Country destinationCountry, int armiesCount) {
-		
-		if (sourceCountry == null || destinationCountry == null) {
+	public boolean MoveArmyAfterAttack( int armiesCount) {
+	if(isConquered)	
+		{if (attackingCountry == null || attackedCountry == null) {
 			IOHelper.print("Source or destination country is invalid!");
 			return false;
 		}
 		
-		if(armiesCount >= sourceCountry.getnoOfArmies()) {
-			IOHelper.print("Cannot move " + armiesCount + " armies from " + sourceCountry.getnoOfArmies() + " armies");
+		if(armiesCount >= attackingCountry.getnoOfArmies()) {
+			IOHelper.print("Cannot move " + armiesCount + " armies from " + attackingCountry.getnoOfArmies() + " armies");
 			return false;
 		}
-		sourceCountry.decreaseArmyCount(armiesCount);
-		destinationCountry.increaseArmyCount(armiesCount);
+				
+		attackingCountry.decreaseArmyCount(armiesCount);
+		attackedCountry.increaseArmyCount(armiesCount);
+		isConquered = false;
 		return true;
 	}
+	else
+	{	IOHelper.print("Cannot perform this operation defend player first");
+	    return false; 
+	}
+	}
+
+	/**
+	 * Get number armies allowed to move from attacker to defending country
+	 * 
+	 * @return Integer
+	 */ 
+	public Integer GetAllowableArmiesMoveFromAttackerToDefender() {
+		if(isConquered)
+			{  return attackingCountry.getnoOfArmies() - 1;
+			}
+		
+		return -1;
+	}
+	
+	/**
+	 * 
+	 * @param country
+	 * @param playerStatus
+	 * @return
+	 */
+	public int getMaximumAllowableDices(Country country,String playerStatus)
+	{int allowableAttackingArmies = 0;
+	 int maximumDiceCount = 0;
+		if(playerStatus.equals("Attacker"))
+		{ allowableAttackingArmies = country.getnoOfArmies() - 1;
+		  maximumDiceCount = 3;
+		}
+		else
+		{   allowableAttackingArmies = country.getnoOfArmies();
+		   maximumDiceCount = 2;
+		}
+		if (allowableAttackingArmies >= maximumDiceCount)
+			allowableAttackingArmies = maximumDiceCount; 
+	
+	 return 	allowableAttackingArmies;
+	}
+
+	
+
 }
