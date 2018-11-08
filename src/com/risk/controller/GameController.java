@@ -8,7 +8,6 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import com.risk.helper.IOHelper;
 import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
@@ -17,6 +16,7 @@ import com.risk.view.MapCreateView;
 
 /**
  * This class is used to handle operations related to MAP.
+ * 
  * @author Binay Kumar
  * @version 1.0.0
  * @since 27-September-2018
@@ -85,7 +85,7 @@ public class GameController {
 				StringBuffer mapContent = new StringBuffer(mapView.returnTextAreaText());
 				String mapname = mapView.returnMapNameText();
 				Map map = new Map(mapname);
-				boolean isMapCreated = map.validateAndCreateMap(mapContent,mapname);
+				boolean isMapCreated = map.validateAndCreateMap(mapContent, mapname);
 				if (isMapCreated) {
 					IOHelper.print("Map Created successfully!");
 				} else {
@@ -112,79 +112,79 @@ public class GameController {
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = mapList.get(mapNumber - 1);
 		Map map = new Map(selectedMapName);
-		IOHelper.print("'"+selectedMapName+"'");
-        map.readMap();
-        if (!map.isMapValid()){
-            IOHelper.print("Map is Invalid !");
-        }
-        while (true){
-            IOHelper.print("+------------------------------+");
-            IOHelper.print("|________ Edit Map Menu________| ");
-            IOHelper.print("|    1. Delete Continent       |");
-            IOHelper.print("|    2. Delete Country         |");
-            IOHelper.print("|    3. Add Continent          |");
-            IOHelper.print("|    4. Add Country            |");
+		IOHelper.print("'" + selectedMapName + "'");
+		map.readMap();
+		if (!map.isMapValid()) {
+			IOHelper.print("Map is Invalid !");
+		}
+		while (true) {
+			IOHelper.print("+------------------------------+");
+			IOHelper.print("|________ Edit Map Menu________| ");
+			IOHelper.print("|    1. Delete Continent       |");
+			IOHelper.print("|    2. Delete Country         |");
+			IOHelper.print("|    3. Add Continent          |");
+			IOHelper.print("|    4. Add Country            |");
 			IOHelper.print("|    5. Save Map               |");
 			IOHelper.print("|    6. Exit                   |");
-            IOHelper.print("+------------------------------+");
-            IOHelper.print(" Enter option:");
-            int input = IOHelper.getNextInteger();
-            switch (input){
-                case 1:
-                    IOHelper.print("List of Continents:");
-                    ArrayList<Continent> continentList = map.getContinentList();
-                    for (Continent nameOfContinent: continentList ) {
-                        IOHelper.print("->"+nameOfContinent.getContName());
-                    }
-                    IOHelper.print("Enter name of the Continent you want to delete:");
-                    String continentToDelete = IOHelper.getNextString();
-                    map.deleteContinent(continentToDelete);
-					IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
-                    break;
-                case 2:
-                    IOHelper.print("List of Countries:");
-                    ArrayList<Country> countryList = map.getCountryList();
-                    for (Country nameOfCountry: countryList ) {
-                        IOHelper.print("->"+nameOfCountry.getCountryName());
-                    }
-                    IOHelper.print("Enter name of the Country you want to delete from the list given below:");
-                    String countryToDelete = IOHelper.getNextString();
-                    map.deleteCountry(countryToDelete);
-					IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
-                    break;
-                case 3:
-                    map.addContinentToMap();
-					IOHelper.print("Continent added successfully!");
-                    break;
-                case 4:
-                    IOHelper.print("List of Continents:-");
-                    ArrayList<Continent> continentsList = map.getContinentList();
-                    int continentID = 0;
-                    for (Continent continent: continentsList ) {
-                        IOHelper.print("-> "+continent.getContName());
-                        continentID = continent.getContId();
-                    }
-                    IOHelper.print("Enter name of the continent where you want to add new country(from above list): ");
-                    String continentName = IOHelper.getNextString();
-                    map.addCountryToContinent(continentName,continentID);
-					IOHelper.print("Country added successfuly!");
-                    break;
-                case 5:
-                	if (map.isMapValid()){
-						map.saveMap();
-						IOHelper.print("Map saved!");
-					}else {
-                		IOHelper.print("Map saved is invalid!");
-					}
-					break;
-                case 6:
-                    startGame();
-                    break;
-                default:
-                    IOHelper.print("Option not Available. Select Again!");
-                    break;
-            }
-        }
+			IOHelper.print("+------------------------------+");
+			IOHelper.print(" Enter option:");
+			int input = IOHelper.getNextInteger();
+			switch (input) {
+			case 1:
+				IOHelper.print("List of Continents:");
+				ArrayList<Continent> continentList = map.getContinentList();
+				for (Continent nameOfContinent : continentList) {
+					IOHelper.print("->" + nameOfContinent.getContName());
+				}
+				IOHelper.print("Enter name of the Continent you want to delete:");
+				String continentToDelete = IOHelper.getNextString();
+				map.deleteContinent(continentToDelete);
+				IOHelper.print("Continent '" + continentToDelete + "' is deleted successfuly!");
+				break;
+			case 2:
+				IOHelper.print("List of Countries:");
+				ArrayList<Country> countryList = map.getCountryList();
+				for (Country nameOfCountry : countryList) {
+					IOHelper.print("->" + nameOfCountry.getCountryName());
+				}
+				IOHelper.print("Enter name of the Country you want to delete from the list given below:");
+				String countryToDelete = IOHelper.getNextString();
+				map.deleteCountry(countryToDelete);
+				IOHelper.print("Country '" + countryToDelete + "' is deleted successfuly!");
+				break;
+			case 3:
+				map.addContinentToMap();
+				IOHelper.print("Continent added successfully!");
+				break;
+			case 4:
+				IOHelper.print("List of Continents:-");
+				ArrayList<Continent> continentsList = map.getContinentList();
+				int continentID = 0;
+				for (Continent continent : continentsList) {
+					IOHelper.print("-> " + continent.getContName());
+					continentID = continent.getContId();
+				}
+				IOHelper.print("Enter name of the continent where you want to add new country(from above list): ");
+				String continentName = IOHelper.getNextString();
+				map.addCountryToContinent(continentName, continentID);
+				IOHelper.print("Country added successfuly!");
+				break;
+			case 5:
+				if (map.isMapValid()) {
+					map.saveMap();
+					IOHelper.print("Map saved!");
+				} else {
+					IOHelper.print("Map saved is invalid!");
+				}
+				break;
+			case 6:
+				startGame();
+				break;
+			default:
+				IOHelper.print("Option not Available. Select Again!");
+				break;
+			}
+		}
 	}
 
 	/**
@@ -269,15 +269,16 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getAttackerCountry();
 				if (countryName != null) {
-					game.SetAttackingCountry(countryName);
-					ArrayList<String> neighborCountries = game.getNeighbouringCountriesForAttack();
-					gameView.populateDefenderCountryComboBox(neighborCountries);
-					gameView.populateAttackingDiceComboBox(game.GetMaximumAllowableDicesForAttacker());
+					ArrayList<String> neighborCountries = game.getCurrentPlayer()
+							.getUnAssignedNeighbouringCountries(countryName);
+					gameView.setDefenderCountryComboBox(neighborCountries);
+					int diceCount = game.getMaximumAllowableDices(countryName, "Attacker");
+					gameView.setAttackingDiceComboBox(diceCount);
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * to update view
 	 */
@@ -287,14 +288,13 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getDefenderCountry();
 				if (countryName != null) {
-					game.SetDefendingCountry(countryName);
-					gameView.populateDefendingDiceComboBox(game.GetMaximumAllowableDicesForDefender());
+					int diceCount = game.getMaximumAllowableDices(countryName, "Defender");
+					gameView.setDefendingDiceComboBox(diceCount);
 				}
 			}
 		});
 	}
-	
-	
+
 	/**
 	 * to update view
 	 */
@@ -304,10 +304,11 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getSourceCountry();
 				if (countryName != null) {
-					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
+					ArrayList<String> neighborCountries = game.getCurrentPlayer()
+							.getAssignedNeighbouringCountries(countryName);
 					int armyCount = game.getArmiesAssignedToCountry(countryName);
-					gameView.populateDestinationCountryComboBox(neighborCountries);
-					gameView.populateNoOfArmyToMoveJcomboBox(armyCount);
+					gameView.setDestinationCountryComboBox(neighborCountries);
+					gameView.setNoOfArmyToMoveJcomboBox(armyCount);
 				}
 			}
 		});
@@ -320,36 +321,37 @@ public class GameController {
 		gameView.addActionListenToAttackButton(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if(gameView.getAttackerCountry() != null && gameView.getDefenderCountry() != null) {
+				String attackerCountry = gameView.getAttackerCountry();
+				String defenderCountry = gameView.getDefenderCountry();
+				if (attackerCountry != null && defenderCountry != null) {
 					if (game.getGamePhase() == PhaseEnum.Attack) {
 						Integer attackerDiceCount = Integer.parseInt(GameView.getAttackerNoOfDice());
 						Integer defenderDiceCount = Integer.parseInt(GameView.getDefenderNoOfDice());
-						game.attackPhase(attackerDiceCount,defenderDiceCount);
+						game.attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 					}
-				}
-				else {
+				} else {
 					JOptionPane.showMessageDialog(null, "Selecting attacking and defending countries");
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * to update view
 	 */
 	public void addAttackArmyMoveButtonListner() {
 		gameView.addActionListenToAttackMoveArmiesButton(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(GameView.getAttackMoveArmies() != null && game.GetAllowableArmiesMoveFromAttackerToDefender() >= 0) {
+				if (GameView.getAttackMoveArmies() != null
+						&& game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender() >= 0) {
 					game.MoveArmyAfterAttack(Integer.parseInt(GameView.getAttackMoveArmies()));
-				}
-				else {
+				} else {
 					JOptionPane.showMessageDialog(null, "Cannot perform action");
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * to update view
 	 */
@@ -357,14 +359,15 @@ public class GameController {
 		gameView.addActionListenToAllOutButton(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (game.getGamePhase() == PhaseEnum.Attack)
-				{   //Call to Model
-					
+				if (game.getGamePhase() == PhaseEnum.Attack) {
+					String attackerCountry = gameView.getAttackerCountry();
+					String defenderCountry = gameView.getDefenderCountry();
+					game.attackAllOutPhase(attackerCountry, defenderCountry);
 				}
 			}
 		});
 	}
-	
+
 	/**
 	 * to update view
 	 */
@@ -372,13 +375,13 @@ public class GameController {
 		gameView.addActionListenToEndAttackButton(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (game.getGamePhase() == PhaseEnum.Attack) {   
-					game.SetFortificationPhase();		
-				}			
+				if (game.getGamePhase() == PhaseEnum.Attack) {
+					game.updatePhase();
+				}
 			}
 		});
 	}
-		
+
 	/**
 	 * to update view
 	 */

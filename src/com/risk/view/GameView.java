@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
-
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
@@ -38,7 +37,7 @@ class ViewCountries {
 	private EnumColor CountryColor;
 	private int playerID;
 	private ArrayList<String> neighboursString = new ArrayList<>();
-	
+
 	/**
 	 * This method return id of the country
 	 * 
@@ -201,7 +200,7 @@ class ViewCountries {
  */
 public class GameView implements Observer {
 	private static String defaultSelection = "--Select--";
-	
+
 	private static JFrame gameJframe = null;
 	private static JPanel gameActionJpanel;
 
@@ -234,7 +233,7 @@ public class GameView implements Observer {
 	private static JComboBox<String> attackerNoOfDice;
 	private static JComboBox<String> defenderNoOfDice;
 	private static JComboBox<String> attackMoveArmies;
-	private static JButton moveArmiesButton  = new JButton("Move");
+	private static JButton moveArmiesButton = new JButton("Move");
 	private static JButton attackButton = new JButton("Attack");
 	private static JButton allOutButton = new JButton("All Out");
 	private static JButton endAttackButton = new JButton("End Attack");
@@ -255,7 +254,7 @@ public class GameView implements Observer {
 	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;
 	String mapPath;
 	ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
-	ArrayList<ViewCountries> attackingCountryList = new ArrayList<>();
+	// ArrayList<ViewCountries> attackingCountryList = new ArrayList<>();
 	PhaseEnum phase;
 
 	/**
@@ -403,23 +402,21 @@ public class GameView implements Observer {
 
 		attackMoveArmies = new JComboBox<>();
 		attackMoveArmies.setBorder(new TitledBorder("Move armies"));
-		attackMoveArmies.setBounds(attackerNoOfDice.getX(),
-				attackerNoOfDice.getY() + attackerNoOfDice.getHeight(), 
+		attackMoveArmies.setBounds(attackerNoOfDice.getX(), attackerNoOfDice.getY() + attackerNoOfDice.getHeight(),
 				attackerNoOfDice.getWidth(), attackerNoOfDice.getHeight());
-		
+
 		moveArmiesButton.setBounds(attackerNoOfDice.getX() + attackMoveArmies.getWidth() + 15,
-				attackerNoOfDice.getY() + attackerNoOfDice.getHeight() + 15, 
-				100, 30);
-		
+				attackerNoOfDice.getY() + attackerNoOfDice.getHeight() + 15, 100, 30);
+
 		attackButton.setBounds(attackMoveArmies.getX(), attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
 				100, 30);
 
-		allOutButton.setBounds(attackMoveArmies.getX() + attackButton.getWidth() + 10, attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
-				100, 30);
+		allOutButton.setBounds(attackMoveArmies.getX() + attackButton.getWidth() + 10,
+				attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(), 100, 30);
 
-		endAttackButton.setBounds(allOutButton.getX() + allOutButton.getWidth() + 10, attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
-				100, 30);
-		 
+		endAttackButton.setBounds(allOutButton.getX() + allOutButton.getWidth() + 10,
+				attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(), 100, 30);
+
 		attackJlabel.add(attackerCountry);
 		attackJlabel.add(defenderCountry);
 		attackJlabel.add(attackerNoOfDice);
@@ -445,7 +442,6 @@ public class GameView implements Observer {
 		fortificationJlabel.setBounds(attackJlabel.getX(), attackJlabel.getY() + 10 + attackJlabel.getHeight(),
 				attackJlabel.getWidth(), 130);
 
-		// sourceCountry = new JComboBox(conquerdCountries.toArray());
 		sourceCountry = new JComboBox();
 		sourceCountry.setBorder(new TitledBorder("Source Country"));
 		sourceCountry.setBounds(15, 15, 220, 50);
@@ -530,30 +526,51 @@ public class GameView implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				String[] columns_header = {"Attributes","Player A","Player B","Player C","Player D", "Player E"};
-				String[][] rows = {{"percentage","10","2","5","6","3"},
-						{"continents controlled","1","0","0","0","0"},
-						{"total army","50","10","12","0","18"}};
+				String[] columns_header = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
+				String[][] rows = { { "percentage", "10", "2", "5", "6", "3" },
+						{ "continents controlled", "1", "0", "0", "0", "0" },
+						{ "total army", "50", "10", "12", "0", "18" } };
 
 				JFrame playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
 				JPanel playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
-				JTable playerRecordsJTable = new JTable(rows,columns_header);
+				JTable playerRecordsJTable = new JTable(rows, columns_header);
 				JTableHeader header = playerRecordsJTable.getTableHeader();
 
 				playerRecordsJTable.setBounds(20,
-						playerWorldDominationViewJFrame.getY()+20+playerWorldDominationViewJFrame.getHeight(),
-						550,350);
+						playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
+						350);
 
-				playerWorldDominationViewJFrame.setSize(600,200);
+				playerWorldDominationViewJFrame.setSize(600, 200);
 				playerWorldDominationViewJFrame.setLocationRelativeTo(null);
 				playerWorldDominationViewJFrame.setVisible(true);
 				playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
-				playerWorldDominationViewJPanel.add(header,BorderLayout.NORTH);
-				playerWorldDominationViewJPanel.add(playerRecordsJTable,BorderLayout.CENTER);
+				playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
+				playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
 
 			}
 		});
 		gameActionJpanel.add(playerWorldDominationViewJButton);
+	}
+
+	private void populateCountriesData(Map map) {
+		countryList.clear();
+		for (Country country : map.getCountryList()) {
+			ViewCountries viewCountry = new ViewCountries();
+			viewCountry.setCountryId(country.getCountryId());
+			viewCountry.setCountryColor(country.getCountryColor());
+			viewCountry.setCountryName(country.getCountryName());
+			viewCountry.setNoOfArmies(country.getnoOfArmies());
+			viewCountry.setxCoordinate(country.getxCoordiate());
+			viewCountry.setyCoordinate(country.getyCoordiate());
+			viewCountry.setNeighboursString(country.getNeighboursString());
+			viewCountry.setPlayerID(country.getPlayerId());
+			JLabel label = (JLabel) mapLabels.get(String.valueOf(country.getCountryId()));
+			if (label != null) {
+				label.setText(String.valueOf(viewCountry.getNoOfArmies()));
+				label.setForeground(Common.getColor(viewCountry.getCountryColor()));
+			}
+			countryList.add(viewCountry);
+		}
 	}
 
 	/**
@@ -572,57 +589,42 @@ public class GameView implements Observer {
 		activePlayerId = game.getCurrentPlayerId();
 		activePlayerColor = game.getCurrentPlayer().getColor();
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());
-		reinforcementUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
-		countryList.clear();
-		attackingCountryList.clear();
-		for (Country country : map.getCountryList()) {
-			ViewCountries viewCountry = new ViewCountries();
-			viewCountry.setCountryId(country.getCountryId());
-			viewCountry.setCountryColor(country.getCountryColor());
-			viewCountry.setCountryName(country.getCountryName());
-			viewCountry.setNoOfArmies(country.getnoOfArmies());
-			viewCountry.setxCoordinate(country.getxCoordiate());
-			viewCountry.setyCoordinate(country.getyCoordiate());
-			viewCountry.setNeighboursString(country.getNeighboursString());
-			viewCountry.setPlayerID(country.getPlayerId());
-			JLabel label = (JLabel) mapLabels.get(String.valueOf(country.getCountryId()));
-			if (label != null) {
-				label.setText(String.valueOf(viewCountry.getNoOfArmies()));
-				label.setForeground(Common.getColor(viewCountry.getCountryColor()));
-			}
-			countryList.add(viewCountry);
-		}
+		populateCountriesData(map);
+
 		if (playersTurnJlabel != null) {
 			playersTurnJlabel.setText(activePlayerName);
 			playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
 			armyLeftJlabel.setText(activePlayerUnassignedArmiesCount);
 
-			reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
-
 			if (game.getGamePhase() == PhaseEnum.Startup) {
 				gamePhaseNameJLabel.setText("Initialization");
+
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
 
+				if(game.getCurrentPlayer().getCards().size()>= 3) {
+				CardExchangeView cardExchangeView=new CardExchangeView();
+				cardExchangeView.exchangeInitializerView(game);
+				}
+
+				reinforcementUnassignedArmiesCount = Integer
+						.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
+				reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
+
 				gamePhaseNameJLabel.setText("Reinforcement");
+
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
 				gamePhaseNameJLabel.setText("Attack Phase");
-				
-				for (Country country : game.getCoutriesForAttack()) {
-					ViewCountries viewCountry = new ViewCountries();
-					viewCountry.setCountryId(country.getCountryId());
-					viewCountry.setCountryColor(country.getCountryColor());
-					viewCountry.setCountryName(country.getCountryName());
-					attackingCountryList.add(viewCountry);
-				}
-				
 				setAttackerCountry();
-				setMoveArmies(game.GetAllowableArmiesMoveFromAttackerToDefender());
-				// game.attackPhase();
+				setMoveArmies(game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender());
+
 			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
+				this.defenderCountry.removeAll();
+				this.attackerCountry.removeAll();
 				gamePhaseNameJLabel.setText("Fortification");
-				setSourceCountryComboBox();
+				// setSourceCountryComboBox();
 			}
-			AddMessages();
+
+			AddPhaseMessages();
 		}
 	}
 
@@ -632,7 +634,7 @@ public class GameView implements Observer {
 	 * @param destinationCountries
 	 *            ArrayList
 	 */
-	public void populateDestinationCountryComboBox(ArrayList<String> destinationCountries) {
+	public void setDestinationCountryComboBox(ArrayList<String> destinationCountries) {
 		destinationCountry.removeAllItems();
 		for (String countryName : destinationCountries)
 			destinationCountry.addItem(countryName);
@@ -656,11 +658,118 @@ public class GameView implements Observer {
 	 * @param defenderCountries
 	 *            ArrayList
 	 */
-	public void populateDefenderCountryComboBox(ArrayList<String> defenderCountries) {
+	public void setDefenderCountryComboBox(ArrayList<String> defenderCountries) {
+		Object temp = defenderCountry.getSelectedItem();
 		defenderCountry.removeAllItems();
-		defenderCountry.addItem(defaultSelection);
+		// defenderCountry.addItem(defaultSelection);
 		for (String countryName : defenderCountries)
 			defenderCountry.addItem(countryName);
+
+		defenderCountry.setSelectedItem(temp);
+
+	}
+
+	/**
+	 * Static method to Set the Attacker country
+	 * 
+	 * @return selectedCountry
+	 */
+	public void setAttackerCountry() {
+		Object temp = attackerCountry.getSelectedItem();
+		attackerCountry.removeAllItems();
+
+		for (int i = 0; i < countryList.size(); i++) {
+			ViewCountries tempCountry = countryList.get(i);
+			if (activePlayerId == tempCountry.getPlayerID() && tempCountry.getNoOfArmies() > 1) {
+				attackerCountry.addItem(tempCountry.getCountryName());
+			}
+		}
+		attackerCountry.setSelectedItem(temp);
+	}
+
+	public void setMoveArmies(int count) {
+		attackMoveArmies.removeAllItems();
+		for (int i = 1; i <= count; i++) {
+			attackMoveArmies.addItem(String.valueOf(i));
+		}
+	}
+
+	/**
+	 * Method used to populate value in the attacking dice
+	 * 
+	 * @param allowableDices
+	 *            int
+	 */
+	public void setAttackingDiceComboBox(int allowableDices) {
+		attackerNoOfDice.removeAllItems();
+		for (int i = 1; i <= allowableDices; i++) {
+			attackerNoOfDice.addItem(Integer.toString(i));
+		}
+	}
+
+	/**
+	 * Method used to populate value in the defending dice
+	 * 
+	 * @param allowableDices
+	 *            int
+	 */
+	public void setDefendingDiceComboBox(int allowableDices) {
+		defenderNoOfDice.removeAllItems();
+		for (int i = 1; i <= allowableDices; i++) {
+			defenderNoOfDice.addItem(Integer.toString(i));
+		}
+	}
+
+	/**
+	 * Static method to show number of army the player wants to move in combobox
+	 * 
+	 * @param NoOfArmies
+	 *            int
+	 * 
+	 */
+	public void setNoOfArmyToMoveJcomboBox(int NoOfArmies) {
+		noOfArmyToMoveJcomboBox.removeAllItems();
+		for (Integer i = 0; i < NoOfArmies; i++)
+			noOfArmyToMoveJcomboBox.addItem(i.toString());
+	}
+
+	/**
+	 * Static method to get the Attacker country
+	 * 
+	 * @return selectedCountry
+	 */
+	public static String getAttackerCountry() {
+		if (attackerCountry.getSelectedItem() == null || attackerCountry.getSelectedItem().equals(defaultSelection))
+			return null;
+		else
+			return (String) attackerCountry.getSelectedItem();
+	}
+
+	/**
+	 * Static method to get the Defender country
+	 * 
+	 * @return selectedCountry
+	 */
+	public static String getDefenderCountry() {
+		return (String) defenderCountry.getSelectedItem();
+	}
+
+	/**
+	 * Static method to get the attackerNoOfDice
+	 * 
+	 * @return
+	 */
+	public static String getAttackerNoOfDice() {
+		return (String) attackerNoOfDice.getSelectedItem();
+	}
+
+	/**
+	 * Static method to get the attackerNoOfDice
+	 * 
+	 * @return
+	 */
+	public static String getDefenderNoOfDice() {
+		return (String) defenderNoOfDice.getSelectedItem();
 	}
 
 	/**
@@ -696,7 +805,7 @@ public class GameView implements Observer {
 	public void addActionListenToDefendingCountryList(ActionListener listener) {
 		defenderCountry.addActionListener(listener);
 	}
-	
+
 	/**
 	 * Method used to add Action Listener to Source Country
 	 * 
@@ -716,67 +825,6 @@ public class GameView implements Observer {
 	public void addActionListenToMoveArmyButton(ActionListener listener) {
 		fortificationMoveButton.addActionListener(listener);
 	}
-	
-	/**
-	 * Static method to Set the Attacker country
-	 * 
-	 * @return selectedCountry
-	 */
-	public void setAttackerCountry() {
-		attackerCountry.removeAllItems();
-		attackerCountry.addItem(defaultSelection);
-		for (int i = 0; i < attackingCountryList.size(); i++) {
-			ViewCountries tempCountry = attackingCountryList.get(i);
-			attackerCountry.addItem(tempCountry.getCountryName());
-		}
-	}
-	
-	public void setMoveArmies(int count) {
-		attackMoveArmies.removeAllItems();
-		for(int i=1; i<=count; i++) {
-			attackMoveArmies.addItem(String.valueOf(i));
-		}
-	}
-
-
-	/**
-	 * Static method to get the Attacker country
-	 * 
-	 * @return selectedCountry
-	 */
-	public static String getAttackerCountry() {
-		if(attackerCountry.getSelectedItem() == null || attackerCountry.getSelectedItem().equals(defaultSelection))
-			return null;
-		else 
-			return (String) attackerCountry.getSelectedItem();
-	}
-
-	/**
-	 * Static method to get the Defender country
-	 * 
-	 * @return selectedCountry
-	 */
-	public static String getDefenderCountry() {
-		return (String) defenderCountry.getSelectedItem();
-	}
-
-	/**
-	 * Static method to get the attackerNoOfDice
-	 * 
-	 * @return
-	 */
-	public static String getAttackerNoOfDice() {
-		return (String) attackerNoOfDice.getSelectedItem();
-	}
-
-	/**
-	 * Static method to get the attackerNoOfDice
-	 * 
-	 * @return
-	 */
-	public static String getDefenderNoOfDice() {
-		return (String) defenderNoOfDice.getSelectedItem();
-	}
 
 	/**
 	 * Method for performing action listener on attack Button
@@ -785,7 +833,7 @@ public class GameView implements Observer {
 	 *            ActionListener
 	 */
 	public void addActionListenToAttackButton(ActionListener listener) {
-		this.attackButton.addActionListener(listener);
+		attackButton.addActionListener(listener);
 	}
 
 	/**
@@ -807,13 +855,16 @@ public class GameView implements Observer {
 	public void addActionListenToEndAttackButton(ActionListener listener) {
 		this.endAttackButton.addActionListener(listener);
 	}
-	
 
-	/*
-	 * public static void setAddArmyToCountryJcomboBox(JComboBox<String>
-	 * addArmyToCountryJcomboBox) { GameView.addArmyToCountryJcomboBox =
-	 * addArmyToCountryJcomboBox; }
+	/**
+	 * Method for performing action listener on move armies attack Button
+	 * 
+	 * @param listener
+	 *            ActionListener
 	 */
+	public void addActionListenToAttackMoveArmiesButton(ActionListener listener) {
+		this.moveArmiesButton.addActionListener(listener);
+	}
 
 	public void setSourceCountryComboBox() {
 		sourceCountry.removeAllItems();
@@ -868,68 +919,18 @@ public class GameView implements Observer {
 	}
 
 	/**
-	 * Static method to show number of army the player wants to move in combobox
-	 * 
-	 * @param NoOfArmies
-	 *            int
-	 * 
-	 */
-	public void populateNoOfArmyToMoveJcomboBox(int NoOfArmies) {
-		noOfArmyToMoveJcomboBox.removeAllItems();
-		for (Integer i = 0; i < NoOfArmies; i++)
-			noOfArmyToMoveJcomboBox.addItem(i.toString());
-	}
-	
-	/**
-	 * Method used to populate value in the attacking dice
-	 * 
-	 * @param allowableDices
-	 *            int
-	 */
-	public void populateAttackingDiceComboBox(int allowableDices) {
-		attackerNoOfDice.removeAllItems();
-		for(int i=1; i<= allowableDices;i++) {
-			attackerNoOfDice.addItem(Integer.toString(i));
-		}
-	}
-	
-	/**
-	 * Method used to populate value in the defending dice
-	 * 
-	 * @param allowableDices
-	 *            int
-	 */
-	public void populateDefendingDiceComboBox(int allowableDices) {
-		defenderNoOfDice.removeAllItems();
-		for(int i=1; i<= allowableDices;i++) {
-			defenderNoOfDice.addItem(Integer.toString(i));
-		}
-	}
-	
-	/**
-	 * Method for performing action listener on move armies attack Button
-	 * 
-	 * @param listener
-	 *            ActionListener
-	 */
-	public void addActionListenToAttackMoveArmiesButton(ActionListener listener) {
-		this.moveArmiesButton.addActionListener(listener);
-	}
-	
-	/**
 	 * Static method to get the move armies country
 	 * 
 	 * @return selectedCountry
 	 */
 	public static String getAttackMoveArmies() {
-		if(attackMoveArmies.getSelectedItem() == null)
+		if (attackMoveArmies.getSelectedItem() == null)
 			return null;
-		else 
+		else
 			return (String) attackMoveArmies.getSelectedItem();
 	}
-	
-	public static void AddMessages()
-	{
+
+	public static void AddPhaseMessages() {
 		gamePhaseViewActionsJLabel.removeAll();
 		int strartY = 5;
 		//TOOO: Add JScrollPanel
