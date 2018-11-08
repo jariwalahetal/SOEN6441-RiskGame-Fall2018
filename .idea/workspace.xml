@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/GameView.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -45,8 +45,8 @@
       <file leaf-file-name="GameView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="490" column="55" lean-forward="true" selection-start-line="490" selection-start-column="55" selection-end-line="490" selection-end-column="55" />
+            <state relative-caret-position="3353">
+              <caret line="271" selection-start-line="271" selection-end-line="271" />
               <folding>
                 <element signature="e#1123#1124#0" expanded="true" />
                 <element signature="e#1146#1147#0" expanded="true" />
@@ -102,8 +102,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="216" column="16" lean-forward="true" selection-start-line="216" selection-start-column="16" selection-end-line="216" selection-end-column="16" />
+            <state relative-caret-position="204">
+              <caret line="215" column="16" lean-forward="true" selection-start-line="215" selection-start-column="16" selection-end-line="215" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -360,12 +360,12 @@
       <workItem from="1540947097123" duration="14248000" />
       <workItem from="1541446024026" duration="1323000" />
       <workItem from="1541560654177" duration="6458000" />
-      <workItem from="1541705132701" duration="3347000" />
+      <workItem from="1541705132701" duration="3438000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="174605000" />
+    <option name="totallyTimeSpent" value="174696000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -803,8 +803,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="216" column="16" lean-forward="true" selection-start-line="216" selection-start-column="16" selection-end-line="216" selection-end-column="16" />
+        <state relative-caret-position="204">
+          <caret line="215" column="16" lean-forward="true" selection-start-line="215" selection-start-column="16" selection-end-line="215" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -817,8 +817,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="490" column="55" lean-forward="true" selection-start-line="490" selection-start-column="55" selection-end-line="490" selection-end-column="55" />
+        <state relative-caret-position="3353">
+          <caret line="271" selection-start-line="271" selection-end-line="271" />
           <folding>
             <element signature="e#1123#1124#0" expanded="true" />
             <element signature="e#1146#1147#0" expanded="true" />
