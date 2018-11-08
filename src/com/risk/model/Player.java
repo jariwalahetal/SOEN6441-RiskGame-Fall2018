@@ -36,7 +36,15 @@ public class Player {
 	// TODO: implement lost logic in game check whole flow
 	private boolean isLost = false;
 	private ArrayList<Integer> diceOutComes = new ArrayList<>();
+	private Boolean eligibleForCard = false;
 
+	public Boolean isEligibleForCard() {
+		return eligibleForCard;
+	}
+
+	public void setEligibleForCard(Boolean eligibleForCard) {
+		this.eligibleForCard = eligibleForCard;
+	}
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
@@ -304,6 +312,7 @@ public class Player {
 		}
 		sourceCountry.decreaseArmyCount(noOfArmies);
 		destinationCountry.increaseArmyCount(noOfArmies);
+		
 		return true;
 
 	}
@@ -553,6 +562,7 @@ public class Player {
 			attackingCountry.decreaseArmyCount(1);
 			defendingCountry.increaseArmyCount(1);
 			isConquered = true;
+			eligibleForCard = true;
 			if (defenderPlayer.getAssignedCountryList().size() == 0) {
 				ArrayList<CardEnum> defenderCards = defenderPlayer.getCards();
 
@@ -572,7 +582,8 @@ public class Player {
 	}
 
 	public boolean MoveArmyAfterAttack(int armiesCount) {
-			if (attackingCountry == null || attackedCountry == null) {
+		if(isConquered)
+		{	if (attackingCountry == null || attackedCountry == null) {
 				IOHelper.print("Source or destination country is invalid!");
 				return false;
 			}
@@ -580,7 +591,11 @@ public class Player {
 			attackingCountry.decreaseArmyCount(armiesCount);
 			attackedCountry.increaseArmyCount(armiesCount);
 			isConquered = false;
-			return true;
+			return true;}
+		else 
+		{		IOHelper.print("Need to conquer country first");
+			return false;
+		}
 	}
 
 	/**

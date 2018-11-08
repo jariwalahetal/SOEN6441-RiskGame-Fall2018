@@ -326,15 +326,6 @@ public class Game extends Observable {
 		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {
 			this.setGamePhase(PhaseEnum.Reinforcement);
 		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
-			if (getCurrentPlayer().GetCountryDefendedInCurrentTurn() > 0) {
-				CardEnum card = this.getCardFromDeck();
-				if (card == null) {
-					IOHelper.print("No card available");
-				} else {
-					this.getCurrentPlayer().addCardToPlayer(card);
-				}
-			}
-
 			gamePhase = PhaseEnum.Fortification;
 			notifyObserverslocal(this);
 		}
@@ -444,6 +435,17 @@ public class Game extends Observable {
 	public boolean fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
 
 		getCurrentPlayer().fortificationPhase(sourceCountryName, destinationCountryName, noOfArmies);
+		
+		if (getCurrentPlayer().isEligibleForCard())
+		{	CardEnum card = getCardFromDeck();
+			if (card == null) {
+				IOHelper.print("No card available");
+			} else {
+				getCurrentPlayer().addCardToPlayer(card);
+			}
+			getCurrentPlayer().setEligibleForCard(false);
+		}
+		
 		this.setNextPlayerTurn();
 		setGamePhase(PhaseEnum.Reinforcement);
 		reinforcementPhaseSetup();
