@@ -31,7 +31,7 @@ public class Game extends Observable {
 	private ArrayList<Integer> defendingDicesList = new ArrayList<>();
 	private boolean moveArmyToDefender = false;
 	private ArrayList<CardEnum> gameCards = new ArrayList<>();
-	
+
 	/**
 	 * This is a constructor of Game class which will initialize the Map
 	 * 
@@ -62,67 +62,78 @@ public class Game extends Observable {
 		if (currentPlayerId == playerList.size())
 			currentPlayerId = 0;
 	}
+
 	/**
-	 * This function returns a hash map which contains player id of all the players with their percentage of map acquired.
+	 * This function returns a hash map which contains player id of all the players
+	 * with their percentage of map acquired.
+	 * 
 	 * @return returnMap hash map of player id to percentage of map acquired.
 	 */
 	public HashMap<Integer, Float> getPercentageOfMapControlledForEachPlayer() {
 		HashMap<Integer, Float> returnMap = new HashMap<Integer, Float>();
 		float totalCountries = 0;
-		ArrayList<Continent> allContinents =  this.map.getContinentList(); 
-		for(Continent continent:allContinents) {
-			ArrayList<Country> country= continent.getCountryList();
+		ArrayList<Continent> allContinents = this.map.getContinentList();
+		for (Continent continent : allContinents) {
+			ArrayList<Country> country = continent.getCountryList();
 			totalCountries = totalCountries + country.size();
 		}
-		for(Player player :this.playerList) {
+		for (Player player : this.playerList) {
 			float playerNumberOfCountries = player.getAssignedCountryList().size();
-			float percentage = (playerNumberOfCountries/totalCountries)*100;
-			returnMap.put(player.getPlayerId(),percentage);
+			float percentage = (playerNumberOfCountries / totalCountries) * 100;
+			returnMap.put(player.getPlayerId(), percentage);
 		}
 		return returnMap;
 	}
+
 	/**
-	 * This function returns a hash map which contains player id of all the players with the number of continents they acquire.
-	 * @return returnMap hash map of player id to total number of continents acquired.
+	 * This function returns a hash map which contains player id of all the players
+	 * with the number of continents they acquire.
+	 * 
+	 * @return returnMap hash map of player id to total number of continents
+	 *         acquired.
 	 */
 	public HashMap<Integer, Integer> getNumberOfContinentsControlledForEachPlayer() {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
-		ArrayList<Continent> allContinents =  this.map.getContinentList(); 
-		for(Player player :this.playerList) {
+		ArrayList<Continent> allContinents = this.map.getContinentList();
+		for (Player player : this.playerList) {
 			boolean goToOuterLoop = false;
 			int numberOfContinentsAquired = 0;
-			for(Continent continent:allContinents) {
-				for(Country country:  continent.getCountryList()) {
-					if(player.getAssignedCountryList().contains(country)) {
-						//nada
-					}else {
+			for (Continent continent : allContinents) {
+				for (Country country : continent.getCountryList()) {
+					if (player.getAssignedCountryList().contains(country)) {
+						// nada
+					} else {
 						goToOuterLoop = true;
 						break;
 					}
 				}
-				if(goToOuterLoop) {
+				if (goToOuterLoop) {
 					goToOuterLoop = false;
 					continue;
 				}
-				numberOfContinentsAquired ++;
+				numberOfContinentsAquired++;
 			}
 			returnMap.put(player.getPlayerId(), numberOfContinentsAquired);
 		}
 		return returnMap;
 	}
+
 	/**
-	 * This function returns a hash map which contains player id of all the players with the number of armies they acquire.
+	 * This function returns a hash map which contains player id of all the players
+	 * with the number of armies they acquire.
+	 * 
 	 * @return returnMap hash map of player id to total number of armies acquired.
 	 */
 	public HashMap<Integer, Integer> getNumberOfArmiesForEachPlayer() {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
-		for(Player player :this.playerList) {
-			for(Country country :player.getAssignedCountryList()) {
+		for (Player player : this.playerList) {
+			for (Country country : player.getAssignedCountryList()) {
 				returnMap.put(player.getPlayerId(), country.getnoOfArmies());
 			}
 		}
 		return returnMap;
 	}
+
 	/**
 	 * This function returns the current player object
 	 * 
@@ -132,7 +143,7 @@ public class Game extends Observable {
 		Player currentPlayer = playerList.get(currentPlayerId);
 		return currentPlayer;
 	}
-	
+
 	/**
 	 * Method to get enum for game phase
 	 * 
@@ -151,7 +162,7 @@ public class Game extends Observable {
 	public void setGamePhase(PhaseEnum gamePhase) {
 		this.gamePhase = gamePhase;
 	}
-		
+
 	/**
 	 * This function will add the player to the game(playerList)
 	 * 
@@ -191,12 +202,12 @@ public class Game extends Observable {
 		int noOfArmies = this.getCurrentPlayer().getArmiesAssignedToCountry(sourceCountryName);
 		return noOfArmies;
 	}
-	
+
 	private Boolean phaseCheckValidation(PhaseEnum phase) {
 		if (phase == this.gamePhase)
 			return true;
-		else
-		{	return false;
+		else {
+			return false;
 		}
 	}
 
@@ -209,21 +220,20 @@ public class Game extends Observable {
 	private void notifyObserverslocal(Game game) {
 		setChanged();
 		notifyObservers(this);
-	}	
-	
+	}
+
 	/**
 	 * Get country object from country name
 	 * 
 	 * @return Country
 	 */
-	public Country getCountryFromName(String countryName)
-	{  	Country attackerCountry = map.getCountryList().stream()
-					.filter(x -> x.getCountryName().equals(countryName))
-					.findAny().orElse(null);
-			
-			return attackerCountry;
+	public Country getCountryFromName(String countryName) {
+		Country attackerCountry = map.getCountryList().stream().filter(x -> x.getCountryName().equals(countryName))
+				.findAny().orElse(null);
+
+		return attackerCountry;
 	}
-						
+
 	/**
 	 * This function will randomly assign Countries to all players and assign one
 	 * army to each country for a player
@@ -232,7 +242,7 @@ public class Game extends Observable {
 	public void startUpPhase() {
 
 		initilizeCardDeck();
-		
+
 		int noOfInitialArmies = InitialPlayerSetup.getInitialArmyCount(playerList.size());
 		for (int i = 0; i < playerList.size(); i++) {
 			playerList.get(i).setNoOfUnassignedArmies(noOfInitialArmies);
@@ -271,8 +281,7 @@ public class Game extends Observable {
 	 *            name of the country
 	 */
 	public void addArmyToCountry(String countryName) {
-		if (phaseCheckValidation(PhaseEnum.Attack) || 
-				phaseCheckValidation(PhaseEnum.Fortification)) {
+		if (phaseCheckValidation(PhaseEnum.Attack) || phaseCheckValidation(PhaseEnum.Fortification)) {
 			IOHelper.print("Cannot add army in attack or fortification phase");
 			return;
 		}
@@ -303,9 +312,10 @@ public class Game extends Observable {
 			if (pendingPlayersCount == 0) {
 				this.setGamePhase(PhaseEnum.Reinforcement);
 				currentPlayerId = 0;
-				/*if(!getCurrentPlayer().IsCardsAvailableForTradeInReinforcement()) {
-					reinforcementPhaseSetup();
-				}*/
+				/*
+				 * if(!getCurrentPlayer().IsCardsAvailableForTradeInReinforcement()) {
+				 * reinforcementPhaseSetup(); }
+				 */
 				reinforcementPhaseSetup();
 
 			}
@@ -314,28 +324,26 @@ public class Game extends Observable {
 			if (getCurrentPlayer().getNoOfReinforcedArmies() == 0) {
 
 				// We don't need to implement attack for now
-				this.setGamePhase(PhaseEnum.Attack);			
-				//Reset number of defended countries count
+				this.setGamePhase(PhaseEnum.Attack);
+				// Reset number of defended countries count
 				this.getCurrentPlayer().ResetCountryDefendedInCurrentTurn();
-		}
+			}
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {
 			this.setGamePhase(PhaseEnum.Reinforcement);
-		}
-		else if (this.phaseCheckValidation(PhaseEnum.Attack))
-		{	if(getCurrentPlayer().GetCountryDefendedInCurrentTurn() > 0) {
-    		CardEnum card = this.getCardFromDeck();
-    		if(card == null) {
-    			IOHelper.print("No card available");
-    		}
-    		else {
-    			this.getCurrentPlayer().addCardToPlayer(card);
-    		}
-    	}
-			
+		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
+			if (getCurrentPlayer().GetCountryDefendedInCurrentTurn() > 0) {
+				CardEnum card = this.getCardFromDeck();
+				if (card == null) {
+					IOHelper.print("No card available");
+				} else {
+					this.getCurrentPlayer().addCardToPlayer(card);
+				}
+			}
+
 			gamePhase = PhaseEnum.Fortification;
-		    notifyObserverslocal(this);
-	    }
+			notifyObserverslocal(this);
+		}
 	}
 
 	/**
@@ -345,64 +353,101 @@ public class Game extends Observable {
 	 */
 	public int getMaximumAllowableDices(String countryName, String playerStatus) {
 		int allowableAttackingArmies = 0;
-		if(phaseCheckValidation(PhaseEnum.Attack)) {	
-			//Will also add validation if the attacker is assigned to player or not
-			
+		if (phaseCheckValidation(PhaseEnum.Attack)) {
+			// Will also add validation if the attacker is assigned to player or not
+
 			Country c = this.getCountryFromName(countryName);
-			
-			if (c!=null) {
+
+			if (c != null) {
 				allowableAttackingArmies = getCurrentPlayer().getMaximumAllowableDices(c, playerStatus);
-				}			
+			}
 		}
 		return allowableAttackingArmies;
 	}
-	
+
 	/**
 	 * Method for performing attack phase
 	 */
-	public Boolean attackPhase(String attackingCountry, String defendingCountry, int attackingDiceCount, int defendingDiceCount) {
+	public Boolean attackPhase(String attackingCountry, String defendingCountry, int attackingDiceCount,
+			int defendingDiceCount) {
 		Common.PhaseActions.clear();
-		
+
 		Country attCountry = getCountryFromName(attackingCountry);
-		Country defCountry = getCountryFromName(defendingCountry);		
-		
-		if( attCountry== null || defCountry == null)
-		{   IOHelper.print("Set attacking and defending countries first");
+		Country defCountry = getCountryFromName(defendingCountry);
+
+		if (attCountry == null || defCountry == null) {
+			IOHelper.print("Set attacking and defending countries first");
 			return false;
 		}
-		
-		if(defCountry.getnoOfArmies() < defendingDiceCount)
-		{   IOHelper.print("Defender has no sufficient armies");
+
+		if (defCountry.getnoOfArmies() < defendingDiceCount) {
+			IOHelper.print("Defender has no sufficient armies");
 			return false;
 		}
-		
-		attackingDicesList.clear();
-		defendingDicesList.clear();
-		
-		for(int i=0; i< attackingDiceCount; i++) {
-			attackingDicesList.add(Common.getRandomNumberInRange(1, 6));
-		}
-		
-		for(int i=0;i<defendingDiceCount; i++) {
-			defendingDicesList.add(Common.getRandomNumberInRange(1, 6));
-		}
-		
-		Player defenderPlayer = playerList.stream()
-				.filter(p -> p.getAssignedCountryList().contains(defCountry))
+
+		Player defenderPlayer = playerList.stream().filter(p -> p.getAssignedCountryList().contains(defCountry))
 				.findAny().orElse(null);
-		
-		if(defenderPlayer == null) {
+
+		if (defenderPlayer == null) {
 			IOHelper.print("Cannot find defender player");
 			return false;
 		}
-		
-		if(this.getCurrentPlayer().attackPhase(defenderPlayer,
-				attCountry, defCountry,
-				attackingDicesList, defendingDicesList))
-		{
+
+		attackingDicesList = rollDice(attackingDiceCount);
+		defendingDicesList = rollDice(defendingDiceCount);
+
+		if (this.getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDicesList,
+				defendingDicesList)) {
 		}
 		notifyObserverslocal(this);
-		
+
+		return true;
+	}
+
+	private ArrayList<Integer> rollDice(int diceCount) {
+		ArrayList<Integer> diceOutComes = new ArrayList<Integer>();
+		for (int i = 0; i < diceCount; i++) {
+			diceOutComes.add(Common.getRandomNumberInRange(1, 6));
+
+		}
+		return diceOutComes;
+	}
+
+	/**
+	 * Method for performing attack phase
+	 */
+	public Boolean attackAllOutPhase(String attackingCountry, String defendingCountry) {
+		Common.PhaseActions.clear();
+
+		Country attCountry = getCountryFromName(attackingCountry);
+		Country defCountry = getCountryFromName(defendingCountry);
+
+		if (attCountry == null || defCountry == null) {
+			IOHelper.print("Set attacking and defending countries first");
+			return false;
+		}
+
+		Player defenderPlayer = playerList.stream().filter(p -> p.getAssignedCountryList().contains(defCountry))
+				.findAny().orElse(null);
+
+		if (defenderPlayer == null) {
+			IOHelper.print("Cannot find defender player");
+			return false;
+		}
+
+		while ((!getCurrentPlayer().isConquered) && attCountry.getnoOfArmies() > 1) {
+			int attackingDiceCount = this.getMaximumAllowableDices(attackingCountry, "Attacker");
+			int defendingDiceCount = this.getMaximumAllowableDices(defendingCountry, "Defender");
+
+			attackingDicesList = rollDice(attackingDiceCount);
+			defendingDicesList = rollDice(defendingDiceCount);
+
+			if (getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDicesList,
+					defendingDicesList)) {
+			}
+		}
+		notifyObserverslocal(this);
+
 		return true;
 	}
 
@@ -435,128 +480,127 @@ public class Game extends Observable {
 		ArrayList<Continent> continents = map.getContinentList();
 		this.getCurrentPlayer().setReinformcementArmies(continents);
 	}
-	
+
 	/**
-     * Move armies after player win in attack
-     * 
-     * @param noOfArmies Integer
-     * @return
-     */
-    public boolean MoveArmyAfterAttack(int noOfArmies)
-    {   boolean result = getCurrentPlayer().MoveArmyAfterAttack(noOfArmies);
-    	if(result)
-    	{  notifyObserverslocal(this);
-    	}
-    	return result;
-    }
-	    
-    /**
-     * To inilize list of cards
-     */
-    private void initilizeCardDeck() {
-    	int countriesCount = map.getCountryList().size();
-    	
-    	gameCards.clear();
-    	
+	 * Move armies after player win in attack
+	 * 
+	 * @param noOfArmies
+	 *            Integer
+	 * @return
+	 */
+	public boolean MoveArmyAfterAttack(int noOfArmies) {
+		boolean result = getCurrentPlayer().MoveArmyAfterAttack(noOfArmies);
+		if (result) {
+			notifyObserverslocal(this);
+		}
+		return result;
+	}
+
+	/**
+	 * To inilize list of cards
+	 */
+	private void initilizeCardDeck() {
+		int countriesCount = map.getCountryList().size();
+
+		gameCards.clear();
+
 		// Here creating the list of cards
-    	int t = 0;
+		int t = 0;
 		for (int i = 0; i < countriesCount; i++) {
-			if(t == 0) {
+			if (t == 0) {
 				gameCards.add(CardEnum.Artillery);
-			}
-			else if(t == 1) {
+			} else if (t == 1) {
 				gameCards.add(CardEnum.Cavalry);
-			}
-			else if(t==2){
+			} else if (t == 2) {
 				gameCards.add(CardEnum.Infantry);
 			}
 			t++;
-			if(t==3) t=0;
+			if (t == 3)
+				t = 0;
 		}
 
 		// Shuffling the list for randomness
 		Collections.shuffle(gameCards, new Random());
-    }
-    
-    /**
-     * Returns a card from deck (note this function will remove card from deck
-     * So assign to player immediately
-     * @return CardEnum
-     */
-    private CardEnum getCardFromDeck()
-    {
-	    if(gameCards.size() > 0) {
-	    	CardEnum card = gameCards.get(0);
-	    	gameCards.remove(card);
-	    	return card;
-    	}
-    	return null;
-    }
-    
-    /**
-     * Adds the given card again to deck at random position
-     * @param card
-     */
-    private void addCardToDeck(CardEnum card) {
-    	int random = 0;
-    	if(gameCards.size() > 0) {
-    		random = Common.getRandomNumberInRange(0, gameCards.size() - 1);
-    	}
-    	gameCards.add(random, card);
-    }
-    
-    /**
-     * Trade cards to armies
-     * @param cards
-     * @return
-     */
-    public boolean tradeCards(ArrayList<CardEnum> cards) {
-    	if(cards.size() == 3) {
-    		
-    		CardEnum firstCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(0))
-					.findFirst().orElse(null);
+	}
 
-			CardEnum secondCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(1))
-					.findFirst().orElse(null);
-			
-			CardEnum thirdCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(2))
-					.findFirst().orElse(null);
-    		
-    		if(firstCard == null || secondCard == null || thirdCard==null) {
-    			IOHelper.print("One of the card doesn't belong to player");
-    			return false;
-    		}
-    		
-    		boolean isAllSameTypeOfCards = (firstCard == secondCard) && (secondCard == thirdCard);
-    		boolean isAllDifferentTypeOfCars = (firstCard != secondCard) &&
-    											(secondCard != thirdCard) &&
-    											(firstCard != thirdCard);
-    	
-    		if(isAllDifferentTypeOfCars || isAllDifferentTypeOfCars) {
-    			int tradingCount = getCurrentPlayer().getTradingCount() + 1;
-    			int tradingArmies = GetArmiesByTrading.getArmies(tradingCount);
-    			
-    			//Remove cards from player
-    			getCurrentPlayer().getCards().remove(firstCard);
-    			getCurrentPlayer().getCards().remove(secondCard);
-    			getCurrentPlayer().getCards().remove(thirdCard);
-    			
-    			//Add cards to deck
-    			addCardToDeck(firstCard);
-    			addCardToDeck(secondCard);
-    			addCardToDeck(thirdCard);
-    			
-    			//set trade armies
-    			this.getCurrentPlayer().setNoOfTradedArmies(tradingArmies);
-    			this.getCurrentPlayer().setTradingCount(tradingCount);
-    		}
-    		else {
-    			IOHelper.print("Provide either all same type of cards or one of each kind of card");
-    		}
-    	}
-    	else {
-    		IOHelper.print("Provide three set of cards");
-    	}
-    	return false;
-    }
+	/**
+	 * Returns a card from deck (note this function will remove card from deck So
+	 * assign to player immediately
+	 * 
+	 * @return CardEnum
+	 */
+	private CardEnum getCardFromDeck() {
+		if (gameCards.size() > 0) {
+			CardEnum card = gameCards.get(0);
+			gameCards.remove(card);
+			return card;
+		}
+		return null;
+	}
+
+	/**
+	 * Adds the given card again to deck at random position
+	 * 
+	 * @param card
+	 */
+	private void addCardToDeck(CardEnum card) {
+		int random = 0;
+		if (gameCards.size() > 0) {
+			random = Common.getRandomNumberInRange(0, gameCards.size() - 1);
+		}
+		gameCards.add(random, card);
+	}
+
+	/**
+	 * Trade cards to armies
+	 * 
+	 * @param cards
+	 * @return
+	 */
+	public boolean tradeCards(ArrayList<CardEnum> cards) {
+		if (cards.size() == 3) {
+
+			CardEnum firstCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(0)).findFirst()
+					.orElse(null);
+
+			CardEnum secondCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(1)).findFirst()
+					.orElse(null);
+
+			CardEnum thirdCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(2)).findFirst()
+					.orElse(null);
+
+			if (firstCard == null || secondCard == null || thirdCard == null) {
+				IOHelper.print("One of the card doesn't belong to player");
+				return false;
+			}
+
+			boolean isAllSameTypeOfCards = (firstCard == secondCard) && (secondCard == thirdCard);
+			boolean isAllDifferentTypeOfCars = (firstCard != secondCard) && (secondCard != thirdCard)
+					&& (firstCard != thirdCard);
+
+			if (isAllDifferentTypeOfCars || isAllDifferentTypeOfCars) {
+				int tradingCount = getCurrentPlayer().getTradingCount() + 1;
+				int tradingArmies = GetArmiesByTrading.getArmies(tradingCount);
+
+				// Remove cards from player
+				getCurrentPlayer().getCards().remove(firstCard);
+				getCurrentPlayer().getCards().remove(secondCard);
+				getCurrentPlayer().getCards().remove(thirdCard);
+
+				// Add cards to deck
+				addCardToDeck(firstCard);
+				addCardToDeck(secondCard);
+				addCardToDeck(thirdCard);
+
+				// set trade armies
+				this.getCurrentPlayer().setNoOfTradedArmies(tradingArmies);
+				this.getCurrentPlayer().setTradingCount(tradingCount);
+			} else {
+				IOHelper.print("Provide either all same type of cards or one of each kind of card");
+			}
+		} else {
+			IOHelper.print("Provide three set of cards");
+		}
+		return false;
+	}
 }
