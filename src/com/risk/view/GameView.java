@@ -216,6 +216,7 @@ public class GameView implements Observer {
 
 	// Phase View Actions Label
 	private static JLabel gamePhaseViewActionsJLabel;
+	private static JScrollPane gamePhaseViewJScrollPane;
 
 	// Initialization Label
 	private static JLabel initializationJlabel;
@@ -503,13 +504,19 @@ public class GameView implements Observer {
 	 * Method to display the actions performed during each phase
 	 */
 	public void loadingPhaseActionLabel() {
-		gamePhaseViewActionsJLabel = new JLabel();
+		/*gamePhaseViewActionsJLabel = new JLabel();
 		gamePhaseViewActionsJLabel.setBorder(
 				BorderFactory.createTitledBorder(null, "Phase Actions Performed", TitledBorder.DEFAULT_JUSTIFICATION,
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		gamePhaseViewActionsJLabel.setBounds(reinforcementsJlabel.getX(),
 				gamePhaseJLabel.getY() + 10 + gamePhaseJLabel.getHeight(), gamePhaseJLabel.getWidth(), 70);
-		gameActionJpanel.add(gamePhaseViewActionsJLabel);
+		//gamePhaseViewJScrollPane = new JScrollPane();
+		//gamePhaseViewActionsJLabel.add(gamePhaseViewJScrollPane);*/
+		gamePhaseViewJScrollPane = new JScrollPane();
+		gamePhaseViewJScrollPane.setBounds(gamePhaseJLabel.getX(),gamePhaseJLabel.getY()+10+gamePhaseJLabel.getHeight(),
+                gamePhaseJLabel.getWidth(),50);
+        gamePhaseViewJScrollPane.setBorder(new TitledBorder("Phase Actions Performed"));
+		gameActionJpanel.add(gamePhaseViewJScrollPane);
 		
 		
 	}
@@ -595,10 +602,7 @@ public class GameView implements Observer {
 			if (game.getGamePhase() == PhaseEnum.Startup) {
 				gamePhaseNameJLabel.setText("Initialization");
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
-				if(game.getCurrentPlayer().getCards().size() > 3) {
-				CardExchangeView cardExchangeView=new CardExchangeView();
-				cardExchangeView.exchangeInitializerView();
-				}
+
 				gamePhaseNameJLabel.setText("Reinforcement");
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
 				gamePhaseNameJLabel.setText("Attack Phase");
@@ -930,12 +934,17 @@ public class GameView implements Observer {
 		int strartY = 5;
 		//TOOO: Add JScrollPanel
 		for(String message: Common.PhaseActions) {
+		   // JScrollPane scrollPane = new JScrollPane();
 			JLabel textLabel = new JLabel(message)	;
 			Font font = new Font("Courier", Font.ITALIC, 10);
 			textLabel.setFont(font);
 			textLabel.setBounds(15, strartY, 220, 40);
 			strartY = strartY + 15;
-			gamePhaseViewActionsJLabel.add(textLabel);
+			//scrollPane.add(textLabel);
+			//gamePhaseViewJScrollPane = new JScrollPane(textLabel);
+            //gamePhaseViewActionsJLabel.add(gamePhaseViewJScrollPane);
+//			gamePhaseViewActionsJLabel.add(textLabel);
+            gamePhaseViewJScrollPane.add(textLabel);
 		}
 	}
 

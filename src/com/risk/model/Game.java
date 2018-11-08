@@ -299,6 +299,7 @@ public class Game extends Observable {
 				if(!getCurrentPlayer().IsCardsAvailableForTradeInReinforcement()) {
 					reinforcementPhaseSetup();
 				}
+				reinforcementPhaseSetup();
 
 			}
 		} else if (this.getGamePhase() == gamePhase.Reinforcement) {
@@ -532,13 +533,6 @@ public class Game extends Observable {
 		return neighborCountriesName;
 	}
 
-	/**
-	 * Method to get neighbouring countries of a given country for attack Phase
-	 * 
-	 * @param sourceCountryName,
-	 *            name of the source country of player
-	 * @return ArrayList , returning array list of countries.
-	 */
 	public ArrayList<String> getNeighbouringCountriesForAttack() {
 
 		ArrayList<String> neighborCountriesName = new ArrayList<>();
