@@ -214,8 +214,9 @@ public class GameController {
 	/**
 	 * This function creates the player objects for initializing Game
 	 */
-	private void initializeGame(Map map) {
+	private void initializeGame(Map map) {		
 		game = new Game(map);
+		
 		gameView = new GameView();
 		game.addObserver(gameView);
 		IOHelper.print("\nEnter the number of Players:");

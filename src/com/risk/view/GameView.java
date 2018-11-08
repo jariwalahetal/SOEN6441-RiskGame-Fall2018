@@ -269,7 +269,7 @@ public class GameView implements Observer {
 		loadingFortificationLabel();
 		loadingPhaseLabel();
 		loadingPhaseActionLabel();
-		loadPlayerWorldDominationView();
+		//loadPlayerWorldDominationView();
 		gameJframe.setSize(1250, 700);
 		gameJframe.setVisible(true);
 		gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

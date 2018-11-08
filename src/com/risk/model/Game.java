@@ -535,16 +535,16 @@ public class Game extends Observable {
 	 * @param cards
 	 * @return
 	 */
-	public boolean tradeCards(ArrayList<CardEnum> cards) {
+	public boolean tradeCards(ArrayList<String> cards) {
 		if (cards.size() == 3) {
 
-			CardEnum firstCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(0)).findFirst()
+			CardEnum firstCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(0))).findFirst()
 					.orElse(null);
 
-			CardEnum secondCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(1)).findFirst()
+			CardEnum secondCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(1))).findFirst()
 					.orElse(null);
 
-			CardEnum thirdCard = getCurrentPlayer().getCards().stream().filter(x -> x == cards.get(2)).findFirst()
+			CardEnum thirdCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(2))).findFirst()
 					.orElse(null);
 
 			if (firstCard == null || secondCard == null || thirdCard == null) {
