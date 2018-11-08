@@ -71,7 +71,6 @@ public class CardExchangeView implements Observer  {
 		exchangeButton.setBounds(120, 255, 160, 40);
 		exchangeButton.addActionListener(new ActionListener() {
 
-
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<String> selectedCards = (ArrayList<String>)palyerOwnedCard.getSelectedValuesList();
 				game.tradeCards(selectedCards);
