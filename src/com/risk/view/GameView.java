@@ -270,7 +270,8 @@ public class GameView implements Observer {
 		loadingPhaseLabel();
 		loadingPhaseActionLabel();
 		loadPlayerWorldDominationView();
-		gameJframe.setSize(1250, 700);
+		gameJframe.setSize(1250, 750);
+		gameJframe.setLocationRelativeTo(null);
 		gameJframe.setVisible(true);
 		gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -519,8 +520,8 @@ public class GameView implements Observer {
 
 	public void loadPlayerWorldDominationView() {
 		playerWorldDominationViewJButton = new JButton("Player World Domination View");
-		playerWorldDominationViewJButton.setBounds(gamePhaseViewActionsJLabel.getX(),
-				gamePhaseViewActionsJLabel.getY() + 10 + gamePhaseViewActionsJLabel.getHeight(),
+		playerWorldDominationViewJButton.setBounds(gamePhaseViewJScrollPane.getX(),
+				gamePhaseViewJScrollPane.getY() + 10 + gamePhaseViewJScrollPane.getHeight(),
 				destinationCountry.getWidth(), destinationCountry.getHeight());
 		playerWorldDominationViewJButton.addActionListener(new ActionListener() {
 			@Override

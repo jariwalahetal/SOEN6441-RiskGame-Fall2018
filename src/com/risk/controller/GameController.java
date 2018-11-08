@@ -66,7 +66,8 @@ public class GameController {
 				IOHelper.print("\nInvalid choice. Select Again!\n");
 			}
 		} catch (Exception e) {
-			IOHelper.printException(e);
+			//IOHelper.printException(e);
+			e.printStackTrace();
 			IOHelper.print("Please try again with the right option");
 		}
 
