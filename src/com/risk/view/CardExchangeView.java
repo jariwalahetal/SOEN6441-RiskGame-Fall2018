@@ -68,9 +68,9 @@ public class CardExchangeView {
 		exchangeButton.setBounds(120, 255, 160, 40);
 		exchangeButton.addActionListener(new ActionListener() {
 
-			ArrayList<String> selectedCards = (ArrayList<String>) palyerOwnedCard.getSelectedValuesList();
 
 			public void actionPerformed(ActionEvent e) {
+				ArrayList<String> selectedCards = (ArrayList<String>)palyerOwnedCard.getSelectedValuesList();
 				game.tradeCards(selectedCards);
 			}
 		});
