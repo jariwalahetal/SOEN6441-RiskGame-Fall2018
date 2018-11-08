@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.Observable;
 import java.util.Random;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Observable;
-import java.util.Random;
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
 import com.risk.helper.GetArmiesByTrading;
@@ -27,8 +24,6 @@ public class Game extends Observable {
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
 	private Map map;
-	private ArrayList<Integer> attackingDicesList = new ArrayList<>();
-	private ArrayList<Integer> defendingDicesList = new ArrayList<>();
 	private boolean moveArmyToDefender = false;
 	private ArrayList<CardEnum> gameCards = new ArrayList<>();
 
@@ -393,24 +388,12 @@ public class Game extends Observable {
 			return false;
 		}
 
-		attackingDicesList = rollDice(attackingDiceCount);
-		defendingDicesList = rollDice(defendingDiceCount);
-
-		if (this.getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDicesList,
-				defendingDicesList)) {
-		}
+		getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount,
+				defendingDiceCount);
+		
 		notifyObserverslocal(this);
 
 		return true;
-	}
-
-	private ArrayList<Integer> rollDice(int diceCount) {
-		ArrayList<Integer> diceOutComes = new ArrayList<Integer>();
-		for (int i = 0; i < diceCount; i++) {
-			diceOutComes.add(Common.getRandomNumberInRange(1, 6));
-
-		}
-		return diceOutComes;
 	}
 
 	/**
@@ -439,12 +422,8 @@ public class Game extends Observable {
 			int attackingDiceCount = this.getMaximumAllowableDices(attackingCountry, "Attacker");
 			int defendingDiceCount = this.getMaximumAllowableDices(defendingCountry, "Defender");
 
-			attackingDicesList = rollDice(attackingDiceCount);
-			defendingDicesList = rollDice(defendingDiceCount);
-
-			if (getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDicesList,
-					defendingDicesList)) {
-			}
+            getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount,
+					defendingDiceCount);
 		}
 		notifyObserverslocal(this);
 

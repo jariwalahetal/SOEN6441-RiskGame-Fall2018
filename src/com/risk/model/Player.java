@@ -35,6 +35,8 @@ public class Player {
 	private int countryDefendedInCurrentTurn = 0;
 	// TODO: implement lost logic in game check whole flow
 	private boolean isLost = false;
+	private ArrayList<Integer> diceOutComes = new ArrayList<>();
+
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
@@ -468,6 +470,17 @@ public class Player {
 		return neighborCountriesName;
 	}
 
+/**
+ * This method will roll a Dice	
+ * @param diceCount
+ * @return
+ */
+	private void rollDice(int diceCount) {
+		for (int i = 0; i < diceCount; i++) {
+		   diceOutComes.add(Common.getRandomNumberInRange(1, 6));
+		}
+	}
+	
 	/**
 	 * This method will process attack on given player
 	 * 
@@ -483,27 +496,33 @@ public class Player {
 	 *            defending dices
 	 * @return true if suceessful
 	 */
-	public boolean attackPhase(Player defenderPlayer, Country attackingCountry, Country defendingCountry,
-			ArrayList<Integer> attackingDices, ArrayList<Integer> denfendingDices) {
+	public void attackPhase(Player defenderPlayer, Country attackingCountry, Country defendingCountry,
+			int attackingDiceCount, int defendingDiceCount) {
+		
+		rollDice(attackingDiceCount);
+		defenderPlayer.rollDice(defendingDiceCount);
+		ArrayList<Integer> attackingDices = diceOutComes;		
+		ArrayList<Integer> defendingDices = defenderPlayer.diceOutComes;
+		
 		IOHelper.print("Attacker's dices -- " + attackingDices);
 		Common.PhaseActions.add("Attacker's dices -- " + attackingDices);
 
-		IOHelper.print("Defender's dices -- " + denfendingDices);
-		Common.PhaseActions.add("Defender's dices -- " + denfendingDices);
+		IOHelper.print("Defender's dices -- " + defendingDices);
+		Common.PhaseActions.add("Defender's dices -- " + defendingDices);
 
 		this.attackingCountry = attackingCountry;
 		this.attackedCountry = defendingCountry;
 
 		Collections.sort(attackingDices, Collections.reverseOrder());
-		Collections.sort(denfendingDices, Collections.reverseOrder());
+		Collections.sort(defendingDices, Collections.reverseOrder());
 
-		int totalComparisions = attackingDices.size() < denfendingDices.size() ? attackingDices.size()
-				: denfendingDices.size();
+		int totalComparisions = attackingDices.size() < defendingDices.size() ? attackingDices.size()
+				: defendingDices.size();
 
 		for (int i = 0; i < totalComparisions; i++) {
 
 			int attackerDice = attackingDices.get(i);
-			int defencerDice = denfendingDices.get(i);
+			int defencerDice = defendingDices.get(i);
 
 			IOHelper.print("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
 			Common.PhaseActions.add("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
@@ -512,14 +531,12 @@ public class Player {
 				IOHelper.print("----> attacker wins for dice " + (i + 1));
 				Common.PhaseActions.add("----> attacker wins for dice " + (i + 1));
 
-				// Decrease one army from defender by one
 				defendingCountry.decreaseArmyCount(1);
 
 			} else {
 				IOHelper.print("----> defender wins for dice " + (i + 1));
 				Common.PhaseActions.add("----> defender wins for dice " + (i + 1));
 
-				// Decrese one amy from attacker
 				attackingCountry.decreaseArmyCount(1);
 			}
 
@@ -528,14 +545,9 @@ public class Player {
 		// Check if defending armies are 0 then acquire the country with cards
 		if (defendingCountry.getnoOfArmies() == 0) {
 			this.countryDefendedInCurrentTurn++;
-			// addign new player to defending country
 			defendingCountry.setPlayerId(playerId);
-
-			// unassign defending country from defending player
 			defenderPlayer.unAssignCountryToPlayer(defendingCountry);
-
-			// assign defending country to attacking player
-			this.assignCountryToPlayer(defendingCountry);
+			assignCountryToPlayer(defendingCountry);
 
 			// attacker has to put minimum one army defending country (By Game rules)
 			attackingCountry.decreaseArmyCount(1);
@@ -557,19 +569,12 @@ public class Player {
 
 			}
 		}
-		return true;
 	}
 
 	public boolean MoveArmyAfterAttack(int armiesCount) {
 		if (isConquered) {
 			if (attackingCountry == null || attackedCountry == null) {
 				IOHelper.print("Source or destination country is invalid!");
-				return false;
-			}
-
-			if (armiesCount >= attackingCountry.getnoOfArmies()) {
-				IOHelper.print(
-						"Cannot move " + armiesCount + " armies from " + attackingCountry.getnoOfArmies() + " armies");
 				return false;
 			}
 
@@ -592,7 +597,6 @@ public class Player {
 		if (isConquered) {
 			return attackingCountry.getnoOfArmies() - 1;
 		}
-
 		return -1;
 	}
 
