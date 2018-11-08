@@ -307,7 +307,7 @@ public class Game extends Observable {
 			if (pendingPlayersCount == 0) {
 				this.setGamePhase(PhaseEnum.Reinforcement);
 				currentPlayerId = 0;
-				/*
+		/*
 				 * if(!getCurrentPlayer().IsCardsAvailableForTradeInReinforcement()) {
 				 * reinforcementPhaseSetup(); }
 				 */
