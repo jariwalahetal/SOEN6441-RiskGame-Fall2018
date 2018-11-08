@@ -52,7 +52,7 @@ public class GameTest {
 		// Loop until all armies are assigned for all players
 		while (game.getGamePhase() == PhaseEnum.Startup) {
 			// Randomly increase army for the country of player
-			ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
+			ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
 
 			int id = Common.getRandomNumberInRange(0, playerCountries.size() - 1);
 
@@ -79,7 +79,7 @@ public class GameTest {
 	
 		// Generate reinforcement for player
 		Player currentPlayer = game.getCurrentPlayer();
-		ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
+		ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
 		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
 		boolean isPhaseUpdated = false;
 		int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
@@ -105,7 +105,7 @@ public class GameTest {
 	
 		// Generate reinforcement for player
 		Player currentPlayer = game.getCurrentPlayer();
-		ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
+		ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
 		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
 		boolean isPhaseUpdated = false;
 		int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
@@ -143,7 +143,7 @@ public class GameTest {
 		while (iterationCount > 0) {
 			// Generate reinforcement for player
 			Player currentPlayer = game.getCurrentPlayer();
-			ArrayList<Country> playerCountries = game.getCurrentPlayerCountries();
+			ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
 			List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
 			boolean isPhaseUpdated = false;
 			int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
@@ -175,7 +175,7 @@ public class GameTest {
 			int previousFromCountryArmiesCount = fromCountry.getnoOfArmies();
 
 			// Randomly select a neighboring country to move armies in
-			ArrayList<String> neigbouringCountries = game.getNeighbouringCountries(fromCountry.getCountryName());
+			ArrayList<String> neigbouringCountries = game.getCurrentPlayer().getAssignedNeighbouringCountries(fromCountry.getCountryName());
 
 			if (neigbouringCountries != null && neigbouringCountries.size() > 0) {
 				String toCountryName;
