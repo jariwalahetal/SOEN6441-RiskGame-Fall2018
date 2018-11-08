@@ -5,11 +5,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -17,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import com.risk.helper.CardEnum;
+import com.risk.helper.IOHelper;
 import com.risk.model.Game;
 
 
@@ -71,6 +69,20 @@ public class CardExchangeView {
 		exitButton.addActionListener(new ActionListener() { 
 		    public void actionPerformed(ActionEvent e) { 
 		        boolean cardBalance = game.getCurrentPlayer().IsCardsAvailableForTradeInReinforcement();
+		        if(cardBalance) {
+		        	IOHelper.print("Cannot Exit Without Exchange");
+		        }
+		        else {
+		            boolean checkCount=game.getCurrentPlayer().IsAssigningReinforcementArmiesAllowed();
+		            if(checkCount) {
+		        	    cardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		        	    game.reinforcementPhaseSetup();
+		            }
+		            else {
+		            	IOHelper.print("Cannot Exit Without Exchange");
+		            }
+		        	
+		        }
 		       
 		    } 
 		});
