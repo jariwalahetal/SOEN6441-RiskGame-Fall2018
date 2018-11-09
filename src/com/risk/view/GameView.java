@@ -1059,12 +1059,13 @@ public class GameView implements Observer {
 			textLabel.setFont(font);
 			textLabel.setBounds(15, strartY, 220, 40);
 			strartY = strartY + 15;
-			//scrollPane.add(textLabel);
-			//gamePhaseViewJScrollPane = new JScrollPane(textLabel);
-            //gamePhaseViewActionsJLabel.add(gamePhaseViewJScrollPane);
-//			gamePhaseViewActionsJLabel.add(textLabel);
             gamePhaseViewJScrollPane.add(textLabel);
+            
 		}
+		gamePhaseViewJScrollPane.revalidate();
+		gamePhaseViewJScrollPane.repaint();
 	}
 
+	
+	
 }
