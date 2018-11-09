@@ -616,6 +616,10 @@ public class GameView implements Observer {
 
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
 				isCardExchangeViewOpenedOnce = true;
+				reinforcementUnassignedArmiesCount = Integer
+						.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
+				reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
+
 				gamePhaseNameJLabel.setText("Attack Phase");
 				setAttackerCountry(game.getAttackFromCountries());
 				setMoveArmies(game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender());
@@ -628,7 +632,7 @@ public class GameView implements Observer {
 			}
 
 			AddPhaseMessages();
-			addPlayerData(game,activePlayerName);
+//			addPlayerData(game,activePlayerName);
 		}
 	}
 
