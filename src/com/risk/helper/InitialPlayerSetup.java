@@ -22,9 +22,9 @@ public class InitialPlayerSetup {
 		case 4:
 			return EnumColor.RED;
 		case 5:
-			return EnumColor.YELLOW;
+			return EnumColor.GRAY;
 		default:
-			return EnumColor.YELLOW;
+			return EnumColor.GRAY;
 		}
 	}
 
@@ -38,7 +38,7 @@ public class InitialPlayerSetup {
 	public static int getInitialArmyCount(int playerCount) {
 		switch (playerCount) {
 		case 3:
-			return 15;
+			return 35;
 		case 4:
 			return 30;
 		case 5:
