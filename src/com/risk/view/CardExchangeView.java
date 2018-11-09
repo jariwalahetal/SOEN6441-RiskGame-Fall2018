@@ -109,6 +109,7 @@ public class CardExchangeView implements Observer {
 	}
 
 	public void updateCardView(Game game) {
+
 		if (game.getCurrentPlayer() != null && totalNewArmies != null) {
 			totalNewArmies.setText("" + game.getCurrentPlayer().getNoOfTradedArmies());
 			ArrayList<CardEnum> typeOfCards = game.getCurrentPlayer().getCards();
@@ -118,6 +119,10 @@ public class CardExchangeView implements Observer {
 			}
 			cardExchangeLabel.remove(palyerOwnedCard);
 			palyerOwnedCard = null;
+
+			
+		
+			
 
 			palyerOwnedCard = new JList<>(cards);
 			palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
@@ -130,6 +135,7 @@ public class CardExchangeView implements Observer {
 
 			// palyerOwnedCard.add("test", cardExchangeLabel);
 			// palyerOwnedCard.setModel((ListModel<String>) cards);
+		
 		}
 
 	}

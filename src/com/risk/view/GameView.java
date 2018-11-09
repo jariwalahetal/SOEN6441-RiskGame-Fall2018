@@ -199,6 +199,8 @@ class ViewCountries {
  *
  */
 public class GameView implements Observer {
+
+
 	private static String defaultSelection = "--Select--";
 
 	private static JFrame gameJframe = null;
@@ -257,7 +259,9 @@ public class GameView implements Observer {
 	// ArrayList<ViewCountries> attackingCountryList = new ArrayList<>();
 	PhaseEnum phase;
 
-	/**
+	private Boolean isCardExchangeViewOpenedOnce = false;
+
+    /**
 	 * Method use to initialize the view of game
 	 */
 	public void gameInitializer() {
@@ -527,10 +531,32 @@ public class GameView implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+
 				String[] columns_header = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
+
+               /* // array of percentage of map controlled by each player
+                Float[] mapPercent = new Float[5];
+                int i=0;
+                HashMap<Integer,Float> percentageMap =  gameObj.getPercentageOfMapControlledForEachPlayer();
+                for (java.util.Map.Entry<Integer, Float> entry : percentageMap.entrySet()) {
+                    float value = entry.getValue();
+                    mapPercent[i] = value;
+                    i++;
+                }*/
+              /*  ArrayList<Player> playerNames = gameObj.getAllPlayers();
+                String[] p_name = new String[5];
+                int i=0;
+                for (Player obj : playerNames ) {
+                    String name = obj.getName();
+                    p_name[i] = name;
+                    i++;
+                }*/
+			    String[] columnHeader = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
+
 				String[][] rows = { { "percentage", "10", "2", "5", "6", "3" },
 						{ "continents controlled", "1", "0", "0", "0", "0" },
 						{ "total army", "50", "10", "12", "0", "18" } };
+
 
 				JFrame playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
 				JPanel playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
@@ -541,12 +567,26 @@ public class GameView implements Observer {
 						playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
 						350);
 
+				playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
+				playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
+				//JTable playerRecordsJTable = new JTable(rows, columns_header);
+                playerRecordsJTable = new JTable(rows,columns_header);
+                playerRecordsJTable.setBounds(20,
+                        playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
+                        350);
+
+
+                JTableHeader header = playerRecordsJTable.getTableHeader();
 				playerWorldDominationViewJFrame.setSize(600, 200);
 				playerWorldDominationViewJFrame.setLocationRelativeTo(null);
 				playerWorldDominationViewJFrame.setVisible(true);
 				playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
+
 				playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
 				playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
+                playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
+                playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
+
 
 			}
 		});
@@ -602,9 +642,10 @@ public class GameView implements Observer {
 
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
 
-				if(game.getCurrentPlayer().getCards().size()>= 3) {
+				if(game.getCurrentPlayer().getCards().size()>= 3 && (!isCardExchangeViewOpenedOnce)) {
 				CardExchangeView cardExchangeView=new CardExchangeView();
 				cardExchangeView.exchangeInitializerView(game);
+				isCardExchangeViewOpenedOnce = true;
 				}
 
 				reinforcementUnassignedArmiesCount = Integer
@@ -614,6 +655,11 @@ public class GameView implements Observer {
 				gamePhaseNameJLabel.setText("Reinforcement");
 
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
+				isCardExchangeViewOpenedOnce = true;
+				reinforcementUnassignedArmiesCount = Integer
+						.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
+				reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
+
 				gamePhaseNameJLabel.setText("Attack Phase");
 				setAttackerCountry();
 				setMoveArmies(game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender());
@@ -622,14 +668,83 @@ public class GameView implements Observer {
 				this.defenderCountry.removeAll();
 				this.attackerCountry.removeAll();
 				gamePhaseNameJLabel.setText("Fortification");
-				// setSourceCountryComboBox();
+				 setSourceCountryComboBox();
 			}
 
 			AddPhaseMessages();
+
 		}
 	}
 
 	/**
+=======
+		//	addPlayerData(game,activePlayerName);
+
+		}
+	}
+
+    public static void addPlayerData(Game game, String playerName) {
+        ArrayList<String> columnHeaderJTable = new ArrayList<String>();
+        columnHeaderJTable.add("Attributes");
+        // array of continents controlled by each player
+        int[] continentsControlled = new int[5];
+        HashMap<Integer,Integer> continentsMap = game.getNumberOfContinentsControlledForEachPlayer();
+        int i=0;
+        for (java.util.Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
+                int value = entry.getValue();
+                continentsControlled[i] = value;
+                i++;
+        }
+        // array of percentage of map controlled by each player
+        Float[] mapPercent = new Float[5];
+        HashMap<Integer,Float> percentageMap =  game.getPercentageOfMapControlledForEachPlayer();
+        for (java.util.Map.Entry<Integer, Float> entry : percentageMap.entrySet()) {
+            float value = entry.getValue();
+            mapPercent[i] = value;
+            i++;
+        }
+        //array of number of armies controlled by each player
+        int[] armies = new int[5];
+        HashMap<Integer,Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
+        for (java.util.Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
+            int value = entry.getValue();
+            armies[i] = value;
+            i++;
+        }
+        String[] columns_header = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
+        String[][] rows = {{"Percentage", String.valueOf(mapPercent[0]),String.valueOf(mapPercent[1]),String.valueOf(mapPercent[2]),
+                 String.valueOf(mapPercent[3]),String.valueOf(mapPercent[4])},
+                {"Cont_Controlled",String.valueOf(continentsControlled[0]),String.valueOf(continentsControlled[1]),
+                 String.valueOf(continentsControlled[2]),String.valueOf(continentsControlled[3]),String.valueOf(continentsControlled[4])},
+                {"Armies",String.valueOf(armies[0]),String.valueOf(armies[1]),String.valueOf(armies[2]),String.valueOf(armies[3]),
+                 String.valueOf(armies[4])}};
+        /*playerWorldDominationViewJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
+                playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
+                playerRecordsJTable = new JTable(rows,columns_header);
+                playerRecordsJTable.setBounds(20,
+                        playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
+                        350);
+
+                JTableHeader header = playerRecordsJTable.getTableHeader();
+                playerWorldDominationViewJFrame.setSize(600, 200);
+                playerWorldDominationViewJFrame.setLocationRelativeTo(null);
+                playerWorldDominationViewJFrame.setVisible(true);
+                playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
+                playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
+                playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
+            }
+        });*/
+
+
+    
+
+
+    /**
+>>>>>>> bb1023cb5ce39eb654a25048bc5aaab00018f8fa
 	 * Method used to populate value in the destination phase combobox
 	 * 
 	 * @param destinationCountries
