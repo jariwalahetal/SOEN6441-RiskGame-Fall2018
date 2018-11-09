@@ -202,8 +202,8 @@ public class Game extends Observable {
 	 * This function is called to check if correct operation is performed in the
 	 * correct phase
 	 * 
-	 * @param phase
-	 * @return
+	 * @param phase, PhaseEnum
+	 * @return true if phase is valid, else false
 	 */
 	private Boolean phaseCheckValidation(PhaseEnum phase) {
 		if (phase == this.gamePhase)
@@ -226,7 +226,7 @@ public class Game extends Observable {
 
 	/**
 	 * Get country object from country name
-	 * 
+	 * @param countryName, String
 	 * @return Country
 	 */
 	public Country getCountryFromName(String countryName) {
@@ -337,6 +337,8 @@ public class Game extends Observable {
 
 	/**
 	 * Returns allowable dices for attacking country
+	 * @param countryName, name of the country in String
+	 * @param playerStatus, status of the player in String
 	 * 
 	 * @return Integer
 	 */
