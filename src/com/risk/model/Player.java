@@ -563,16 +563,12 @@ public class Player {
 			eligibleForCard = true;
 			if (defenderPlayer.getAssignedCountryList().size() == 0) {
 				ArrayList<CardEnum> defenderCards = defenderPlayer.getCards();
-
-				// add all cards of dender to attacker
 				for (CardEnum card : defenderCards) {
 					this.addCardToPlayer(card);
 				}
 
-				// remove cards from defender
 				defenderPlayer.RemoveAllCardsFromPlayer();
 
-				// set defender as lost player
 				defenderPlayer.setLost();
 
 			}

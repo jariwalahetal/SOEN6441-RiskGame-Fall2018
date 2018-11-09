@@ -628,7 +628,7 @@ public class GameView implements Observer {
 				this.defenderCountry.removeAll();
 				this.attackerCountry.removeAll();
 				gamePhaseNameJLabel.setText("Fortification");
-				// setSourceCountryComboBox();
+				 setSourceCountryComboBox();
 			}
 
 			AddPhaseMessages();
