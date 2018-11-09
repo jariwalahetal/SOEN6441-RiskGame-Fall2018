@@ -223,7 +223,7 @@ public class GameController {
 		gameView = new GameView();
 		
 		game.addObserver(gameView);
-		game.addObserver(cardExchangeView);
+		
 		IOHelper.print("\nEnter the number of Players between 3 to 5");
 		
 		int playerCount = IOHelper.getNextInteger();
@@ -237,6 +237,7 @@ public class GameController {
 		game.startUpPhase();
 		gameView.gameInitializer();
 		activateListenersOnView();
+		game.addObserver(cardExchangeView);
 
 	}
         else {
