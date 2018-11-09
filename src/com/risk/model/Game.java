@@ -314,27 +314,13 @@ public class Game extends Observable {
 
 			}
 		} else if (this.phaseCheckValidation(PhaseEnum.Reinforcement)) {
-			// Check the current player reinforcement armies
 			if (getCurrentPlayer().getNoOfReinforcedArmies() == 0) {
-
-				// We don't need to implement attack for now
 				this.setGamePhase(PhaseEnum.Attack);
-				// Reset number of defended countries count
-				this.getCurrentPlayer().ResetCountryDefendedInCurrentTurn();
 			}
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {
 			this.setGamePhase(PhaseEnum.Reinforcement);
 		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
-			if (getCurrentPlayer().GetCountryDefendedInCurrentTurn() > 0) {
-				CardEnum card = this.getCardFromDeck();
-				if (card == null) {
-					IOHelper.print("No card available");
-				} else {
-					this.getCurrentPlayer().addCardToPlayer(card);
-				}
-			}
-
 			gamePhase = PhaseEnum.Fortification;
 			notifyObserverslocal(this);
 		}
@@ -444,6 +430,17 @@ public class Game extends Observable {
 	public boolean fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
 
 		getCurrentPlayer().fortificationPhase(sourceCountryName, destinationCountryName, noOfArmies);
+		
+		if (getCurrentPlayer().isEligibleForCard())
+		{	CardEnum card = getCardFromDeck();
+			if (card == null) {
+				IOHelper.print("No card available");
+			} else {
+				getCurrentPlayer().addCardToPlayer(card);
+			}
+			getCurrentPlayer().setEligibleForCard(false);
+		}
+		
 		this.setNextPlayerTurn();
 		setGamePhase(PhaseEnum.Reinforcement);
 		reinforcementPhaseSetup();
@@ -531,7 +528,6 @@ public class Game extends Observable {
 
 	/**
 	 * Trade cards to armies
-	 * 
 	 * @param cards
 	 * @return
 	 */

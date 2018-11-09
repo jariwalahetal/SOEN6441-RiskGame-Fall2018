@@ -32,11 +32,18 @@ public class Player {
 	Country attackedCountry;
 	Boolean isConquered = false;
 	private ArrayList<CardEnum> playerCards = new ArrayList<>();
-	private int countryDefendedInCurrentTurn = 0;
 	// TODO: implement lost logic in game check whole flow
 	private boolean isLost = false;
 	private ArrayList<Integer> diceOutComes = new ArrayList<>();
+	private Boolean eligibleForCard = false;
 
+	public Boolean isEligibleForCard() {
+		return eligibleForCard;
+	}
+
+	public void setEligibleForCard(Boolean eligibleForCard) {
+		this.eligibleForCard = eligibleForCard;
+	}
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
@@ -154,18 +161,18 @@ public class Player {
 	 * 
 	 * @return countryDefendedInCurrentTurn Integer
 	 */
-	public int GetCountryDefendedInCurrentTurn() {
-		return countryDefendedInCurrentTurn;
-	}
+//	public int GetCountryDefendedInCurrentTurn() {
+//		return countryDefendedInCurrentTurn;
+//	}
 
 	/**
 	 * Resets number of countries defended in current turn
 	 * 
 	 * @return
 	 */
-	public void ResetCountryDefendedInCurrentTurn() {
-		countryDefendedInCurrentTurn = 0;
-	}
+//	public void ResetCountryDefendedInCurrentTurn() {
+//		countryDefendedInCurrentTurn = 0;
+//	}
 
 	/**
 	 * This method set the number of reinforcement army units
@@ -304,6 +311,7 @@ public class Player {
 		}
 		sourceCountry.decreaseArmyCount(noOfArmies);
 		destinationCountry.increaseArmyCount(noOfArmies);
+		
 		return true;
 
 	}
@@ -544,7 +552,6 @@ public class Player {
 
 		// Check if defending armies are 0 then acquire the country with cards
 		if (defendingCountry.getnoOfArmies() == 0) {
-			this.countryDefendedInCurrentTurn++;
 			defendingCountry.setPlayerId(playerId);
 			defenderPlayer.unAssignCountryToPlayer(defendingCountry);
 			assignCountryToPlayer(defendingCountry);
@@ -553,6 +560,7 @@ public class Player {
 			attackingCountry.decreaseArmyCount(1);
 			defendingCountry.increaseArmyCount(1);
 			isConquered = true;
+			eligibleForCard = true;
 			if (defenderPlayer.getAssignedCountryList().size() == 0) {
 				ArrayList<CardEnum> defenderCards = defenderPlayer.getCards();
 
@@ -572,8 +580,8 @@ public class Player {
 	}
 
 	public boolean MoveArmyAfterAttack(int armiesCount) {
-		if (isConquered) {
-			if (attackingCountry == null || attackedCountry == null) {
+		if(isConquered)
+		{	if (attackingCountry == null || attackedCountry == null) {
 				IOHelper.print("Source or destination country is invalid!");
 				return false;
 			}
@@ -581,9 +589,9 @@ public class Player {
 			attackingCountry.decreaseArmyCount(armiesCount);
 			attackedCountry.increaseArmyCount(armiesCount);
 			isConquered = false;
-			return true;
-		} else {
-			IOHelper.print("Cannot perform this operation defend player first");
+			return true;}
+		else 
+		{		IOHelper.print("Need to conquer country first");
 			return false;
 		}
 	}

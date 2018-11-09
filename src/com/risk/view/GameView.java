@@ -975,7 +975,7 @@ public class GameView implements Observer {
 	}
 
 	public static void AddPhaseMessages() {
-		gamePhaseViewActionsJLabel.removeAll();
+		gamePhaseViewJScrollPane.removeAll();
 		int strartY = 5;
 		//TOOO: Add JScrollPanel
 		for(String message: Common.PhaseActions) {
