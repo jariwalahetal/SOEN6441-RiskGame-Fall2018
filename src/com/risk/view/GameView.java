@@ -538,26 +538,40 @@ public class GameView implements Observer {
 
                 if (game==null)
                     return;
-
-                // array of percentage of map controlled by each player
-                Float[] mapPercent = new Float[5];
                 int i=0;
+                ArrayList<Player> playerNames = game.getAllPlayers();
+                String[] p_name = new String[5];
+                ArrayList<String> list = new ArrayList<>();
+                for (Player obj : playerNames ) {
+                    String name = obj.getName();
+                    p_name[i] = name;
+                    list.add(name);
+                    i++;
+                }
+                // array of percentage of map controlled by each player
+                /*Float[] mapPercent = new Float[5];
                 HashMap<Integer,Float> percentageMap =  game.getPercentageOfMapControlledForEachPlayer();
                 for (java.util.Map.Entry<Integer, Float> entry : percentageMap.entrySet()) {
                     float value = entry.getValue();
                     mapPercent[i] = value;
                     i++;
                 }
-                ArrayList<Player> playerNames = game.getAllPlayers();
-                String[] p_name = new String[5];
-                //int i=0;
-                for (Player obj : playerNames ) {
-                    String name = obj.getName();
-                    p_name[i] = name;
+                // array of continents controlled by each player
+                int[] continentsControlled = new int[5];
+                HashMap<Integer,Integer> continentsMap = game.getNumberOfContinentsControlledForEachPlayer();
+                for (java.util.Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
+                    int value = entry.getValue();
+                    continentsControlled[i] = value;
                     i++;
+                }*/
+
+                //String[] columns_header = { "Attributes", p_name[0],p_name[1],p_name[2],p_name[3],p_name[4] };
+                String[] columns_header = { "Attributes", list.get(0),list.get(1),list.get(2),list.get(3),list.get(4) };
+                for ( String str : list ) {
+                    
                 }
-                String[] columns_header = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
-				String[][] rows = { { "percentage", "10", "2", "5", "6", "3" },
+
+                String[][] rows = { { "percentage", "10", "2", "5", "6", "3" },
 						{ "continents controlled", "1", "0", "0", "0", "0" },
 						{ "total army", "50", "10", "12", "0", "18" } };
 
@@ -612,7 +626,7 @@ public class GameView implements Observer {
 	@Override
 	public void update(Observable obj, Object arg1) {
 
-		 game = ((Game) obj);
+		game = ((Game) obj);
 		map = game.getMap();
 
 		phase = game.getGamePhase();
