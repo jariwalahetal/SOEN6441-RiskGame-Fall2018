@@ -7,5 +7,5 @@ package com.risk.helper;
  *
  */
 public enum EnumColor {
-	RED, GREEN, BLUE, BLACK, GRAY, YELLOW;
+	RED, GREEN, BLUE, BLACK, MAGENTA, YELLOW;
 }
