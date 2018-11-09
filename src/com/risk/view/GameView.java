@@ -262,7 +262,8 @@ public class GameView implements Observer {
 	String mapPath;
 	ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
 	PhaseEnum phase;
-
+    static Game game;
+    Map map;
 	private Boolean isCardExchangeViewOpenedOnce = false;
 
 	/**
@@ -520,6 +521,9 @@ public class GameView implements Observer {
 
 	}
 
+	/*
+	* Method to display player world domination
+	* */
 	public void loadPlayerWorldDominationView() {
 		playerWorldDominationViewJButton = new JButton("Player World Domination View");
 		playerWorldDominationViewJButton.setBounds(gamePhaseViewJScrollPane.getX() + 110,
@@ -570,7 +574,7 @@ public class GameView implements Observer {
                 String[] columnHeader = new String[playerNames.size()];
                 int index=0;
                 for ( String str : playerNames ) {
-                    columnHeader[index] = str;
+                    columnHeader[index] = "Player "+str;
                     index++;
                 }
                 /*columnHeader[0] = "Attributes";
@@ -580,21 +584,19 @@ public class GameView implements Observer {
                 }*/
                 String[][] rowsJtable = new String[3][playerNames.size()];
                 for (int cols = 0; cols < rowsJtable.length; cols++) {
-                    rowsJtable[0][cols] = Float.toString(mapPercent[cols]);
+                    rowsJtable[0][cols] = "Percent "+Float.toString(mapPercent[cols]);
                 }
                 for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
-                    rowsJtable[1][cols] = Integer.toString(continentsControlled[cols]);
+                    rowsJtable[1][cols] = "Continents "+Integer.toString(continentsControlled[cols]);
                 }
                 for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
-                    rowsJtable[2][cols] = Integer.toString(armies[cols]);
+                    rowsJtable[2][cols] = "Total Armies "+Integer.toString(armies[cols]);
                 }
 				playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
 				playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
 				playerRecordsJTable = new JTable(rowsJtable, columnHeader);
-				playerRecordsJTable.setBounds(20,
-						playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
-						350);
-
+				playerRecordsJTable.setBounds(20,playerWorldDominationViewJFrame.getY() + 20 +
+                                playerWorldDominationViewJFrame.getHeight(), 550,350);
 				JTableHeader header = playerRecordsJTable.getTableHeader();
 				playerWorldDominationViewJFrame.setSize(600, 200);
 				playerWorldDominationViewJFrame.setLocationRelativeTo(null);
@@ -628,8 +630,7 @@ public class GameView implements Observer {
 		}
 	}
 
-	Game game;
-	Map map;
+
 
 	/**
 	 * Update method called by the observable object to perform all the actions
@@ -688,69 +689,10 @@ public class GameView implements Observer {
 			}
 
 			addPhaseMessages();
+			updateWorldDominationView();
 
 		}
 	}
-
-	public static void addPlayerData(Game game, String playerName) {
-		ArrayList<String> columnHeaderJTable = new ArrayList<String>();
-		columnHeaderJTable.add("Attributes");
-		// array of continents controlled by each player
-		int[] continentsControlled = new int[5];
-		HashMap<Integer, Integer> continentsMap = game.getNumberOfContinentsControlledForEachPlayer();
-		int i = 0;
-		for (java.util.Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
-			int value = entry.getValue();
-			continentsControlled[i] = value;
-			i++;
-		}
-		// array of percentage of map controlled by each player
-		Float[] mapPercent = new Float[5];
-		HashMap<Integer, Float> percentageMap = game.getPercentageOfMapControlledForEachPlayer();
-		for (java.util.Map.Entry<Integer, Float> entry : percentageMap.entrySet()) {
-			float value = entry.getValue();
-			mapPercent[i] = value;
-			i++;
-		}
-		// array of number of armies controlled by each player
-		int[] armies = new int[5];
-		HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
-		for (java.util.Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
-			int value = entry.getValue();
-			armies[i] = value;
-			i++;
-		}
-		String[] columns_header = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
-		String[][] rows = {
-				{ "Percentage", String.valueOf(mapPercent[0]), String.valueOf(mapPercent[1]),
-						String.valueOf(mapPercent[2]), String.valueOf(mapPercent[3]), String.valueOf(mapPercent[4]) },
-				{ "Cont_Controlled", String.valueOf(continentsControlled[0]), String.valueOf(continentsControlled[1]),
-						String.valueOf(continentsControlled[2]), String.valueOf(continentsControlled[3]),
-						String.valueOf(continentsControlled[4]) },
-				{ "Armies", String.valueOf(armies[0]), String.valueOf(armies[1]), String.valueOf(armies[2]),
-						String.valueOf(armies[3]), String.valueOf(armies[4]) } };
-		/*
-		 * playerWorldDominationViewJButton.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) {
-		 * 
-		 * playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
-		 * playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
-		 * playerRecordsJTable = new JTable(rows,columns_header);
-		 * playerRecordsJTable.setBounds(20, playerWorldDominationViewJFrame.getY() + 20
-		 * + playerWorldDominationViewJFrame.getHeight(), 550, 350);
-		 * 
-		 * JTableHeader header = playerRecordsJTable.getTableHeader();
-		 * playerWorldDominationViewJFrame.setSize(600, 200);
-		 * playerWorldDominationViewJFrame.setLocationRelativeTo(null);
-		 * playerWorldDominationViewJFrame.setVisible(true);
-		 * playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
-		 * playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
-		 * playerWorldDominationViewJPanel.add(playerRecordsJTable,
-		 * BorderLayout.CENTER); } });
-		 */
-	}
-
 	/**
 	 * Method used to populate value in the destination phase combobox
 	 * 
@@ -1059,28 +1001,90 @@ public class GameView implements Observer {
 	public static void addPhaseMessages() {
 		gamePhaseViewJScrollPane.removeAll();
 		int strartY = 5;
-		// TOOO: Add JScrollPanel
 		for (String message : Common.PhaseActions) {
-			// JScrollPane scrollPane = new JScrollPane();
 			JLabel textLabel = new JLabel(message);
 			Font font = new Font("Courier", Font.ITALIC, 10);
 			textLabel.setFont(font);
 			textLabel.setBounds(15, strartY, 220, 40);
 			strartY = strartY + 15;
-
             gamePhaseViewJScrollPane.add(textLabel);
-
-			// scrollPane.add(textLabel);
-			// gamePhaseViewJScrollPane = new JScrollPane(textLabel);
-			// gamePhaseViewActionsJLabel.add(gamePhaseViewJScrollPane);
-			// gamePhaseViewActionsJLabel.add(textLabel);
 			gamePhaseViewJScrollPane.add(textLabel);
-
 		}
 		gamePhaseViewJScrollPane.revalidate();
 		gamePhaseViewJScrollPane.repaint();
 	}
 
-	
-	
+	public static void updateWorldDominationView() {
+		if(playerRecordsJTable == null) return;
+        playerRecordsJTable.removeAll();
+
+        int i=0;
+        ArrayList<Player> listOfPlayers = game.getAllPlayers();
+        ArrayList<String> playerNames = new ArrayList<>();
+        for (Player obj : listOfPlayers ) {
+            String name = obj.getName();
+            playerNames.add(name);
+            i++;
+        }
+
+        Float[] mapPercent = new Float[playerNames.size()];
+        HashMap<Integer,Float> percentageMap =  game.getPercentageOfMapControlledForEachPlayer();
+        int j=0;
+        for (java.util.Map.Entry<Integer, Float> entry : percentageMap.entrySet()) {
+            float value = entry.getValue();
+            mapPercent[j] = value;
+            j++;
+        }
+
+        int[] continentsControlled = new int[playerNames.size()];
+        HashMap<Integer,Integer> continentsMap = game.getNumberOfContinentsControlledForEachPlayer();
+        int k=0;
+        for (java.util.Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
+            int value = entry.getValue();
+            continentsControlled[k] = value;
+            k++;
+        }
+
+        int[] armies = new int[playerNames.size()];
+        HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
+        int l=0;
+        for (java.util.Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
+            int value = entry.getValue();
+            armies[l] = value;
+            l++;
+        }
+
+        String[] columnHeader = new String[playerNames.size()];
+        int index=0;
+        for ( String str : playerNames ) {
+            columnHeader[index] = str;
+            index++;
+        }
+
+        String[][] rowsJtable = new String[3][playerNames.size()];
+        for (int cols = 0; cols < rowsJtable.length; cols++) {
+            rowsJtable[0][cols] = Float.toString(mapPercent[cols]);
+        }
+        for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
+            rowsJtable[1][cols] = Integer.toString(continentsControlled[cols]);
+        }
+        for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
+            rowsJtable[2][cols] = Integer.toString(armies[cols]);
+        }
+        playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
+        playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
+        playerRecordsJTable = new JTable(rowsJtable, columnHeader);
+        playerRecordsJTable.setBounds(20,playerWorldDominationViewJFrame.getY() + 20 +
+                playerWorldDominationViewJFrame.getHeight(), 550,350);
+        JTableHeader header = playerRecordsJTable.getTableHeader();
+        playerWorldDominationViewJFrame.setSize(600, 200);
+        playerWorldDominationViewJFrame.setLocationRelativeTo(null);
+        //playerWorldDominationViewJFrame.setVisible(true);
+        playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
+        playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
+        playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
+
+        playerRecordsJTable.revalidate();
+        playerRecordsJTable.repaint();
+	}
 }

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
+import com.risk.helper.GetArmiesByTrading;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 
@@ -215,7 +216,7 @@ public class Player {
 	/**
 	 * Assigns the current country to player
 	 * 
-	 * @param newCountry
+	 * @param newCountry, Country Object
 	 */
 	public void assignCountryToPlayer(Country newCountry) {
 		assignedCountryList.add(newCountry);
@@ -226,7 +227,7 @@ public class Player {
 	/**
 	 * UnAssigns the current country to player
 	 * 
-	 * @param newCountry
+	 * @param newCountry, Country Object
 	 */
 	public void unAssignCountryToPlayer(Country newCountry) {
 		assignedCountryList.remove(newCountry);
@@ -296,7 +297,7 @@ public class Player {
 	/**
 	 * Returns true if cards available for trading in reinforcement
 	 * 
-	 * @return
+	 * @return true, if card is available
 	 */
 	public boolean isCardsAvailableForTradeInReinforcement() {
 		if (this.playerCards.size() >= 3)
@@ -308,7 +309,7 @@ public class Player {
 	/**
 	 * Returns true if setting up reinforcement armies allowed
 	 * 
-	 * @return
+	 * @return true, if reinforcement assignation Armies allowed
 	 */
 	public boolean isAssigningReinforcementArmiesAllowed() {
 		if (this.playerCards.size() >= 4) {
@@ -320,6 +321,8 @@ public class Player {
 
 	/**
 	 * Method to set up reinforcement phase
+	 * @param continents, list of continents
+	 * @return true, if armies can be set for reinforcement else false
 	 */
 	public boolean setReinformcementArmies(ArrayList<Continent> continents) {
 		if (!isAssigningReinforcementArmiesAllowed()) {
@@ -339,7 +342,8 @@ public class Player {
 			if (hasPlayerAllCountries)
 				countriesCount += continent.getControlValue();
 		}
-
+		
+		countriesCount +=  getNoOfTradedArmies();
 		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PLAYERS ? MINIMUM_REINFORCEMENT_PLAYERS
 				: countriesCount;
 		setNoOfReinforcedArmies(countriesCount);
@@ -394,8 +398,8 @@ public class Player {
 	/**
 	 * Method to get neighbouring countries of a given country
 	 * 
-	 * @param sourceCountryName,
-	 *            name of the source country of player
+	 * @param sourceCountryName, name of the source country of player
+	 * @param assignedCountriesName, list of assigned countries name
 	 * @return ArrayList , returning array list of countries.
 	 */
 	public ArrayList<String> getNeighbouringCountries(String sourceCountryName,
@@ -458,8 +462,7 @@ public class Player {
 	/**
 	 * This method will roll a Dice
 	 * 
-	 * @param diceCount
-	 * @return
+	 * @param diceCount, count of the dice
 	 */
 	private void rollDice(int diceCount) {
 		diceOutComes.clear();
@@ -471,17 +474,12 @@ public class Player {
 	/**
 	 * This method will process attack on given player
 	 * 
-	 * @param defenderPlayer
-	 *            Player
-	 * @param attackingCountry
-	 *            Attacking country
-	 * @param defendingCountry
-	 *            Defending country
-	 * @param attackingDices
-	 *            attacking dices
-	 * @param denfendingDices
-	 *            defending dices
-	 * @return true if successful
+	 * @param defenderPlayer, Player
+	 * @param attackingCountry, Attacking country
+	 * @param defendingCountry, Defending country
+	 * @param attackingDiceCount, attacking dices count
+	 * @param defendingDiceCount, defending dices count
+	 * 
 	 */
 	public void attackPhase(Player defenderPlayer, Country attackingCountry, Country defendingCountry,
 			int attackingDiceCount, int defendingDiceCount) {
@@ -593,9 +591,9 @@ public class Player {
 
 	/**
 	 * 
-	 * @param country
-	 * @param playerStatus
-	 * @return
+	 * @param country, Country Object
+	 * @param playerStatus, status of the player
+	 * @return allowableAttackingArmies
 	 */
 	public int getMaximumAllowableDices(Country country, String playerStatus) {
 		int allowableAttackingArmies = 0;
@@ -616,7 +614,7 @@ public class Player {
 	/**
 	 * Get player cards
 	 * 
-	 * @return playerCars ArrayList<CardEnum>
+	 * @return playerCards,list of cards of player
 	 */
 	public ArrayList<CardEnum> getCards() {
 		return playerCards;
@@ -632,7 +630,7 @@ public class Player {
 	/**
 	 * Add card to player
 	 * 
-	 * @param card
+	 * @param card, type of card
 	 */
 	public void addCardToPlayer(CardEnum card) {
 		playerCards.add(card);
@@ -641,10 +639,9 @@ public class Player {
 	}
 
 	/**
-	 * This method will return the countries for which armies count is greater than
-	 * 1
+	 * This method will return the countries for which armies count is greater than one
 	 * 
-	 * @return
+	 * @return countries, list of countries
 	 */
 	public ArrayList<String> getCountriesWithArmiesGreaterThanOne() {
 		ArrayList<String> countries = new ArrayList<String>();
@@ -660,7 +657,7 @@ public class Player {
 	 * This method will return true if an Attack move is possible for the current
 	 * Player
 	 * 
-	 * @return
+	 * @return true, if attack possible else false
 	 */
 	public Boolean isAttackPossible() {
 		Boolean status = false;

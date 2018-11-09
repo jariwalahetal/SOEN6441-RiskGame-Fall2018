@@ -77,6 +77,7 @@ public class GameTest {
 	
 		// Generate reinforcement for player
 		Player currentPlayer = game.getCurrentPlayer();
+		if(!currentPlayer.isCardsAvailableForTradeInReinforcement()) {
 		ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
 		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
 		boolean isPhaseUpdated = false;
@@ -92,6 +93,7 @@ public class GameTest {
 		reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
 
 		assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
+		}
 	}
 	
 	/**
@@ -102,31 +104,35 @@ public class GameTest {
 	
 		// Generate reinforcement for player
 		Player currentPlayer = game.getCurrentPlayer();
-		ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
-		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
-		boolean isPhaseUpdated = false;
-		int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
-
-		for (Continent continent : map.getContinentList()) {
-			List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
-					.collect(Collectors.toList());
-			boolean hasPlayerAllCountries = countryIds.containsAll(continentCountryIds);
-			if (hasPlayerAllCountries)
-				reinforcementCount += continent.getControlValue();
+		if(!currentPlayer.isCardsAvailableForTradeInReinforcement()) {
+			ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
+			List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+			boolean isPhaseUpdated = false;
+			int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
+	
+			for (Continent continent : map.getContinentList()) {
+				List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
+						.collect(Collectors.toList());
+				boolean hasPlayerAllCountries = countryIds.containsAll(continentCountryIds);
+				if (hasPlayerAllCountries)
+					reinforcementCount += continent.getControlValue();
+				
+				
+			}
+			reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
+	
+			assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
+			
+			// place the armies on random countries for the player
+			while (currentPlayer.getNoOfReinforcedArmies() > 0) {
+				game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1))
+						.getCountryName());
+			}
+	
+			assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
+			assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
+			assertEquals(PhaseEnum.Attack, game.getGamePhase());
 		}
-		reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
-
-		assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
-		
-		// place the armies on random countries for the player
-		while (currentPlayer.getNoOfReinforcedArmies() > 0) {
-			game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1))
-					.getCountryName());
-		}
-
-		assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
-		assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
-		assertEquals(PhaseEnum.Attack, game.getGamePhase());
 	}
 	
 	/**
