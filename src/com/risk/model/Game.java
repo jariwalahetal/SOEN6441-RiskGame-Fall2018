@@ -308,6 +308,7 @@ public class Game extends Observable {
 		} else if (phaseCheckValidation(PhaseEnum.Reinforcement)) {
 			getCurrentPlayer().addArmyToCountryForReinforcement(countryName);
 		}
+		Common.PhaseActions.add("adding army to country");
 		updatePhase();
 		notifyObserverslocal(this);
 		// return true;

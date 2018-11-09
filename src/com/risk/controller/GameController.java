@@ -14,6 +14,7 @@ import com.risk.model.*;
 import com.risk.view.CardExchangeView;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
+import com.risk.view.PlayerWorldDominationView;
 
 /**
  * This class is used to handle operations related to MAP.
@@ -238,7 +239,6 @@ public class GameController {
 		gameView.gameInitializer();
 		activateListenersOnView();
 		game.addObserver(cardExchangeView);
-
 	}
         else {
         	IOHelper.print("Players count cannot be less than 3 and more than 5");	

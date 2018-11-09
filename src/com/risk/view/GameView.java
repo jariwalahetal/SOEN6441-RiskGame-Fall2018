@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
+
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
@@ -534,24 +535,28 @@ public class GameView implements Observer {
 		playerWorldDominationViewJButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-               /* // array of percentage of map controlled by each player
+
+                if (game==null)
+                    return;
+
+                // array of percentage of map controlled by each player
                 Float[] mapPercent = new Float[5];
                 int i=0;
-                HashMap<Integer,Float> percentageMap =  gameObj.getPercentageOfMapControlledForEachPlayer();
+                HashMap<Integer,Float> percentageMap =  game.getPercentageOfMapControlledForEachPlayer();
                 for (java.util.Map.Entry<Integer, Float> entry : percentageMap.entrySet()) {
                     float value = entry.getValue();
                     mapPercent[i] = value;
                     i++;
-                }*/
-              /*  ArrayList<Player> playerNames = gameObj.getAllPlayers();
+                }
+                ArrayList<Player> playerNames = game.getAllPlayers();
                 String[] p_name = new String[5];
-                int i=0;
+                //int i=0;
                 for (Player obj : playerNames ) {
                     String name = obj.getName();
                     p_name[i] = name;
                     i++;
-                }*/
-			    String[] columns_header = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
+                }
+                String[] columns_header = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
 				String[][] rows = { { "percentage", "10", "2", "5", "6", "3" },
 						{ "continents controlled", "1", "0", "0", "0", "0" },
 						{ "total army", "50", "10", "12", "0", "18" } };
@@ -598,14 +603,17 @@ public class GameView implements Observer {
 		}
 	}
 
+
+    Game game;
+    Map map;
 	/**
 	 * Update method called by the observable object to perform all the actions
 	 */
 	@Override
 	public void update(Observable obj, Object arg1) {
 
-		Game game = ((Game) obj);
-		Map map = game.getMap();
+		 game = ((Game) obj);
+		map = game.getMap();
 
 		phase = game.getGamePhase();
 		mapPath = map.getMapPath() + map.getMapName() + ".bmp";
@@ -656,6 +664,7 @@ public class GameView implements Observer {
 			}
 
 			AddPhaseMessages();
+
 		//	addPlayerData(game,activePlayerName);
 
 		}
