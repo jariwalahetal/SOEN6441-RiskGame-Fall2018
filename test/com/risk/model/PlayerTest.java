@@ -185,6 +185,32 @@ public class PlayerTest {
 	}
 		
 	/**
+	 * 
+	 */
+	@Test
+	public void addArmyToCountryForStartup()
+	{ Player player = game.getCurrentPlayer();
+	  String countryName = player.getCountriesWithArmiesGreaterThanOne().get(0);
+	  Country country = game.getCountryFromName(countryName);
+	  country.setNoOfArmies(5);
+      game.setGamePhase(PhaseEnum.Startup);
+      player.setNoOfUnassignedArmies(10);
+	  int unassignedArmyCountOld = player.getNoOfUnassignedArmies();
+      int countryAssignedArmyCountOld = country.getnoOfArmies();
+	  
+      Boolean result = player.addArmyToCountryForStartup(countryName);
+	  
+	  int unassignedArmyCountNew = player.getNoOfUnassignedArmies();
+      int countryAssignedArmyCountNew = country.getnoOfArmies();
+	  
+      assertEquals(result, true);
+	  assertEquals(unassignedArmyCountNew, unassignedArmyCountOld-1);
+	  assertEquals(countryAssignedArmyCountNew, countryAssignedArmyCountOld+1);
+		  
+	}
+	
+	
+	/**
 	 * This method will tear down variables.
 	 */
 	@After
