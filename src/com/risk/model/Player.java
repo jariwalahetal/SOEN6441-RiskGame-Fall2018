@@ -552,11 +552,11 @@ public class Player {
 			{	IOHelper.print("----> Attacker not able to Attack ");
 			  break;	
 			}
-			else if(defendingCountry.getnoOfArmies() ==0) {
+			else if(defendingCountry.getnoOfArmies() ==0) 
 				{	IOHelper.print("----> Defender lost all armies in " + (i + 1)+" dice roll");
 				  break;
 				}
-			}
+			
 		}
 
 		// Check if defending armies are 0 then acquire the country with cards
@@ -660,4 +660,45 @@ public class Player {
 		IOHelper.print("Added " + card + " card to player");
 		Common.PhaseActions.add("Added " + card + " card to player");
 	}
+	
+	
+	/**
+	 * This method will return the countries for which armies count is greater than
+	 * 1
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> getCountriesWithArmiesGreaterThanOne() {
+		ArrayList<String> countries = new ArrayList<String>();
+		for (Country country : getAssignedCountryList()) {
+			if (country.getnoOfArmies() > 1) {
+				countries.add(country.getCountryName());
+			}
+		}
+		return countries;
+	}
+  /***
+  * 
+ * @return
+ */
+	public Boolean isAttackPossible()
+	{   Boolean status = false;
+		ArrayList<String> attackingFromCountries = getCountriesWithArmiesGreaterThanOne();
+		if(attackingFromCountries.size() == 0)
+		{
+		  return false;	
+		}
+		else
+		{ for (String countryName:attackingFromCountries)
+			{ArrayList<String> neighborCountries = getUnAssignedNeighbouringCountries(countryName);
+			 if (neighborCountries.size() > 0 )
+			 { status = true;
+			   break;
+			 }
+			}
+		}
+	return status;	
+	}
+	
+	
 }

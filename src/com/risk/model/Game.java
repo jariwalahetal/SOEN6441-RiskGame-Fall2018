@@ -212,21 +212,6 @@ public class Game extends Observable {
 		}
 	}
 
-	/**
-	 * This method will return the countries for which armies count is greater than
-	 * 1
-	 * 
-	 * @return
-	 */
-	public ArrayList<String> getCountriesWithArmiesGreaterThanOne() {
-		ArrayList<String> countries = new ArrayList<String>();
-		for (Country country : getCurrentPlayer().getAssignedCountryList()) {
-			if (country.getnoOfArmies() > 1) {
-				countries.add(country.getCountryName());
-			}
-		}
-		return countries;
-	}
 
 	/**
 	 * Method used to notify observer
@@ -395,6 +380,10 @@ public class Game extends Observable {
 
 		getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount, defendingDiceCount);
 
+		if(!getCurrentPlayer().isAttackPossible())
+		{ updatePhase();		
+		}
+		
 		notifyObserverslocal(this);
 
 		return true;
@@ -428,6 +417,10 @@ public class Game extends Observable {
 
 			getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount,
 					defendingDiceCount);
+		}
+		
+		if(!getCurrentPlayer().isAttackPossible())
+		{ updatePhase();		
 		}
 		notifyObserverslocal(this);
 
