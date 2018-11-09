@@ -230,7 +230,7 @@ public class Player {
 	}
 
 	/**
-	 * UnAssigns the current coutry to player
+	 * UnAssigns the current country to player
 	 * 
 	 * @param newCountry
 	 */
@@ -460,7 +460,7 @@ public class Player {
 	 * @param defendingCountry Defending country
 	 * @param attackingDices   attacking dices
 	 * @param denfendingDices  defending dices
-	 * @return true if suceessful
+	 * @return true if successful
 	 */
 	public boolean ProcessAttack(Player defenderPlayer, Country attackingCountry, Country defendingCountry,
 			ArrayList<Integer> attackingDices, ArrayList<Integer> denfendingDices) {
