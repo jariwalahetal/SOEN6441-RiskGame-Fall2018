@@ -420,7 +420,7 @@ public class GameController {
 		ArrayList<String> fileNames = new ArrayList<String>();
 		File folder = new File("assets/maps");
 		File[] listOfFiles = folder.listFiles();
-
+			
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
 				if (listOfFiles[i].getName().toLowerCase().contains(".map"))

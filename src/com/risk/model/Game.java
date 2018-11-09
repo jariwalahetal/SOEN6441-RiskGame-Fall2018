@@ -474,6 +474,7 @@ public class Game extends Observable {
 	public void reinforcementPhaseSetup() {
 		ArrayList<Continent> continents = map.getContinentList();
 		this.getCurrentPlayer().setReinformcementArmies(continents);
+		notifyObserverslocal(this);
 	}
 
 	/**
