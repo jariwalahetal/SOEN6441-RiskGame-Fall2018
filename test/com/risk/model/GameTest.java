@@ -72,7 +72,6 @@ public class GameTest {
 	/**
 	 * Test Method for calculation for reinforcement armies
 	 */
-
 	@Test
 	public void testReinforcementPhase() {
 	
@@ -98,7 +97,6 @@ public class GameTest {
 	/**
 	 * Test Method for calculation for assignment of armies and phase should be shifted to attack at end
 	 */
-
 	@Test
 	public void testReinforcementAndArmiesAssignment() {
 	
@@ -154,9 +152,9 @@ public class GameTest {
 	    	defendingCountry = game.getCountryFromName(attackedCountryName);
 	    	defendingCountryArmyCount = defendingCountry.getnoOfArmies();
 		     
-	    	attackingDiceCount = 1;//game.getCurrentPlayer().getMaximumAllowableDices(attackingCountry, "Attacker");
-	        defendingDiceCount = 1;//game.getCurrentPlayer().getMaximumAllowableDices(defendingCountry, "Defender");
-	 	     
+	    	attackingDiceCount = 1;
+	        defendingDiceCount = 1;
+	        
 	        game.attackPhase(attackingCountryName, attackedCountryName, attackingDiceCount, defendingDiceCount);
 	 	   
 	        if (defendingCountryArmyCount>defendingCountry.getnoOfArmies())
@@ -180,7 +178,6 @@ public class GameTest {
 	      break;
 	    }
 	    
-		System.out.println("********** attackingCountry:"+game.getAllPlayers().size());
 	}
 	
 	/**
@@ -336,9 +333,7 @@ public class GameTest {
 		diceCount = game.getMaximumAllowableDices(countryName, "Attacker");
 		
 		assertEquals(1, diceCount);
-
-		
-	}
+     }
 	
 	/**
 	 * This method tests the total armies.
@@ -408,6 +403,23 @@ public class GameTest {
 			actualNeigboursList.add("Algeria");
 			assertTrue(isTwoArrayListsWithSameValues(neighCountries, actualNeigboursList));
 		}
+	}
+	
+	/**
+	 * This will test isMapConquered
+	 */
+	@Test
+	public void isMapConqueredTest()
+	{ Player player = game.getCurrentPlayer();
+	   
+		for(Country country:map.getCountryList())
+	    { if (country.getPlayerId()!=player.getPlayerId())
+			player.assignCountryToPlayer(country);
+	    }		
+			
+		Boolean result = game.isMapConquered();
+	    assertEquals(result, true);
+	
 	}
 	
 	/**
