@@ -86,7 +86,7 @@ public class CardExchangeView implements Observer {
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				boolean checkCount = game.getCurrentPlayer().IsAssigningReinforcementArmiesAllowed();
+				boolean checkCount = game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
 				if (checkCount) {
 					cardFrame.dispose();
 					game.reinforcementPhaseSetup();
