@@ -69,7 +69,6 @@ public class GameTest {
 		assertEquals(PhaseEnum.Reinforcement, game.getGamePhase());
 	}
 
-
 	/**
 	 * Test Method for calculation for reinforcement armies
 	 */
@@ -132,10 +131,58 @@ public class GameTest {
 		assertEquals(PhaseEnum.Attack, game.getGamePhase());
 	}
 	
+	@Test
+	public void testAttackPhase()
+	{ 	Player currentPlayer = game.getCurrentPlayer();
+	    ArrayList<String> attackingCountryList = game.getCurrentPlayer().getCountriesWithArmiesGreaterThanOne();
+	    ArrayList<String> attackedCountryList;
+	    Country attackingCountry,defendingCountry;
+	    int attackingDiceCount,defendingDiceCount, attackingCountryArmyCount, defendingCountryArmyCount;
+	    Player defenderPlayer; 
+    	    
+	    for(String attackingCountryName:attackingCountryList)
+	    { attackedCountryList = game.getCurrentPlayer().getUnAssignedNeighbouringCountries(attackingCountryName);
+  	      attackingCountry = game.getCountryFromName(attackingCountryName);
+  	      attackingCountryArmyCount = attackingCountry.getnoOfArmies();
+	      for(String attackedCountryName : attackedCountryList)
+	      { defenderPlayer = game.getAllPlayers().stream().filter(p -> p.getAssignedCountryList().contains(attackedCountryName))
+			.findAny().orElse(null);
+				    	  
+	    	defendingCountry = game.getCountryFromName(attackedCountryName);
+	    	defendingCountryArmyCount = defendingCountry.getnoOfArmies();
+		     
+	    	attackingDiceCount = 1;//game.getCurrentPlayer().getMaximumAllowableDices(attackingCountry, "Attacker");
+	        defendingDiceCount = 1;//game.getCurrentPlayer().getMaximumAllowableDices(defendingCountry, "Defender");
+	 	     
+	        game.attackPhase(attackingCountryName, attackedCountryName, attackingDiceCount, defendingDiceCount);
+	 	   
+	        if (defendingCountryArmyCount>defendingCountry.getnoOfArmies())
+	        {   assertEquals(defendingCountryArmyCount, defendingCountry.getnoOfArmies()+1);
+	    		assertEquals(attackingCountryArmyCount, attackingCountry.getnoOfArmies());
+	        }
+	        else if ( attackingCountryArmyCount > attackingCountry.getnoOfArmies())
+	        {   if(currentPlayer.isConquered)
+	             {  assertEquals(defendingCountry.getnoOfArmies(),1);
+		    		assertEquals(attackingCountryArmyCount, attackingCountry.getnoOfArmies()+1);	
+		    		assertEquals(defendingCountry.getPlayerId(),currentPlayer.getPlayerId());
+	             }
+	            else 
+	             { assertEquals(defendingCountryArmyCount, defendingCountry.getnoOfArmies());
+		    		assertEquals(attackingCountryArmyCount, attackingCountry.getnoOfArmies()+1);	
+	             }
+	        	
+	        }
+	        break;
+	    }
+	    }
+	    
+		System.out.println("********** attackingCountry:"+game.getAllPlayers().size());
+	}
+	
+	
 	/**
 	 * Test Method for game play functionality
 	 */
-
 	@Test
 	public void testGamePlay() {
 		int iterationCount = 15;
