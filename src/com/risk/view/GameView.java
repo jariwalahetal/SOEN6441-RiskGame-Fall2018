@@ -615,7 +615,7 @@ public class GameView implements Observer {
 
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
 				gamePhaseNameJLabel.setText("Attack Phase");
-				setAttackerCountry();
+				setAttackerCountry(game.getAttackFromCountries());
 				setMoveArmies(game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender());
 
 			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
@@ -675,15 +675,11 @@ public class GameView implements Observer {
 	 * 
 	 * @return selectedCountry
 	 */
-	public void setAttackerCountry() {
+	public void setAttackerCountry(ArrayList<String> attackCountries) {
 		Object temp = attackerCountry.getSelectedItem();
 		attackerCountry.removeAllItems();
-
-		for (int i = 0; i < countryList.size(); i++) {
-			ViewCountries tempCountry = countryList.get(i);
-			if (activePlayerId == tempCountry.getPlayerID() && tempCountry.getNoOfArmies() > 1) {
-				attackerCountry.addItem(tempCountry.getCountryName());
-			}
+		for (int i = 0; i < attackCountries.size(); i++) {
+				attackerCountry.addItem(attackCountries.get(i));
 		}
 		attackerCountry.setSelectedItem(temp);
 	}

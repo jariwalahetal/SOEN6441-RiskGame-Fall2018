@@ -197,6 +197,11 @@ public class Game extends Observable {
 		return noOfArmies;
 	}
 
+	/**
+	 * This function is called to check if correct operation is performed in the correct phase
+	 * @param phase
+	 * @return
+	 */
 	private Boolean phaseCheckValidation(PhaseEnum phase) {
 		if (phase == this.gamePhase)
 			return true;
@@ -205,6 +210,21 @@ public class Game extends Observable {
 		}
 	}
 
+/**
+ *This method will return the countries from which current Player can attack
+ * @return
+ */
+	public ArrayList<String> getAttackFromCountries()
+	{ ArrayList<String> countries = new ArrayList<String>();
+	  for (Country country : getCurrentPlayer().getAssignedCountryList())
+	  { if(country.getnoOfArmies()>2)
+		  {countries.add(country.getCountryName());			  
+		  }	
+	  }  
+	  return countries;
+	}
+	
+	
 	/**
 	 * Method used to notify observer
 	 * 
@@ -222,10 +242,10 @@ public class Game extends Observable {
 	 * @return Country
 	 */
 	public Country getCountryFromName(String countryName) {
-		Country attackerCountry = map.getCountryList().stream().filter(x -> x.getCountryName().equals(countryName))
+		Country country = map.getCountryList().stream().filter(x -> x.getCountryName().equals(countryName))
 				.findAny().orElse(null);
 
-		return attackerCountry;
+		return country;
 	}
 
 	/**
