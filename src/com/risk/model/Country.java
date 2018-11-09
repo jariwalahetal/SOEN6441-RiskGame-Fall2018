@@ -28,6 +28,9 @@ public class Country {
 	 * 
 	 * @param countryId ,id of the country
 	 * @param countryName,name of the country
+	 * @param xCoordiate, x co-ordinate of the country
+	 * @param yCoordiate, y co-ordinate of the country
+	 * 
 	 */
 	public Country(int countryId, String countryName, int xCoordiate, int yCoordiate ) {
 		this.countryId = countryId;
@@ -162,7 +165,7 @@ public class Country {
 
 	/**
 	 * Sets army count for the country
-	 * 
+	 * @param noOfArmies, int
 	 * 
 	 */
 	public void setNoOfArmies(int noOfArmies) {

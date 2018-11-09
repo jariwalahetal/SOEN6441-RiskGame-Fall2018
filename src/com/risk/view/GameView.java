@@ -790,8 +790,8 @@ public class GameView implements Observer {
 
 	/**
 	 * Static method to Set the Attacker country
+	 * @param attackCountries, ArrayList
 	 * 
-	 * @return selectedCountry
 	 */
 	public void setAttackerCountry(ArrayList<String> attackCountries) {
 		attackerCountry.removeAllItems();
@@ -803,7 +803,7 @@ public class GameView implements Observer {
 	/**
 	 * This method will set armies to move after conquering a country
 	 * 
-	 * @param count
+	 * @param count, int
 	 */
 	public void setMoveArmies(int count) {
 		attackMoveArmies.removeAllItems();
@@ -875,7 +875,7 @@ public class GameView implements Observer {
 	/**
 	 * Static method to get the attackerNoOfDice
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public static String getAttackerNoOfDice() {
 		return (String) attackerNoOfDice.getSelectedItem();
@@ -884,7 +884,7 @@ public class GameView implements Observer {
 	/**
 	 * Static method to get the attackerNoOfDice
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public static String getDefenderNoOfDice() {
 		return (String) defenderNoOfDice.getSelectedItem();
@@ -1068,12 +1068,20 @@ public class GameView implements Observer {
 			textLabel.setFont(font);
 			textLabel.setBounds(15, strartY, 220, 40);
 			strartY = strartY + 15;
+
+            gamePhaseViewJScrollPane.add(textLabel);
+
 			// scrollPane.add(textLabel);
 			// gamePhaseViewJScrollPane = new JScrollPane(textLabel);
 			// gamePhaseViewActionsJLabel.add(gamePhaseViewJScrollPane);
 			// gamePhaseViewActionsJLabel.add(textLabel);
 			gamePhaseViewJScrollPane.add(textLabel);
+
 		}
+		gamePhaseViewJScrollPane.revalidate();
+		gamePhaseViewJScrollPane.repaint();
 	}
 
+	
+	
 }

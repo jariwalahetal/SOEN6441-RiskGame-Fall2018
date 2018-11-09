@@ -190,6 +190,7 @@ public class GameController {
 
 	/**
 	 * This function validates the map and initializes the map.
+	 * @return map
 	 */
 	private Map initializeMap() {
 		int i = 1;
@@ -214,6 +215,7 @@ public class GameController {
 
 	/**
 	 * This function creates the player objects for initializing Game
+	 * @param map, Map
 	 */
 	private void initializeGame(Map map) {
 		game = new Game(map);

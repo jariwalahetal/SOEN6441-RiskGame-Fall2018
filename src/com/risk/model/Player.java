@@ -467,6 +467,7 @@ public class Player {
 	 * @return
 	 */
 	private void rollDice(int diceCount) {
+		diceOutComes.clear();
 		for (int i = 0; i < diceCount; i++) {
 			diceOutComes.add(Common.getRandomNumberInRange(1, 6));
 		}
