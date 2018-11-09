@@ -90,8 +90,7 @@ public class CardExchangeView implements Observer  {
 	}
 	
 	public void updateCardView(Game game) {
-	
-		
+			
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			

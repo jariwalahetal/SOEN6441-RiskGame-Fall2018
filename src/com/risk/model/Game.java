@@ -217,7 +217,7 @@ public class Game extends Observable {
 	public ArrayList<String> getAttackFromCountries()
 	{ ArrayList<String> countries = new ArrayList<String>();
 	  for (Country country : getCurrentPlayer().getAssignedCountryList())
-	  { if(country.getnoOfArmies()>2)
+	  { if(country.getnoOfArmies()>1)
 		  {countries.add(country.getCountryName());			  
 		  }	
 	  }  
@@ -423,7 +423,7 @@ public class Game extends Observable {
 			return false;
 		}
 
-		while ((!getCurrentPlayer().isConquered) && attCountry.getnoOfArmies() > 1) {
+		while ((!getCurrentPlayer().isConquered) && attCountry.getnoOfArmies() > 1 ) {
 			int attackingDiceCount = this.getMaximumAllowableDices(attackingCountry, "Attacker");
 			int defendingDiceCount = this.getMaximumAllowableDices(defendingCountry, "Defender");
 

@@ -262,9 +262,10 @@ public class GameView implements Observer {
 	ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
 	// ArrayList<ViewCountries> attackingCountryList = new ArrayList<>();
 	PhaseEnum phase;
-	//Map mapObj;
-    Game gameObj;
-	/**
+
+	private Boolean isCardExchangeViewOpenedOnce = false;
+
+    /**
 	 * Method use to initialize the view of game
 	 */
 	public void gameInitializer() {
@@ -625,9 +626,10 @@ public class GameView implements Observer {
 
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
 
-				if(game.getCurrentPlayer().getCards().size()>= 3) {
+				if(game.getCurrentPlayer().getCards().size()>= 3 && (!isCardExchangeViewOpenedOnce)) {
 				CardExchangeView cardExchangeView=new CardExchangeView();
 				cardExchangeView.exchangeInitializerView(game);
+				isCardExchangeViewOpenedOnce = true;
 				}
 
 				reinforcementUnassignedArmiesCount = Integer
@@ -637,6 +639,11 @@ public class GameView implements Observer {
 				gamePhaseNameJLabel.setText("Reinforcement");
 
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
+				isCardExchangeViewOpenedOnce = true;
+				reinforcementUnassignedArmiesCount = Integer
+						.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
+				reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
+
 				gamePhaseNameJLabel.setText("Attack Phase");
 				setAttackerCountry(game.getAttackFromCountries());
 				setMoveArmies(game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender());
@@ -645,11 +652,12 @@ public class GameView implements Observer {
 				this.defenderCountry.removeAll();
 				this.attackerCountry.removeAll();
 				gamePhaseNameJLabel.setText("Fortification");
-				// setSourceCountryComboBox();
+				 setSourceCountryComboBox();
 			}
 
 			AddPhaseMessages();
 		//	addPlayerData(game,activePlayerName);
+
 		}
 	}
 
