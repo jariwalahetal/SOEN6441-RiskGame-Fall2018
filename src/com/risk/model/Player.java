@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
+import com.risk.helper.GetArmiesByTrading;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 
@@ -341,7 +342,8 @@ public class Player {
 			if (hasPlayerAllCountries)
 				countriesCount += continent.getControlValue();
 		}
-
+		
+		countriesCount +=  getNoOfTradedArmies();
 		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PLAYERS ? MINIMUM_REINFORCEMENT_PLAYERS
 				: countriesCount;
 		setNoOfReinforcedArmies(countriesCount);
@@ -394,7 +396,7 @@ public class Player {
 	}
 
 	/**
-	 * Method to get neighbouring countries of a given country
+	 * Method to get neighboring countries of a given country
 	 * 
 	 * @param sourceCountryName, name of the source country of player
 	 * @param assignedCountriesName, list of assigned countries name
@@ -414,7 +416,7 @@ public class Player {
 	}
 
 	/**
-	 * Method to get neighbouring countries of a given country
+	 * Method to get neighboring countries of a given country
 	 * 
 	 * @param sourceCountryName,
 	 *            name of the source country of player
@@ -436,7 +438,7 @@ public class Player {
 	}
 
 	/**
-	 * Method to get neighbouring countries of a given country
+	 * Method to get neighboring countries of a given country
 	 * 
 	 * @param sourceCountryName,
 	 *            name of the source country of player
@@ -472,18 +474,24 @@ public class Player {
 	/**
 	 * This method will process attack on given player
 	 * 
+	 * @param defenderPlayer   Player
+	 * @param attackingCountry Attacking country
+	 * @param defendingCountry Defending country
+	 * @param attackingDices   attacking dices
+	 * @param denfendingDices  defending dices
+	 * @return true if successful
 	 * @param defenderPlayer, Player
 	 * @param attackingCountry, Attacking country
 	 * @param defendingCountry, Defending country
 	 * @param attackingDiceCount, attacking dices count
 	 * @param defendingDiceCount, defending dices count
-	 * 
 	 */
 	public void attackPhase(Player defenderPlayer, Country attackingCountry, Country defendingCountry,
 			int attackingDiceCount, int defendingDiceCount) {
-
+		
 		rollDice(attackingDiceCount);
 		defenderPlayer.rollDice(defendingDiceCount);
+		
 		ArrayList<Integer> attackingDices = diceOutComes;
 		ArrayList<Integer> defendingDices = defenderPlayer.diceOutComes;
 

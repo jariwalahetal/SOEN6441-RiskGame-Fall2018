@@ -123,7 +123,12 @@ public class Game extends Observable {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 		for (Player player : this.playerList) {
 			for (Country country : player.getAssignedCountryList()) {
-				returnMap.put(player.getPlayerId(), country.getnoOfArmies());
+				int totalArmies = country.getnoOfArmies();
+				if(returnMap.containsKey(player.getPlayerId())) 
+				{
+					totalArmies += returnMap.get(player.getPlayerId());
+				}
+				returnMap.put(player.getPlayerId(), totalArmies);
 			}
 		}
 		return returnMap;

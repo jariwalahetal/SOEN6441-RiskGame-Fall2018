@@ -583,14 +583,14 @@ public class GameView implements Observer {
                     index++;
                 }*/
                 String[][] rowsJtable = new String[3][playerNames.size()];
-                for (int cols = 0; cols < rowsJtable.length; cols++) {
-                    rowsJtable[0][cols] = "Percent "+Float.toString(mapPercent[cols]);
+                for (int cols = 0; cols < rowsJtable[0].length; cols++) {
+                    rowsJtable[0][cols] = Float.toString(mapPercent[cols]) + " %";
                 }
                 for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
-                    rowsJtable[1][cols] = "Continents "+Integer.toString(continentsControlled[cols]);
+                    rowsJtable[1][cols] = Integer.toString(continentsControlled[cols]) + " (continents)";
                 }
                 for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
-                    rowsJtable[2][cols] = "Total Armies "+Integer.toString(armies[cols]);
+                    rowsJtable[2][cols] = Integer.toString(armies[cols]) + " (armies)";
                 }
 				playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
 				playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
@@ -1015,6 +1015,7 @@ public class GameView implements Observer {
 	}
 
 	public static void updateWorldDominationView() {
+		if(playerRecordsJTable == null) return;
         playerRecordsJTable.removeAll();
 
         int i=0;

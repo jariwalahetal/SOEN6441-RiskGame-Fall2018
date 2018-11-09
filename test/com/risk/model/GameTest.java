@@ -72,12 +72,12 @@ public class GameTest {
 	/**
 	 * Test Method for calculation for reinforcement armies
 	 */
-
 	@Test
 	public void testReinforcementPhase() {
 	
 		// Generate reinforcement for player
 		Player currentPlayer = game.getCurrentPlayer();
+		if(!currentPlayer.isCardsAvailableForTradeInReinforcement()) {
 		ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
 		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
 		boolean isPhaseUpdated = false;
@@ -93,42 +93,46 @@ public class GameTest {
 		reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
 
 		assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
+		}
 	}
 	
 	/**
 	 * Test Method for calculation for assignment of armies and phase should be shifted to attack at end
 	 */
-
 	@Test
 	public void testReinforcementAndArmiesAssignment() {
 	
 		// Generate reinforcement for player
 		Player currentPlayer = game.getCurrentPlayer();
-		ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
-		List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
-		boolean isPhaseUpdated = false;
-		int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
-
-		for (Continent continent : map.getContinentList()) {
-			List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
-					.collect(Collectors.toList());
-			boolean hasPlayerAllCountries = countryIds.containsAll(continentCountryIds);
-			if (hasPlayerAllCountries)
-				reinforcementCount += continent.getControlValue();
+		if(!currentPlayer.isCardsAvailableForTradeInReinforcement()) {
+			ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
+			List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
+			boolean isPhaseUpdated = false;
+			int reinforcementCount = (int) Math.floor(playerCountries.size() / 3);
+	
+			for (Continent continent : map.getContinentList()) {
+				List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
+						.collect(Collectors.toList());
+				boolean hasPlayerAllCountries = countryIds.containsAll(continentCountryIds);
+				if (hasPlayerAllCountries)
+					reinforcementCount += continent.getControlValue();
+				
+				
+			}
+			reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
+	
+			assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
+			
+			// place the armies on random countries for the player
+			while (currentPlayer.getNoOfReinforcedArmies() > 0) {
+				game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1))
+						.getCountryName());
+			}
+	
+			assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
+			assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
+			assertEquals(PhaseEnum.Attack, game.getGamePhase());
 		}
-		reinforcementCount = reinforcementCount < 3 ? 3 : reinforcementCount;
-
-		assertEquals(reinforcementCount, currentPlayer.getNoOfReinforcedArmies());
-		
-		// place the armies on random countries for the player
-		while (currentPlayer.getNoOfReinforcedArmies() > 0) {
-			game.addArmyToCountry(playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1))
-					.getCountryName());
-		}
-
-		assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
-		assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
-		assertEquals(PhaseEnum.Attack, game.getGamePhase());
 	}
 	
 	/**
@@ -154,9 +158,9 @@ public class GameTest {
 	    	defendingCountry = game.getCountryFromName(attackedCountryName);
 	    	defendingCountryArmyCount = defendingCountry.getnoOfArmies();
 		     
-	    	attackingDiceCount = 1;//game.getCurrentPlayer().getMaximumAllowableDices(attackingCountry, "Attacker");
-	        defendingDiceCount = 1;//game.getCurrentPlayer().getMaximumAllowableDices(defendingCountry, "Defender");
-	 	     
+	    	attackingDiceCount = 1;
+	        defendingDiceCount = 1;
+	        
 	        game.attackPhase(attackingCountryName, attackedCountryName, attackingDiceCount, defendingDiceCount);
 	 	   
 	        if (defendingCountryArmyCount>defendingCountry.getnoOfArmies())
@@ -180,7 +184,6 @@ public class GameTest {
 	      break;
 	    }
 	    
-		System.out.println("********** attackingCountry:"+game.getAllPlayers().size());
 	}
 	
 	/**
@@ -336,9 +339,7 @@ public class GameTest {
 		diceCount = game.getMaximumAllowableDices(countryName, "Attacker");
 		
 		assertEquals(1, diceCount);
-
-		
-	}
+     }
 	
 	/**
 	 * This method tests the total armies.
@@ -408,6 +409,23 @@ public class GameTest {
 			actualNeigboursList.add("Algeria");
 			assertTrue(isTwoArrayListsWithSameValues(neighCountries, actualNeigboursList));
 		}
+	}
+	
+	/**
+	 * This will test isMapConquered
+	 */
+	@Test
+	public void isMapConqueredTest()
+	{ Player player = game.getCurrentPlayer();
+	   
+		for(Country country:map.getCountryList())
+	    { if (country.getPlayerId()!=player.getPlayerId())
+			player.assignCountryToPlayer(country);
+	    }		
+			
+		Boolean result = game.isMapConquered();
+	    assertEquals(result, true);
+	
 	}
 	
 	/**
