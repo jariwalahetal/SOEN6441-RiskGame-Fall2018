@@ -8,15 +8,16 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import com.risk.helper.IOHelper;
 import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
+import com.risk.view.CardExchangeView;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
 
 /**
  * This class is used to handle operations related to MAP.
+ * 
  * @author Binay Kumar
  * @version 1.0.0
  * @since 27-September-2018
@@ -26,6 +27,7 @@ public class GameController {
 
 	Game game;
 	GameView gameView;
+	CardExchangeView cardExchangeView;
 	public static final String ANSI_RED = "\u001B[31m";
 
 	/**
@@ -59,14 +61,13 @@ public class GameController {
 				Map map = initializeMap();
 				initializeGame(map);
 				break;
-			// TODO: Play Game
 			case 4:
 				System.exit(0);
 			default:
 				IOHelper.print("\nInvalid choice. Select Again!\n");
 			}
 		} catch (Exception e) {
-			IOHelper.printException(e);
+			e.printStackTrace();
 			IOHelper.print("Please try again with the right option");
 		}
 
@@ -85,7 +86,7 @@ public class GameController {
 				StringBuffer mapContent = new StringBuffer(mapView.returnTextAreaText());
 				String mapname = mapView.returnMapNameText();
 				Map map = new Map(mapname);
-				boolean isMapCreated = map.validateAndCreateMap(mapContent,mapname);
+				boolean isMapCreated = map.validateAndCreateMap(mapContent, mapname);
 				if (isMapCreated) {
 					IOHelper.print("Map Created successfully!");
 				} else {
@@ -112,83 +113,84 @@ public class GameController {
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = mapList.get(mapNumber - 1);
 		Map map = new Map(selectedMapName);
-		IOHelper.print("'"+selectedMapName+"'");
-        map.readMap();
-        if (!map.isMapValid()){
-            IOHelper.print("Map is Invalid !");
-        }
-        while (true){
-            IOHelper.print("+------------------------------+");
-            IOHelper.print("|________ Edit Map Menu________| ");
-            IOHelper.print("|    1. Delete Continent       |");
-            IOHelper.print("|    2. Delete Country         |");
-            IOHelper.print("|    3. Add Continent          |");
-            IOHelper.print("|    4. Add Country            |");
+		IOHelper.print("'" + selectedMapName + "'");
+		map.readMap();
+		if (!map.isMapValid()) {
+			IOHelper.print("Map is Invalid !");
+		}
+		while (true) {
+			IOHelper.print("+------------------------------+");
+			IOHelper.print("|________ Edit Map Menu________| ");
+			IOHelper.print("|    1. Delete Continent       |");
+			IOHelper.print("|    2. Delete Country         |");
+			IOHelper.print("|    3. Add Continent          |");
+			IOHelper.print("|    4. Add Country            |");
 			IOHelper.print("|    5. Save Map               |");
 			IOHelper.print("|    6. Exit                   |");
-            IOHelper.print("+------------------------------+");
-            IOHelper.print(" Enter option:");
-            int input = IOHelper.getNextInteger();
-            switch (input){
-                case 1:
-                    IOHelper.print("List of Continents:");
-                    ArrayList<Continent> continentList = map.getContinentList();
-                    for (Continent nameOfContinent: continentList ) {
-                        IOHelper.print("->"+nameOfContinent.getContName());
-                    }
-                    IOHelper.print("Enter name of the Continent you want to delete:");
-                    String continentToDelete = IOHelper.getNextString();
-                    map.deleteContinent(continentToDelete);
-					IOHelper.print("Continent '"+continentToDelete+"' is deleted successfuly!");
-                    break;
-                case 2:
-                    IOHelper.print("List of Countries:");
-                    ArrayList<Country> countryList = map.getCountryList();
-                    for (Country nameOfCountry: countryList ) {
-                        IOHelper.print("->"+nameOfCountry.getCountryName());
-                    }
-                    IOHelper.print("Enter name of the Country you want to delete from the list given below:");
-                    String countryToDelete = IOHelper.getNextString();
-                    map.deleteCountry(countryToDelete);
-					IOHelper.print("Country '"+countryToDelete+"' is deleted successfuly!");
-                    break;
-                case 3:
-                    map.addContinentToMap();
-					IOHelper.print("Continent added successfully!");
-                    break;
-                case 4:
-                    IOHelper.print("List of Continents:-");
-                    ArrayList<Continent> continentsList = map.getContinentList();
-                    int continentID = 0;
-                    for (Continent continent: continentsList ) {
-                        IOHelper.print("-> "+continent.getContName());
-                        continentID = continent.getContId();
-                    }
-                    IOHelper.print("Enter name of the continent where you want to add new country(from above list): ");
-                    String continentName = IOHelper.getNextString();
-                    map.addCountryToContinent(continentName,continentID);
-					IOHelper.print("Country added successfuly!");
-                    break;
-                case 5:
-                	if (map.isMapValid()){
-						map.saveMap();
-						IOHelper.print("Map saved!");
-					}else {
-                		IOHelper.print("Map saved is invalid!");
-					}
-					break;
-                case 6:
-                    startGame();
-                    break;
-                default:
-                    IOHelper.print("Option not Available. Select Again!");
-                    break;
-            }
-        }
+			IOHelper.print("+------------------------------+");
+			IOHelper.print(" Enter option:");
+			int input = IOHelper.getNextInteger();
+			switch (input) {
+			case 1:
+				IOHelper.print("List of Continents:");
+				ArrayList<Continent> continentList = map.getContinentList();
+				for (Continent nameOfContinent : continentList) {
+					IOHelper.print("->" + nameOfContinent.getContName());
+				}
+				IOHelper.print("Enter name of the Continent you want to delete:");
+				String continentToDelete = IOHelper.getNextString();
+				map.deleteContinent(continentToDelete);
+				IOHelper.print("Continent '" + continentToDelete + "' is deleted successfuly!");
+				break;
+			case 2:
+				IOHelper.print("List of Countries:");
+				ArrayList<Country> countryList = map.getCountryList();
+				for (Country nameOfCountry : countryList) {
+					IOHelper.print("->" + nameOfCountry.getCountryName());
+				}
+				IOHelper.print("Enter name of the Country you want to delete from the list given below:");
+				String countryToDelete = IOHelper.getNextString();
+				map.deleteCountry(countryToDelete);
+				IOHelper.print("Country '" + countryToDelete + "' is deleted successfuly!");
+				break;
+			case 3:
+				map.addContinentToMap();
+				IOHelper.print("Continent added successfully!");
+				break;
+			case 4:
+				IOHelper.print("List of Continents:-");
+				ArrayList<Continent> continentsList = map.getContinentList();
+				int continentID = 0;
+				for (Continent continent : continentsList) {
+					IOHelper.print("-> " + continent.getContName());
+					continentID = continent.getContId();
+				}
+				IOHelper.print("Enter name of the continent where you want to add new country(from above list): ");
+				String continentName = IOHelper.getNextString();
+				map.addCountryToContinent(continentName, continentID);
+				IOHelper.print("Country added successfuly!");
+				break;
+			case 5:
+				if (map.isMapValid()) {
+					map.saveMap();
+					IOHelper.print("Map saved!");
+				} else {
+					IOHelper.print("Map saved is invalid!");
+				}
+				break;
+			case 6:
+				startGame();
+				break;
+			default:
+				IOHelper.print("Option not Available. Select Again!");
+				break;
+			}
+		}
 	}
 
 	/**
 	 * This function validates the map and initializes the map.
+	 * @return map
 	 */
 	private Map initializeMap() {
 		int i = 1;
@@ -213,26 +215,39 @@ public class GameController {
 
 	/**
 	 * This function creates the player objects for initializing Game
+	 * @param map, Map
 	 */
 	private void initializeGame(Map map) {
 		game = new Game(map);
+		cardExchangeView = new CardExchangeView();
 		gameView = new GameView();
+
 		game.addObserver(gameView);
-		IOHelper.print("\nEnter the number of Players:");
+
+		IOHelper.print("\nEnter the number of Players between 3 to 5");
+
 		int playerCount = IOHelper.getNextInteger();
+		if (3 <= playerCount && playerCount <= 5) {
+			for (int i = 0; i < playerCount; i++) {
+				IOHelper.print("\nEnter the name of Player " + (i + 1));
+				String playerName = IOHelper.getNextString();
+				Player player = new Player(i, playerName);
+				game.addPlayer(player);
+			}
+			game.startUpPhase();
+			gameView.gameInitializer();
+			activateListenersOnView();
+			game.addObserver(cardExchangeView);
+		} else {
+			IOHelper.print("Players count cannot be less than 3 and more than 5");
+			startGame();
 
-		for (int i = 0; i < playerCount; i++) {
-			IOHelper.print("\nEnter the name of Player " + (i + 1));
-			String playerName = IOHelper.getNextString();
-			Player player = new Player(i, playerName);
-			game.addPlayer(player);
 		}
-		game.startUpPhase();
-		gameView.gameInitializer();
-		activateListenersOnView();
-
 	}
 
+	/**
+	 * This method will activate all listeners on the View
+	 */
 	private void activateListenersOnView() {
 		addArmyImageClickListener();
 		addAttackButtonListener();
@@ -243,10 +258,11 @@ public class GameController {
 		addAttackerCountryListener();
 		addDefenderCountryListener();
 		addAttackArmyMoveButtonListner();
+		addSkipFortificationButtonListener();
 	}
 
 	/**
-	 * to update view
+	 * to add listener on the Add Army labels
 	 */
 	public void addArmyImageClickListener() {
 		gameView.addActionListenToMapLabels(new MouseAdapter() {
@@ -261,7 +277,7 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * to add listeners on the Attacker Country List
 	 */
 	public void addAttackerCountryListener() {
 		gameView.addActionListenToAttackerCountryList(new ActionListener() {
@@ -269,17 +285,18 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getAttackerCountry();
 				if (countryName != null) {
-					game.SetAttackingCountry(countryName);
-					ArrayList<String> neighborCountries = game.getNeighbouringCountriesForAttack();
-					gameView.populateDefenderCountryComboBox(neighborCountries);
-					gameView.populateAttackingDiceComboBox(game.GetMaximumAllowableDicesForAttacker());
+					ArrayList<String> neighborCountries = game.getCurrentPlayer()
+							.getUnAssignedNeighbouringCountries(countryName);
+					gameView.setDefenderCountryComboBox(neighborCountries);
+					int diceCount = game.getMaximumAllowableDices(countryName, "Attacker");
+					gameView.setAttackingDiceComboBox(diceCount);
 				}
 			}
 		});
 	}
-	
+
 	/**
-	 * to update view
+	 * to add listeners on the Defender Country List
 	 */
 	public void addDefenderCountryListener() {
 		gameView.addActionListenToDefendingCountryList(new ActionListener() {
@@ -287,16 +304,15 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getDefenderCountry();
 				if (countryName != null) {
-					game.SetDefendingCountry(countryName);
-					gameView.populateDefendingDiceComboBox(game.GetMaximumAllowableDicesForDefender());
+					int diceCount = game.getMaximumAllowableDices(countryName, "Defender");
+					gameView.setDefendingDiceComboBox(diceCount);
 				}
 			}
 		});
 	}
-	
-	
+
 	/**
-	 * to update view
+	 * to add listeners on the Source Country list in Fortification Phase
 	 */
 	public void addSourceCountriesListener() {
 		gameView.addActionListenToSourceCountryList(new ActionListener() {
@@ -304,83 +320,86 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getSourceCountry();
 				if (countryName != null) {
-					ArrayList<String> neighborCountries = game.getNeighbouringCountries(countryName);
+					ArrayList<String> neighborCountries = game.getCurrentPlayer()
+							.getAssignedNeighbouringCountries(countryName);
 					int armyCount = game.getArmiesAssignedToCountry(countryName);
-					gameView.populateDestinationCountryComboBox(neighborCountries);
-					gameView.populateNoOfArmyToMoveJcomboBox(armyCount);
+					gameView.setDestinationCountryComboBox(neighborCountries);
+					gameView.setNoOfArmyToMoveJcomboBox(armyCount);
 				}
 			}
 		});
 	}
 
 	/**
-	 * to update view
+	 * to add listener on the Attack Button
 	 */
 	public void addAttackButtonListener() {
 		gameView.addActionListenToAttackButton(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if(gameView.getAttackerCountry() != null && gameView.getDefenderCountry() != null) {
+				String attackerCountry = gameView.getAttackerCountry();
+				String defenderCountry = gameView.getDefenderCountry();
+				if (attackerCountry != null && defenderCountry != null) {
 					if (game.getGamePhase() == PhaseEnum.Attack) {
 						Integer attackerDiceCount = Integer.parseInt(GameView.getAttackerNoOfDice());
 						Integer defenderDiceCount = Integer.parseInt(GameView.getDefenderNoOfDice());
-						game.attackPhase(attackerDiceCount,defenderDiceCount);
+						game.attackPhase(attackerCountry, defenderCountry, attackerDiceCount, defenderDiceCount);
 					}
-				}
-				else {
+				} else {
 					JOptionPane.showMessageDialog(null, "Selecting attacking and defending countries");
 				}
 			}
 		});
 	}
-	
+
 	/**
-	 * to update view
+	 * to add listener on the Move Army button in Attack Phase
 	 */
 	public void addAttackArmyMoveButtonListner() {
 		gameView.addActionListenToAttackMoveArmiesButton(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(GameView.getAttackMoveArmies() != null && game.GetAllowableArmiesMoveFromAttackerToDefender() >= 0) {
-					game.MoveArmyAfterAttack(Integer.parseInt(GameView.getAttackMoveArmies()));
-				}
-				else {
+				if (GameView.getAttackMoveArmies() != null
+						&& game.getCurrentPlayer().getAllowableArmiesMoveFromAttackerToDefender() >= 0) {
+					game.moveArmyAfterAttack(Integer.parseInt(GameView.getAttackMoveArmies()));
+				} else {
 					JOptionPane.showMessageDialog(null, "Cannot perform action");
 				}
 			}
 		});
 	}
-	
+
 	/**
-	 * to update view
+	 * to add listener on the All Out Army button in Attack Phase
 	 */
 	public void addAllOutButtonListener() {
 		gameView.addActionListenToAllOutButton(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (game.getGamePhase() == PhaseEnum.Attack)
-				{   //Call to Model
-					
+				if (game.getGamePhase() == PhaseEnum.Attack) {
+					String attackerCountry = gameView.getAttackerCountry();
+					String defenderCountry = gameView.getDefenderCountry();
+					game.attackAllOutPhase(attackerCountry, defenderCountry);
 				}
 			}
 		});
 	}
-	
+
 	/**
-	 * to update view
+	 * to add listener on the End Attack button in Attack Phase
 	 */
 	public void addEndAttackButtonListener() {
 		gameView.addActionListenToEndAttackButton(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (game.getGamePhase() == PhaseEnum.Attack) {   
-					game.SetFortificationPhase();		
-				}			
+				if (game.getGamePhase() == PhaseEnum.Attack) {
+					game.updatePhase();
+				}
 			}
 		});
 	}
-		
+
 	/**
-	 * to update view
+	 * to add listener on the Move Armies button in Fortification Phase
 	 */
 	public void addMoveArmyButtonListener() {
 		gameView.addActionListenToMoveArmyButton(new ActionListener() {
@@ -389,6 +408,19 @@ public class GameController {
 				if (game.getGamePhase() == PhaseEnum.Fortification)
 					game.fortificationPhase(gameView.getSourceCountry(), gameView.getDestinationCountry(),
 							gameView.getNoOfArmyToMoveJcomboBox());
+			}
+		});
+	}
+
+	/**
+	 * to add listener on the Skip button in Fortification Phase
+	 */
+	public void addSkipFortificationButtonListener() {
+		gameView.addActionListenTofortificationSkipButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == PhaseEnum.Fortification)
+					game.updatePhase();
 			}
 		});
 	}
