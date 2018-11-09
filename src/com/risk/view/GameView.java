@@ -260,6 +260,7 @@ public class GameView implements Observer {
 	ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
 	// ArrayList<ViewCountries> attackingCountryList = new ArrayList<>();
 	PhaseEnum phase;
+	private Boolean isCardExchangeViewOpenedOnce = false;
 
 	/**
 	 * Method use to initialize the view of game
@@ -601,9 +602,10 @@ public class GameView implements Observer {
 
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
 
-				if(game.getCurrentPlayer().getCards().size()>= 3) {
+				if(game.getCurrentPlayer().getCards().size()>= 3 && (!isCardExchangeViewOpenedOnce)) {
 				CardExchangeView cardExchangeView=new CardExchangeView();
 				cardExchangeView.exchangeInitializerView(game);
+				isCardExchangeViewOpenedOnce = true;
 				}
 
 				reinforcementUnassignedArmiesCount = Integer
@@ -613,6 +615,7 @@ public class GameView implements Observer {
 				gamePhaseNameJLabel.setText("Reinforcement");
 
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
+				isCardExchangeViewOpenedOnce = true;
 				gamePhaseNameJLabel.setText("Attack Phase");
 				setAttackerCountry(game.getAttackFromCountries());
 				setMoveArmies(game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender());
