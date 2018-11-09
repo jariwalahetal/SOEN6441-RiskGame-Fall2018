@@ -25,6 +25,7 @@ public class Game extends Observable {
 	private PhaseEnum gamePhase;
 	private Map map;
 	private ArrayList<CardEnum> gameCards = new ArrayList<>();
+	private Boolean isMapConqueredFlag = false;
 
 	/**
 	 * This is a constructor of Game class which will initialize the Map
@@ -212,7 +213,6 @@ public class Game extends Observable {
 		}
 	}
 
-
 	/**
 	 * Method used to notify observer
 	 * 
@@ -328,7 +328,7 @@ public class Game extends Observable {
 			setGamePhase(PhaseEnum.Reinforcement);
 			reinforcementPhaseSetup();
 			notifyObserverslocal(this);
-			
+
 		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
 			this.setGamePhase(PhaseEnum.Fortification);
 			notifyObserverslocal(this);
@@ -384,10 +384,13 @@ public class Game extends Observable {
 
 		getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount, defendingDiceCount);
 
-		if(!getCurrentPlayer().isAttackPossible())
-		{ updatePhase();		
+		if (isMapConquered()) {
+			IOHelper.print("Game Over, You win");
+			isMapConqueredFlag = true;
+		} else if (!getCurrentPlayer().isAttackPossible()) {
+			updatePhase();
 		}
-		
+
 		notifyObserverslocal(this);
 
 		return true;
@@ -422,9 +425,9 @@ public class Game extends Observable {
 			getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount,
 					defendingDiceCount);
 		}
-		
-		if(!getCurrentPlayer().isAttackPossible())
-		{ updatePhase();		
+
+		if (!getCurrentPlayer().isAttackPossible()) {
+			updatePhase();
 		}
 		notifyObserverslocal(this);
 
@@ -595,6 +598,19 @@ public class Game extends Observable {
 		} else {
 			IOHelper.print("Provide three set of cards");
 		}
+		return false;
+	}
+
+	/**
+	 * This method will tell if whole map is being conquered by current Player
+	 * 
+	 * @return
+	 */
+	public Boolean isMapConquered() {
+		if (map.getCountryList().size() == this.getCurrentPlayer().getAssignedCountryList().size()) {
+			return true;
+		}
+
 		return false;
 	}
 }
