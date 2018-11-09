@@ -14,7 +14,6 @@ import com.risk.model.*;
 import com.risk.view.CardExchangeView;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
-import com.risk.view.PlayerWorldDominationView;
 
 /**
  * This class is used to handle operations related to MAP.
