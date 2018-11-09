@@ -62,14 +62,12 @@ public class GameController {
 				Map map = initializeMap();
 				initializeGame(map);
 				break;
-			// TODO: Play Game
 			case 4:
 				System.exit(0);
 			default:
 				IOHelper.print("\nInvalid choice. Select Again!\n");
 			}
 		} catch (Exception e) {
-			//IOHelper.printException(e);
 			e.printStackTrace();
 			IOHelper.print("Please try again with the right option");
 		}
@@ -218,36 +216,37 @@ public class GameController {
 	/**
 	 * This function creates the player objects for initializing Game
 	 */
-	private void initializeGame(Map map) {		
+	private void initializeGame(Map map) {
 		game = new Game(map);
-		cardExchangeView=new CardExchangeView();
+		cardExchangeView = new CardExchangeView();
 		gameView = new GameView();
-		
-		game.addObserver(gameView);
-		
-		IOHelper.print("\nEnter the number of Players between 3 to 5");
-		
-		int playerCount = IOHelper.getNextInteger();
-        if(3<=playerCount&&playerCount<=5) {
-		for (int i = 0; i < playerCount; i++) {
-			IOHelper.print("\nEnter the name of Player " + (i + 1));
-			String playerName = IOHelper.getNextString();
-			Player player = new Player(i, playerName);
-			game.addPlayer(player);
-		}
-		game.startUpPhase();
-		gameView.gameInitializer();
-		activateListenersOnView();
-		game.addObserver(cardExchangeView);
-	}
-        else {
-        	IOHelper.print("Players count cannot be less than 3 and more than 5");	
-        	startGame();
-        	
-        }
-	}
-        
 
+		game.addObserver(gameView);
+
+		IOHelper.print("\nEnter the number of Players between 3 to 5");
+
+		int playerCount = IOHelper.getNextInteger();
+		if (3 <= playerCount && playerCount <= 5) {
+			for (int i = 0; i < playerCount; i++) {
+				IOHelper.print("\nEnter the name of Player " + (i + 1));
+				String playerName = IOHelper.getNextString();
+				Player player = new Player(i, playerName);
+				game.addPlayer(player);
+			}
+			game.startUpPhase();
+			gameView.gameInitializer();
+			activateListenersOnView();
+			game.addObserver(cardExchangeView);
+		} else {
+			IOHelper.print("Players count cannot be less than 3 and more than 5");
+			startGame();
+
+		}
+	}
+
+	/**
+	 * This method will activate all listeners on the View
+	 */
 	private void activateListenersOnView() {
 		addArmyImageClickListener();
 		addAttackButtonListener();
@@ -258,10 +257,11 @@ public class GameController {
 		addAttackerCountryListener();
 		addDefenderCountryListener();
 		addAttackArmyMoveButtonListner();
+		addSkipFortificationButtonListener();
 	}
 
 	/**
-	 * to update view
+	 * to add listener on the Add Army labels
 	 */
 	public void addArmyImageClickListener() {
 		gameView.addActionListenToMapLabels(new MouseAdapter() {
@@ -276,7 +276,7 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * to add listeners on the Attacker Country List
 	 */
 	public void addAttackerCountryListener() {
 		gameView.addActionListenToAttackerCountryList(new ActionListener() {
@@ -295,7 +295,7 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * to add listeners on the Defender Country List
 	 */
 	public void addDefenderCountryListener() {
 		gameView.addActionListenToDefendingCountryList(new ActionListener() {
@@ -311,7 +311,7 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * to add listeners on the Source Country list in Fortification Phase
 	 */
 	public void addSourceCountriesListener() {
 		gameView.addActionListenToSourceCountryList(new ActionListener() {
@@ -330,7 +330,7 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * to add listener on the Attack Button
 	 */
 	public void addAttackButtonListener() {
 		gameView.addActionListenToAttackButton(new ActionListener() {
@@ -352,14 +352,14 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * to add listener on the Move Army button in Attack Phase
 	 */
 	public void addAttackArmyMoveButtonListner() {
 		gameView.addActionListenToAttackMoveArmiesButton(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (GameView.getAttackMoveArmies() != null
-						&& game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender() >= 0) {
-					game.MoveArmyAfterAttack(Integer.parseInt(GameView.getAttackMoveArmies()));
+						&& game.getCurrentPlayer().getAllowableArmiesMoveFromAttackerToDefender() >= 0) {
+					game.moveArmyAfterAttack(Integer.parseInt(GameView.getAttackMoveArmies()));
 				} else {
 					JOptionPane.showMessageDialog(null, "Cannot perform action");
 				}
@@ -368,7 +368,7 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * to add listener on the All Out Army button in Attack Phase
 	 */
 	public void addAllOutButtonListener() {
 		gameView.addActionListenToAllOutButton(new ActionListener() {
@@ -384,7 +384,7 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * to add listener on the End Attack button in Attack Phase
 	 */
 	public void addEndAttackButtonListener() {
 		gameView.addActionListenToEndAttackButton(new ActionListener() {
@@ -398,7 +398,7 @@ public class GameController {
 	}
 
 	/**
-	 * to update view
+	 * to add listener on the Move Armies button in Fortification Phase
 	 */
 	public void addMoveArmyButtonListener() {
 		gameView.addActionListenToMoveArmyButton(new ActionListener() {
@@ -407,6 +407,19 @@ public class GameController {
 				if (game.getGamePhase() == PhaseEnum.Fortification)
 					game.fortificationPhase(gameView.getSourceCountry(), gameView.getDestinationCountry(),
 							gameView.getNoOfArmyToMoveJcomboBox());
+			}
+		});
+	}
+
+	/**
+	 * to add listener on the Skip button in Fortification Phase
+	 */
+	public void addSkipFortificationButtonListener() {
+		gameView.addActionListenTofortificationSkipButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == PhaseEnum.Fortification)
+					game.updatePhase();
 			}
 		});
 	}

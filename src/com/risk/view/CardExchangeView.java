@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.ListModel;
 import javax.swing.border.TitledBorder;
 import com.risk.helper.CardEnum;
 import com.risk.helper.IOHelper;
@@ -21,11 +22,12 @@ import com.risk.model.Game;
 
 /**
  * This class is used to display the card exchange view.
+ * 
  * @author sadgi
  * @version 1.0.0
  * @since 01-November-2018
  */
-public class CardExchangeView implements Observer  {
+public class CardExchangeView implements Observer {
 	private static JFrame cardFrame = null;
 	private static JPanel cardPanel;
 	private static JLabel cardExchangeLabel;
@@ -37,6 +39,7 @@ public class CardExchangeView implements Observer  {
 
 	/**
 	 * This method is used to initialize the Card Exchange View.
+	 * 
 	 * @param game
 	 */
 	public void exchangeInitializerView(Game game) {
@@ -62,7 +65,6 @@ public class CardExchangeView implements Observer  {
 			cards[i] = typeOfCards.get(i).toString();
 		}
 		palyerOwnedCard = new JList<>(cards);
-		;
 		palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
 		palyerOwnedCard.setBounds(310, 45, 250, 70);
 		totalNewArmies = new JLabel("" + game.getCurrentPlayer().getNoOfTradedArmies());
@@ -72,12 +74,29 @@ public class CardExchangeView implements Observer  {
 		exchangeButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<String> selectedCards = (ArrayList<String>)palyerOwnedCard.getSelectedValuesList();
-				game.tradeCards(selectedCards);
+				if (palyerOwnedCard.getSelectedValuesList() != null &&  palyerOwnedCard.getSelectedValuesList().size() > 0) {
+					ArrayList<String> selectedCards = (ArrayList<String>) palyerOwnedCard.getSelectedValuesList();
+
+					game.tradeCards(selectedCards);
+					palyerOwnedCard.removeAll();
+				}
 			}
 		});
 		exitButton.setBounds(310, 255, 160, 40);
-		
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				boolean checkCount = game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
+				if (checkCount) {
+					cardFrame.dispose();
+					game.reinforcementPhaseSetup();
+				} else {
+					IOHelper.print("Cannot Exit Without Exchange");
+				}
+
+			}
+
+		});
 		cardExchangeLabel.add(totalNewArmies);
 		cardExchangeLabel.add(palyerOwnedCard);
 		cardExchangeLabel.add(playersTurnJlabel);
@@ -86,32 +105,45 @@ public class CardExchangeView implements Observer  {
 		cardPanel.add(cardExchangeLabel);
 		cardFrame.add(cardPanel);
 		cardFrame.setVisible(true);
-		
+
 	}
-	
+
 	public void updateCardView(Game game) {
-			
-		exitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-					boolean checkCount = game.getCurrentPlayer().IsAssigningReinforcementArmiesAllowed();
-					if (checkCount) {
-						cardFrame.dispose();
-						game.reinforcementPhaseSetup();
-					} else {
-						IOHelper.print("Cannot Exit Without Exchange");
-					}
 
-				}
+		if (game.getCurrentPlayer() != null && totalNewArmies != null) {
+			totalNewArmies.setText("" + game.getCurrentPlayer().getNoOfTradedArmies());
+			ArrayList<CardEnum> typeOfCards = game.getCurrentPlayer().getCards();
+			String cards[] = new String[typeOfCards.size()];
+			for (int i = 0; i < typeOfCards.size(); i++) {
+				cards[i] = typeOfCards.get(i).toString();
+			}
+			cardExchangeLabel.remove(palyerOwnedCard);
+			palyerOwnedCard = null;
 
 			
-		});
+		
+			
+
+			palyerOwnedCard = new JList<>(cards);
+			palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
+			palyerOwnedCard.setBounds(310, 45, 250, 70);
+			cardExchangeLabel.add(palyerOwnedCard);
+
+			// IMPORTANT
+			cardFrame.revalidate();
+			cardFrame.repaint();
+
+			// palyerOwnedCard.add("test", cardExchangeLabel);
+			// palyerOwnedCard.setModel((ListModel<String>) cards);
+		
+		}
+
 	}
 
 	@Override
 	public void update(Observable obj, Object arg) {
-		Game game = ((Game) obj);		
-		updateCardView(game); 
+		Game game = ((Game) obj);
+		updateCardView(game);
 	}
 
 }
