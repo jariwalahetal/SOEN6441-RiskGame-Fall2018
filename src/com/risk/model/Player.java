@@ -483,9 +483,10 @@ public class Player {
 	 */
 	public void attackPhase(Player defenderPlayer, Country attackingCountry, Country defendingCountry,
 			int attackingDiceCount, int defendingDiceCount) {
-
+		
 		rollDice(attackingDiceCount);
 		defenderPlayer.rollDice(defendingDiceCount);
+		
 		ArrayList<Integer> attackingDices = diceOutComes;
 		ArrayList<Integer> defendingDices = defenderPlayer.diceOutComes;
 
