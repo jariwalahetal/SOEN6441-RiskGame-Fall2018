@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.JTableHeader;
+
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
 import com.risk.helper.IOHelper;
@@ -21,6 +22,7 @@ import com.risk.helper.PhaseEnum;
 import com.risk.model.Country;
 import com.risk.model.Game;
 import com.risk.model.Map;
+import com.risk.model.Player;
 
 /**
  * To hold the countries information for view
@@ -249,6 +251,9 @@ public class GameView implements Observer {
 
 	// Player World Domination Button
 	private static JButton playerWorldDominationViewJButton;
+	private static JTable playerRecordsJTable;
+	private static JFrame playerWorldDominationViewJFrame;
+	private static JPanel playerWorldDominationViewJPanel;
 
 	String activePlayerName = null;
 	int activePlayerId;
@@ -274,7 +279,7 @@ public class GameView implements Observer {
 		loadingPhaseLabel();
 		loadingPhaseActionLabel();
 		loadPlayerWorldDominationView();
-		gameJframe.setSize(1250, 750);
+		gameJframe.setSize(1250, 766);
 		gameJframe.setLocationRelativeTo(null);
 		gameJframe.setVisible(true);
 		gameJframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -515,7 +520,7 @@ public class GameView implements Observer {
 		//gamePhaseViewActionsJLabel.add(gamePhaseViewJScrollPane);*/
 		gamePhaseViewJScrollPane = new JScrollPane();
 		gamePhaseViewJScrollPane.setBounds(gamePhaseJLabel.getX(),gamePhaseJLabel.getY()+10+gamePhaseJLabel.getHeight(),
-                gamePhaseJLabel.getWidth(),50);
+                gamePhaseJLabel.getWidth(),80);
         gamePhaseViewJScrollPane.setBorder(new TitledBorder("Phase Actions Performed"));
 		gameActionJpanel.add(gamePhaseViewJScrollPane);
 		
@@ -524,48 +529,37 @@ public class GameView implements Observer {
 
 	public void loadPlayerWorldDominationView() {
 		playerWorldDominationViewJButton = new JButton("Player World Domination View");
-		playerWorldDominationViewJButton.setBounds(gamePhaseViewJScrollPane.getX(),
+		playerWorldDominationViewJButton.setBounds(gamePhaseViewJScrollPane.getX()+110,
 				gamePhaseViewJScrollPane.getY() + 10 + gamePhaseViewJScrollPane.getHeight(),
 				destinationCountry.getWidth(), destinationCountry.getHeight());
 		playerWorldDominationViewJButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+                if (game==null)
+                    return;
 
-				String[] columns_header = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
-
-               /* // array of percentage of map controlled by each player
+                // array of percentage of map controlled by each player
                 Float[] mapPercent = new Float[5];
                 int i=0;
-                HashMap<Integer,Float> percentageMap =  gameObj.getPercentageOfMapControlledForEachPlayer();
+                HashMap<Integer,Float> percentageMap =  game.getPercentageOfMapControlledForEachPlayer();
                 for (java.util.Map.Entry<Integer, Float> entry : percentageMap.entrySet()) {
                     float value = entry.getValue();
                     mapPercent[i] = value;
                     i++;
-                }*/
-              /*  ArrayList<Player> playerNames = gameObj.getAllPlayers();
+                }
+                ArrayList<Player> playerNames = game.getAllPlayers();
                 String[] p_name = new String[5];
-                int i=0;
+                //int i=0;
                 for (Player obj : playerNames ) {
                     String name = obj.getName();
                     p_name[i] = name;
                     i++;
-                }*/
-			    String[] columnHeader = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
-
+                }
+                String[] columns_header = { "Attributes", "Player A", "Player B", "Player C", "Player D", "Player E" };
 				String[][] rows = { { "percentage", "10", "2", "5", "6", "3" },
 						{ "continents controlled", "1", "0", "0", "0", "0" },
 						{ "total army", "50", "10", "12", "0", "18" } };
-
-
-				JFrame playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
-				JPanel playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
-				JTable playerRecordsJTable = new JTable(rows, columns_header);
-				JTableHeader header = playerRecordsJTable.getTableHeader();
-
-				playerRecordsJTable.setBounds(20,
-						playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
-						350);
 
 				playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
 				playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
@@ -575,18 +569,13 @@ public class GameView implements Observer {
                         playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
                         350);
 
-
                 JTableHeader header = playerRecordsJTable.getTableHeader();
 				playerWorldDominationViewJFrame.setSize(600, 200);
 				playerWorldDominationViewJFrame.setLocationRelativeTo(null);
 				playerWorldDominationViewJFrame.setVisible(true);
 				playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
-
-				playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
-				playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
                 playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
                 playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
-
 
 			}
 		});
@@ -614,14 +603,17 @@ public class GameView implements Observer {
 		}
 	}
 
+
+    Game game;
+    Map map;
 	/**
 	 * Update method called by the observable object to perform all the actions
 	 */
 	@Override
 	public void update(Observable obj, Object arg1) {
 
-		Game game = ((Game) obj);
-		Map map = game.getMap();
+		 game = ((Game) obj);
+		map = game.getMap();
 
 		phase = game.getGamePhase();
 		mapPath = map.getMapPath() + map.getMapName() + ".bmp";
@@ -661,7 +653,7 @@ public class GameView implements Observer {
 				reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
 
 				gamePhaseNameJLabel.setText("Attack Phase");
-				setAttackerCountry();
+				setAttackerCountry(game.getAttackFromCountries());
 				setMoveArmies(game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender());
 
 			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
@@ -673,11 +665,6 @@ public class GameView implements Observer {
 
 			AddPhaseMessages();
 
-		}
-	}
-
-	/**
-=======
 		//	addPlayerData(game,activePlayerName);
 
 		}
@@ -740,11 +727,10 @@ public class GameView implements Observer {
         });*/
 
 
-    
+    }
 
 
     /**
->>>>>>> bb1023cb5ce39eb654a25048bc5aaab00018f8fa
 	 * Method used to populate value in the destination phase combobox
 	 * 
 	 * @param destinationCountries
@@ -790,15 +776,11 @@ public class GameView implements Observer {
 	 * 
 	 * @return selectedCountry
 	 */
-	public void setAttackerCountry() {
+	public void setAttackerCountry(ArrayList<String> attackCountries) {
 		Object temp = attackerCountry.getSelectedItem();
 		attackerCountry.removeAllItems();
-
-		for (int i = 0; i < countryList.size(); i++) {
-			ViewCountries tempCountry = countryList.get(i);
-			if (activePlayerId == tempCountry.getPlayerID() && tempCountry.getNoOfArmies() > 1) {
-				attackerCountry.addItem(tempCountry.getCountryName());
-			}
+		for (int i = 0; i < attackCountries.size(); i++) {
+				attackerCountry.addItem(attackCountries.get(i));
 		}
 		attackerCountry.setSelectedItem(temp);
 	}
