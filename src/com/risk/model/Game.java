@@ -324,9 +324,13 @@ public class Game extends Observable {
 			}
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {
-			this.setGamePhase(PhaseEnum.Reinforcement);
+			this.setNextPlayerTurn();
+			setGamePhase(PhaseEnum.Reinforcement);
+			reinforcementPhaseSetup();
+			notifyObserverslocal(this);
+			
 		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
-			gamePhase = PhaseEnum.Fortification;
+			this.setGamePhase(PhaseEnum.Fortification);
 			notifyObserverslocal(this);
 		}
 	}

@@ -258,6 +258,7 @@ public class GameController {
 		addAttackerCountryListener();
 		addDefenderCountryListener();
 		addAttackArmyMoveButtonListner();
+		addSkipFortificationButtonListener();
 	}
 
 	/**
@@ -411,6 +412,22 @@ public class GameController {
 		});
 	}
 
+	
+	/**
+	 * to update view
+	 */
+	public void addSkipFortificationButtonListener() {
+		gameView.addActionListenTofortificationSkipButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (game.getGamePhase() == PhaseEnum.Fortification)
+                     game.updatePhase();
+			}
+		});
+	}
+	
+	
+	
 	/**
 	 * This function returns the list of all the maps in the assets/map directory.
 	 * 

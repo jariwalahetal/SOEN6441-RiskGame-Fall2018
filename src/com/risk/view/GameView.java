@@ -248,7 +248,8 @@ public class GameView implements Observer {
 	private static JComboBox<String> destinationCountry;
 	private static JComboBox<String> noOfArmyToMoveJcomboBox;
 	private static JButton fortificationMoveButton = new JButton("Move Army");
-
+	private static JButton fortificationSkipButton = new JButton("Skip");
+	
 	// Player World Domination Button
 	private static JButton playerWorldDominationViewJButton;
 	private static JTable playerRecordsJTable;
@@ -472,15 +473,22 @@ public class GameView implements Observer {
 		noOfArmyToMoveJcomboBox.setBounds(sourceCountry.getX(), sourceCountry.getHeight() + sourceCountry.getY() + 7,
 				sourceCountry.getWidth(), sourceCountry.getHeight());
 		noOfArmyToMoveJcomboBox.setBorder(new TitledBorder("Total number of army to move"));
-
+		
+				
 		fortificationMoveButton.setBounds(destinationCountry.getX(),
-				destinationCountry.getHeight() + destinationCountry.getY() + 17, destinationCountry.getWidth(), 30);
+				destinationCountry.getHeight() + destinationCountry.getY() + 17, 100, 30);
 
+		fortificationSkipButton.setBounds(fortificationMoveButton.getX() + fortificationMoveButton.getWidth()+10,
+				fortificationMoveButton.getY(), fortificationMoveButton.getWidth(), fortificationMoveButton.getHeight());
+
+				
 		// Add all components in Label
 		fortificationJlabel.add(sourceCountry);
 		fortificationJlabel.add(destinationCountry);
 		fortificationJlabel.add(noOfArmyToMoveJcomboBox);
 		fortificationJlabel.add(fortificationMoveButton);
+		fortificationJlabel.add(fortificationSkipButton);
+		
 		// Adding Label to Panel
 		gameActionJpanel.add(fortificationJlabel);
 	}
@@ -924,6 +932,17 @@ public class GameView implements Observer {
 		fortificationMoveButton.addActionListener(listener);
 	}
 
+	/**
+	 * Method for performing action listener on Skip Fortification button
+	 * 
+	 * @param listener
+	 *            ActionListener
+	 */
+	public void addActionListenTofortificationSkipButton(ActionListener listener) {
+		fortificationSkipButton.addActionListener(listener);
+	}
+
+		
 	/**
 	 * Method for performing action listener on attack Button
 	 * 
