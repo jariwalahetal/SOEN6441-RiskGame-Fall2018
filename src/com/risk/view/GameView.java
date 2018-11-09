@@ -653,14 +653,14 @@ public class GameView implements Observer {
 				reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
 
 				gamePhaseNameJLabel.setText("Attack Phase");
-				setAttackerCountry(game.getAttackFromCountries());
+				setAttackerCountry(game.getCountriesWithArmiesGreaterThanOne());
 				setMoveArmies(game.getCurrentPlayer().GetAllowableArmiesMoveFromAttackerToDefender());
 
 			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
 				this.defenderCountry.removeAll();
 				this.attackerCountry.removeAll();
 				gamePhaseNameJLabel.setText("Fortification");
-				 setSourceCountryComboBox();
+				 setSourceCountryComboBox(game.getCountriesWithArmiesGreaterThanOne());
 			}
 
 			AddPhaseMessages();
@@ -964,13 +964,12 @@ public class GameView implements Observer {
 		this.moveArmiesButton.addActionListener(listener);
 	}
 
-	public void setSourceCountryComboBox() {
+	public void setSourceCountryComboBox(ArrayList<String> countries) {
 		sourceCountry.removeAllItems();
-		for (int i = 0; i < countryList.size(); i++) {
-			ViewCountries tempCountry = countryList.get(i);
-			if (activePlayerId == tempCountry.getPlayerID()) {
-				sourceCountry.addItem(tempCountry.getCountryName());
-			}
+		
+		sourceCountry.removeAllItems();
+		for (int i = 0; i < countries.size(); i++) {
+			sourceCountry.addItem(countries.get(i));
 		}
 
 	}

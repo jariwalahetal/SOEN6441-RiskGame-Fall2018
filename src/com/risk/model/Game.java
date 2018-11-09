@@ -198,7 +198,9 @@ public class Game extends Observable {
 	}
 
 	/**
-	 * This function is called to check if correct operation is performed in the correct phase
+	 * This function is called to check if correct operation is performed in the
+	 * correct phase
+	 * 
 	 * @param phase
 	 * @return
 	 */
@@ -210,21 +212,22 @@ public class Game extends Observable {
 		}
 	}
 
-/**
- *This method will return the countries from which current Player can attack
- * @return
- */
-	public ArrayList<String> getAttackFromCountries()
-	{ ArrayList<String> countries = new ArrayList<String>();
-	  for (Country country : getCurrentPlayer().getAssignedCountryList())
-	  { if(country.getnoOfArmies()>1)
-		  {countries.add(country.getCountryName());			  
-		  }	
-	  }  
-	  return countries;
+	/**
+	 * This method will return the countries for which armies count is greater than
+	 * 1
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> getCountriesWithArmiesGreaterThanOne() {
+		ArrayList<String> countries = new ArrayList<String>();
+		for (Country country : getCurrentPlayer().getAssignedCountryList()) {
+			if (country.getnoOfArmies() > 1) {
+				countries.add(country.getCountryName());
+			}
+		}
+		return countries;
 	}
-	
-	
+
 	/**
 	 * Method used to notify observer
 	 * 
@@ -242,8 +245,8 @@ public class Game extends Observable {
 	 * @return Country
 	 */
 	public Country getCountryFromName(String countryName) {
-		Country country = map.getCountryList().stream().filter(x -> x.getCountryName().equals(countryName))
-				.findAny().orElse(null);
+		Country country = map.getCountryList().stream().filter(x -> x.getCountryName().equals(countryName)).findAny()
+				.orElse(null);
 
 		return country;
 	}
@@ -327,10 +330,6 @@ public class Game extends Observable {
 			if (pendingPlayersCount == 0) {
 				this.setGamePhase(PhaseEnum.Reinforcement);
 				currentPlayerId = 0;
-		/*
-				 * if(!getCurrentPlayer().IsCardsAvailableForTradeInReinforcement()) {
-				 * reinforcementPhaseSetup(); }
-				 */
 				reinforcementPhaseSetup();
 
 			}
@@ -394,9 +393,8 @@ public class Game extends Observable {
 			return false;
 		}
 
-		getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount,
-				defendingDiceCount);
-		
+		getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount, defendingDiceCount);
+
 		notifyObserverslocal(this);
 
 		return true;
@@ -424,11 +422,11 @@ public class Game extends Observable {
 			return false;
 		}
 
-		while ((!getCurrentPlayer().isConquered) && attCountry.getnoOfArmies() > 1 ) {
+		while ((!getCurrentPlayer().isConquered) && attCountry.getnoOfArmies() > 1) {
 			int attackingDiceCount = this.getMaximumAllowableDices(attackingCountry, "Attacker");
 			int defendingDiceCount = this.getMaximumAllowableDices(defendingCountry, "Defender");
 
-            getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount,
+			getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount,
 					defendingDiceCount);
 		}
 		notifyObserverslocal(this);
@@ -451,9 +449,9 @@ public class Game extends Observable {
 	public boolean fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
 
 		getCurrentPlayer().fortificationPhase(sourceCountryName, destinationCountryName, noOfArmies);
-		
-		if (getCurrentPlayer().isEligibleForCard())
-		{	CardEnum card = getCardFromDeck();
+
+		if (getCurrentPlayer().isEligibleForCard()) {
+			CardEnum card = getCardFromDeck();
 			if (card == null) {
 				IOHelper.print("No card available");
 			} else {
@@ -461,7 +459,7 @@ public class Game extends Observable {
 			}
 			getCurrentPlayer().setEligibleForCard(false);
 		}
-		
+
 		this.setNextPlayerTurn();
 		setGamePhase(PhaseEnum.Reinforcement);
 		reinforcementPhaseSetup();
@@ -550,20 +548,21 @@ public class Game extends Observable {
 
 	/**
 	 * Trade cards to armies
+	 * 
 	 * @param cards
 	 * @return
 	 */
 	public boolean tradeCards(ArrayList<String> cards) {
 		if (cards.size() == 3) {
 
-			CardEnum firstCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(0))).findFirst()
-					.orElse(null);
+			CardEnum firstCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(0)))
+					.findFirst().orElse(null);
 
-			CardEnum secondCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(1))).findFirst()
-					.orElse(null);
+			CardEnum secondCard = getCurrentPlayer().getCards().stream()
+					.filter(x -> x == CardEnum.valueOf(cards.get(1))).findFirst().orElse(null);
 
-			CardEnum thirdCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(2))).findFirst()
-					.orElse(null);
+			CardEnum thirdCard = getCurrentPlayer().getCards().stream().filter(x -> x == CardEnum.valueOf(cards.get(2)))
+					.findFirst().orElse(null);
 
 			if (firstCard == null || secondCard == null || thirdCard == null) {
 				IOHelper.print("One of the card doesn't belong to player");
