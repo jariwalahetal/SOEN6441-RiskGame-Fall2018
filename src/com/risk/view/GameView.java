@@ -659,7 +659,7 @@ public class GameView implements Observer {
 
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
 
-				if (game.getCurrentPlayer().getCards().size() >= 3 && (!isCardExchangeViewOpenedOnce)) {
+				if (game.getCurrentPlayer().isCardsAvailableForTradeInReinforcement() && (!isCardExchangeViewOpenedOnce)) {
 					CardExchangeView cardExchangeView = new CardExchangeView();
 					cardExchangeView.exchangeInitializerView(game);
 					isCardExchangeViewOpenedOnce = true;
@@ -672,7 +672,6 @@ public class GameView implements Observer {
 				gamePhaseNameJLabel.setText("Reinforcement");
 
 			} else if (game.getGamePhase() == PhaseEnum.Attack) {
-				isCardExchangeViewOpenedOnce = true;
 				reinforcementUnassignedArmiesCount = Integer
 						.toString(game.getCurrentPlayer().getNoOfReinforcedArmies());
 				reinforcementUnassignedUnit.setText(reinforcementUnassignedArmiesCount);
@@ -682,8 +681,8 @@ public class GameView implements Observer {
 				setMoveArmies(game.getCurrentPlayer().getAllowableArmiesMoveFromAttackerToDefender());
 
 			} else if (game.getGamePhase() == PhaseEnum.Fortification) {
+				isCardExchangeViewOpenedOnce = false;
 				defenderCountry.removeAll();
-				attackerCountry.removeAll();
 				gamePhaseNameJLabel.setText("Fortification");
 				setSourceCountryComboBox(game.getCurrentPlayer().getCountriesWithArmiesGreaterThanOne());
 			}

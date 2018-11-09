@@ -292,6 +292,7 @@ public class GameTest {
 			}
 		}
 	}
+	
 	/**
 	 * This method tests if country is assigned to the player or not.
 	 */
@@ -315,6 +316,30 @@ public class GameTest {
 			}
 		}
 	}
+	
+	/**
+	 * This will test getMaximumAllowableDices
+	 */
+	@Test
+	public void getMaximumAllowableDicesTest()
+	{
+		Player player = game.getCurrentPlayer();
+		String countryName = player.getCountriesWithArmiesGreaterThanOne().get(0);
+		Country country = game.getCountryFromName(countryName);
+		country.setNoOfArmies(5);
+        game.setGamePhase(PhaseEnum.Attack);
+		
+		int diceCount = game.getMaximumAllowableDices(countryName, "Attacker");
+		assertEquals(3, diceCount);
+
+		country.setNoOfArmies(2);
+		diceCount = game.getMaximumAllowableDices(countryName, "Attacker");
+		
+		assertEquals(1, diceCount);
+
+		
+	}
+	
 	/**
 	 * This method tests the total armies.
 	 */
@@ -346,6 +371,18 @@ public class GameTest {
 			totalArmies = 0;
 		}
 	}
+	
+	/**
+	 * This Junit is used to test getCountryFromName function
+	 */
+	@Test
+	public void getCountryFromNameTest()
+	{  for(Country c:game.getMap().getCountryList())
+		  {Country countryName =  game.getCountryFromName(c.getCountryName());
+			assertEquals(countryName.getCountryName(), c.getCountryName());
+		  }
+	}
+		
 	/**
 	 * This method tests the neighboring countries in the startup phase
 	 */
@@ -372,6 +409,7 @@ public class GameTest {
 			assertTrue(isTwoArrayListsWithSameValues(neighCountries, actualNeigboursList));
 		}
 	}
+	
 	/**
 	 * This method will tear down variables.
 	 */
