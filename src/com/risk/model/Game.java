@@ -215,10 +215,13 @@ public class Game extends Observable {
  * @return
  */
 	public ArrayList<String> getAttackFromCountries()
-	{ ArrayList<String> countries = new ArrayList<String>();
+	{ 
+	  ArrayList<String> countries = new ArrayList<String>();
 	  for (Country country : getCurrentPlayer().getAssignedCountryList())
-	  { if(country.getnoOfArmies()>1)
-		  {countries.add(country.getCountryName());			  
+	  { 
+		  if(country.getnoOfArmies()>1)
+		  {
+			  countries.add(country.getCountryName());			  
 		  }	
 	  }  
 	  return countries;
