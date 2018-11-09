@@ -96,7 +96,7 @@ public class GameTest {
 	}
 	
 	/**
-	 * Test Method for calcluation for assignment of armies and phase should be shifted to attack at end
+	 * Test Method for calculation for assignment of armies and phase should be shifted to attack at end
 	 */
 
 	@Test
@@ -131,6 +131,9 @@ public class GameTest {
 		assertEquals(PhaseEnum.Attack, game.getGamePhase());
 	}
 	
+	/**
+	 * This is used to test Attack Phase
+	 */
 	@Test
 	public void testAttackPhase()
 	{ 	Player currentPlayer = game.getCurrentPlayer();
@@ -174,11 +177,47 @@ public class GameTest {
 	        }
 	        break;
 	    }
+	      break;
 	    }
 	    
 		System.out.println("********** attackingCountry:"+game.getAllPlayers().size());
 	}
 	
+	/**
+	 * This is used to test Move armies after attack
+	 */
+	@Test
+	public void testMoveArmiesAfterAttack()
+	{ Player currentPlayer = game.getCurrentPlayer(); 
+	   ArrayList<String> attackingCountryList = game.getCurrentPlayer().getCountriesWithArmiesGreaterThanOne();
+	    ArrayList<String> attackedCountryList;
+	    Country attackingCountry,defendingCountry;
+	    int attackingCountryArmyCount, defendingCountryArmyCount;
+	    Player defenderPlayer; 
+	    currentPlayer.isConquered = true;	    
+  	   for(String attackingCountryName:attackingCountryList)
+	    { attackedCountryList = game.getCurrentPlayer().getUnAssignedNeighbouringCountries(attackingCountryName);
+	      attackingCountry = game.getCountryFromName(attackingCountryName);
+	      attackingCountry.setNoOfArmies(5);
+	      attackingCountryArmyCount = attackingCountry.getnoOfArmies();
+	      currentPlayer.attackingCountry = attackingCountry;
+	  	    		  
+	      for(String attackedCountryName : attackedCountryList)
+	      { defenderPlayer = game.getAllPlayers().stream().filter(p -> p.getAssignedCountryList().contains(attackedCountryName))
+			.findAny().orElse(null);				    	  
+	    	defendingCountry = game.getCountryFromName(attackedCountryName);
+	    	defendingCountry.setNoOfArmies(1);
+	    	defendingCountryArmyCount = defendingCountry.getnoOfArmies();
+		    currentPlayer.attackedCountry = defendingCountry;
+	    	game.moveArmyAfterAttack(3);
+	 	    assertEquals(defendingCountryArmyCount+3, defendingCountry.getnoOfArmies());
+		    assertEquals(attackingCountryArmyCount-3, attackingCountry.getnoOfArmies());	
+	    	break;	    	
+	      }
+	      break;
+	      }	    
+		
+	}
 	
 	/**
 	 * Test Method for game play functionality
@@ -253,6 +292,7 @@ public class GameTest {
 			}
 		}
 	}
+	
 	/**
 	 * This method tests if country is assigned to the player or not.
 	 */
@@ -276,6 +316,30 @@ public class GameTest {
 			}
 		}
 	}
+	
+	/**
+	 * This will test getMaximumAllowableDices
+	 */
+	@Test
+	public void getMaximumAllowableDicesTest()
+	{
+		Player player = game.getCurrentPlayer();
+		String countryName = player.getCountriesWithArmiesGreaterThanOne().get(0);
+		Country country = game.getCountryFromName(countryName);
+		country.setNoOfArmies(5);
+        game.setGamePhase(PhaseEnum.Attack);
+		
+		int diceCount = game.getMaximumAllowableDices(countryName, "Attacker");
+		assertEquals(3, diceCount);
+
+		country.setNoOfArmies(2);
+		diceCount = game.getMaximumAllowableDices(countryName, "Attacker");
+		
+		assertEquals(1, diceCount);
+
+		
+	}
+	
 	/**
 	 * This method tests the total armies.
 	 */
@@ -307,6 +371,18 @@ public class GameTest {
 			totalArmies = 0;
 		}
 	}
+	
+	/**
+	 * This Junit is used to test getCountryFromName function
+	 */
+	@Test
+	public void getCountryFromNameTest()
+	{  for(Country c:game.getMap().getCountryList())
+		  {Country countryName =  game.getCountryFromName(c.getCountryName());
+			assertEquals(countryName.getCountryName(), c.getCountryName());
+		  }
+	}
+		
 	/**
 	 * This method tests the neighboring countries in the startup phase
 	 */
@@ -333,6 +409,7 @@ public class GameTest {
 			assertTrue(isTwoArrayListsWithSameValues(neighCountries, actualNeigboursList));
 		}
 	}
+	
 	/**
 	 * This method will tear down variables.
 	 */

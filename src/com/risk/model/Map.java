@@ -29,8 +29,8 @@ public class Map {
 	private ArrayList<String> visitedList = new ArrayList<String>();
 
 	/**
-	 * This is a constructor of Map Class which sets mapId and mapName.
-	 *
+	 * This is a constructor of Map Class which sets mapId and mapName
+	 * @param mapName, Name of the map
 	 */
 	public Map(String mapName) {
 		super();
@@ -177,6 +177,7 @@ public class Map {
 	 *         This function deletes the Continent from the existing Map file.
 	 * @param continentToDelete,
 	 *            name of the continent to be deleted
+	 * @return true, if continent deleted
 	 */
 	public boolean deleteContinent(String continentToDelete) {
 
