@@ -96,7 +96,7 @@ public class GameTest {
 	}
 	
 	/**
-	 * Test Method for calcluation for assignment of armies and phase should be shifted to attack at end
+	 * Test Method for calculation for assignment of armies and phase should be shifted to attack at end
 	 */
 
 	@Test
@@ -131,6 +131,9 @@ public class GameTest {
 		assertEquals(PhaseEnum.Attack, game.getGamePhase());
 	}
 	
+	/**
+	 * This is used to test Attack Phase
+	 */
 	@Test
 	public void testAttackPhase()
 	{ 	Player currentPlayer = game.getCurrentPlayer();
@@ -174,11 +177,47 @@ public class GameTest {
 	        }
 	        break;
 	    }
+	      break;
 	    }
 	    
 		System.out.println("********** attackingCountry:"+game.getAllPlayers().size());
 	}
 	
+	/**
+	 * This is used to test Move armies after attack
+	 */
+	@Test
+	public void testMoveArmiesAfterAttack()
+	{ Player currentPlayer = game.getCurrentPlayer(); 
+	   ArrayList<String> attackingCountryList = game.getCurrentPlayer().getCountriesWithArmiesGreaterThanOne();
+	    ArrayList<String> attackedCountryList;
+	    Country attackingCountry,defendingCountry;
+	    int attackingCountryArmyCount, defendingCountryArmyCount;
+	    Player defenderPlayer; 
+	    currentPlayer.isConquered = true;	    
+  	   for(String attackingCountryName:attackingCountryList)
+	    { attackedCountryList = game.getCurrentPlayer().getUnAssignedNeighbouringCountries(attackingCountryName);
+	      attackingCountry = game.getCountryFromName(attackingCountryName);
+	      attackingCountry.setNoOfArmies(5);
+	      attackingCountryArmyCount = attackingCountry.getnoOfArmies();
+	      currentPlayer.attackingCountry = attackingCountry;
+	  	    		  
+	      for(String attackedCountryName : attackedCountryList)
+	      { defenderPlayer = game.getAllPlayers().stream().filter(p -> p.getAssignedCountryList().contains(attackedCountryName))
+			.findAny().orElse(null);				    	  
+	    	defendingCountry = game.getCountryFromName(attackedCountryName);
+	    	defendingCountry.setNoOfArmies(1);
+	    	defendingCountryArmyCount = defendingCountry.getnoOfArmies();
+		    currentPlayer.attackedCountry = defendingCountry;
+	    	game.moveArmyAfterAttack(3);
+	 	    assertEquals(defendingCountryArmyCount+3, defendingCountry.getnoOfArmies());
+		    assertEquals(attackingCountryArmyCount-3, attackingCountry.getnoOfArmies());	
+	    	break;	    	
+	      }
+	      break;
+	      }	    
+		
+	}
 	
 	/**
 	 * Test Method for game play functionality
