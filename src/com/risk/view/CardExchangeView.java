@@ -77,6 +77,21 @@ public class CardExchangeView implements Observer  {
 			}
 		});
 		exitButton.setBounds(310, 255, 160, 40);
+		
+		cardExchangeLabel.add(totalNewArmies);
+		cardExchangeLabel.add(palyerOwnedCard);
+		cardExchangeLabel.add(playersTurnJlabel);
+		cardExchangeLabel.add(exchangeButton);
+		cardExchangeLabel.add(exitButton);
+		cardPanel.add(cardExchangeLabel);
+		cardFrame.add(cardPanel);
+		cardFrame.setVisible(true);
+		
+	}
+	
+	public void updateCardView(Game game) {
+	
+		
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
@@ -92,21 +107,12 @@ public class CardExchangeView implements Observer  {
 
 			
 		});
-		cardExchangeLabel.add(totalNewArmies);
-		cardExchangeLabel.add(palyerOwnedCard);
-		cardExchangeLabel.add(playersTurnJlabel);
-		cardExchangeLabel.add(exchangeButton);
-		cardExchangeLabel.add(exitButton);
-		cardPanel.add(cardExchangeLabel);
-		cardFrame.add(cardPanel);
-		cardFrame.setVisible(true);
-
 	}
 
 	@Override
 	public void update(Observable obj, Object arg) {
-		Game game = ((Game) obj);
-	 exchangeInitializerView(game); 
+		Game game = ((Game) obj);		
+		updateCardView(game); 
 	}
 
 }
