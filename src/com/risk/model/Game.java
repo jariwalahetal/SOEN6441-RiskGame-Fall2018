@@ -483,8 +483,8 @@ public class Game extends Observable {
 	 *            Integer
 	 * @return
 	 */
-	public boolean MoveArmyAfterAttack(int noOfArmies) {
-		boolean result = getCurrentPlayer().MoveArmyAfterAttack(noOfArmies);
+	public boolean moveArmyAfterAttack(int noOfArmies) {
+		boolean result = getCurrentPlayer().moveArmyAfterAttack(noOfArmies);
 		if (result) {
 			notifyObserverslocal(this);
 		}
