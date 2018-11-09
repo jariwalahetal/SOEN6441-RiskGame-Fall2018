@@ -548,6 +548,17 @@ public class Player {
 				attackingCountry.decreaseArmyCount(1);
 			}
 
+			if (defendingCountry.getnoOfArmies() == 0 )
+			{	IOHelper.print("----> Attacker lost all armies in " + (i + 1)+" dice roll");
+			  break;	
+			}
+			else if(attackingCountry.getnoOfArmies() ==0) {
+				{	IOHelper.print("----> Defender lost all armies in " + (i + 1)+" dice roll");
+				  break;
+				}
+			}
+			
+			
 		}
 
 		// Check if defending armies are 0 then acquire the country with cards
@@ -573,6 +584,8 @@ public class Player {
 
 			}
 		}
+		
+		
 	}
 
 	public boolean MoveArmyAfterAttack(int armiesCount) {
