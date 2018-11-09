@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java" line="194" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java" line="195" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/GameView.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -35,8 +34,8 @@
       <file leaf-file-name="GameController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="232" column="23" selection-start-line="232" selection-start-column="23" selection-end-line="232" selection-end-column="23" />
+            <state relative-caret-position="440">
+              <caret line="237" column="23" selection-start-line="237" selection-start-column="23" selection-end-line="237" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -44,7 +43,7 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
+            <state relative-caret-position="1888">
               <caret line="124" column="68" selection-start-line="124" selection-start-column="68" selection-end-line="124" selection-end-column="68" />
               <folding>
                 <element signature="e#1092#1093#0" expanded="true" />
@@ -70,11 +69,14 @@
       <file leaf-file-name="GameView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="663" column="45" lean-forward="true" selection-start-line="663" selection-start-column="45" selection-end-line="663" selection-end-column="45" />
+            <state relative-caret-position="238">
+              <caret line="672" column="70" lean-forward="true" selection-start-line="672" selection-start-column="70" selection-end-line="672" selection-end-column="70" />
               <folding>
                 <element signature="e#3475#3476#0" expanded="true" />
                 <element signature="e#3505#3506#0" expanded="true" />
+                <element signature="e#6058#6073#0" expanded="true" />
+                <element signature="e#13957#13966#0" expanded="true" />
+                <element signature="e#21097#21105#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -319,12 +321,12 @@
       <workItem from="1540947097123" duration="14248000" />
       <workItem from="1541446024026" duration="1323000" />
       <workItem from="1541560654177" duration="6458000" />
-      <workItem from="1541705132701" duration="13835000" />
+      <workItem from="1541705132701" duration="16351000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185093000" />
+    <option name="totallyTimeSpent" value="187609000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -351,7 +353,7 @@
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.5720859" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24281392" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1172466" />
       <window_info anchor="right" id="SciView" order="6" weight="0.32980332" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Favorites" order="5" side_tool="true" />
@@ -362,6 +364,39 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3297546" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5720859" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.3297546" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="right" id="Maven Projects" order="11" weight="0.32980332" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3297546" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24281392" />
+      <window_info anchor="right" id="SciView" order="6" weight="0.32980332" />
+      <window_info anchor="right" id="Database" order="5" weight="0.32980332" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" id="Leiningen" order="7" weight="0.32980332" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.38803682" />
+      <window_info anchor="right" id="REPL" order="10" side_tool="true" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -676,9 +711,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Common.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="237" column="23" selection-start-line="237" selection-start-column="23" selection-end-line="237" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
+        <state relative-caret-position="1888">
           <caret line="124" column="68" selection-start-line="124" selection-start-column="68" selection-end-line="124" selection-end-column="68" />
           <folding>
             <element signature="e#1092#1093#0" expanded="true" />
@@ -700,27 +749,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Common.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="232" column="23" selection-start-line="232" selection-start-column="23" selection-end-line="232" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="663" column="45" lean-forward="true" selection-start-line="663" selection-start-column="45" selection-end-line="663" selection-end-column="45" />
+        <state relative-caret-position="238">
+          <caret line="672" column="70" lean-forward="true" selection-start-line="672" selection-start-column="70" selection-end-line="672" selection-end-column="70" />
           <folding>
             <element signature="e#3475#3476#0" expanded="true" />
             <element signature="e#3505#3506#0" expanded="true" />
+            <element signature="e#6058#6073#0" expanded="true" />
+            <element signature="e#13957#13966#0" expanded="true" />
+            <element signature="e#21097#21105#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -527,7 +527,7 @@ public class GameView implements Observer {
 		playerWorldDominationViewJButton.setBounds(gamePhaseViewJScrollPane.getX()+110,
 				gamePhaseViewJScrollPane.getY() + 10 + gamePhaseViewJScrollPane.getHeight(),
 				destinationCountry.getWidth(), destinationCountry.getHeight());
-		playerWorldDominationViewJButton.addActionListener(new ActionListener() {
+		/*playerWorldDominationViewJButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -548,7 +548,7 @@ public class GameView implements Observer {
 			//	playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
 
 			}
-		});
+		});*/
 		gameActionJpanel.add(playerWorldDominationViewJButton);
 	}
 
@@ -641,6 +641,7 @@ public class GameView implements Observer {
                 continentsControlled[i] = value;
                 i++;
         }
+        // array of percentage of map controlled by each player
         int[] mapPercent = new int[5];
         HashMap<Integer,Float> percentageMap =  game.getPercentageOfMapControlledForEachPlayer();
         for (java.util.Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
@@ -648,6 +649,7 @@ public class GameView implements Observer {
             mapPercent[i] = value;
             i++;
         }
+        //array of number of armies controlled by each player
         int[] armies = new int[5];
         HashMap<Integer,Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
         for (java.util.Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
@@ -662,13 +664,28 @@ public class GameView implements Observer {
                  String.valueOf(continentsControlled[2]),String.valueOf(continentsControlled[3]),String.valueOf(continentsControlled[4])},
                 {"Armies",String.valueOf(armies[0]),String.valueOf(armies[1]),String.valueOf(armies[2]),String.valueOf(armies[3]),
                  String.valueOf(armies[4])}};
-        playerRecordsJTable = new JTable(rows,columns_header);
-        playerRecordsJTable.setBounds(20,
-                playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
-                350);
-        JTableHeader header = playerRecordsJTable.getTableHeader();
-        playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
-        playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
+        playerWorldDominationViewJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
+                playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
+                playerRecordsJTable = new JTable(rows,columns_header);
+                playerRecordsJTable.setBounds(20,
+                        playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
+                        350);
+
+                JTableHeader header = playerRecordsJTable.getTableHeader();
+                playerWorldDominationViewJFrame.setSize(600, 200);
+                playerWorldDominationViewJFrame.setLocationRelativeTo(null);
+                playerWorldDominationViewJFrame.setVisible(true);
+                playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
+                playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
+                playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
+            }
+        });
+
+
     }
 
 
