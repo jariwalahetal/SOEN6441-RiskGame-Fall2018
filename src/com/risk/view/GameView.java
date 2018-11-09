@@ -1015,6 +1015,7 @@ public class GameView implements Observer {
 	}
 
 	public static void updateWorldDominationView() {
+		if(playerRecordsJTable == null) return;
         playerRecordsJTable.removeAll();
 
         int i=0;

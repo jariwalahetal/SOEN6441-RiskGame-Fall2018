@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
+import com.risk.helper.GetArmiesByTrading;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 
@@ -341,7 +342,8 @@ public class Player {
 			if (hasPlayerAllCountries)
 				countriesCount += continent.getControlValue();
 		}
-
+		
+		countriesCount +=  getNoOfTradedArmies();
 		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PLAYERS ? MINIMUM_REINFORCEMENT_PLAYERS
 				: countriesCount;
 		setNoOfReinforcedArmies(countriesCount);
