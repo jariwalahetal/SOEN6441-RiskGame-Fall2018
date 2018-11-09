@@ -40,7 +40,7 @@ public class CardExchangeView implements Observer {
 	/**
 	 * This method is used to initialize the Card Exchange View.
 	 * 
-	 * @param game
+	 * @param game, Game
 	 */
 	public void exchangeInitializerView(Game game) {
 		cardFrame = new JFrame("Card Exchange View");
@@ -86,7 +86,7 @@ public class CardExchangeView implements Observer {
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				boolean checkCount = game.getCurrentPlayer().IsAssigningReinforcementArmiesAllowed();
+				boolean checkCount = game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
 				if (checkCount) {
 					cardFrame.dispose();
 					game.reinforcementPhaseSetup();
@@ -119,27 +119,23 @@ public class CardExchangeView implements Observer {
 			}
 			cardExchangeLabel.remove(palyerOwnedCard);
 			palyerOwnedCard = null;
-
-			
-		
-			
-
 			palyerOwnedCard = new JList<>(cards);
 			palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
 			palyerOwnedCard.setBounds(310, 45, 250, 70);
-			cardExchangeLabel.add(palyerOwnedCard);
-
-			// IMPORTANT
+			cardExchangeLabel.add(palyerOwnedCard);	
 			cardFrame.revalidate();
 			cardFrame.repaint();
 
-			// palyerOwnedCard.add("test", cardExchangeLabel);
-			// palyerOwnedCard.setModel((ListModel<String>) cards);
 		
 		}
 
 	}
 
+	/**
+	 * Update method called by the observable object to perform card exchange.
+	 * @param obj, Observable 
+	 * @param arg, Object
+	 */
 	@Override
 	public void update(Observable obj, Object arg) {
 		Game game = ((Game) obj);
