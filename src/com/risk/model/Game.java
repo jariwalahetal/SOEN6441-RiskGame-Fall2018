@@ -358,6 +358,11 @@ public class Game extends Observable {
 
 	/**
 	 * Method for performing attack phase
+	 * @param attackingCountry, Attacking Country in String
+	 * @param defendingCountry, Defending country in String
+	 * @param attackingDiceCount, Attacking Dice Count
+	 * @param defendingDiceCount, Defending Dice Count
+	 * @return true, if attack done
 	 */
 	public Boolean attackPhase(String attackingCountry, String defendingCountry, int attackingDiceCount,
 			int defendingDiceCount) {
@@ -400,6 +405,10 @@ public class Game extends Observable {
 
 	/**
 	 * Method for performing attack phase
+	 * @param attackingCountry, Attacking Country in String
+	 * @param defendingCountry, Defending country in String
+	 * @return true, if attack phase out
+	 * 
 	 */
 	public Boolean attackAllOutPhase(String attackingCountry, String defendingCountry) {
 		Common.PhaseActions.clear();
@@ -483,7 +492,7 @@ public class Game extends Observable {
 	 * 
 	 * @param noOfArmies
 	 *            Integer
-	 * @return
+	 * @return true , if army moved
 	 */
 	public boolean moveArmyAfterAttack(int noOfArmies) {
 		boolean result = getCurrentPlayer().moveArmyAfterAttack(noOfArmies);
@@ -538,7 +547,7 @@ public class Game extends Observable {
 	/**
 	 * Adds the given card again to deck at random position
 	 * 
-	 * @param card
+	 * @param card, CardEnum
 	 */
 	private void addCardToDeck(CardEnum card) {
 		int random = 0;
@@ -551,8 +560,8 @@ public class Game extends Observable {
 	/**
 	 * Trade cards to armies
 	 * 
-	 * @param cards
-	 * @return
+	 * @param cards, list of Cards
+	 * @return true, if card traded
 	 */
 	public boolean tradeCards(ArrayList<String> cards) {
 		if (cards.size() == 3) {
@@ -606,7 +615,7 @@ public class Game extends Observable {
 	/**
 	 * This method will tell if whole map is being conquered by current Player
 	 * 
-	 * @return
+	 * @return true, if map conquered
 	 */
 	public Boolean isMapConquered() {
 		if (map.getCountryList().size() == this.getCurrentPlayer().getAssignedCountryList().size()) {
