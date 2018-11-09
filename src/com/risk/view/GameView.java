@@ -403,7 +403,7 @@ public class GameView implements Observer {
 
 		attackerNoOfDice = new JComboBox<>();
 		attackerNoOfDice.setBorder(new TitledBorder("Attacker's No Of Dice"));
-		attackerNoOfDice.setBounds(attackerCountry.getX(), attackerCountry.getY() + 10 + attackerCountry.getHeight(),
+		attackerNoOfDice.setBounds(attackerCountry.getX(), attackerCountry.getY() + 7 + attackerCountry.getHeight(),
 				attackerCountry.getWidth(), attackerCountry.getHeight());
 
 		defenderNoOfDice = new JComboBox<>();
@@ -411,23 +411,25 @@ public class GameView implements Observer {
 		defenderNoOfDice.setBounds(attackerNoOfDice.getX() + 20 + attackerNoOfDice.getWidth() + 3,
 				attackerNoOfDice.getY(), attackerNoOfDice.getWidth(), attackerNoOfDice.getHeight());
 
-		attackMoveArmies = new JComboBox<>();
-		attackMoveArmies.setBorder(new TitledBorder("Move armies"));
-		attackMoveArmies.setBounds(attackerNoOfDice.getX(), attackerNoOfDice.getY() + attackerNoOfDice.getHeight(),
-				attackerNoOfDice.getWidth(), attackerNoOfDice.getHeight());
 
-		moveArmiesButton.setBounds(attackerNoOfDice.getX() + attackMoveArmies.getWidth() + 15,
-				attackerNoOfDice.getY() + attackerNoOfDice.getHeight() + 15, 100, 30);
-
-		attackButton.setBounds(attackMoveArmies.getX(), attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(),
+		attackButton.setBounds(attackerNoOfDice.getX(), attackerNoOfDice.getY() + 7 + attackerNoOfDice.getHeight(),
 				100, 30);
 
-		allOutButton.setBounds(attackMoveArmies.getX() + attackButton.getWidth() + 10,
-				attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(), 100, 30);
+		allOutButton.setBounds(attackButton.getX() + attackButton.getWidth() + 21,
+				attackButton.getY(), 100, 30);
 
-		endAttackButton.setBounds(allOutButton.getX() + allOutButton.getWidth() + 10,
-				attackMoveArmies.getY() + 10 + attackMoveArmies.getHeight(), 100, 30);
+		endAttackButton.setBounds(allOutButton.getX() + allOutButton.getWidth() + 21,
+				allOutButton.getY(), 100, 30);
 
+		attackMoveArmies = new JComboBox<>();
+		attackMoveArmies.setBorder(new TitledBorder("Move armies"));
+		attackMoveArmies.setBounds(attackButton.getX(), attackButton.getY() + attackButton.getHeight()+7,
+				attackerNoOfDice.getWidth(), attackerNoOfDice.getHeight());
+
+		moveArmiesButton.setBounds(endAttackButton.getX() ,
+				attackMoveArmies.getY() +10, 100, 30);
+	
+		
 		attackJlabel.add(attackerCountry);
 		attackJlabel.add(defenderCountry);
 		attackJlabel.add(attackerNoOfDice);
