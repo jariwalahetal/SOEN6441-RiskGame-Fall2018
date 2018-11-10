@@ -18,7 +18,7 @@ public class CommonTest {
 	int min;
 	
 	/**
-	 * This sets up method for initialising variables
+	 * This sets up method for initializing variables
 	 */
 	@Before
 	public void setUp() {
@@ -26,14 +26,18 @@ public class CommonTest {
 		max = 4;
 		min = 1;
 	}
-	
+	/**
+	 * This method tests the color.
+	 */
 	@Test
 	public void testGetColor() {
 		e = null;
 		colorToTest = c.getColor(e.BLACK);
 		assertEquals(colorToTest, Color.BLACK);
 	}
-	
+	/**
+	 * This method tests testGetRandomNumberInRange.
+	 */
 	@Test
 	public void testGetRandomNumberInRange() {
 		int randomInteger = c.getRandomNumberInRange(min, max);
