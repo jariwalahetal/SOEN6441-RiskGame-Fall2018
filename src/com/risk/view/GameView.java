@@ -521,9 +521,9 @@ public class GameView implements Observer {
 
 	}
 
-	/*
-	* Method to display player world domination
-	* */
+	/**
+	 * Method to display world domination view for each player
+	 */
 	public void loadPlayerWorldDominationView() {
 		playerWorldDominationViewJButton = new JButton("Player World Domination View");
 		playerWorldDominationViewJButton.setBounds(gamePhaseViewJScrollPane.getX() + 110,
@@ -570,18 +570,12 @@ public class GameView implements Observer {
                     armies[l] = value;
                     l++;
                 }
-
                 String[] columnHeader = new String[playerNames.size()];
                 int index=0;
                 for ( String str : playerNames ) {
                     columnHeader[index] = "Player "+str;
                     index++;
                 }
-                /*columnHeader[0] = "Attributes";
-                for (int n = 1; n < columnHeader.length; n++) {
-                    columnHeader[n] = playerNames.get(index);
-                    index++;
-                }*/
                 String[][] rowsJtable = new String[3][playerNames.size()];
                 for (int cols = 0; cols < rowsJtable[0].length; cols++) {
                     rowsJtable[0][cols] = Float.toString(mapPercent[cols]) + " %";
@@ -997,7 +991,9 @@ public class GameView implements Observer {
 		else
 			return (String) attackMoveArmies.getSelectedItem();
 	}
-
+    /**
+    * Method to update messages on phase view during each phase using observer pattern
+    */
 	public static void addPhaseMessages() {
 		gamePhaseViewJScrollPane.removeAll();
 		int strartY = 5;
@@ -1013,7 +1009,9 @@ public class GameView implements Observer {
 		gamePhaseViewJScrollPane.revalidate();
 		gamePhaseViewJScrollPane.repaint();
 	}
-
+    /**
+    * Method to update player world domination view using observer pattern
+    */
 	public static void updateWorldDominationView() {
 		if(playerRecordsJTable == null) return;
         playerRecordsJTable.removeAll();
@@ -1076,9 +1074,7 @@ public class GameView implements Observer {
         playerRecordsJTable.setBounds(20,playerWorldDominationViewJFrame.getY() + 20 +
                 playerWorldDominationViewJFrame.getHeight(), 550,350);
         JTableHeader header = playerRecordsJTable.getTableHeader();
-        //playerWorldDominationViewJFrame.setVisible(true);
         playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
-
         playerWorldDominationViewJFrame.revalidate();
         playerWorldDominationViewJFrame.repaint();
 	}
