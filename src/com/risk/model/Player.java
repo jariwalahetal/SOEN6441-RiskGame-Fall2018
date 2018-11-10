@@ -405,7 +405,7 @@ public class Player {
 	 */
 	public ArrayList<String> getNeighbouringCountries(String sourceCountryName,
 			ArrayList<String> assignedCountriesName) {
-		ArrayList<String> neighborCountriesName = null;
+		ArrayList<String> neighborCountriesName = new ArrayList<>();
 		for (Country country : assignedCountryList) {
 			String countryName = country.getCountryName();
 			assignedCountriesName.add(countryName);
