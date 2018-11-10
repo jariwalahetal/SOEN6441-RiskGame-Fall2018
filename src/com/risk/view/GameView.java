@@ -1061,7 +1061,7 @@ public class GameView implements Observer {
         }
 
         String[][] rowsJtable = new String[3][playerNames.size()];
-        for (int cols = 0; cols < rowsJtable.length; cols++) {
+        for (int cols = 0; cols < rowsJtable[0].length; cols++) {
             rowsJtable[0][cols] = Float.toString(mapPercent[cols]);
         }
         for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
