@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documents/Refactoring.docx" beforeDir="false" afterPath="$PROJECT_DIR$/documents/Refactoring.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/GameView.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -36,8 +34,8 @@
       <file leaf-file-name="GameController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="172" column="19" lean-forward="true" selection-start-line="172" selection-start-column="19" selection-end-line="172" selection-end-column="19" />
+            <state relative-caret-position="499">
+              <caret line="447" lean-forward="true" selection-start-line="447" selection-end-line="447" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,8 +46,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="472" selection-start-line="472" selection-end-line="472" />
+            <state relative-caret-position="499">
+              <caret line="642" lean-forward="true" selection-start-line="642" selection-end-line="642" />
             </state>
           </provider>
         </entry>
@@ -57,27 +55,13 @@
       <file leaf-file-name="GameView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="1059" column="20" lean-forward="true" selection-start-line="1059" selection-start-column="20" selection-end-line="1059" selection-end-column="20" />
+            <state>
+              <caret lean-forward="true" />
               <folding>
                 <element signature="e#3475#3476#0" expanded="true" />
                 <element signature="e#3505#3506#0" expanded="true" />
                 <element signature="e#6131#6146#0" expanded="true" />
                 <element signature="e#13842#13851#0" expanded="true" />
-                <element signature="e#26782#26783#0" expanded="true" />
-                <element signature="e#26838#26839#0" expanded="true" />
-                <element signature="e#26965#26966#0" expanded="true" />
-                <element signature="e#27022#27023#0" expanded="true" />
-                <element signature="e#27149#27150#0" expanded="true" />
-                <element signature="e#27206#27207#0" expanded="true" />
-                <element signature="e#28285#28286#0" expanded="true" />
-                <element signature="e#28333#28334#0" expanded="true" />
-                <element signature="e#29062#29063#0" expanded="true" />
-                <element signature="e#29109#29110#0" expanded="true" />
-                <element signature="e#29303#29304#0" expanded="true" />
-                <element signature="e#29350#29351#0" expanded="true" />
-                <element signature="e#29551#29552#0" expanded="true" />
-                <element signature="e#29601#29602#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -123,8 +107,8 @@
         <option value="$PROJECT_DIR$/src/com/risk/view/CardExchangeView.java" />
         <option value="$PROJECT_DIR$/src/com/risk/view/playerWorldDominationView.java" />
         <option value="$PROJECT_DIR$/src/com/risk/model/Game.java" />
-        <option value="$PROJECT_DIR$/src/com/risk/view/GameView.java" />
         <option value="$PROJECT_DIR$/src/com/risk/controller/GameController.java" />
+        <option value="$PROJECT_DIR$/src/com/risk/view/GameView.java" />
       </list>
     </option>
   </component>
@@ -197,14 +181,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="risk" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SOEN6441-RiskGame" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SOEN6441-RiskGame" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="risk" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="GameView.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </path>
           </expand>
           <select />
@@ -324,12 +300,12 @@
       <workItem from="1540947097123" duration="14248000" />
       <workItem from="1541446024026" duration="1323000" />
       <workItem from="1541560654177" duration="6458000" />
-      <workItem from="1541705132701" duration="40195000" />
+      <workItem from="1541705132701" duration="40929000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211453000" />
+    <option name="totallyTimeSpent" value="212187000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -726,44 +702,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="472" selection-start-line="472" selection-end-line="472" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="1059" column="20" lean-forward="true" selection-start-line="1059" selection-start-column="20" selection-end-line="1059" selection-end-column="20" />
+        <state>
+          <caret lean-forward="true" />
           <folding>
             <element signature="e#3475#3476#0" expanded="true" />
             <element signature="e#3505#3506#0" expanded="true" />
             <element signature="e#6131#6146#0" expanded="true" />
             <element signature="e#13842#13851#0" expanded="true" />
-            <element signature="e#26782#26783#0" expanded="true" />
-            <element signature="e#26838#26839#0" expanded="true" />
-            <element signature="e#26965#26966#0" expanded="true" />
-            <element signature="e#27022#27023#0" expanded="true" />
-            <element signature="e#27149#27150#0" expanded="true" />
-            <element signature="e#27206#27207#0" expanded="true" />
-            <element signature="e#28285#28286#0" expanded="true" />
-            <element signature="e#28333#28334#0" expanded="true" />
-            <element signature="e#29062#29063#0" expanded="true" />
-            <element signature="e#29109#29110#0" expanded="true" />
-            <element signature="e#29303#29304#0" expanded="true" />
-            <element signature="e#29350#29351#0" expanded="true" />
-            <element signature="e#29551#29552#0" expanded="true" />
-            <element signature="e#29601#29602#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="642" lean-forward="true" selection-start-line="642" selection-end-line="642" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="172" column="19" lean-forward="true" selection-start-line="172" selection-start-column="19" selection-end-line="172" selection-end-column="19" />
+        <state relative-caret-position="499">
+          <caret line="447" lean-forward="true" selection-start-line="447" selection-end-line="447" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
