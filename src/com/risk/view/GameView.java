@@ -1062,7 +1062,7 @@ public class GameView implements Observer {
         }
 
         String[][] rowsJtable = new String[3][playerNames.size()];
-        for (int cols = 0; cols < rowsJtable.length; cols++) {
+        for (int cols = 0; cols < rowsJtable[0].length; cols++) {
             rowsJtable[0][cols] = Float.toString(mapPercent[cols]);
         }
         for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
@@ -1071,20 +1071,15 @@ public class GameView implements Observer {
         for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
             rowsJtable[2][cols] = Integer.toString(armies[cols]);
         }
-        playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
-        playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
+        playerWorldDominationViewJPanel.remove(playerRecordsJTable);
         playerRecordsJTable = new JTable(rowsJtable, columnHeader);
         playerRecordsJTable.setBounds(20,playerWorldDominationViewJFrame.getY() + 20 +
                 playerWorldDominationViewJFrame.getHeight(), 550,350);
         JTableHeader header = playerRecordsJTable.getTableHeader();
-        playerWorldDominationViewJFrame.setSize(600, 200);
-        playerWorldDominationViewJFrame.setLocationRelativeTo(null);
         //playerWorldDominationViewJFrame.setVisible(true);
-        playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
-        playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
         playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
 
-        playerRecordsJTable.revalidate();
-        playerRecordsJTable.repaint();
+        playerWorldDominationViewJFrame.revalidate();
+        playerWorldDominationViewJFrame.repaint();
 	}
 }
