@@ -7,12 +7,19 @@ import java.awt.Color;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * This class tests the Common class
+ */
 public class CommonTest {
 	Common c;
 	Color colorToTest;
 	EnumColor e;
 	int max;
 	int min;
+	
+	/**
+	 * This sets up method for initialising variables
+	 */
 	@Before
 	public void setUp() {
 		c = new Common();
