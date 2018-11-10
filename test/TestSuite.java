@@ -3,10 +3,12 @@
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+
+import com.risk.helper.CommonTest;
 import com.risk.model.*;
 
 @RunWith(Suite.class)
-@SuiteClasses({ MapTest.class, CountryTest.class, ContinentTest.class,GameTest.class,PlayerTest.class })
+@SuiteClasses({ MapTest.class, CountryTest.class, ContinentTest.class,GameTest.class,PlayerTest.class,CommonTest.class})
 
 /**
  * This is the Test Suite class
