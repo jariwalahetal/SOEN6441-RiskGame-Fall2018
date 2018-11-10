@@ -247,7 +247,7 @@ public class Game extends Observable {
 	 * 
 	 */
 	public void startUpPhase() {
-
+		Common.PhaseActions.clear();
 		initilizeCardDeck();
 
 		int noOfInitialArmies = InitialPlayerSetup.getInitialArmyCount(playerList.size());
@@ -288,6 +288,7 @@ public class Game extends Observable {
 	 *            name of the country
 	 */
 	public void addArmyToCountry(String countryName) {
+		Common.PhaseActions.clear();
 		if (phaseCheckValidation(PhaseEnum.Attack) || phaseCheckValidation(PhaseEnum.Fortification)) {
 			IOHelper.print("Cannot add army in attack or fortification phase");
 			return;
@@ -301,7 +302,6 @@ public class Game extends Observable {
 		} else if (phaseCheckValidation(PhaseEnum.Reinforcement)) {
 			getCurrentPlayer().addArmyToCountryForReinforcement(countryName);
 		}
-		Common.PhaseActions.add("adding army to country");
 		updatePhase();
 		notifyObserverslocal(this);
 		// return true;

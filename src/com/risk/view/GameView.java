@@ -644,7 +644,7 @@ public class GameView implements Observer {
 		phase = game.getGamePhase();
 		mapPath = map.getMapPath() + map.getMapName() + ".bmp";
 
-		activePlayerName = game.getCurrentPlayer().getName();
+		activePlayerName = game.getCurrentPlayer().getName() + " (" + game.getCurrentPlayer().getCards().size() + ")";
 		activePlayerId = game.getCurrentPlayerId();
 		activePlayerColor = game.getCurrentPlayer().getColor();
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());
