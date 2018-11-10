@@ -583,14 +583,14 @@ public class GameView implements Observer {
                     index++;
                 }*/
                 String[][] rowsJtable = new String[3][playerNames.size()];
-                for (int cols = 0; cols < rowsJtable.length; cols++) {
-                    rowsJtable[0][cols] = "Percent "+Float.toString(mapPercent[cols]);
+                for (int cols = 0; cols < rowsJtable[0].length; cols++) {
+                    rowsJtable[0][cols] = Float.toString(mapPercent[cols]) + " %";
                 }
                 for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
-                    rowsJtable[1][cols] = "Continents "+Integer.toString(continentsControlled[cols]);
+                    rowsJtable[1][cols] = Integer.toString(continentsControlled[cols]) + " (continents)";
                 }
                 for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
-                    rowsJtable[2][cols] = "Total Armies "+Integer.toString(armies[cols]);
+                    rowsJtable[2][cols] = Integer.toString(armies[cols]) + " (armies)";
                 }
 				playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
 				playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
@@ -644,7 +644,7 @@ public class GameView implements Observer {
 		phase = game.getGamePhase();
 		mapPath = map.getMapPath() + map.getMapName() + ".bmp";
 
-		activePlayerName = game.getCurrentPlayer().getName();
+		activePlayerName = game.getCurrentPlayer().getName() + " (" + game.getCurrentPlayer().getCards().size() + ")";
 		activePlayerId = game.getCurrentPlayerId();
 		activePlayerColor = game.getCurrentPlayer().getColor();
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());
@@ -1015,6 +1015,7 @@ public class GameView implements Observer {
 	}
 
 	public static void updateWorldDominationView() {
+		if(playerRecordsJTable == null) return;
         playerRecordsJTable.removeAll();
 
         int i=0;
@@ -1070,20 +1071,15 @@ public class GameView implements Observer {
         for (int cols = 0; cols < rowsJtable[0].length ; cols++) {
             rowsJtable[2][cols] = Integer.toString(armies[cols]);
         }
-        playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
-        playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
+        playerWorldDominationViewJPanel.remove(playerRecordsJTable);
         playerRecordsJTable = new JTable(rowsJtable, columnHeader);
         playerRecordsJTable.setBounds(20,playerWorldDominationViewJFrame.getY() + 20 +
                 playerWorldDominationViewJFrame.getHeight(), 550,350);
         JTableHeader header = playerRecordsJTable.getTableHeader();
-        playerWorldDominationViewJFrame.setSize(600, 200);
-        playerWorldDominationViewJFrame.setLocationRelativeTo(null);
         //playerWorldDominationViewJFrame.setVisible(true);
-        playerWorldDominationViewJFrame.add(playerWorldDominationViewJPanel);
-        playerWorldDominationViewJPanel.add(header, BorderLayout.NORTH);
         playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
 
-        playerRecordsJTable.revalidate();
-        playerRecordsJTable.repaint();
+        playerWorldDominationViewJFrame.revalidate();
+        playerWorldDominationViewJFrame.repaint();
 	}
 }

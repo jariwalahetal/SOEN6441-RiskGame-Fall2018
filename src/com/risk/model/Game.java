@@ -123,7 +123,12 @@ public class Game extends Observable {
 		HashMap<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 		for (Player player : this.playerList) {
 			for (Country country : player.getAssignedCountryList()) {
-				returnMap.put(player.getPlayerId(), country.getnoOfArmies());
+				int totalArmies = country.getnoOfArmies();
+				if(returnMap.containsKey(player.getPlayerId())) 
+				{
+					totalArmies += returnMap.get(player.getPlayerId());
+				}
+				returnMap.put(player.getPlayerId(), totalArmies);
 			}
 		}
 		return returnMap;
@@ -242,7 +247,7 @@ public class Game extends Observable {
 	 * 
 	 */
 	public void startUpPhase() {
-
+		Common.PhaseActions.clear();
 		initilizeCardDeck();
 
 		int noOfInitialArmies = InitialPlayerSetup.getInitialArmyCount(playerList.size());
@@ -283,6 +288,7 @@ public class Game extends Observable {
 	 *            name of the country
 	 */
 	public void addArmyToCountry(String countryName) {
+		Common.PhaseActions.clear();
 		if (phaseCheckValidation(PhaseEnum.Attack) || phaseCheckValidation(PhaseEnum.Fortification)) {
 			IOHelper.print("Cannot add army in attack or fortification phase");
 			return;
@@ -296,7 +302,6 @@ public class Game extends Observable {
 		} else if (phaseCheckValidation(PhaseEnum.Reinforcement)) {
 			getCurrentPlayer().addArmyToCountryForReinforcement(countryName);
 		}
-		Common.PhaseActions.add("adding army to country");
 		updatePhase();
 		notifyObserverslocal(this);
 		// return true;
@@ -324,6 +329,16 @@ public class Game extends Observable {
 			}
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {
+			if (getCurrentPlayer().isEligibleForCard()) {
+				CardEnum card = getCardFromDeck();
+				if (card == null) {
+					IOHelper.print("No card available");
+				} else {
+					getCurrentPlayer().addCardToPlayer(card);
+				}
+				getCurrentPlayer().setEligibleForCard(false);
+			}
+			
 			this.setNextPlayerTurn();
 			setGamePhase(PhaseEnum.Reinforcement);
 			reinforcementPhaseSetup();

@@ -34,8 +34,8 @@ public class Common {
 		if (selectedColor.equals(EnumColor.BLUE)) {
 			return Color.BLUE;
 		}
-		if (selectedColor.equals(EnumColor.GRAY)) {
-			return Color.GRAY;
+		if (selectedColor.equals(EnumColor.MAGENTA)) {
+			return Color.MAGENTA;
 		}
 
 		if (selectedColor.equals(EnumColor.YELLOW)) {
