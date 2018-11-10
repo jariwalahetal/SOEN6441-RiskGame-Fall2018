@@ -11,10 +11,13 @@ public class CommonTest {
 	Common c;
 	Color colorToTest;
 	EnumColor e;
-	
+	int max;
+	int min;
 	@Before
 	public void setUp() {
 		c = new Common();
+		max = 4;
+		min = 1;
 	}
 	
 	@Test
@@ -22,5 +25,13 @@ public class CommonTest {
 		e = null;
 		colorToTest = c.getColor(e.BLACK);
 		assertEquals(colorToTest, Color.BLACK);
+	}
+	
+	@Test
+	public void testGetRandomNumberInRange() {
+		int randomInteger = c.getRandomNumberInRange(min, max);
+		System.out.print(randomInteger);
+		assertTrue(randomInteger > min-1);
+		assertTrue(randomInteger < max+1);
 	}
 }
