@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,5 +45,16 @@ public class CommonTest {
 		System.out.print(randomInteger);
 		assertTrue(randomInteger > min-1);
 		assertTrue(randomInteger < max+1);
+	}
+	/**
+	 * This method tears down.
+	 */
+	@After
+	public void tearDown() {
+		Common c = null;
+		Color colorToTest = null;
+		EnumColor e =null;
+		int max = 0;
+		int min = 0;
 	}
 }
