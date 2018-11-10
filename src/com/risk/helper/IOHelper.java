@@ -18,6 +18,7 @@ public class IOHelper {
 	 */
 	public static void print(String string) {
 		System.out.println(string);
+		Common.PhaseActions.add(string);
 	}
 
 	static Scanner sc = new Scanner(System.in);

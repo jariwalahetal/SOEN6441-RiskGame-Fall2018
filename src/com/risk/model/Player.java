@@ -253,7 +253,7 @@ public class Player {
 			IOHelper.print("Country name -  " + countryName + " does not exist!");
 			return false;
 		}
-
+		IOHelper.print("Adding startup army in " + countryName );
 		decreaseUnassignedArmyCount();
 		country.increaseArmyCount(1);
 		return true;
@@ -371,6 +371,7 @@ public class Player {
 			return false;
 		}
 
+		IOHelper.print("Adding reinforcement army in " + countryName );
 		decreaseReinforcementArmyCount();
 		country.increaseArmyCount(1);
 
@@ -496,10 +497,8 @@ public class Player {
 		ArrayList<Integer> defendingDices = defenderPlayer.diceOutComes;
 
 		IOHelper.print("Attacker's dices -- " + attackingDices);
-		Common.PhaseActions.add("Attacker's dices -- " + attackingDices);
 
 		IOHelper.print("Defender's dices -- " + defendingDices);
-		Common.PhaseActions.add("Defender's dices -- " + defendingDices);
 
 		this.attackingCountry = attackingCountry;
 		this.attackedCountry = defendingCountry;
@@ -572,6 +571,7 @@ public class Player {
 				return false;
 			}
 
+			IOHelper.print("Moving " + armiesCount + " armies from " + attackingCountry.getCountryName() + " to " + attackedCountry.getCountryName());
 			attackingCountry.decreaseArmyCount(armiesCount);
 			attackedCountry.increaseArmyCount(armiesCount);
 			isConquered = false;
@@ -640,7 +640,6 @@ public class Player {
 	public void addCardToPlayer(CardEnum card) {
 		playerCards.add(card);
 		IOHelper.print("Added " + card + " card to player");
-		Common.PhaseActions.add("Added " + card + " card to player");
 	}
 
 	/**
