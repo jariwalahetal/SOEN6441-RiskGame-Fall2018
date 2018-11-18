@@ -254,8 +254,7 @@ public class Map {
 							.orElse(null);
 					if (c != null) {
 						country.getNeighboursString().remove(i);
-					} else {
-					}
+					} 
 				}
 			}
 		}
