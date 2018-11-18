@@ -525,6 +525,7 @@ public class GameView implements Observer {
 	 * Method to display world domination view for each player
 	 */
 	public void loadPlayerWorldDominationView() {
+		
 		playerWorldDominationViewJButton = new JButton("Player World Domination View");
 		playerWorldDominationViewJButton.setBounds(gamePhaseViewJScrollPane.getX() + 110,
 				gamePhaseViewJScrollPane.getY() + 10 + gamePhaseViewJScrollPane.getHeight(),
@@ -538,13 +539,14 @@ public class GameView implements Observer {
                 int i=0;
                 ArrayList<Player> listOfPlayers = game.getAllPlayers();
                 ArrayList<String> playerNames = new ArrayList<>();
+                int numberOfPlayers=playerNames.size();
                 for (Player obj : listOfPlayers ) {
                     String name = obj.getName();
                     playerNames.add(name);
                     i++;
                 }
 
-                Float[] mapPercent = new Float[playerNames.size()];
+                Float[] mapPercent = new Float[numberOfPlayers];
                 HashMap<Integer,Float> percentageMap =  game.getPercentageOfMapControlledForEachPlayer();
                 int j=0;
                 for (java.util.Map.Entry<Integer, Float> entry : percentageMap.entrySet()) {
@@ -553,7 +555,7 @@ public class GameView implements Observer {
                     j++;
                 }
 
-                int[] continentsControlled = new int[playerNames.size()];
+                int[] continentsControlled = new int[numberOfPlayers];
                 HashMap<Integer,Integer> continentsMap = game.getNumberOfContinentsControlledForEachPlayer();
                 int k=0;
                 for (java.util.Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
@@ -562,7 +564,7 @@ public class GameView implements Observer {
                     k++;
                 }
 
-                int[] armies = new int[playerNames.size()];
+                int[] armies = new int[numberOfPlayers];
                 HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
                 int l=0;
                 for (java.util.Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
@@ -570,13 +572,13 @@ public class GameView implements Observer {
                     armies[l] = value;
                     l++;
                 }
-                String[] columnHeader = new String[playerNames.size()];
+                String[] columnHeader = new String[numberOfPlayers];
                 int index=0;
                 for ( String str : playerNames ) {
                     columnHeader[index] = "Player "+str;
                     index++;
                 }
-                String[][] rowsJtable = new String[3][playerNames.size()];
+                String[][] rowsJtable = new String[3][numberOfPlayers];
                 for (int cols = 0; cols < rowsJtable[0].length; cols++) {
                     rowsJtable[0][cols] = Float.toString(mapPercent[cols]) + " %";
                 }
@@ -1014,18 +1016,19 @@ public class GameView implements Observer {
     */
 	public static void updateWorldDominationView() {
 		if(playerRecordsJTable == null) return;
-        playerRecordsJTable.removeAll();
+        playerRecordsJTable.removeAll();	
 
         int i=0;
         ArrayList<Player> listOfPlayers = game.getAllPlayers();
         ArrayList<String> playerNames = new ArrayList<>();
+        int noOfPlayers=playerNames.size();
         for (Player obj : listOfPlayers ) {
             String name = obj.getName();
             playerNames.add(name);
             i++;
         }
 
-        Float[] mapPercent = new Float[playerNames.size()];
+        Float[] mapPercent = new Float[noOfPlayers];
         HashMap<Integer,Float> percentageMap =  game.getPercentageOfMapControlledForEachPlayer();
         int j=0;
         for (java.util.Map.Entry<Integer, Float> entry : percentageMap.entrySet()) {
@@ -1034,7 +1037,7 @@ public class GameView implements Observer {
             j++;
         }
 
-        int[] continentsControlled = new int[playerNames.size()];
+        int[] continentsControlled = new int[noOfPlayers];
         HashMap<Integer,Integer> continentsMap = game.getNumberOfContinentsControlledForEachPlayer();
         int k=0;
         for (java.util.Map.Entry<Integer, Integer> entry : continentsMap.entrySet()) {
@@ -1043,7 +1046,7 @@ public class GameView implements Observer {
             k++;
         }
 
-        int[] armies = new int[playerNames.size()];
+        int[] armies = new int[noOfPlayers];
         HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
         int l=0;
         for (java.util.Map.Entry<Integer, Integer> entry : armiesMap.entrySet()) {
@@ -1052,14 +1055,14 @@ public class GameView implements Observer {
             l++;
         }
 
-        String[] columnHeader = new String[playerNames.size()];
+        String[] columnHeader = new String[noOfPlayers];
         int index=0;
         for ( String str : playerNames ) {
             columnHeader[index] = str;
             index++;
         }
 
-        String[][] rowsJtable = new String[3][playerNames.size()];
+        String[][] rowsJtable = new String[3][noOfPlayers];
         for (int cols = 0; cols < rowsJtable[0].length; cols++) {
             rowsJtable[0][cols] = Float.toString(mapPercent[cols]);
         }
@@ -1075,7 +1078,11 @@ public class GameView implements Observer {
                 playerWorldDominationViewJFrame.getHeight(), 550,350);
         JTableHeader header = playerRecordsJTable.getTableHeader();
         playerWorldDominationViewJPanel.add(playerRecordsJTable, BorderLayout.CENTER);
-        playerWorldDominationViewJFrame.revalidate();
-        playerWorldDominationViewJFrame.repaint();
+        refreshView(playerWorldDominationViewJFrame);
+        
+	}
+	public static void refreshView(JFrame jFrame){
+		jFrame.revalidate();
+		jFrame.repaint();
 	}
 }
