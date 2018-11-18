@@ -22,9 +22,9 @@ public class InitialPlayerSetup {
 		case 4:
 			return EnumColor.RED;
 		case 5:
-			return EnumColor.YELLOW;
+			return EnumColor.MAGENTA;
 		default:
-			return EnumColor.YELLOW;
+			return EnumColor.MAGENTA;
 		}
 	}
 

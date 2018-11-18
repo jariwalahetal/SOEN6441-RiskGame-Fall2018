@@ -1,6 +1,7 @@
 package com.risk.helper;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -11,6 +12,8 @@ import java.util.Random;
  */
 public class Common {
 
+	public static ArrayList<String> PhaseActions = new ArrayList<>();
+	
 	/**
 	 * Method to convert the enum color into color object of swings
 	 * 
@@ -31,8 +34,8 @@ public class Common {
 		if (selectedColor.equals(EnumColor.BLUE)) {
 			return Color.BLUE;
 		}
-		if (selectedColor.equals(EnumColor.GRAY)) {
-			return Color.GRAY;
+		if (selectedColor.equals(EnumColor.MAGENTA)) {
+			return Color.MAGENTA;
 		}
 
 		if (selectedColor.equals(EnumColor.YELLOW)) {
@@ -61,4 +64,8 @@ public class Common {
 		return r.nextInt((max - min) + 1) + min;
 	}
 
+	
+	public ArrayList<String> GetActions() {
+		return PhaseActions;
+	}
 }

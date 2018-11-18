@@ -21,7 +21,8 @@ public class ContinentTest {
 	 */
 	@Before
 	public void setUp() {
-		c1 = new Country(2, countryName, 2);
+		c1 = new Country(2, countryName, 10,10);
+		c1.setNoOfArmies(2);
 		cont1 = new Continent(12, "BestContinent", 2);
 	}
 
@@ -36,5 +37,16 @@ public class ContinentTest {
 		countryNameInList = listOfCountries.stream().filter(x -> x.getCountryName() == countryName)
 				.map(x -> x.getCountryName()).collect(Collectors.joining());
 		assertEquals(countryNameInList, countryName);
+	}
+	/**
+	 * This method will tear down variables.
+	 */
+	@After
+	public void tearDown() {
+		c1 =null;
+		cont1 = null;
+		countryName = null;
+		listOfCountries = null;
+		countryNameInList = null;
 	}
 }

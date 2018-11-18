@@ -44,16 +44,6 @@ public class Continent {
 	}
 
 	/**
-	 * This function sets the continent ID of the continent.
-	 * 
-	 * @param contId
-	 *            ,Id of the continent
-	 */
-	public void setContId(int contId) {
-		this.contId = contId;
-	}
-
-	/**
 	 * This function returns the continent name.
 	 * 
 	 * @return contName
@@ -63,32 +53,12 @@ public class Continent {
 	}
 
 	/**
-	 * This function sets the continent name.
-	 * 
-	 * @param contName
-	 *            , Name of the continent
-	 */
-	public void setContName(String contName) {
-		this.contName = contName;
-	}
-
-	/**
 	 * This function returns the control value of the continent object.
 	 * 
 	 * @return int control value
 	 */
 	public int getControlValue() {
 		return controlValue;
-	}
-
-	/**
-	 * This function sets the control value of the continent object.
-	 * 
-	 * @param controlValue,
-	 *            Control Value of the continent
-	 */
-	public void setControlValue(int controlValue) {
-		this.controlValue = controlValue;
 	}
 
 	/**

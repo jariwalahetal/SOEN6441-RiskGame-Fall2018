@@ -20,8 +20,25 @@ public class Country {
 	private int yCoordiate;
 	private ArrayList<String> neighboursString = new ArrayList<>();
 	private int noOfArmies;
+
 	private EnumColor countryColor;
 
+	/**
+	 *  This is a Constructor for Country class which sets name and id
+	 * 
+	 * @param countryId ,id of the country
+	 * @param countryName,name of the country
+	 * @param xCoordiate, x co-ordinate of the country
+	 * @param yCoordiate, y co-ordinate of the country
+	 * 
+	 */
+	public Country(int countryId, String countryName, int xCoordiate, int yCoordiate ) {
+		this.countryId = countryId;
+		this.countryName = countryName;
+		this.xCoordiate = xCoordiate;
+		this.yCoordiate = yCoordiate;
+	}
+	
 	/**
 	 * Method to get color of the country
 	 * 
@@ -41,35 +58,6 @@ public class Country {
 	}
 
 	/**
-	 * This is a Constructor for Country class which sets name, continent,
-	 * neighbooring countries and xaxis , yaxis and player of the country.
-	 * 
-	 * @param countryId
-	 *            , Id of the country
-	 * @param countryName,
-	 *            Name of the country
-	 * @param noOfArmies,
-	 *            Number of armies the country
-	 */
-	public Country(int countryId, String countryName, int noOfArmies) {
-		super();
-		this.countryId = countryId;
-		this.countryName = countryName;
-		this.noOfArmies = noOfArmies;
-	}
-
-	/**
-	 *  This is a Constructor for Country class which sets name and id
-	 * 
-	 * @param countryId ,id of the country
-	 * @param countryName,name of the country
-	 */
-	public Country(int countryId, String countryName) {
-		this.countryId = countryId;
-		this.countryName = countryName;
-	}
-
-	/**
 	 * Get country id
 	 * 
 	 * @return countryId int
@@ -79,33 +67,12 @@ public class Country {
 	}
 
 	/**
-	 * Sets country id
-	 * 
-	 * @param countryId
-	 *            int
-	 * 
-	 */
-	public void setCountryId(int countryId) {
-		this.countryId = countryId;
-	}
-
-	/**
 	 * Gets country name
 	 * 
 	 * @return countryName string
 	 */
 	public String getCountryName() {
 		return countryName;
-	}
-
-	/**
-	 * Sets country name
-	 * 
-	 * @param countryName
-	 *            string
-	 */
-	public void setCountryName(String countryName) {
-		this.countryName = countryName;
 	}
 
 	/**
@@ -158,17 +125,6 @@ public class Country {
 	}
 
 	/**
-	 * Sets X-coordinate position
-	 * 
-	 * @param xCoordiate
-	 *            int
-	 * 
-	 */
-	public void setxCoordiate(int xCoordiate) {
-		this.xCoordiate = xCoordiate;
-	}
-
-	/**
 	 * Gets Y-coordinate position
 	 * 
 	 * @return yCoordiate int
@@ -178,26 +134,13 @@ public class Country {
 	}
 
 	/**
-	 * Sets Y-coordinate position
-	 * 
-	 * @param yCoordiate
-	 *            int
-	 * 
-	 */
-	public void setyCoordiate(int yCoordiate) {
-		this.yCoordiate = yCoordiate;
-	}
-
-	/**
 	 * Adds name for neighbour string
 	 * 
 	 * @param newNeighbour
 	 *            String
 	 */
 	public void addNeighboursString(String newNeighbour) {
-		if (this.neighboursString.contains(newNeighbour)) {
-			// Do nothing
-		} else {
+		if (!this.neighboursString.contains(newNeighbour)) {
 			this.neighboursString.add(newNeighbour);
 		}
 	}
@@ -221,13 +164,14 @@ public class Country {
 	}
 
 	/**
-	 * Increases the army count by one
+	 * Sets army count for the country
+	 * @param noOfArmies, int
 	 * 
 	 */
-	public void increaseArmyCount() {
-		noOfArmies++;
+	public void setNoOfArmies(int noOfArmies) {
+		this.noOfArmies = noOfArmies;
 	}
-
+	
 	/**
 	 * Increases the army count by given value
 	 * 
@@ -239,13 +183,6 @@ public class Country {
 		noOfArmies += count;
 	}
 
-	/**
-	 * Decreases the army count by one
-	 * 
-	 */
-	public void decreseArmyCount() {
-		noOfArmies--;
-	}
 
 	/**
 	 * Decreases the army count by given value

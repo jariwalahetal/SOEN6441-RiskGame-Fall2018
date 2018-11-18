@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -55,9 +56,8 @@ public class MapTest {
 	public void setUp() {
 		sb = new StringBuffer();
 		sb2 = new StringBuffer();
-		map1 = new Map();
+		map1 = new Map("Africa.map");
 		map1.setMapPath("assets/maps/");
-		map1.setMapName("Africa.map");
 		testMapContinents.add("Northern Africa");
 		testMapContinents.add("Southern Africa");
 		testMapContinents.add("Western Africa");
@@ -132,7 +132,7 @@ public class MapTest {
 	@Test
 	public void testValidCreateMap() {
 		String mapName = "validMapTest";
-		Map map = new Map();
+		Map map = new Map(mapName);
 		boolean isMapCreated = map.validateAndCreateMap(sb, mapName);
 		assertTrue(isMapCreated);
 	}
@@ -144,7 +144,7 @@ public class MapTest {
 	@Test
 	public void testInValidCreateMap() {
 		String mapName = "inValidMapTest";
-		Map map = new Map();
+		Map map = new Map(mapName);
 		boolean isMapCreated = map.validateAndCreateMap(sb2, mapName);
 		assertFalse(isMapCreated);
 	}
@@ -171,5 +171,16 @@ public class MapTest {
 		Collections.sort(testContinents);
 		assertTrue(equalLists(testContinents, testMapContinents));
 		assertTrue(equalLists(testCountries, testMapCountries));
+	}
+	/**
+	 * This method tears down the testvariables.
+	 */
+	@After
+	public void tearDown() {
+		sb = null;
+		sb2 = null;
+		map1 = null;
+		testMapContinents = null;
+		testMapCountries = null;
 	}
 }
