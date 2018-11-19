@@ -31,20 +31,12 @@ public class Player {
 	private final int MINIMUM_REINFORCEMENT_PLAYERS = 3;
 	Country attackingCountry;
 	Country attackedCountry;
-	Boolean isConquered = false;
+	private Boolean isConquered = false;
 	private ArrayList<CardEnum> playerCards = new ArrayList<>();
 	// TODO: implement lost logic in game check whole flow
 	private boolean isLost = false;
 	private ArrayList<Integer> diceOutComes = new ArrayList<>();
 	private Boolean eligibleForCard = false;
-
-	public Boolean isEligibleForCard() {
-		return eligibleForCard;
-	}
-
-	public void setEligibleForCard(Boolean eligibleForCard) {
-		this.eligibleForCard = eligibleForCard;
-	}
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
@@ -61,6 +53,33 @@ public class Player {
 		this.color = InitialPlayerSetup.getPlayerColor(playerId);
 	}
 
+	/**
+	 * This method is used to find if a player has conquered any country
+	 * 
+	 * @return
+	 */
+	public Boolean isConquered() {
+		return isConquered;
+	}
+
+	/**
+	 * This method will tell if a player is eligible for card exchange
+	 * 
+	 * @return
+	 */
+	public Boolean isEligibleForCard() {
+		return eligibleForCard;
+	}
+
+	/**
+	 * This method will set a player eligible for card exchange
+	 * 
+	 * @param eligibleForCard
+	 */
+	public void setEligibleForCard(Boolean eligibleForCard) {
+		this.eligibleForCard = eligibleForCard;
+	}
+	
 	/**
 	 * This method returns the Countries assigned to the particular Player
 	 * 
@@ -216,7 +235,8 @@ public class Player {
 	/**
 	 * Assigns the current country to player
 	 * 
-	 * @param newCountry, Country Object
+	 * @param newCountry,
+	 *            Country Object
 	 */
 	public void assignCountryToPlayer(Country newCountry) {
 		assignedCountryList.add(newCountry);
@@ -227,7 +247,8 @@ public class Player {
 	/**
 	 * UnAssigns the current country to player
 	 * 
-	 * @param newCountry, Country Object
+	 * @param newCountry,
+	 *            Country Object
 	 */
 	public void unAssignCountryToPlayer(Country newCountry) {
 		assignedCountryList.remove(newCountry);
@@ -253,7 +274,7 @@ public class Player {
 			IOHelper.print("Country name -  " + countryName + " does not exist!");
 			return false;
 		}
-		IOHelper.print("Adding startup army in " + countryName );
+		IOHelper.print("Adding startup army in " + countryName);
 		decreaseUnassignedArmyCount();
 		country.increaseArmyCount(1);
 		return true;
@@ -321,7 +342,9 @@ public class Player {
 
 	/**
 	 * Method to set up reinforcement phase
-	 * @param continents, list of continents
+	 * 
+	 * @param continents,
+	 *            list of continents
 	 * @return true, if armies can be set for reinforcement else false
 	 */
 	public boolean setReinformcementArmies(ArrayList<Continent> continents) {
@@ -342,8 +365,8 @@ public class Player {
 			if (hasPlayerAllCountries)
 				countriesCount += continent.getControlValue();
 		}
-		
-		countriesCount +=  getNoOfTradedArmies();
+
+		countriesCount += getNoOfTradedArmies();
 		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PLAYERS ? MINIMUM_REINFORCEMENT_PLAYERS
 				: countriesCount;
 		setNoOfReinforcedArmies(countriesCount);
@@ -371,7 +394,7 @@ public class Player {
 			return false;
 		}
 
-		IOHelper.print("Adding reinforcement army in " + countryName );
+		IOHelper.print("Adding reinforcement army in " + countryName);
 		decreaseReinforcementArmyCount();
 		country.increaseArmyCount(1);
 
@@ -399,13 +422,15 @@ public class Player {
 	/**
 	 * Method to get neighboring countries of a given country
 	 * 
-	 * @param sourceCountryName, name of the source country of player
-	 * @param assignedCountriesName, list of assigned countries name
+	 * @param sourceCountryName,
+	 *            name of the source country of player
+	 * @param assignedCountriesName,
+	 *            list of assigned countries name
 	 * @return ArrayList , returning array list of countries.
 	 */
 	public ArrayList<String> getNeighbouringCountries(String sourceCountryName,
 			ArrayList<String> assignedCountriesName) {
-		ArrayList<String> neighborCountriesName = null;
+		ArrayList<String> neighborCountriesName = new ArrayList<>();
 		for (Country country : assignedCountryList) {
 			String countryName = country.getCountryName();
 			assignedCountriesName.add(countryName);
@@ -463,7 +488,8 @@ public class Player {
 	/**
 	 * This method will roll a Dice
 	 * 
-	 * @param diceCount, count of the dice
+	 * @param diceCount,
+	 *            count of the dice
 	 */
 	private void rollDice(int diceCount) {
 		diceOutComes.clear();
@@ -475,24 +501,35 @@ public class Player {
 	/**
 	 * This method will process attack on given player
 	 * 
-	 * @param defenderPlayer   Player
-	 * @param attackingCountry Attacking country
-	 * @param defendingCountry Defending country
-	 * @param attackingDices   attacking dices
-	 * @param denfendingDices  defending dices
+	 * @param defenderPlayer
+	 *            Player
+	 * @param attackingCountry
+	 *            Attacking country
+	 * @param defendingCountry
+	 *            Defending country
+	 * @param attackingDices
+	 *            attacking dices
+	 * @param denfendingDices
+	 *            defending dices
 	 * @return true if successful
-	 * @param defenderPlayer, Player
-	 * @param attackingCountry, Attacking country
-	 * @param defendingCountry, Defending country
-	 * @param attackingDiceCount, attacking dices count
-	 * @param defendingDiceCount, defending dices count
+	 * @param defenderPlayer,
+	 *            Player
+	 * @param attackingCountry,
+	 *            Attacking country
+	 * @param defendingCountry,
+	 *            Defending country
+	 * @param attackingDiceCount,
+	 *            attacking dices count
+	 * @param defendingDiceCount,
+	 *            defending dices count
 	 */
 	public void attackPhase(Player defenderPlayer, Country attackingCountry, Country defendingCountry,
 			int attackingDiceCount, int defendingDiceCount) {
-		
+
+		isConquered = false;
 		rollDice(attackingDiceCount);
 		defenderPlayer.rollDice(defendingDiceCount);
-		
+
 		ArrayList<Integer> attackingDices = diceOutComes;
 		ArrayList<Integer> defendingDices = defenderPlayer.diceOutComes;
 
@@ -571,7 +608,8 @@ public class Player {
 				return false;
 			}
 
-			IOHelper.print("Moving " + armiesCount + " armies from " + attackingCountry.getCountryName() + " to " + attackedCountry.getCountryName());
+			IOHelper.print("Moving " + armiesCount + " armies from " + attackingCountry.getCountryName() + " to "
+					+ attackedCountry.getCountryName());
 			attackingCountry.decreaseArmyCount(armiesCount);
 			attackedCountry.increaseArmyCount(armiesCount);
 			isConquered = false;
@@ -596,8 +634,10 @@ public class Player {
 
 	/**
 	 * 
-	 * @param country, Country Object
-	 * @param playerStatus, status of the player
+	 * @param country,
+	 *            Country Object
+	 * @param playerStatus,
+	 *            status of the player
 	 * @return allowableAttackingArmies
 	 */
 	public int getMaximumAllowableDices(Country country, String playerStatus) {
@@ -635,7 +675,8 @@ public class Player {
 	/**
 	 * Add card to player
 	 * 
-	 * @param card, type of card
+	 * @param card,
+	 *            type of card
 	 */
 	public void addCardToPlayer(CardEnum card) {
 		playerCards.add(card);
@@ -643,7 +684,8 @@ public class Player {
 	}
 
 	/**
-	 * This method will return the countries for which armies count is greater than one
+	 * This method will return the countries for which armies count is greater than
+	 * one
 	 * 
 	 * @return countries, list of countries
 	 */

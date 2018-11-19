@@ -34,8 +34,8 @@ public class CardExchangeView implements Observer {
 	private static JLabel playersTurnJlabel;
 	private static JList<String> palyerOwnedCard;
 	private static JLabel totalNewArmies;
-	private static JButton exchangeButton = new JButton("Exchange Cards");
-	private static JButton exitButton = new JButton("No Exchange And Exit");
+	private static JButton exchangeButton;
+	private static JButton exitButton;
 
 	/**
 	 * This method is used to initialize the Card Exchange View.
@@ -43,6 +43,8 @@ public class CardExchangeView implements Observer {
 	 * @param game, Game
 	 */
 	public void exchangeInitializerView(Game game) {
+		exchangeButton=new JButton("Exchange Cards");
+		exitButton=new JButton("No Exchange And Exit");
 		cardFrame = new JFrame("Card Exchange View");
 		cardPanel = new JPanel(null);
 		cardFrame.setSize(800, 600);

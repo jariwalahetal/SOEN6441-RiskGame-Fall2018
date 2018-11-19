@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/documents/Refactoring_Build3.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/com/risk/helper/GetArmiesByTradingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/helper/InitialPlayerSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/helper/InitialPlayerSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/view/CardExchangeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/CardExchangeView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/TestSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestSuite.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,20 +42,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameView.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="939" lean-forward="true" selection-start-line="939" selection-end-line="939" />
+            <state relative-caret-position="170">
+              <caret line="247" column="61" lean-forward="true" selection-start-line="247" selection-start-column="61" selection-end-line="247" selection-end-column="61" />
               <folding>
                 <element signature="e#6131#6146#0" expanded="true" />
               </folding>
@@ -296,12 +297,12 @@
       <workItem from="1541560654177" duration="6458000" />
       <workItem from="1541705132701" duration="41674000" />
       <workItem from="1541886339079" duration="201000" />
-      <workItem from="1542643220170" duration="3209000" />
+      <workItem from="1542643220170" duration="3347000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216342000" />
+    <option name="totallyTimeSpent" value="216480000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -396,19 +397,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/risk/model/Map.java</url>
-          <line>221</line>
+          <line>220</line>
           <properties />
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/risk/model/Map.java</url>
-          <line>469</line>
+          <line>468</line>
           <properties />
           <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/risk/model/Map.java</url>
-          <line>246</line>
+          <line>245</line>
           <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
@@ -689,16 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="939" lean-forward="true" selection-start-line="939" selection-end-line="939" />
-          <folding>
-            <element signature="e#6131#6146#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameRunner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="428">
@@ -708,8 +699,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="7" lean-forward="true" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+        <state relative-caret-position="289">
+          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="247" column="61" lean-forward="true" selection-start-line="247" selection-start-column="61" selection-end-line="247" selection-end-column="61" />
+          <folding>
+            <element signature="e#6131#6146#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
