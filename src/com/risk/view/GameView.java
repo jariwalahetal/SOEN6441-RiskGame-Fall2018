@@ -353,9 +353,7 @@ public class GameView implements Observer {
 
 		initializationJlabel.add(playersTurnJlabel);
 		initializationJlabel.add(armyLeftJlabel);
-
 		gameActionJpanel.add(initializationJlabel);
-
 	}
 
 	/**
@@ -376,7 +374,6 @@ public class GameView implements Observer {
 
 		reinforcementsJlabel.add(reinforcementUnassignedUnit);
 		gameActionJpanel.add(reinforcementsJlabel);
-
 	}
 
 	/**
@@ -435,7 +432,6 @@ public class GameView implements Observer {
 		attackJlabel.add(endAttackButton);
 
 		gameActionJpanel.add(attackJlabel);
-
 	}
 
 	/**
@@ -505,7 +501,6 @@ public class GameView implements Observer {
 		gamePhaseNameJLabel.setBounds(15, 15, 220, 40);
 
 		gamePhaseJLabel.add(gamePhaseNameJLabel);
-
 		gameActionJpanel.add(gamePhaseJLabel);
 	}
 
@@ -623,9 +618,6 @@ public class GameView implements Observer {
 			countryList.add(viewCountry);
 		}
 	}
-
-
-
 	/**
 	 * Update method called by the observable object to perform all the actions
 	 */
