@@ -444,12 +444,16 @@ public class Game extends Observable {
 			return false;
 		}
 
-		while ((!getCurrentPlayer().isConquered) && attCountry.getnoOfArmies() > 1) {
+		while (attCountry.getnoOfArmies() > 1) {
 			int attackingDiceCount = this.getMaximumAllowableDices(attackingCountry, "Attacker");
 			int defendingDiceCount = this.getMaximumAllowableDices(defendingCountry, "Defender");
 
 			getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount,
 					defendingDiceCount);
+			
+			if (getCurrentPlayer().isConquered() )
+			{break;				
+			}
 		}
 
 		if (!getCurrentPlayer().isAttackPossible()) {
