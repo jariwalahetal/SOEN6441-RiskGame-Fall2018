@@ -168,7 +168,7 @@ public class GameTest {
 	    		assertEquals(attackingCountryArmyCount, attackingCountry.getnoOfArmies());
 	        }
 	        else if ( attackingCountryArmyCount > attackingCountry.getnoOfArmies())
-	        {   if(currentPlayer.isConquered)
+	        {   if(currentPlayer.isConquered())
 	             {  assertEquals(defendingCountry.getnoOfArmies(),1);
 		    		assertEquals(attackingCountryArmyCount, attackingCountry.getnoOfArmies()+1);	
 		    		assertEquals(defendingCountry.getPlayerId(),currentPlayer.getPlayerId());
@@ -197,7 +197,7 @@ public class GameTest {
 	    Country attackingCountry,defendingCountry;
 	    int attackingCountryArmyCount, defendingCountryArmyCount;
 	    Player defenderPlayer; 
-	    currentPlayer.isConquered = true;	    
+//	    currentPlayer.isConquered() = true;	    
   	   for(String attackingCountryName:attackingCountryList)
 	    { attackedCountryList = game.getCurrentPlayer().getUnAssignedNeighbouringCountries(attackingCountryName);
 	      attackingCountry = game.getCountryFromName(attackingCountryName);
