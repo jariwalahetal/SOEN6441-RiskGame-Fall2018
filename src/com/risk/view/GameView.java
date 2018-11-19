@@ -519,7 +519,7 @@ public class GameView implements Observer {
 		gamePhaseViewJScrollPane = new JScrollPane();
 		gamePhaseViewJScrollPane.setBounds(gamePhaseJLabel.getX(),
 				gamePhaseJLabel.getY() + 10 + gamePhaseJLabel.getHeight(), gamePhaseJLabel.getWidth(), 80);
-		gamePhaseViewJScrollPane.setBorder(new TitledBorder("Phase Actions Performed"));
+		gamePhaseViewJScrollPane.setBorder(new TitledBorder(""));
 		gameActionJpanel.add(gamePhaseViewJScrollPane);
 
 	}
@@ -542,7 +542,8 @@ public class GameView implements Observer {
 				int i = 0;
 				ArrayList<Player> listOfPlayers = game.getAllPlayers();
 				ArrayList<String> playerNames = new ArrayList<>();
-				int numberOfPlayers = playerNames.size();
+
+				int numberOfPlayers = listOfPlayers.size();
 				for (Player obj : listOfPlayers) {
 					String name = obj.getName();
 					playerNames.add(name);
