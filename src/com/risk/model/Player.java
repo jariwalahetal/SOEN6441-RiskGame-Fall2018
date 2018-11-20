@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
 import com.risk.helper.EnumColor;
-import com.risk.helper.GetArmiesByTrading;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
+import com.risk.model.strategies.PlayerStrategy;
 
 /**
  * Player Class
@@ -37,6 +37,11 @@ public class Player {
 	private boolean isLost = false;
 	private ArrayList<Integer> diceOutComes = new ArrayList<>();
 	private Boolean eligibleForCard = false;
+	PlayerStrategy playerStrategy;
+	
+	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
+		this.playerStrategy = playerStrategy;
+	}
 
 	/**
 	 * This is a constructor of Player Class which sets playerId, name, and color.
@@ -53,6 +58,10 @@ public class Player {
 		this.color = InitialPlayerSetup.getPlayerColor(playerId);
 	}
 
+	public ArrayList<Integer> getDiceOutComes() {
+		return diceOutComes;
+	}
+	
 	/**
 	 * This method is used to find if a player has conquered any country
 	 * 
@@ -293,26 +302,7 @@ public class Player {
 	 *         countries are null
 	 */
 	public boolean fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
-
-		Country sourceCountry = assignedCountryList.stream()
-				.filter(c -> c.getCountryName().equalsIgnoreCase(sourceCountryName)).findAny().orElse(null);
-		Country destinationCountry = assignedCountryList.stream()
-				.filter(c -> c.getCountryName().equalsIgnoreCase(destinationCountryName)).findAny().orElse(null);
-
-		if (sourceCountry == null || destinationCountry == null) {
-			IOHelper.print("Source or destination country is invalid!");
-			return false;
-		}
-
-		if (noOfArmies == 0) {
-			IOHelper.print("No armies to move");
-			return true;
-		}
-		sourceCountry.decreaseArmyCount(noOfArmies);
-		destinationCountry.increaseArmyCount(noOfArmies);
-
-		return true;
-
+			return this.playerStrategy.fortify(this, sourceCountryName, destinationCountryName, noOfArmies);
 	}
 
 	/**
@@ -381,24 +371,7 @@ public class Player {
 	 * @return false, if phase is not valid otherwise return true
 	 */
 	public boolean addArmyToCountryForReinforcement(String countryName) {
-
-		if (getNoOfReinforcedArmies() == 0) {
-			IOHelper.print("Player " + getName() + " doesn't have unassigned armies!");
-			return false;
-		}
-
-		Country country = assignedCountryList.stream().filter(c -> c.getCountryName().equalsIgnoreCase(countryName))
-				.findAny().orElse(null);
-		if (country == null) {
-			IOHelper.print("Country name - " + countryName + " does not exist!");
-			return false;
-		}
-
-		IOHelper.print("Adding reinforcement army in " + countryName);
-		decreaseReinforcementArmyCount();
-		country.increaseArmyCount(1);
-
-		return true;
+		return this.playerStrategy.reinforce(this, countryName);
 	}
 
 	/**
@@ -491,7 +464,7 @@ public class Player {
 	 * @param diceCount,
 	 *            count of the dice
 	 */
-	private void rollDice(int diceCount) {
+	public void rollDice(int diceCount) {
 		diceOutComes.clear();
 		for (int i = 0; i < diceCount; i++) {
 			diceOutComes.add(Common.getRandomNumberInRange(1, 6));
@@ -527,80 +500,36 @@ public class Player {
 			int attackingDiceCount, int defendingDiceCount) {
 
 		isConquered = false;
-		rollDice(attackingDiceCount);
-		defenderPlayer.rollDice(defendingDiceCount);
-
-		ArrayList<Integer> attackingDices = diceOutComes;
-		ArrayList<Integer> defendingDices = defenderPlayer.diceOutComes;
-
-		IOHelper.print("Attacker's dices -- " + attackingDices);
-
-		IOHelper.print("Defender's dices -- " + defendingDices);
-
 		this.attackingCountry = attackingCountry;
 		this.attackedCountry = defendingCountry;
 
-		Collections.sort(attackingDices, Collections.reverseOrder());
-		Collections.sort(defendingDices, Collections.reverseOrder());
-
-		int totalComparisions = attackingDices.size() < defendingDices.size() ? attackingDices.size()
-				: defendingDices.size();
-
-		for (int i = 0; i < totalComparisions; i++) {
-
-			int attackerDice = attackingDices.get(i);
-			int defencerDice = defendingDices.get(i);
-
-			IOHelper.print("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
-			Common.PhaseActions.add("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
-
-			if (attackerDice > defencerDice) {
-				IOHelper.print("----> attacker wins for dice " + (i + 1));
-				Common.PhaseActions.add("----> attacker wins for dice " + (i + 1));
-
-				defendingCountry.decreaseArmyCount(1);
-
-			} else {
-				IOHelper.print("----> defender wins for dice " + (i + 1));
-				Common.PhaseActions.add("----> defender wins for dice " + (i + 1));
-
-				attackingCountry.decreaseArmyCount(1);
+		this.playerStrategy.attack(this, defenderPlayer, attackingCountry, defendingCountry, attackingDiceCount, defendingDiceCount);
 			}
 
-			if (attackingCountry.getnoOfArmies() == 1) {
-				IOHelper.print("----> Attacker not able to Attack ");
-				break;
-			} else if (defendingCountry.getnoOfArmies() == 0) {
-				IOHelper.print("----> Defender lost all armies in " + (i + 1) + " dice roll");
-				break;
+	/**
+	 * This method will perform operation required after conquering a country
+	 * @param defenderPlayer
+	 */
+	public void conquerCountry(Player defenderPlayer)
+	{   attackedCountry.setPlayerId(playerId);
+		defenderPlayer.unAssignCountryToPlayer(attackedCountry);
+		assignCountryToPlayer(attackedCountry);
+
+		// attacker has to put minimum one army defending country (By Game rules)
+		attackingCountry.decreaseArmyCount(1);
+		attackedCountry.increaseArmyCount(1);
+		isConquered = true;
+		eligibleForCard = true;
+		if (defenderPlayer.getAssignedCountryList().size() == 0) {
+			ArrayList<CardEnum> defenderCards = defenderPlayer.getCards();
+			for (CardEnum card : defenderCards) {
+				this.addCardToPlayer(card);
 			}
-
-		}
-
-		// Check if defending armies are 0 then acquire the country with cards
-		if (defendingCountry.getnoOfArmies() == 0) {
-			defendingCountry.setPlayerId(playerId);
-			defenderPlayer.unAssignCountryToPlayer(defendingCountry);
-			assignCountryToPlayer(defendingCountry);
-
-			// attacker has to put minimum one army defending country (By Game rules)
-			attackingCountry.decreaseArmyCount(1);
-			defendingCountry.increaseArmyCount(1);
-			isConquered = true;
-			eligibleForCard = true;
-			if (defenderPlayer.getAssignedCountryList().size() == 0) {
-				ArrayList<CardEnum> defenderCards = defenderPlayer.getCards();
-				for (CardEnum card : defenderCards) {
-					this.addCardToPlayer(card);
-				}
-
-				defenderPlayer.removeAllCardsFromPlayer();
-				defenderPlayer.setLost();
-			}
-		}
-
+			defenderPlayer.removeAllCardsFromPlayer();
+			defenderPlayer.setLost();
+		}	
 	}
-
+	
 	public boolean moveArmyAfterAttack(int armiesCount) {
 		if (isConquered) {
 			if (attackingCountry == null || attackedCountry == null) {

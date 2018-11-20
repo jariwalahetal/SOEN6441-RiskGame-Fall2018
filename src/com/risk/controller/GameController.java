@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import com.risk.helper.IOHelper;
 import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
+import com.risk.model.strategies.*;
 import com.risk.view.CardExchangeView;
 import com.risk.view.GameView;
 import com.risk.view.MapCreateView;
@@ -231,7 +232,26 @@ public class GameController {
 			for (int i = 0; i < playerCount; i++) {
 				IOHelper.print("\nEnter the name of Player " + (i + 1));
 				String playerName = IOHelper.getNextString();
+				IOHelper.print("\nEnter Strategy of the Player ");
+				IOHelper.print("\n 1- Human");
+				IOHelper.print("\n 2- Aggressive");
+				IOHelper.print("\n 3- Benevolent");
+				IOHelper.print("\n 4- Random");
+				IOHelper.print("\n 5- Cheater");
+				int playerstrategy = IOHelper.getNextInteger();
+				
 				Player player = new Player(i, playerName);
+				if (playerstrategy==1)
+					player.setPlayerStrategy(new Human());
+				else if (playerstrategy==2)
+					player.setPlayerStrategy(new Aggressive());
+				else if (playerstrategy==3)
+					player.setPlayerStrategy(new Benevolent());
+				else if (playerstrategy==4)
+					player.setPlayerStrategy(new Random());
+				else if (playerstrategy==5)
+					player.setPlayerStrategy(new Cheater());
+				
 				game.addPlayer(player);
 			}
 			game.startUpPhase();
