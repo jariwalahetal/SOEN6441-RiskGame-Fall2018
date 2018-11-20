@@ -14,8 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
+import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
+
 import com.risk.helper.CardEnum;
 import com.risk.helper.IOHelper;
 import com.risk.model.Game;
@@ -36,6 +37,7 @@ public class CardExchangeView implements Observer {
 	private static JLabel totalNewArmies;
 	private static JButton exchangeButton;
 	private static JButton exitButton;
+	private static JScrollPane scrollPane;
 
 	/**
 	 * This method is used to initialize the Card Exchange View.
@@ -66,9 +68,12 @@ public class CardExchangeView implements Observer {
 		for (int i = 0; i < typeOfCards.size(); i++) {
 			cards[i] = typeOfCards.get(i).toString();
 		}
+		scrollPane=new JScrollPane();
+		scrollPane.setBounds(310, 45, 252, 72);
 		palyerOwnedCard = new JList<>(cards);
 		palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
 		palyerOwnedCard.setBounds(310, 45, 250, 70);
+		scrollPane.setViewportView(palyerOwnedCard);
 		totalNewArmies = new JLabel("" + game.getCurrentPlayer().getNoOfTradedArmies());
 		totalNewArmies.setBorder(new TitledBorder("New  Armies Assigned"));
 		totalNewArmies.setBounds(180, 150, 250, 70);
@@ -100,7 +105,7 @@ public class CardExchangeView implements Observer {
 
 		});
 		cardExchangeLabel.add(totalNewArmies);
-		cardExchangeLabel.add(palyerOwnedCard);
+		cardExchangeLabel.add(scrollPane);
 		cardExchangeLabel.add(playersTurnJlabel);
 		cardExchangeLabel.add(exchangeButton);
 		cardExchangeLabel.add(exitButton);
@@ -120,11 +125,14 @@ public class CardExchangeView implements Observer {
 				cards[i] = typeOfCards.get(i).toString();
 			}
 			cardExchangeLabel.remove(palyerOwnedCard);
+			scrollPane = null;
 			palyerOwnedCard = null;
 			palyerOwnedCard = new JList<>(cards);
 			palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
 			palyerOwnedCard.setBounds(310, 45, 250, 70);
-			cardExchangeLabel.add(palyerOwnedCard);	
+			scrollPane.setBounds(310, 45, 255, 75);
+			scrollPane.setViewportView(palyerOwnedCard);
+			cardExchangeLabel.add(scrollPane);	
 			cardFrame.revalidate();
 			cardFrame.repaint();
 
