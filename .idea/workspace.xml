@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/GameView.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -30,14 +31,15 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="GameView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="549" column="24" lean-forward="true" selection-start-line="549" selection-start-column="24" selection-end-line="549" selection-end-column="24" />
+            <state relative-caret-position="230">
+              <caret line="1018" column="61" lean-forward="true" selection-start-line="1018" selection-start-column="61" selection-end-line="1018" selection-end-column="61" />
               <folding>
                 <element signature="e#6131#6146#0" expanded="true" />
+                <element signature="e#14066#14075#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -46,8 +48,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="263" column="9" lean-forward="true" selection-start-line="263" selection-start-column="9" selection-end-line="263" selection-end-column="9" />
+            <state relative-caret-position="4097">
+              <caret line="263" column="9" selection-start-line="263" selection-start-column="9" selection-end-line="263" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -120,7 +122,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -179,6 +180,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -295,12 +297,13 @@
       <workItem from="1541560654177" duration="6458000" />
       <workItem from="1541705132701" duration="41674000" />
       <workItem from="1541886339079" duration="201000" />
-      <workItem from="1542643220170" duration="7684000" />
+      <workItem from="1542643220170" duration="9765000" />
+      <workItem from="1542750929942" duration="4076000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="220817000" />
+    <option name="totallyTimeSpent" value="226974000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -324,10 +327,10 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19631901" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2745399" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18305598" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1860817" />
       <window_info anchor="right" id="SciView" order="6" weight="0.32980332" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Favorites" order="5" side_tool="true" />
@@ -677,8 +680,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/model/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="263" column="9" lean-forward="true" selection-start-line="263" selection-start-column="9" selection-end-line="263" selection-end-column="9" />
+        <state relative-caret-position="4097">
+          <caret line="263" column="9" selection-start-line="263" selection-start-column="9" selection-end-line="263" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -701,10 +704,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="549" column="24" lean-forward="true" selection-start-line="549" selection-start-column="24" selection-end-line="549" selection-end-column="24" />
+        <state relative-caret-position="230">
+          <caret line="1018" column="61" lean-forward="true" selection-start-line="1018" selection-start-column="61" selection-end-line="1018" selection-end-column="61" />
           <folding>
             <element signature="e#6131#6146#0" expanded="true" />
+            <element signature="e#14066#14075#0" expanded="true" />
           </folding>
         </state>
       </provider>
