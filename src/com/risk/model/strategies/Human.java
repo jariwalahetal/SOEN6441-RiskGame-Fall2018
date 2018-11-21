@@ -19,21 +19,21 @@ import com.risk.model.Player;
 public class Human implements PlayerStrategy {
 
 	@Override
-	public boolean reinforce(Player player,String countryName) {
+	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
 		if (player.getNoOfReinforcedArmies() == 0) {
 			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies!");
 			return false;
 		}
 
-		Country country = player.getAssignedCountryList().stream().filter(c -> c.getCountryName().equalsIgnoreCase(countryName))
-				.findAny().orElse(null);
+		Country country = player.getToCountry();
+		
 		if (country == null) {
-			IOHelper.print("Country name - " + countryName + " does not exist!");
+			IOHelper.print("Country name - " + country.getCountryName() + " does not exist!");
 			return false;
 		}
 
-		IOHelper.print("Adding reinforcement army in " + countryName);
+		IOHelper.print("Adding reinforcement army in " + country.getCountryName());
 		player.decreaseReinforcementArmyCount();
 		country.increaseArmyCount(1);
 
@@ -41,13 +41,12 @@ public class Human implements PlayerStrategy {
 	}
 
 	@Override
-	public void attack(Player attackerPlayer, Player defenderPlayer, Country attackingCountry, Country defendingCountry,
-			int attackingDiceCount, int defendingDiceCount) {
+	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub
-
-		attackerPlayer.rollDice(attackingDiceCount);
-		defenderPlayer.rollDice(defendingDiceCount);
-
+		Country attackingCountry = attackerPlayer.getFromCountry();
+		Country defendingCountry = 	attackerPlayer.getToCountry();	
+	    Player defenderPlayer = attackerPlayer.getAttackedPlayer();
+		
 		ArrayList<Integer> attackingDices = attackerPlayer.getDiceOutComes();
 		ArrayList<Integer> defendingDices = defenderPlayer.getDiceOutComes();
 
@@ -97,14 +96,13 @@ public class Human implements PlayerStrategy {
 	}
 
 	@Override
-	public boolean fortify(Player player, String sourceCountryName, String destinationCountryName, int noOfArmies) {
+	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
 		
-		Country sourceCountry = player.getAssignedCountryList().stream()
-				.filter(c -> c.getCountryName().equalsIgnoreCase(sourceCountryName)).findAny().orElse(null);
-		Country destinationCountry = player.getAssignedCountryList().stream()
-				.filter(c -> c.getCountryName().equalsIgnoreCase(destinationCountryName)).findAny().orElse(null);
-
+		Country sourceCountry = player.getFromCountry();
+		Country destinationCountry = player.getToCountry();
+		int noOfArmies = player.getNoOfArmiesToMove();
+		
 		if (sourceCountry == null || destinationCountry == null) {
 			IOHelper.print("Source or destination country is invalid!");
 			return false;

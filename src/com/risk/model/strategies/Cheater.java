@@ -1,5 +1,10 @@
 package com.risk.model.strategies;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import com.risk.helper.Common;
+import com.risk.helper.IOHelper;
 import com.risk.model.Country;
 import com.risk.model.Player;
 
@@ -17,22 +22,48 @@ import com.risk.model.Player;
 public class Cheater implements PlayerStrategy {
 
 	@Override
-	public boolean reinforce(Player player,String countryName) {
+	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
+	    for (Country country:player.getAssignedCountryList())
+	    { IOHelper.print("Adding reinforcement army in " + country.getCountryName());
+		  player.decreaseReinforcementArmyCount();
+		  country.increaseArmyCount(1);
+	    }
+		return true;	
+}
+
+	@Override
+	public void attack(Player attackerPlayer) {
+		// TODO Auto-generated method stub		
+		for (Country country:attackerPlayer.getAssignedCountryList())
+		 { for(Country neighbourCountry : country.getNeighbourCountries())
+			    {
+	            Player defenderPlayer  ;// get player from country
+ 	    	while(neighbourCountry.getnoOfArmies()>0)
+	    	{  neighbourCountry.decreaseArmyCount(1);
+	    	}
+        
+ 	    	//attackerPlayer.conquerCountry(defenderPlayer);	
+	    	
+	    	}
+	    	
+	    }		
+	
+	}
+
+	@Override
+	public boolean fortify(Player player) {
+		// TODO Auto-generated method stub
+        int armiesCount;
+		for (Country country:player.getAssignedCountryList())
+	    { for(Country neighbourCountry : country.getNeighbourCountries())
+	    	{ if (neighbourCountry.getPlayerId()!=player.getPlayerId())
+	    	  { armiesCount = country.getnoOfArmies()*2;
+	    		country.increaseArmyCount(armiesCount);
+	    		}
+	    	}		
+	    }
 		return true;
-	}
-
-	@Override
-	public void attack(Player attackerPlayer, Player defenderPlayer, Country attackingCountry, Country defendingCountry,
-			int attackingDiceCount, int defendingDiceCount) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean fortify(Player player, String sourceCountryName, String destinationCountryName, int noOfArmies) {
-		// TODO Auto-generated method stub
-      return true;
 	}
 
 }

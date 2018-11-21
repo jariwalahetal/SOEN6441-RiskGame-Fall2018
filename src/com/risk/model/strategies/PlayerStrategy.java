@@ -12,11 +12,10 @@ import com.risk.model.Player;
  */
 public interface PlayerStrategy {
 
-   public boolean reinforce(Player player,String countryName);
+   public boolean reinforce(Player player);
    
-   public void attack(Player attackerPlayer,Player defenderPlayer, Country attackingCountry, Country defendingCountry,
-			int attackingDiceCount, int defendingDiceCount);
+   public void attack(Player attackerPlayer);
    
-   public boolean fortify(Player player, String sourceCountryName, String destinationCountryName, int noOfArmies);
+   public boolean fortify(Player player);
    
 }

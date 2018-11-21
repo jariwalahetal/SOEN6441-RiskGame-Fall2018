@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.HashMap;
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
+import com.risk.helper.GameMode;
 import com.risk.helper.GetArmiesByTrading;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
@@ -26,6 +27,7 @@ public class Game extends Observable {
 	private Map map;
 	private ArrayList<CardEnum> gameCards = new ArrayList<>();
 	private Boolean isMapConqueredFlag = false;
+	private GameMode gameMode;
 
 	/**
 	 * This is a constructor of Game class which will initialize the Map
@@ -37,6 +39,10 @@ public class Game extends Observable {
 		super();
 		this.map = map;
 		this.setGamePhase(gamePhase.Startup);
+	}
+
+	public void setGameMode(GameMode gameMode) {
+		this.gameMode = gameMode;
 	}
 
 	/**
@@ -300,7 +306,9 @@ public class Game extends Observable {
 				setNextPlayerTurn();
 			}
 		} else if (phaseCheckValidation(PhaseEnum.Reinforcement)) {
-			getCurrentPlayer().addArmyToCountryForReinforcement(countryName);
+			Country toCountry = getCountryFromName(countryName);
+			getCurrentPlayer().setToCountry(toCountry);
+			getCurrentPlayer().addArmyToCountryForReinforcement();
 		}
 		updatePhase();
 		notifyObserverslocal(this);
@@ -386,6 +394,7 @@ public class Game extends Observable {
 		Country attCountry = getCountryFromName(attackingCountry);
 		Country defCountry = getCountryFromName(defendingCountry);
 
+		
 		if (attCountry == null || defCountry == null) {
 			IOHelper.print("Set attacking and defending countries first");
 			return false;
@@ -396,15 +405,21 @@ public class Game extends Observable {
 			return false;
 		}
 
-		Player defenderPlayer = playerList.stream().filter(p -> p.getAssignedCountryList().contains(defCountry))
+		Player attackedPlayer = playerList.stream().filter(p -> p.getAssignedCountryList().contains(defCountry))
 				.findAny().orElse(null);
 
-		if (defenderPlayer == null) {
+		if (attackedPlayer == null) {
 			IOHelper.print("Cannot find defender player");
 			return false;
 		}
 
-		getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount, defendingDiceCount);
+		getCurrentPlayer().setFromCountry(attCountry);
+		getCurrentPlayer().setToCountry(defCountry);
+		getCurrentPlayer().rollDice(attackingDiceCount);
+		attackedPlayer.rollDice(defendingDiceCount);
+		getCurrentPlayer().setAttackedPlayer(attackedPlayer);
+		
+		getCurrentPlayer().attackPhase();
 
 		if (isMapConquered()) {
 			IOHelper.print("Game Over, You win");
@@ -436,20 +451,26 @@ public class Game extends Observable {
 			return false;
 		}
 
-		Player defenderPlayer = playerList.stream().filter(p -> p.getAssignedCountryList().contains(defCountry))
+		Player attackedPlayer = playerList.stream().filter(p -> p.getAssignedCountryList().contains(defCountry))
 				.findAny().orElse(null);
 
-		if (defenderPlayer == null) {
+		if (attackedPlayer == null) {
 			IOHelper.print("Cannot find defender player");
 			return false;
 		}
 
+		getCurrentPlayer().setFromCountry(attCountry);
+		getCurrentPlayer().setToCountry(defCountry);
+		getCurrentPlayer().setAttackedPlayer(attackedPlayer);
+		int attackingDiceCount, defendingDiceCount;
+		
 		while (attCountry.getnoOfArmies() > 1) {
-			int attackingDiceCount = this.getMaximumAllowableDices(attackingCountry, "Attacker");
-			int defendingDiceCount = this.getMaximumAllowableDices(defendingCountry, "Defender");
+			attackingDiceCount = this.getMaximumAllowableDices(attackingCountry, "Attacker");
+			defendingDiceCount = this.getMaximumAllowableDices(defendingCountry, "Defender");
+			getCurrentPlayer().rollDice(attackingDiceCount);
+			attackedPlayer.rollDice(defendingDiceCount);
 
-			getCurrentPlayer().attackPhase(defenderPlayer, attCountry, defCountry, attackingDiceCount,
-					defendingDiceCount);
+			getCurrentPlayer().attackPhase();
 			
 			if (getCurrentPlayer().isConquered() )
 			{break;				
@@ -478,7 +499,14 @@ public class Game extends Observable {
 	 */
 	public boolean fortificationPhase(String sourceCountryName, String destinationCountryName, int noOfArmies) {
 
-		getCurrentPlayer().fortificationPhase(sourceCountryName, destinationCountryName, noOfArmies);
+		Country fromCountry = getCountryFromName(sourceCountryName);
+		Country toCountry = getCountryFromName(destinationCountryName);		
+		
+		getCurrentPlayer().setFromCountry(fromCountry);
+		getCurrentPlayer().setToCountry(toCountry);
+		getCurrentPlayer().setNoOfArmiesToMove(noOfArmies);
+
+		getCurrentPlayer().fortificationPhase();
 
 		if (getCurrentPlayer().isEligibleForCard()) {
 			CardEnum card = getCardFromDeck();
@@ -643,4 +671,15 @@ public class Game extends Observable {
 
 		return false;
 	}
+
+    public void tournamentMode()
+    { Player currentPlayer;
+    	while(isMapConqueredFlag == false)
+    	{ currentPlayer = this.getCurrentPlayer();    	  
+    	  currentPlayer.addArmyToCountryForReinforcement(); 
+    	  currentPlayer.attackPhase();
+    	  currentPlayer.fortificationPhase();    		
+    	}
+    }
+	
 }

@@ -1,5 +1,8 @@
 package com.risk.model.strategies;
 
+import java.util.ArrayList;
+
+import com.risk.helper.Common;
 import com.risk.model.Country;
 import com.risk.model.Player;
 
@@ -15,20 +18,24 @@ import com.risk.model.Player;
 public class Random implements PlayerStrategy {
 
 	@Override
-	public boolean reinforce(Player player,String countryName) {
+	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
+		ArrayList<Country> countryList = player.getAssignedCountryList();		
+        int randomIndex = Common.getRandomNumberInRange(0, countryList.size());
+		int armies = player.getNoOfReinforcedArmies();
+		player.setNoOfReinforcedArmies(0);
+		countryList.get(randomIndex).increaseArmyCount(armies);
 		return true;
 	}
 
 	@Override
-	public void attack(Player attackerPlayer, Player defenderPlayer, Country attackingCountry, Country defendingCountry,
-			int attackingDiceCount, int defendingDiceCount) {
+	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public boolean fortify(Player player, String sourceCountryName, String destinationCountryName, int noOfArmies) {
+	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
 		return true;
 	}

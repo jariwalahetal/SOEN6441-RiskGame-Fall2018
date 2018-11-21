@@ -1,5 +1,6 @@
 package com.risk.model.strategies;
 
+import com.risk.helper.IOHelper;
 import com.risk.model.Country;
 import com.risk.model.Player;
 
@@ -15,21 +16,42 @@ import com.risk.model.Player;
 public class Aggressive implements PlayerStrategy {
 
 	@Override
-	public boolean reinforce(Player player,String countryName) {
+	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
+		if (player.getNoOfReinforcedArmies() == 0) {
+			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies!");
+			return false;
+		}
+
+		Country country = player.getStrongestCountry();
+		if (country == null) {
+			IOHelper.print("Country name - " + country.getCountryName() + " does not exist!");
+			return false;
+		}
+
+		IOHelper.print("Adding reinforcement army in " + country.getCountryName());
+		while(player.getNoOfReinforcedArmies() > 0)
+		{player.decreaseReinforcementArmyCount();
+		 country.increaseArmyCount(1);
+		}
+		
 		return true;
 	}
 
 	@Override
-	public void attack(Player attackerPlayer, Player defenderPlayer, Country attackingCountry, Country defendingCountry,
-			int attackingDiceCount, int defendingDiceCount) {
+	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub
-
+		Country strongestCountry = attackerPlayer.getStrongestCountry();
+		
+		
 	}
 
 	@Override
-	public boolean fortify(Player player, String sourceCountryName, String destinationCountryName, int noOfArmies) {
+	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
+		Country strongestCountry = player.getStrongestCountry();
+
+		
 		return true;
 	}
 

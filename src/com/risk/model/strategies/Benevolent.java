@@ -15,21 +15,26 @@ import com.risk.model.Player;
 public class Benevolent implements PlayerStrategy {
 
 	@Override
-	public boolean reinforce(Player player,String countryName) {
+	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
+
+		Country country = player.getWeakestCountry();
+		IOHelper.print("Adding reinforcement army in " + country.getCountryName());
+		player.decreaseReinforcementArmyCount();
+		country.increaseArmyCount(1);
+
 		return true;
-	}
+}
 
 	@Override
-	public void attack(Player attackerPlayer, Player defenderPlayer, Country attackingCountry, Country defendingCountry,
-			int attackingDiceCount, int defendingDiceCount) {
+	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub
 		IOHelper.print("Player's strategy is benevolent so Attack skipped");
 
 	}
 
 	@Override
-	public boolean fortify(Player player, String sourceCountryName, String destinationCountryName, int noOfArmies) {
+	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
 		return true;
 	}

@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import com.risk.helper.IOHelper;
@@ -60,6 +61,8 @@ public class Map {
 			String readLine;
 			int continentID = 0;
 			int countryID = 0;
+			HashMap<String,Country> countries = new HashMap<String,Country>();
+			HashMap<Country,String[]> countryNeighbor = new HashMap<Country,String[]>();
 
 			while ((readLine = bufferedReader.readLine()) != null) {
 				if (readLine.trim().length() == 0)
@@ -72,7 +75,8 @@ public class Map {
 					captureCountries = true;
 					continue;
 				}
-
+				
+			
 				if (captureContinents) {
 					String[] parsedControlValuesByContinentsArray = readLine.split("=");
 					Continent continent = new Continent(continentID++, parsedControlValuesByContinentsArray[0],
@@ -84,6 +88,10 @@ public class Map {
 					int xCoordinate = Integer.parseInt(parsedTerritoriesArray[1]);
 					int yCoordinate = Integer.parseInt(parsedTerritoriesArray[2]);
 					Country country = new Country(countryID++, parsedTerritoriesArray[0], xCoordinate, yCoordinate);
+					
+					countries.put(parsedTerritoriesArray[0], country);
+					countryNeighbor.put(country, parsedTerritoriesArray);
+					
 					int k = 0;
 					for (String neighborCountry : parsedTerritoriesArray) {
 						if (k > 3) {
@@ -101,6 +109,19 @@ public class Map {
 					}
 				}
 			}
+	
+			Country neighbour;
+			Iterator it = countryNeighbor.entrySet().iterator();
+		    while (it.hasNext()) {
+		    	HashMap.Entry entry = (HashMap.Entry) it.next();
+		        Country country = (Country)entry.getKey();
+		        String[] neighbours = (String[])entry.getValue();
+		       for(int i=4;i<neighbours.length;i++)
+               { neighbour = countries.get(neighbours[i]);
+		         country.addNeighboursCountries(neighbour);             	   
+               }
+		    }	
+						
 			bufferedReader.close();
 		} catch (Exception e) {
 			IOHelper.printException(e);
