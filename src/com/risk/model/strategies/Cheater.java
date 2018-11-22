@@ -6,6 +6,7 @@ import java.util.Collections;
 import com.risk.helper.Common;
 import com.risk.helper.IOHelper;
 import com.risk.model.Country;
+import com.risk.model.Game;
 import com.risk.model.Player;
 
 /**
@@ -35,20 +36,16 @@ public class Cheater implements PlayerStrategy {
 	@Override
 	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub		
+		int armies;
+		Player defenderPlayer;
 		for (Country country:attackerPlayer.getAssignedCountryList())
 		 { for(Country neighbourCountry : country.getNeighbourCountries())
-			    {
-	            Player defenderPlayer  ;// get player from country
- 	    	while(neighbourCountry.getnoOfArmies()>0)
-	    	{  neighbourCountry.decreaseArmyCount(1);
-	    	}
-        
- 	    	//attackerPlayer.conquerCountry(defenderPlayer);	
-	    	
-	    	}
-	    	
+			 {  armies = neighbourCountry.getnoOfArmies();
+ 	            neighbourCountry.decreaseArmyCount(armies);   	
+                defenderPlayer = Game.getPlayerFromID(neighbourCountry.getPlayerId());
+                attackerPlayer.conquerCountry(defenderPlayer);	
+	    	}	    	
 	    }		
-	
 	}
 
 	@Override

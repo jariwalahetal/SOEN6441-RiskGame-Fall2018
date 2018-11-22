@@ -21,7 +21,7 @@ import com.risk.helper.PhaseEnum;
  * @since 30-September-2018
  */
 public class Game extends Observable {
-	private ArrayList<Player> playerList = new ArrayList<Player>();
+	private static ArrayList<Player> playerList = new ArrayList<Player>();
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
 	private Map map;
@@ -197,6 +197,19 @@ public class Game extends Observable {
 		return playerList;
 	}
 
+	/**
+	 * Method use to get player from player ID
+	 * 
+	 * @return playerList, ArrayList of players
+	 */
+	public static Player getPlayerFromID(int playerID) {
+		
+		Player player = playerList.stream().filter(c -> c.getPlayerId() == playerID)
+				.findAny().orElse(null);
+		return player;
+	}
+	
+	
 	/**
 	 * Method to get armies assigned to the country
 	 * 

@@ -482,20 +482,34 @@ public class Player {
 	 * @return ArrayList , returning array list of countries.
 	 */
 	public ArrayList<String> getUnAssignedNeighbouringCountries(String sourceCountryName) {
-		ArrayList<String> assignedCountriesName = new ArrayList<String>();
-		ArrayList<String> neighborCountriesName = this.getNeighbouringCountries(sourceCountryName,
-				assignedCountriesName);
+		ArrayList<String> neighborCountriesName = new ArrayList<String>();
+		
+		ArrayList<Country> neighborCountries = getUnAssignedNeighbouringCountriesObject(sourceCountryName);
 
-		Iterator<String> it = neighborCountriesName.iterator();
-		while (it.hasNext()) {
-			String country = it.next();
-			if (assignedCountriesName.contains(country)) {
-				it.remove();
-			}
-		}
-		return neighborCountriesName;
+        for (Country neighborCountry:neighborCountries)
+        { neighborCountriesName.add(neighborCountry.getCountryName());
+        }
+
+        return neighborCountriesName;
 	}
 
+	
+	public ArrayList<Country> getUnAssignedNeighbouringCountriesObject(String sourceCountryName) {
+		ArrayList<Country> assignedCountryList = this.assignedCountryList;
+		ArrayList<Country> neighborCountries = new ArrayList<Country>();
+        for (Country assignedCountry:assignedCountryList)
+        {  neighborCountries = assignedCountry.getNeighbourCountries();
+            for (Country neighborCountry:neighborCountries)
+            { if(neighborCountry.getPlayerId() == this.playerId)
+            	neighborCountries.remove(neighborCountry);
+            }
+        	
+        }
+		
+		return neighborCountries;
+	}	
+	
+	
 	/**
 	 * This method will roll a Dice
 	 * 

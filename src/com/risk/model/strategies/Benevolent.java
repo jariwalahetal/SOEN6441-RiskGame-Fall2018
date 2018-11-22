@@ -1,5 +1,8 @@
 package com.risk.model.strategies;
 
+import java.util.ArrayList;
+
+import com.risk.helper.Common;
 import com.risk.helper.IOHelper;
 import com.risk.model.Country;
 import com.risk.model.Player;
@@ -37,8 +40,22 @@ public class Benevolent implements PlayerStrategy {
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
-		
-		
+		Country sourceCountry = player.getWeakestCountry();
+		ArrayList<Country> neighbourCountryList = sourceCountry.getNeighbourCountries();
+		Country destinationCountry = null;
+		int armies = 0;
+		for (Country neighbourCountry:neighbourCountryList)
+		{if(neighbourCountry.getPlayerId() == player.getPlayerId() &&
+		     neighbourCountry.getnoOfArmies()>armies)
+	    	{ armies = neighbourCountry.getnoOfArmies();	
+	    	destinationCountry = neighbourCountry;
+	    	}
+			
+		}
+		if (destinationCountry != null)
+		{   sourceCountry.decreaseArmyCount(armies);
+			destinationCountry.increaseArmyCount(armies);
+		}
 		return true;
 	}
 
