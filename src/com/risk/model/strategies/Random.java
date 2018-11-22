@@ -31,6 +31,10 @@ public class Random implements PlayerStrategy {
 	@Override
 	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub
+		ArrayList<String> countryList = attackerPlayer.getCountriesWithArmiesGreaterThanOne();
+		int randomIndex = Common.getRandomNumberInRange(0, countryList.size());
+		attackerPlayer.getUnAssignedNeighbouringCountries(countryList.get(randomIndex));
+				
 
 	}
 

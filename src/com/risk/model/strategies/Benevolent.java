@@ -1,4 +1,5 @@
 package com.risk.model.strategies;
+
 import com.risk.helper.IOHelper;
 import com.risk.model.Country;
 import com.risk.model.Player;
@@ -36,6 +37,8 @@ public class Benevolent implements PlayerStrategy {
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
+		
+		
 		return true;
 	}
 
