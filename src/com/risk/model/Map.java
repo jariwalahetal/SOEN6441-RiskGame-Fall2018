@@ -363,21 +363,31 @@ public class Map {
 	}
 	public boolean checkIfContinentConnected(Continent induvidualCont) {
 		ArrayList<Country> totalCountries = new ArrayList<Country>();
+		ArrayList<String> totalCountriesString = new ArrayList<String>();
 		Stack<Country> s = new Stack<Country>();
 		ArrayList<Country> visitedCountries = new ArrayList<Country>();
+		ArrayList<String> visitedCountriesString = new ArrayList<String>();
 		for(Country country:induvidualCont.getCountryList()) {
 			totalCountries.add(country);
+			totalCountriesString.add(country.getCountryName());
 		}
 		s.push(totalCountries.get(0));
 		visitedCountries.add(totalCountries.get(0));
+		visitedCountriesString.add(totalCountries.get(0).getCountryName());
 		while(!s.isEmpty()) {
 			Country v = s.pop();
 			for(Country neighbouringCountry :v.getNeighbourCountries()) {
-				if(!visitedCountries.contains(neighbouringCountry)) {
+				if(!visitedCountriesString.contains(neighbouringCountry.getCountryName())) {
 					s.push(neighbouringCountry);
 					visitedCountries.add(neighbouringCountry);
+					visitedCountriesString.add(neighbouringCountry.getCountryName());
 				}
 			}
+		}
+		if(isTwoArrayListsWithSameValues(visitedCountriesString, totalCountriesString)) {
+			
+		}else {
+			
 		}
 		return false;
 		
