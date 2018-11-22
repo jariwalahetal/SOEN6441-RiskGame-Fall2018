@@ -94,7 +94,6 @@ public class Player {
 	public ArrayList<Integer> getDiceOutComes() {
 		return diceOutComes;
 	}
-
 	
 	/**
 	 * This method is used to find if a player has conquered any country
@@ -651,15 +650,25 @@ public class Player {
 	 * @return countries, list of countries
 	 */
 	public ArrayList<String> getCountriesWithArmiesGreaterThanOne() {
-		ArrayList<String> countries = new ArrayList<String>();
+		ArrayList<String> countryNames = new ArrayList<String>();
+		ArrayList<Country> countries = getCountriesObjectWithArmiesGreaterThanOne();
+		for (Country country : countries) {
+			countryNames.add(country.getCountryName());
+		}
+		
+		return countryNames;
+	}
+
+	public ArrayList<Country> getCountriesObjectWithArmiesGreaterThanOne() {
+		ArrayList<Country> countries = new ArrayList<Country>();
 		for (Country country : getAssignedCountryList()) {
 			if (country.getnoOfArmies() > 1) {
-				countries.add(country.getCountryName());
+				countries.add(country);
 			}
 		}
 		return countries;
 	}
-
+	
 	/***
 	 * This method will return true if an Attack move is possible for the current
 	 * Player
