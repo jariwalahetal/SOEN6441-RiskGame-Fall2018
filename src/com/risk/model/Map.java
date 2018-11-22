@@ -343,13 +343,7 @@ public class Map {
 	}
 
 	/**
-	 * Checks if two array lists are same or not
-	 *
-	 * @param list1
-	 *            arraylist1
-	 * @param list2
-	 *            arraylist2
-	 *
+	 * This function returns whether the map is connected or not at the continent level.
 	 * @return boolean
 	 */
 	boolean checkConnectedGraphOnContinentLevel() {
@@ -360,6 +354,11 @@ public class Map {
 		}
 		return true;
 	}
+	/**
+	 * This function returns whether a continent is connected or not.
+	 * @param induvidualCont continent passed to check if it is connected or not
+	 * @return
+	 */
 	public boolean checkIfContinentConnected(Continent induvidualCont) {
 		ArrayList<Country> totalCountries = new ArrayList<Country>();
 		ArrayList<String> totalCountriesString = new ArrayList<String>();
@@ -389,6 +388,16 @@ public class Map {
 			return false;
 		}
 	}
+	/**
+	 * Checks if two array lists are same or not
+	 *
+	 * @param list1
+	 *            arraylist1
+	 * @param list2
+	 *            arraylist2
+	 *
+	 * @return boolean
+	 */
 	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
 		if (list1 == null && list2 == null)
 			return true;
