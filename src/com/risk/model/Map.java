@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Stack;
 
 import com.risk.helper.IOHelper;
 
@@ -135,7 +136,6 @@ public class Map {
 	 *            object of the continent
 	 */
 	public void addContinent(Continent continent) {
-
 		continentsList.add(continent);
 	}
 
@@ -313,7 +313,14 @@ public class Map {
 				return false;
 			}
 			if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
-				return true;
+				boolean connectedGraphContinentLevel = checkConnectedGraphOnContinentLevel();
+				if(connectedGraphContinentLevel) {
+					return true;
+				}
+				else {
+					System.out.print("Graph not connected at continent level");
+					return false;
+				}
 			} else {
 				System.out.println("List of disconnected countires:");
 				if (visitedList.size() > listOfAllCountries.size()) {
@@ -345,6 +352,37 @@ public class Map {
 	 *
 	 * @return boolean
 	 */
+	boolean checkConnectedGraphOnContinentLevel() {
+		return true;
+//		for(Continent cont:this.continentsList) {
+//			if(!checkIfContinentConnected(cont)) {
+//				return false;
+//			}
+//		}
+//		return true;
+	}
+	public boolean checkIfContinentConnected(Continent induvidualCont) {
+		ArrayList<Country> totalCountries = new ArrayList<Country>();
+		Stack<Country> s = new Stack<Country>();
+		ArrayList<Country> visitedCountries = new ArrayList<Country>();
+		for(Country country:induvidualCont.getCountryList()) {
+			totalCountries.add(country);
+		}
+		s.push(totalCountries.get(0));
+		visitedCountries.add(totalCountries.get(0));
+		while(!s.isEmpty()) {
+			Country v = s.pop();
+			for(Country neighbouringCountry :v.getNeighbourCountries()) {
+				if(!visitedCountries.contains(neighbouringCountry)) {
+					s.push(neighbouringCountry);
+					visitedCountries.add(neighbouringCountry);
+				}
+			}
+		}
+		return false;
+		
+		
+	}
 	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
 		if (list1 == null && list2 == null)
 			return true;
