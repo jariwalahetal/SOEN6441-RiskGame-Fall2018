@@ -375,6 +375,9 @@ public class Map {
 		while(!s.isEmpty()) {
 			Country v = s.pop();
 			for(Country neighbouringCountry :v.getNeighbourCountries()) {
+				if(neighbouringCountry.getContId()!=induvidualCont.getContId()) {
+					continue;
+				}
 				if(!visitedCountriesString.contains(neighbouringCountry.getCountryName())) {
 					s.push(neighbouringCountry);
 					visitedCountries.add(neighbouringCountry);
