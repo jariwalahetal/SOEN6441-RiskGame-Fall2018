@@ -353,13 +353,12 @@ public class Map {
 	 * @return boolean
 	 */
 	boolean checkConnectedGraphOnContinentLevel() {
+		for(Continent cont:this.continentsList) {
+			if(!checkIfContinentConnected(cont)) {
+				return false;
+			}
+		}
 		return true;
-//		for(Continent cont:this.continentsList) {
-//			if(!checkIfContinentConnected(cont)) {
-//				return false;
-//			}
-//		}
-//		return true;
 	}
 	public boolean checkIfContinentConnected(Continent induvidualCont) {
 		ArrayList<Country> totalCountries = new ArrayList<Country>();
@@ -385,13 +384,10 @@ public class Map {
 			}
 		}
 		if(isTwoArrayListsWithSameValues(visitedCountriesString, totalCountriesString)) {
-			
+			return true;
 		}else {
-			
+			return false;
 		}
-		return false;
-		
-		
 	}
 	public boolean isTwoArrayListsWithSameValues(ArrayList<String> list1, ArrayList<String> list2) {
 		if (list1 == null && list2 == null)
