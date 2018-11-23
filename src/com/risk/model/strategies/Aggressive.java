@@ -2,6 +2,10 @@ package com.risk.model.strategies;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.risk.helper.Common;
 import com.risk.helper.IOHelper;
@@ -28,77 +32,77 @@ public class Aggressive implements PlayerStrategy {
 	@Override
 	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
-		if (player.getNoOfReinforcedArmies() == 0) {
-			IOHelper.print("Player " + player.getName() + " doesn't have unassigned armies!");
-			return false;
-		}
+		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
+		System.out.println("Reinforce assignedCountryList.size:"+assignedCountryList.size());
+		if (assignedCountryList.size()==0)
+		     return true;
 
-		Country country = player.getStrongestCountry();
-		if (country == null) {
-			IOHelper.print("Country name - " + country.getCountryName() + " does not exist!");
-			return false;
-		}
+		Country country = getStrongestCountry(assignedCountryList,0);						
 
-		IOHelper.print("Adding reinforcement army in " + country.getCountryName());
-		while (player.getNoOfReinforcedArmies() > 0) {
-			player.decreaseReinforcementArmyCount();
-			country.increaseArmyCount(1);
+		if (country != null) {
+			IOHelper.print("Adding reinforcement army in " + country.getCountryName());
+			int armies = player.getNoOfReinforcedArmies();
+			player.setNoOfReinforcedArmies(0);
+			country.increaseArmyCount(armies);
 		}
-
 		return true;
 	}
 
 	@Override
 	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub
-		
-		while (true) {
-			Country fromCountry = attackerPlayer.getStrongestCountry();
-			if (fromCountry==null)
-			{break;
-			}
-			
-			ArrayList<Country> neighbourCountryList = fromCountry.getNeighbourCountries();
-			int armies = Integer.MAX_VALUE;
-			Country toCountry = null;
-			for (Country neighbourCountry : neighbourCountryList) {
-				if (neighbourCountry.getPlayerId() != attackerPlayer.getPlayerId()
-						&& neighbourCountry.getnoOfArmies() < armies) {
-					armies = neighbourCountry.getnoOfArmies();
-					toCountry = neighbourCountry;
-				}
-			}
-
-			if (toCountry == null) {
-				break;
-			}
-			System.out.println("fromCountry:"+fromCountry.getCountryName());
-			System.out.println("toCountry:"+toCountry.getCountryName());
-			
-			while (fromCountry.getnoOfArmies() > 2 && 
-					toCountry.getPlayerId() != attackerPlayer.getPlayerId()) {
-				attackOperation(fromCountry, toCountry, attackerPlayer);
-			}
-
+		ArrayList<Country> CountriesForAttack;
+		//after conquering a country only 1 army is placed by default so new conquered country will not
+		//come in this list
+		CountriesForAttack = attackerPlayer.getCountriesObjectWithArmiesGreaterThanOne();
+		if (CountriesForAttack.size()==0)
+		{		IOHelper.print("No country has sufficient armies for Attack");
 		}
+		 
+		ArrayList<Country> CountriesToAttack ;
+		 
+		while (CountriesForAttack.size()>0)
+		   { Country fromCountry = getStrongestCountry(CountriesForAttack,1);						
+		     CountriesToAttack = attackerPlayer.getUnAssignedNeighbouringCountriesObject(fromCountry.getCountryName());
 
+		     if (CountriesToAttack.size()==0)
+		     {  CountriesForAttack.remove(fromCountry);
+		        System.out.println("Cannot attack from "+fromCountry.getCountryName());
+				continue;
+			 }
+		     
+		     Country toCountry = getCountryToAttack(attackerPlayer,CountriesToAttack);
+				
+			if (toCountry == null) {
+				CountriesToAttack.remove(toCountry);
+				continue;
+			}
+			IOHelper.print(fromCountry.getCountryName()+" is attacking "+toCountry.getCountryName());
+						
+			while (toCountry.getPlayerId() != attackerPlayer.getPlayerId()) {
+				attackOperation(fromCountry, toCountry, attackerPlayer);
+				if (fromCountry.getnoOfArmies() == 1)
+				{	CountriesForAttack.remove(fromCountry);
+				    break;
+				}			
+			  }
+		   }
 	}
 
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
-		Country sourceCountry = player.getStrongestCountry();
-		ArrayList<Country> neighbourCountryList = sourceCountry.getNeighbourCountries();
-		Country destinationCountry = null;
-		int armies = 0;
-		for (Country neighbourCountry : neighbourCountryList) {
-			if (neighbourCountry.getPlayerId() == player.getPlayerId() && neighbourCountry.getnoOfArmies() > armies) {
-				armies = neighbourCountry.getnoOfArmies();
-				destinationCountry = neighbourCountry;
-			}
-		}
+		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
+
+		if (assignedCountryList.size()==0)
+		    return true;
+
+		Country destinationCountry = getStrongestCountry(assignedCountryList,1);	
+		
 		if (destinationCountry != null) {
-			sourceCountry.decreaseArmyCount(armies);
+			Country fromCountry = getFromCountryFortification(player,destinationCountry);
+			int armies = fromCountry.getnoOfArmies()-1;
+			fromCountry.decreaseArmyCount(armies);
 			destinationCountry.increaseArmyCount(armies);
 		}
 
@@ -131,7 +135,6 @@ public class Aggressive implements PlayerStrategy {
 				: defendingDices.size();
 
 		for (int i = 0; i < totalComparisions; i++) {
-
 			int attackerDice = attackingDices.get(i);
 			int defencerDice = defendingDices.get(i);
 
@@ -166,4 +169,67 @@ public class Aggressive implements PlayerStrategy {
 
 	}
 
+	private Country getStrongestCountry(ArrayList<Country> assignedCountryList,int thresholdArmyCount ) {
+		Country country = null;
+		int armiesCount = thresholdArmyCount;
+		for (Country c : assignedCountryList) {
+			if (c.getnoOfArmies() > armiesCount) {
+				armiesCount = c.getnoOfArmies();
+				country = c;
+			}
+		}
+		return country;
+	}
+	
+    private Country getCountryToAttack(Player attackerPlayer, ArrayList<Country> CountriesToAttack){   
+    	Country toCountry = null;
+		int armies = Integer.MAX_VALUE;
+		for (Country neighbourCountry : CountriesToAttack) {
+			if ( neighbourCountry.getnoOfArmies() < armies) {
+				armies = neighbourCountry.getnoOfArmies();
+				toCountry = neighbourCountry;
+			}
+		}
+
+       return toCountry;
+    }
+    
+    private Country getFromCountryFortification(Player player, Country sourceCountry){   
+    	ArrayList<Country> neighbourCountryList = sourceCountry.getNeighbourCountries();
+		HashMap<Country,Integer> visitedCountries = new HashMap<Country,Integer>();
+		visitedCountries.put(sourceCountry, sourceCountry.getnoOfArmies());
+		Country neighbourCountry;
+		for (int i=0;i<neighbourCountryList.size();i++) {
+			neighbourCountry = neighbourCountryList.get(i);
+			if (countryVisited(neighbourCountry,visitedCountries,player)) {
+				visitedCountries.put(neighbourCountry, neighbourCountry.getnoOfArmies());
+				ArrayList<Country> neighbourCountryListTemp = neighbourCountry.getNeighbourCountries();
+				for (int j=0;j<neighbourCountryListTemp.size();j++) {
+					if (countryVisited(neighbourCountry,visitedCountries,player)) {
+						visitedCountries.put(neighbourCountryListTemp.get(j), neighbourCountryListTemp.get(j).getnoOfArmies());					
+					}
+				}			
+			}
+		}
+		
+		Country toCountry = null;
+		int armies = 0;
+		Iterator it = visitedCountries.entrySet().iterator();
+	    while (it.hasNext()) {
+	        HashMap.Entry<Country,Integer> pair = (HashMap.Entry<Country,Integer>)it.next();
+	        if (armies < pair.getValue()) {
+	        	armies = pair.getValue();
+	        	toCountry = pair.getKey();
+	        }
+	    }		
+       return toCountry;
+    }
+    
+    private boolean countryVisited(Country country, HashMap<Country,Integer> visitedCountries,Player player)
+    { if(country.getPlayerId() == player.getPlayerId()&&
+			!visitedCountries.containsKey(country))
+    	return true;
+    else
+    	return false;    	
+    }
 }

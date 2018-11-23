@@ -375,7 +375,8 @@ public class Player {
 	 * @return true, if armies can be set for reinforcement else false
 	 */
 	public boolean setReinformcementArmies(ArrayList<Continent> continents) {
-		if (!isAssigningReinforcementArmiesAllowed()) {
+		if (!isAssigningReinforcementArmiesAllowed()&&
+				this.playerStrategy.getStrategyName()=="Human") {          //TO-DO might have to remove this
 			IOHelper.print("Cannot set reinforcement armies. Trade your cards first");
 			return false;
 		}
@@ -520,7 +521,8 @@ public class Player {
 
 	public ArrayList<Country> getUnAssignedNeighbouringCountriesObject(String sourceCountryName) {
 		ArrayList<Country> neighborCountries = new ArrayList<Country>();
-			for (Country assignedCountry : assignedCountryList) {
+		
+		for (Country assignedCountry : assignedCountryList) {
 				if (assignedCountry.getCountryName().equals(sourceCountryName)) {
 					neighborCountries = assignedCountry.getNeighbourCountries();
 					for (int i = 0; i < neighborCountries.size(); i++) {
@@ -734,28 +736,4 @@ public class Player {
 		return status;
 	}
 
-	public Country getStrongestCountry() {
-		Country country = null;
-		int armiesCount = 1;
-		ArrayList<Country> assignedCountryList = getCountriesObjectWithArmiesGreaterThanOne();
-		for (Country c : assignedCountryList) {
-			if (c.getnoOfArmies() > armiesCount) {
-				armiesCount = c.getnoOfArmies();
-				country = c;
-			}
-		}
-		return country;
-	}
-
-	public Country getWeakestCountry() {
-		Country country = null;
-		int armiesCount = Integer.MAX_VALUE;
-		for (Country c : assignedCountryList) {
-			if (c.getnoOfArmies() < armiesCount) {
-				armiesCount = c.getnoOfArmies();
-				country = c;
-			}
-		}
-		return country;
-	}
 }

@@ -32,8 +32,9 @@ public class Cheater implements PlayerStrategy {
 		// TODO Auto-generated method stub
 	    for (Country country:player.getAssignedCountryList())
 	    { IOHelper.print("Adding reinforcement army in " + country.getCountryName());
-		  player.decreaseReinforcementArmyCount();
-		  country.increaseArmyCount(1);
+		  int armies =  country.getnoOfArmies();
+	      player.setNoOfReinforcedArmies(0);   //TODO: need to confim it 
+	      country.setNoOfArmies(armies*2);
 	    }
 		return true;	
 }
@@ -62,7 +63,7 @@ public class Cheater implements PlayerStrategy {
 	    	{ if (neighbourCountry.getPlayerId()!=player.getPlayerId())
 	    	  { armiesCount = country.getnoOfArmies()*2;
 	    		country.increaseArmyCount(armiesCount);
-	    		}
+	    	  }
 	    	}		
 	    }
 		return true;

@@ -300,19 +300,6 @@ public class Game extends Observable {
 		}
 	
 	}
-
-	
-public void singleGameMode()
-{   startUpPhase();
-	while(!getCurrentPlayer().getPlayerStrategy().getStrategyName().equals("Human")&&
-			!this.isMapConquered())
-	{ 	executeCurrentPhase();
-  	    updatePhase();
-	}
-
-	notifyObserverslocal(this);
-
-}
 	
 	/**
 	 * Add army to the country for Reinforcement phase
@@ -373,6 +360,18 @@ public void singleGameMode()
 
 	}
 
+	public void singleGameMode()
+	{   startUpPhase();
+		while(!getCurrentPlayer().getPlayerStrategy().getStrategyName().equals("Human") &&
+				!this.isMapConquered())
+		{ 	executeCurrentPhase();
+	  	    updatePhase(); 	    
+		}
+
+		notifyObserverslocal(this);
+
+	}
+		
 	private void executeCurrentPhase() {
 		if (phaseCheckValidation(PhaseEnum.Startup)) {
 			ArrayList<Country> assignedCountryList = getCurrentPlayer().getAssignedCountryList();
@@ -386,16 +385,23 @@ public void singleGameMode()
 			addArmyToCountry(country.getCountryName());
 			
 		} else if (this.phaseCheckValidation(PhaseEnum.Reinforcement)) {
+			System.out.println("Reinforcement");
 			this.getCurrentPlayer().addArmyToCountryForReinforcement();
 	        
 		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
+			System.out.println("Before attack");
 			this.getCurrentPlayer().attackPhase();
 			if (isMapConquered()) {
 				IOHelper.print("Game Over, You win");
 				isMapConqueredFlag = true;
 			} 
 			System.out.println("After attack");
+	 	    System.out.println("Player 1 Countries Count:"+this.getAllPlayers().get(0).getAssignedCountryList().size());
+	  	    System.out.println("Player 2 Countries Count:"+this.getAllPlayers().get(1).getAssignedCountryList().size());
+	  	    System.out.println("Player 3 Countries Count:"+this.getAllPlayers().get(2).getAssignedCountryList().size());
+	 
 		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {
+			System.out.println("Fortification");
 			this.getCurrentPlayer().fortificationPhase();
 		}
 	}
