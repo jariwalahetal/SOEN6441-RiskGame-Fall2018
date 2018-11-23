@@ -21,6 +21,11 @@ import com.risk.model.Player;
  * @since 19-November-2018
  */
 public class Cheater implements PlayerStrategy {
+	private String strategyName = "Cheater";
+	
+	   public String getStrategyName() {
+			return strategyName;
+		}
 
 	@Override
 	public boolean reinforce(Player player) {

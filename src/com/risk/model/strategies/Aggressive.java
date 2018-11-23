@@ -11,14 +11,19 @@ import com.risk.model.Player;
 
 /**
  * An aggressive computer player strategy that focuses on attack (reinforces its
-*strongest country, then always attack with it until it cannot attack anymore, then
-*fortifies in order to maximize aggregation of forces in one country).
-*
+ * strongest country, then always attack with it until it cannot attack anymore,
+ * then fortifies in order to maximize aggregation of forces in one country).
+ *
  * @author binay
  * @version 1.0.0
  * @since 19-November-2018
  */
 public class Aggressive implements PlayerStrategy {
+	private String strategyName = "Aggressive";
+
+	public String getStrategyName() {
+		return strategyName;
+	}
 
 	@Override
 	public boolean reinforce(Player player) {
@@ -35,49 +40,84 @@ public class Aggressive implements PlayerStrategy {
 		}
 
 		IOHelper.print("Adding reinforcement army in " + country.getCountryName());
-		while(player.getNoOfReinforcedArmies() > 0)
-		{player.decreaseReinforcementArmyCount();
-		 country.increaseArmyCount(1);
+		while (player.getNoOfReinforcedArmies() > 0) {
+			player.decreaseReinforcementArmyCount();
+			country.increaseArmyCount(1);
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub
-		Country fromCountry = attackerPlayer.getStrongestCountry();
-		if (fromCountry==null)  //attack not possible
-		{ return;
-		}
-		ArrayList<Country> neighbourCountryList = fromCountry.getNeighbourCountries();
-		Country toCountry = null;
-		int armies = Integer.MAX_VALUE;
-		for (Country neighbourCountry:neighbourCountryList)
-		{if(neighbourCountry.getPlayerId() == attackerPlayer.getPlayerId() &&
-		     neighbourCountry.getnoOfArmies() < armies)
-	    	{ armies = neighbourCountry.getnoOfArmies();	
-	      	  toCountry = neighbourCountry;
-	    	}	
-		}
 		
-		if (toCountry == null)
-		{ return;
+		while (true) {
+			Country fromCountry = attackerPlayer.getStrongestCountry();
+			if (fromCountry==null)
+			{break;
+			}
+			
+			ArrayList<Country> neighbourCountryList = fromCountry.getNeighbourCountries();
+			int armies = Integer.MAX_VALUE;
+			Country toCountry = null;
+			for (Country neighbourCountry : neighbourCountryList) {
+				if (neighbourCountry.getPlayerId() != attackerPlayer.getPlayerId()
+						&& neighbourCountry.getnoOfArmies() < armies) {
+					armies = neighbourCountry.getnoOfArmies();
+					toCountry = neighbourCountry;
+				}
+			}
+
+			if (toCountry == null) {
+				break;
+			}
+			System.out.println("fromCountry:"+fromCountry.getCountryName());
+			System.out.println("toCountry:"+toCountry.getCountryName());
+			
+			while (fromCountry.getnoOfArmies() > 2 && 
+					toCountry.getPlayerId() != attackerPlayer.getPlayerId()) {
+				attackOperation(fromCountry, toCountry, attackerPlayer);
+			}
+
 		}
-		
+
+	}
+
+	@Override
+	public boolean fortify(Player player) {
+		// TODO Auto-generated method stub
+		Country sourceCountry = player.getStrongestCountry();
+		ArrayList<Country> neighbourCountryList = sourceCountry.getNeighbourCountries();
+		Country destinationCountry = null;
+		int armies = 0;
+		for (Country neighbourCountry : neighbourCountryList) {
+			if (neighbourCountry.getPlayerId() == player.getPlayerId() && neighbourCountry.getnoOfArmies() > armies) {
+				armies = neighbourCountry.getnoOfArmies();
+				destinationCountry = neighbourCountry;
+			}
+		}
+		if (destinationCountry != null) {
+			sourceCountry.decreaseArmyCount(armies);
+			destinationCountry.increaseArmyCount(armies);
+		}
+
+		return true;
+	}
+
+	private void attackOperation(Country fromCountry, Country toCountry, Player attackerPlayer) {
 		int attackerDiceCount = attackerPlayer.getMaximumAllowableDices(fromCountry, "Attacker");
 		int defenderDiceCount = attackerPlayer.getMaximumAllowableDices(toCountry, "Defender");
 		defenderDiceCount = Common.getRandomNumberInRange(0, defenderDiceCount);
-					
 
-	    Player defenderPlayer = Game.getPlayerFromID(toCountry.getPlayerId());
-	    attackerPlayer.setAttackedPlayer(defenderPlayer);
-	    attackerPlayer.setFromCountry(fromCountry);
-	    attackerPlayer.setToCountry(toCountry);
-	    	   	    
-	    attackerPlayer.rollDice(attackerDiceCount);
-	    defenderPlayer.rollDice(defenderDiceCount);
-	    
+		Player defenderPlayer = Game.getPlayerFromID(toCountry.getPlayerId());
+		attackerPlayer.setAttackedPlayer(defenderPlayer);
+		attackerPlayer.setFromCountry(fromCountry);
+		attackerPlayer.setToCountry(toCountry);
+
+		attackerPlayer.rollDice(attackerDiceCount);
+		defenderPlayer.rollDice(defenderDiceCount);
+
 		ArrayList<Integer> attackingDices = attackerPlayer.getDiceOutComes();
 		ArrayList<Integer> defendingDices = defenderPlayer.getDiceOutComes();
 
@@ -118,36 +158,12 @@ public class Aggressive implements PlayerStrategy {
 				IOHelper.print("----> Defender lost all armies in " + (i + 1) + " dice roll");
 				break;
 			}
-
 		}
 
 		if (toCountry.getnoOfArmies() == 0) {
-	             attackerPlayer.conquerCountry(defenderPlayer);	
+			attackerPlayer.conquerCountry(defenderPlayer);
 		}
-   
-       attack(attackerPlayer);  //keep attacking
-	}
 
-	@Override
-	public boolean fortify(Player player) {
-		// TODO Auto-generated method stub
-		Country sourceCountry = player.getStrongestCountry();
-		ArrayList<Country> neighbourCountryList = sourceCountry.getNeighbourCountries();
-		Country destinationCountry = null;
-		int armies = 0;
-		for (Country neighbourCountry:neighbourCountryList)
-		{if(neighbourCountry.getPlayerId() == player.getPlayerId() &&
-		     neighbourCountry.getnoOfArmies()>armies)
-	    	{ armies = neighbourCountry.getnoOfArmies();	
-	    	destinationCountry = neighbourCountry;
-	    	}	
-		}
-		if (destinationCountry != null)
-		{   sourceCountry.decreaseArmyCount(armies);
-			destinationCountry.increaseArmyCount(armies);
-		}
-		
-		return true;
 	}
 
 }

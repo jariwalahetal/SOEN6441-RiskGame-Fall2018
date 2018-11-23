@@ -17,6 +17,11 @@ import com.risk.model.Player;
 * @since 19-November-2018
 */
 public class Benevolent implements PlayerStrategy {
+	private String strategyName = "Benevolent";
+	
+	public String getStrategyName() {
+			return strategyName;
+		}
 
 	@Override
 	public boolean reinforce(Player player) {
