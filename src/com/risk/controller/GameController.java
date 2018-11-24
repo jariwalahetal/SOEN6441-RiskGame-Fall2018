@@ -250,9 +250,14 @@ public class GameController {
 
 		game.addObserver(gameView);
 		inputPlayerInformation();				
-		game.startUpPhase();
+		System.out.println("Game controller before Startup phase ");
+//		game.startUpPhase();
+		System.out.println("Game controller after Startup phase ");
 		if(gameMode==2)
 		{	game.tournamentMode();
+		}
+		else
+		{ game.singleGameMode();
 		}
 		gameView.gameInitializer();
 		activateListenersOnView();

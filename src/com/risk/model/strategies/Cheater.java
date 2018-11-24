@@ -6,6 +6,7 @@ import java.util.Collections;
 import com.risk.helper.Common;
 import com.risk.helper.IOHelper;
 import com.risk.model.Country;
+import com.risk.model.Game;
 import com.risk.model.Player;
 
 /**
@@ -20,14 +21,20 @@ import com.risk.model.Player;
  * @since 19-November-2018
  */
 public class Cheater implements PlayerStrategy {
+	private String strategyName = "Cheater";
+	
+	   public String getStrategyName() {
+			return strategyName;
+		}
 
 	@Override
 	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
 	    for (Country country:player.getAssignedCountryList())
 	    { IOHelper.print("Adding reinforcement army in " + country.getCountryName());
-		  player.decreaseReinforcementArmyCount();
-		  country.increaseArmyCount(1);
+		  int armies =  country.getnoOfArmies();
+	      player.setNoOfReinforcedArmies(0);   //TODO: need to confim it 
+	      country.setNoOfArmies(armies*2);
 	    }
 		return true;	
 }
@@ -35,20 +42,16 @@ public class Cheater implements PlayerStrategy {
 	@Override
 	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub		
+		int armies;
+		Player defenderPlayer;
 		for (Country country:attackerPlayer.getAssignedCountryList())
 		 { for(Country neighbourCountry : country.getNeighbourCountries())
-			    {
-	            Player defenderPlayer  ;// get player from country
- 	    	while(neighbourCountry.getnoOfArmies()>0)
-	    	{  neighbourCountry.decreaseArmyCount(1);
-	    	}
-        
- 	    	//attackerPlayer.conquerCountry(defenderPlayer);	
-	    	
-	    	}
-	    	
+			 {  armies = neighbourCountry.getnoOfArmies();
+ 	            neighbourCountry.decreaseArmyCount(armies);   	
+                defenderPlayer = Game.getPlayerFromID(neighbourCountry.getPlayerId());
+                attackerPlayer.conquerCountry(defenderPlayer);	
+	    	}	    	
 	    }		
-	
 	}
 
 	@Override
@@ -60,7 +63,7 @@ public class Cheater implements PlayerStrategy {
 	    	{ if (neighbourCountry.getPlayerId()!=player.getPlayerId())
 	    	  { armiesCount = country.getnoOfArmies()*2;
 	    		country.increaseArmyCount(armiesCount);
-	    		}
+	    	  }
 	    	}		
 	    }
 		return true;

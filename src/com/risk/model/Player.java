@@ -28,8 +28,8 @@ public class Player {
 	private int tradingCount;
 	private ArrayList<Country> assignedCountryList = new ArrayList<Country>();
 	private final int MINIMUM_REINFORCEMENT_PLAYERS = 3;
-    private Country fromCountry;
-    private int noOfArmiesToMove;
+	private Country fromCountry;
+	private int noOfArmiesToMove;
 	private Country toCountry;
 	private Player attackedPlayer;
 	private Boolean isConquered = false;
@@ -57,12 +57,16 @@ public class Player {
 		this.name = name;
 		this.color = InitialPlayerSetup.getPlayerColor(playerId);
 	}
-	
+
 	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
 		this.playerStrategy = playerStrategy;
 	}
-	
-    public Player getAttackedPlayer() {
+
+	public PlayerStrategy getPlayerStrategy() {
+		return playerStrategy;
+	}
+
+	public Player getAttackedPlayer() {
 		return attackedPlayer;
 	}
 
@@ -93,12 +97,11 @@ public class Player {
 	public void setToCountry(Country toCountry) {
 		this.toCountry = toCountry;
 	}
-	
+
 	public ArrayList<Integer> getDiceOutComes() {
 		return diceOutComes;
 	}
 
-	
 	/**
 	 * This method is used to find if a player has conquered any country
 	 * 
@@ -125,7 +128,7 @@ public class Player {
 	public void setEligibleForCard(Boolean eligibleForCard) {
 		this.eligibleForCard = eligibleForCard;
 	}
-	
+
 	/**
 	 * This method returns the Countries assigned to the particular Player
 	 * 
@@ -339,7 +342,7 @@ public class Player {
 	 *         countries are null
 	 */
 	public boolean fortificationPhase() {
-			return this.playerStrategy.fortify(this);
+		return this.playerStrategy.fortify(this);
 	}
 
 	/**
@@ -375,7 +378,8 @@ public class Player {
 	 * @return true, if armies can be set for reinforcement else false
 	 */
 	public boolean setReinformcementArmies(ArrayList<Continent> continents) {
-		if (!isAssigningReinforcementArmiesAllowed()) {
+		if (!isAssigningReinforcementArmiesAllowed()&&
+				this.playerStrategy.getStrategyName()=="Human") {          //TO-DO might have to remove this
 			IOHelper.print("Cannot set reinforcement armies. Trade your cards first");
 			return false;
 		}
@@ -456,17 +460,43 @@ public class Player {
 	 * 
 	 * @param sourceCountryName,
 	 *            name of the source country of player
+	 * @param assignedCountriesName,
+	 *            list of assigned countries name
+	 * @return ArrayList , returning array list of countries.
+	 */
+	public ArrayList<String> getConnectedCountriesRecursively(String sourceCountryName,
+			ArrayList<String> assignedCountriesName, ArrayList<String> foundCountriesName) {
+
+		ArrayList<String> neighbouringCounties = this.getNeighbouringCountries(sourceCountryName,
+				assignedCountriesName);
+		if (neighbouringCounties.size() > 0) {
+			ArrayList<String> newConnectedNeighbours = new ArrayList<>();
+			for (String neigbour : neighbouringCounties) {
+				if (!foundCountriesName.contains(neigbour)) {
+					foundCountriesName.add(neigbour);
+					getConnectedCountriesRecursively(neigbour, assignedCountriesName, foundCountriesName);
+				}
+			}
+		}
+		return foundCountriesName;
+	}
+
+	/**
+	 * Method to get neighboring countries of a given country
+	 * 
+	 * @param sourceCountryName,
+	 *            name of the source country of player
 	 * @return ArrayList , returning array list of countries.
 	 */
 	public ArrayList<String> getAssignedNeighbouringCountries(String sourceCountryName) {
 		ArrayList<String> assignedCountriesName = new ArrayList<String>();
-		ArrayList<String> neighborCountriesName = this.getNeighbouringCountries(sourceCountryName,
-				assignedCountriesName);
+		ArrayList<String> neighborCountriesName = this.getConnectedCountriesRecursively(sourceCountryName,
+				assignedCountriesName, new ArrayList<String>());
 
 		Iterator<String> it = neighborCountriesName.iterator();
 		while (it.hasNext()) {
 			String country = it.next();
-			if (!assignedCountriesName.contains(country)) {
+			if (!assignedCountriesName.contains(country) || country.equals(sourceCountryName)) {
 				it.remove();
 			}
 		}
@@ -481,18 +511,31 @@ public class Player {
 	 * @return ArrayList , returning array list of countries.
 	 */
 	public ArrayList<String> getUnAssignedNeighbouringCountries(String sourceCountryName) {
-		ArrayList<String> assignedCountriesName = new ArrayList<String>();
-		ArrayList<String> neighborCountriesName = this.getNeighbouringCountries(sourceCountryName,
-				assignedCountriesName);
+		ArrayList<String> neighborCountriesName = new ArrayList<String>();
 
-		Iterator<String> it = neighborCountriesName.iterator();
-		while (it.hasNext()) {
-			String country = it.next();
-			if (assignedCountriesName.contains(country)) {
-				it.remove();
-			}
+		ArrayList<Country> neighborCountries = getUnAssignedNeighbouringCountriesObject(sourceCountryName);
+
+		for (Country neighborCountry : neighborCountries) {
+			neighborCountriesName.add(neighborCountry.getCountryName());
 		}
+
 		return neighborCountriesName;
+	}
+
+	public ArrayList<Country> getUnAssignedNeighbouringCountriesObject(String sourceCountryName) {
+		ArrayList<Country> neighborCountries = new ArrayList<Country>();
+		
+		for (Country assignedCountry : assignedCountryList) {
+				if (assignedCountry.getCountryName().equals(sourceCountryName)) {
+					neighborCountries = assignedCountry.getNeighbourCountries();
+					for (int i = 0; i < neighborCountries.size(); i++) {
+						if (neighborCountries.get(i).getPlayerId() == this.playerId)
+							neighborCountries.remove(i);
+					}
+					break;
+				}
+			}
+		return neighborCountries;
 	}
 
 	/**
@@ -537,15 +580,15 @@ public class Player {
 
 		isConquered = false;
 		this.playerStrategy.attack(this);
-			}
+	}
 
 	/**
 	 * This method will perform operation required after conquering a country
+	 * 
 	 * @param defenderPlayer
 	 */
-	public void conquerCountry(Player defenderPlayer)
-	{   
-		
+	public void conquerCountry(Player defenderPlayer) {
+
 		toCountry.setPlayerId(playerId);
 		defenderPlayer.unAssignCountryToPlayer(toCountry);
 		assignCountryToPlayer(toCountry);
@@ -562,9 +605,9 @@ public class Player {
 			}
 			defenderPlayer.removeAllCardsFromPlayer();
 			defenderPlayer.setLost();
-		}	
+		}
 	}
-	
+
 	public boolean moveArmyAfterAttack(int armiesCount) {
 		if (isConquered) {
 			if (fromCountry == null || toCountry == null) {
@@ -654,10 +697,20 @@ public class Player {
 	 * @return countries, list of countries
 	 */
 	public ArrayList<String> getCountriesWithArmiesGreaterThanOne() {
-		ArrayList<String> countries = new ArrayList<String>();
+		ArrayList<String> countryNames = new ArrayList<String>();
+		ArrayList<Country> countries = getCountriesObjectWithArmiesGreaterThanOne();
+		for (Country country : countries) {
+			countryNames.add(country.getCountryName());
+		}
+
+		return countryNames;
+	}
+
+	public ArrayList<Country> getCountriesObjectWithArmiesGreaterThanOne() {
+		ArrayList<Country> countries = new ArrayList<Country>();
 		for (Country country : getAssignedCountryList()) {
 			if (country.getnoOfArmies() > 1) {
-				countries.add(country.getCountryName());
+				countries.add(country);
 			}
 		}
 		return countries;
@@ -686,28 +739,4 @@ public class Player {
 		return status;
 	}
 
-	public Country getStrongestCountry()
-	{ Country country = null;
-	  int armiesCount = 0;
-	  for(Country c:assignedCountryList)
-	  { if(c.getnoOfArmies()>armiesCount)
-	     { armiesCount = c.getnoOfArmies();
-		  country = c;
-	     }
-		  
-	  }
-	  return country;
-	}
-	
-	public Country getWeakestCountry()
-	{ Country country = null;
-	  int armiesCount = Integer.MAX_VALUE;
-	  for(Country c:assignedCountryList)
-	  { if(c.getnoOfArmies() < armiesCount)
-	     { armiesCount = c.getnoOfArmies();
-		  country = c;
-	     }		  
-	  }
-	  return country;
-	}
 }

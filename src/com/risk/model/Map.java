@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Stack;
 
 import com.risk.helper.IOHelper;
 
@@ -135,7 +136,6 @@ public class Map {
 	 *            object of the continent
 	 */
 	public void addContinent(Continent continent) {
-
 		continentsList.add(continent);
 	}
 
@@ -313,7 +313,14 @@ public class Map {
 				return false;
 			}
 			if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
-				return true;
+				boolean connectedGraphContinentLevel = checkConnectedGraphOnContinentLevel();
+				if(connectedGraphContinentLevel) {
+					return true;
+				}
+				else {
+					System.out.print("Graph not connected at continent level");
+					return false;
+				}
 			} else {
 				System.out.println("List of disconnected countires:");
 				if (visitedList.size() > listOfAllCountries.size()) {
@@ -335,6 +342,55 @@ public class Map {
 		}
 	}
 
+	/**
+	 * This function returns whether the map is connected or not at the continent level.
+	 * @return boolean
+	 */
+	boolean checkConnectedGraphOnContinentLevel() {
+		for(Continent cont:this.continentsList) {
+			if(!checkIfContinentConnected(cont)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * This function returns whether a continent is connected or not.
+	 * @param induvidualCont continent passed to check if it is connected or not
+	 * @return
+	 */
+	public boolean checkIfContinentConnected(Continent induvidualCont) {
+		ArrayList<Country> totalCountries = new ArrayList<Country>();
+		ArrayList<String> totalCountriesString = new ArrayList<String>();
+		Stack<Country> s = new Stack<Country>();
+		ArrayList<Country> visitedCountries = new ArrayList<Country>();
+		ArrayList<String> visitedCountriesString = new ArrayList<String>();
+		for(Country country:induvidualCont.getCountryList()) {
+			totalCountries.add(country);
+			totalCountriesString.add(country.getCountryName());
+		}
+		s.push(totalCountries.get(0));
+		visitedCountries.add(totalCountries.get(0));
+		visitedCountriesString.add(totalCountries.get(0).getCountryName());
+		while(!s.isEmpty()) {
+			Country v = s.pop();
+			for(Country neighbouringCountry :v.getNeighbourCountries()) {
+				if(neighbouringCountry.getContId()!=induvidualCont.getContId()) {
+					continue;
+				}
+				if(!visitedCountriesString.contains(neighbouringCountry.getCountryName())) {
+					s.push(neighbouringCountry);
+					visitedCountries.add(neighbouringCountry);
+					visitedCountriesString.add(neighbouringCountry.getCountryName());
+				}
+			}
+		}
+		if(isTwoArrayListsWithSameValues(visitedCountriesString, totalCountriesString)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	/**
 	 * Checks if two array lists are same or not
 	 *

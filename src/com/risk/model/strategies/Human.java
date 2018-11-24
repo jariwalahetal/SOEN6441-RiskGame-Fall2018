@@ -18,6 +18,12 @@ import com.risk.model.Player;
  */
 public class Human implements PlayerStrategy {
 
+	private String strategyName = "Human";
+
+    public String getStrategyName() {
+			return strategyName;
+		}
+	
 	@Override
 	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub

@@ -642,6 +642,7 @@ public class GameView implements Observer {
 	public void update(Observable obj, Object arg1) {
 
 		game = ((Game) obj);
+		
 		map = game.getMap();
 
 		phase = game.getGamePhase();
