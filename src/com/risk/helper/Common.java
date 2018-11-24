@@ -22,6 +22,9 @@ public class Common {
 	 * @return Color based on the objects
 	 */
 	public static Color getColor(EnumColor selectedColor) {
+		if(selectedColor == null)
+			 return null;
+		
 		if (selectedColor.equals(EnumColor.BLACK)) {
 			return Color.BLACK;
 		}
@@ -57,6 +60,9 @@ public class Common {
 	 */
 	public static int getRandomNumberInRange(int min, int max) {
 
+		if(min == max)
+			return min;
+		
 		if (min >= max) {
 			throw new IllegalArgumentException("Max value must be greater than Min value!");
 		}

@@ -361,7 +361,7 @@ public class Game extends Observable {
 	}
 
 	public void singleGameMode()
-	{   startUpPhase();
+	{   
 		while(!getCurrentPlayer().getPlayerStrategy().getStrategyName().equals("Human") &&
 				!this.isMapConquered())
 		{ 	executeCurrentPhase();
@@ -737,21 +737,69 @@ public class Game extends Observable {
 	 */
 	public Boolean isMapConquered() {
 		if (map.getCountryList().size() == this.getCurrentPlayer().getAssignedCountryList().size()) {
+			this.gamePhase = PhaseEnum.GameEnd;
 			return true;
 		}
 
 		return false;
 	}
+	
+	/**
+	 * Print status for all player
+	 */
+	public void printPlayerStatus() {
+		for(int i=0;i<playerList.size();i++) {
+		   System.out.println( playerList.get(i).getName() + " player: Countries Count:"+ playerList.get(i).getAssignedCountryList().size());
+		}
+	}
 
+	/**
+	 * Runs tournament mode for game
+	 */
 	public void tournamentMode() {
 		Player currentPlayer;
-		startUpPhase();
-		while (isMapConqueredFlag == false) {
-			currentPlayer = this.getCurrentPlayer();
-			currentPlayer.addArmyToCountryForReinforcement();
-			currentPlayer.attackPhase();
-			currentPlayer.fortificationPhase();
+		
+		//step 1: assign  player to countries and randomly increase countries for player
+		// Loop until all armies are assigned for all players
+		while (this.phaseCheckValidation(PhaseEnum.Startup)) {
+			// Randomly increase army for the country of player
+			ArrayList<Country> playerCountries = getCurrentPlayer().getAssignedCountryList();
+
+			int id = Common.getRandomNumberInRange(0, playerCountries.size() - 1);
+
+			addArmyToCountry(playerCountries.get(id).getCountryName());
 		}
+		
+		while (true) {
+			currentPlayer = this.getCurrentPlayer();
+			
+			//step 2: reinforce counties 
+			currentPlayer.addArmyToCountryForReinforcement();
+			this.updatePhase();
+			
+			//step 3: attack phase
+			currentPlayer.attackPhase();
+			
+			//step 3.1: generate logic to move armies after attack phase
+			
+			if(isMapConquered())
+				break;
+			
+			this.updatePhase();
+			
+			//step 4: fortify phase 
+			currentPlayer.fortificationPhase();
+			this.updatePhase();
+			
+			//step 5: set next player
+			this.setNextPlayerTurn();
+			
+			//Print status of players
+			this.printPlayerStatus();
+		}
+
+		notifyObserverslocal(this);
+		IOHelper.print(this.getCurrentPlayer().getName() + " is a winner !!");
 	}
 
 }

@@ -44,12 +44,23 @@ public class Cheater implements PlayerStrategy {
 		// TODO Auto-generated method stub		
 		int armies;
 		Player defenderPlayer;
-		for (Country country:attackerPlayer.getAssignedCountryList())
-		 { for(Country neighbourCountry : country.getNeighbourCountries())
-			 {  armies = neighbourCountry.getnoOfArmies();
- 	            neighbourCountry.decreaseArmyCount(armies);   	
-                defenderPlayer = Game.getPlayerFromID(neighbourCountry.getPlayerId());
-                attackerPlayer.conquerCountry(defenderPlayer);	
+		
+		ArrayList<Country> attackerCountries = attackerPlayer.getAssignedCountryList();
+		int size = attackerCountries.size();
+		for (int i=0;i<size;i++) { 
+			Country fromCountry = attackerCountries.get(i);
+			for(Country toCountry : fromCountry.getNeighbourCountries()) {  
+				if(toCountry.getPlayerId() != attackerPlayer.getPlayerId()) {
+					armies = toCountry.getnoOfArmies();
+	 	            toCountry.decreaseArmyCount(armies);   	
+	                defenderPlayer = Game.getPlayerFromID(toCountry.getPlayerId());
+	                
+	                attackerPlayer.setAttackedPlayer(defenderPlayer);
+	        		attackerPlayer.setFromCountry(fromCountry);
+	        		attackerPlayer.setToCountry(toCountry);
+	        		
+	                attackerPlayer.conquerCountry(defenderPlayer);
+				}
 	    	}	    	
 	    }		
 	}

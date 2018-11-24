@@ -112,7 +112,7 @@ public class Aggressive implements PlayerStrategy {
 	private void attackOperation(Country fromCountry, Country toCountry, Player attackerPlayer) {
 		int attackerDiceCount = attackerPlayer.getMaximumAllowableDices(fromCountry, "Attacker");
 		int defenderDiceCount = attackerPlayer.getMaximumAllowableDices(toCountry, "Defender");
-		defenderDiceCount = Common.getRandomNumberInRange(0, defenderDiceCount);
+		defenderDiceCount = Common.getRandomNumberInRange(1, defenderDiceCount);
 
 		Player defenderPlayer = Game.getPlayerFromID(toCountry.getPlayerId());
 		attackerPlayer.setAttackedPlayer(defenderPlayer);

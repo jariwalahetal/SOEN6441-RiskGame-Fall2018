@@ -738,5 +738,4 @@ public class Player {
 		}
 		return status;
 	}
-
 }

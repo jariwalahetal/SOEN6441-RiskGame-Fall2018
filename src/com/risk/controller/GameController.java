@@ -75,8 +75,11 @@ public class GameController {
 			}
 			}
 		 catch (Exception e) {
+			
 			IOHelper.print(e.getMessage());
 			IOHelper.print("Please try again with the correct input format");
+			System.out.println(e.getCause());
+			e.printStackTrace();
 		}
 		}
 	}
@@ -251,14 +254,18 @@ public class GameController {
 		game.addObserver(gameView);
 		inputPlayerInformation();				
 		System.out.println("Game controller before Startup phase ");
-//		game.startUpPhase();
+		game.startUpPhase();
 		System.out.println("Game controller after Startup phase ");
-		if(gameMode==2)
-		{	game.tournamentMode();
+
+
+		
+		if(gameMode==2) {	
+			game.tournamentMode();
 		}
-		else
-		{ game.singleGameMode();
+		else { 
+			game.singleGameMode();
 		}
+		gameView.mapPath = map.getMapPath() + map.getMapName() + ".bmp";
 		gameView.gameInitializer();
 		activateListenersOnView();
 		game.addObserver(cardExchangeView);

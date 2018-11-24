@@ -259,13 +259,15 @@ public class GameView implements Observer {
 	int activePlayerId;
 	EnumColor activePlayerColor = null;
 	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;
-	String mapPath;
 	ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
 	PhaseEnum phase;
 	static Game game;
 	Map map;
 	private Boolean isCardExchangeViewOpenedOnce = false;
 
+
+	public String mapPath;
+	
 	/**
 	 * Method use to initialize the view of game
 	 */
@@ -300,7 +302,7 @@ public class GameView implements Observer {
 		gameJframe = new JFrame("Risk Game");
 		gameActionJpanel = new JPanel(null);
 		File imageFile = null;
-
+		
 		imageFile = new File(mapPath);
 		Image image;
 		ImageIcon icon = null;
@@ -468,8 +470,10 @@ public class GameView implements Observer {
 				sourceCountry.getWidth(), sourceCountry.getHeight());
 
 		ArrayList<Integer> NoOfArmies = new ArrayList<Integer>();
-		for (int i = 1; i <= Integer.parseInt(activePlayerUnassignedArmiesCount); i++) {
-			NoOfArmies.add(i);
+		if(activePlayerUnassignedArmiesCount != null && !activePlayerUnassignedArmiesCount.isEmpty()) {
+			for (int i = 1; i <= Integer.parseInt(activePlayerUnassignedArmiesCount); i++) {
+				NoOfArmies.add(i);
+			}
 		}
 
 		noOfArmyToMoveJcomboBox = new JComboBox(NoOfArmies.toArray());
@@ -691,6 +695,9 @@ public class GameView implements Observer {
 				defenderCountry.removeAll();
 				gamePhaseNameJLabel.setText("Fortification");
 				setSourceCountryComboBox(game.getCurrentPlayer().getCountriesWithArmiesGreaterThanOne());
+			}
+			else if(game.getGamePhase() == PhaseEnum.GameEnd) {
+				gamePhaseNameJLabel.setText("Game end");
 			}
 
 			addPhaseMessages();

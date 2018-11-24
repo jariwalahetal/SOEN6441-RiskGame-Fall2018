@@ -30,7 +30,7 @@ public class Random implements PlayerStrategy {
    
 	@Override
 	public boolean reinforce(Player player) {
-		// TODO Auto-generated method stub
+		// TODO: Change this logic to randomly reinforce different countries
 		ArrayList<Country> countryList = player.getAssignedCountryList();		
 		int randomIndex = 0;
 		if(countryList.isEmpty())
@@ -133,11 +133,11 @@ public class Random implements PlayerStrategy {
 		
 		int attackerDiceCount = attackerPlayer.getMaximumAllowableDices(fromCountry, "Attacker");
 		if (attackerDiceCount >0)
-		  attackerDiceCount = Common.getRandomNumberInRange(0, attackerDiceCount);
+		  attackerDiceCount = Common.getRandomNumberInRange(1, attackerDiceCount);
 		
 		int defenderDiceCount = attackerPlayer.getMaximumAllowableDices(toCountry, "Defender");
 		if (defenderDiceCount >0)
-		defenderDiceCount = Common.getRandomNumberInRange(0, defenderDiceCount);
+		defenderDiceCount = Common.getRandomNumberInRange(1, defenderDiceCount);
 					
 	    Player defenderPlayer = Game.getPlayerFromID(toCountry.getPlayerId());
 	    attackerPlayer.setAttackedPlayer(defenderPlayer);
