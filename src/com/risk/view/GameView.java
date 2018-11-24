@@ -29,7 +29,7 @@ import com.risk.model.Player;
  * 
  * @author Binay
  *
- */
+ */	
 class ViewCountries {
 	private int countryId;
 	private String countryName;
@@ -217,7 +217,7 @@ public class GameView implements Observer {
 	private static JLabel gamePhaseNameJLabel;
 
 	// Phase View Actions Label
-	private static JComponent gamePhaseActionsJComponent;
+	private static JLabel gamePhaseViewActionsJLabel;
 	private static JScrollPane gamePhaseViewJScrollPane;
 
 	// Initialization Label
@@ -361,7 +361,9 @@ public class GameView implements Observer {
 
 		initializationJlabel.add(playersTurnJlabel);
 		initializationJlabel.add(armyLeftJlabel);
+
 		gameActionJpanel.add(initializationJlabel);
+
 	}
 
 	/**
@@ -382,6 +384,7 @@ public class GameView implements Observer {
 
 		reinforcementsJlabel.add(reinforcementUnassignedUnit);
 		gameActionJpanel.add(reinforcementsJlabel);
+
 	}
 
 	/**
@@ -440,6 +443,7 @@ public class GameView implements Observer {
 		attackJlabel.add(endAttackButton);
 
 		gameActionJpanel.add(attackJlabel);
+
 	}
 
 	/**
@@ -509,6 +513,7 @@ public class GameView implements Observer {
 		gamePhaseNameJLabel.setBounds(15, 15, 220, 40);
 
 		gamePhaseJLabel.add(gamePhaseNameJLabel);
+
 		gameActionJpanel.add(gamePhaseJLabel);
 	}
 
@@ -516,13 +521,10 @@ public class GameView implements Observer {
 	 * Method to display the actions performed during each phase
 	 */
 	public void loadingPhaseActionLabel() {
-		gamePhaseActionsJComponent = new JPanel();
-		JLabel my_label = new JLabel("Phase Action view");
-		gamePhaseActionsJComponent.add(my_label);
-		gamePhaseViewJScrollPane = new JScrollPane(gamePhaseActionsJComponent);
+		gamePhaseViewJScrollPane = new JScrollPane();
 		gamePhaseViewJScrollPane.setBounds(gamePhaseJLabel.getX(),
 				gamePhaseJLabel.getY() + 10 + gamePhaseJLabel.getHeight(), gamePhaseJLabel.getWidth(), 80);
-		gamePhaseViewJScrollPane.setBorder(new TitledBorder(""));
+		gamePhaseViewJScrollPane.setBorder(new TitledBorder("Phase Actions Performed"));
 		gameActionJpanel.add(gamePhaseViewJScrollPane);
 
 	}
@@ -545,8 +547,7 @@ public class GameView implements Observer {
 				int i = 0;
 				ArrayList<Player> listOfPlayers = game.getAllPlayers();
 				ArrayList<String> playerNames = new ArrayList<>();
-
-				int numberOfPlayers = listOfPlayers.size();
+				int numberOfPlayers = playerNames.size();
 				for (Player obj : listOfPlayers) {
 					String name = obj.getName();
 					playerNames.add(name);
@@ -633,6 +634,7 @@ public class GameView implements Observer {
 			countryList.add(viewCountry);
 		}
 	}
+
 	/**
 	 * Update method called by the observable object to perform all the actions
 	 */
@@ -1001,7 +1003,7 @@ public class GameView implements Observer {
 		if (attackMoveArmies.getSelectedItem() == null)
 			return null;
 		else
-				return (String) attackMoveArmies.getSelectedItem();
+			return (String) attackMoveArmies.getSelectedItem();
 	}
 
 	/**
@@ -1009,29 +1011,19 @@ public class GameView implements Observer {
 	 * pattern
 	 */
 	public static void addPhaseMessages() {
-		//gamePhaseViewJScrollPane.removeAll();
-		gamePhaseActionsJComponent.removeAll();
-		JViewport view = new JViewport();
+		gamePhaseViewJScrollPane.removeAll();
 		int strartY = 5;
 		for (String message : Common.PhaseActions) {
-
 			JLabel textLabel = new JLabel(message);
 			Font font = new Font("Courier", Font.ITALIC, 10);
 			textLabel.setFont(font);
 			textLabel.setBounds(15, strartY, 220, 40);
 			strartY = strartY + 15;
-			//JViewport viewPort = new JViewport(textLabel);
-			gamePhaseActionsJComponent.add(textLabel);
-			gamePhaseViewJScrollPane.setViewportView(gamePhaseActionsJComponent);
-			//gamePhaseViewJScrollPane.add(textLabel);
-			//gamePhaseViewJScrollPane.add(textLabel);
-			//JList list = new JList();
-
+			gamePhaseViewJScrollPane.add(textLabel);
+			gamePhaseViewJScrollPane.add(textLabel);
 		}
-		gamePhaseActionsJComponent.revalidate();
-		gamePhaseActionsJComponent.repaint();
-//		gamePhaseViewJScrollPane.revalidate();
-//		gamePhaseViewJScrollPane.repaint();
+		gamePhaseViewJScrollPane.revalidate();
+		gamePhaseViewJScrollPane.repaint();
 	}
 
 	/**
@@ -1045,7 +1037,7 @@ public class GameView implements Observer {
 		int i = 0;
 		ArrayList<Player> listOfPlayers = game.getAllPlayers();
 		ArrayList<String> playerNames = new ArrayList<>();
-		int noOfPlayers = listOfPlayers.size();
+		int noOfPlayers = playerNames.size();
 		for (Player obj : listOfPlayers) {
 			String name = obj.getName();
 			playerNames.add(name);
