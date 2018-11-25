@@ -37,8 +37,7 @@ public class CardExchangeView implements Observer {
 	private static JLabel totalNewArmies;
 	private static JButton exchangeButton;
 	private static JButton exitButton;
-	private static JScrollPane scrollPane;
-
+	private static JScrollPane scrollPane; 		
 	/**
 	 * This method is used to initialize the Card Exchange View.
 	 * 
@@ -46,7 +45,7 @@ public class CardExchangeView implements Observer {
 	 */
 	public void exchangeInitializerView(Game game) {
 		exchangeButton=new JButton("Exchange Cards");
-		exitButton=new JButton("No Exchange And Exit");
+		exitButton=new JButton("Exit");
 		cardFrame = new JFrame("Card Exchange View");
 		cardPanel = new JPanel(null);
 		cardFrame.setSize(800, 600);
@@ -68,12 +67,16 @@ public class CardExchangeView implements Observer {
 		for (int i = 0; i < typeOfCards.size(); i++) {
 			cards[i] = typeOfCards.get(i).toString();
 		}
-		scrollPane=new JScrollPane();
-		scrollPane.setBounds(310, 45, 252, 72);
+		
+		
 		palyerOwnedCard = new JList<>(cards);
+		
 		palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
 		palyerOwnedCard.setBounds(310, 45, 250, 70);
-		scrollPane.setViewportView(palyerOwnedCard);
+		scrollPane=new JScrollPane(palyerOwnedCard);
+		scrollPane.setBounds(310, 45, 252, 72);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		totalNewArmies = new JLabel("" + game.getCurrentPlayer().getNoOfTradedArmies());
 		totalNewArmies.setBorder(new TitledBorder("New  Armies Assigned"));
 		totalNewArmies.setBounds(180, 150, 250, 70);
@@ -124,15 +127,23 @@ public class CardExchangeView implements Observer {
 			for (int i = 0; i < typeOfCards.size(); i++) {
 				cards[i] = typeOfCards.get(i).toString();
 			}
-			cardExchangeLabel.remove(palyerOwnedCard);
+			cardExchangeLabel.remove(scrollPane);
 			scrollPane = null;
 			palyerOwnedCard = null;
 			palyerOwnedCard = new JList<>(cards);
 			palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
 			palyerOwnedCard.setBounds(310, 45, 250, 70);
-			scrollPane.setBounds(310, 45, 255, 75);
+			scrollPane=new JScrollPane(palyerOwnedCard);
+			scrollPane.setBounds(310, 45, 252, 72);
+			scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollPane.setViewportView(palyerOwnedCard);
-			cardExchangeLabel.add(scrollPane);	
+			cardExchangeLabel.add(scrollPane);
+			cardExchangeLabel.add(totalNewArmies);
+			cardExchangeLabel.add(playersTurnJlabel);
+			cardPanel.add(cardExchangeLabel);
+			cardFrame.add(cardPanel);
+			cardFrame.setVisible(true);
 			cardFrame.revalidate();
 			cardFrame.repaint();
 

@@ -11,7 +11,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Stack;
 
 import com.risk.helper.IOHelper;
 
@@ -60,6 +62,8 @@ public class Map {
 			String readLine;
 			int continentID = 0;
 			int countryID = 0;
+			HashMap<String,Country> countries = new HashMap<String,Country>();
+			HashMap<Country,String[]> countryNeighbor = new HashMap<Country,String[]>();
 
 			while ((readLine = bufferedReader.readLine()) != null) {
 				if (readLine.trim().length() == 0)
@@ -72,7 +76,8 @@ public class Map {
 					captureCountries = true;
 					continue;
 				}
-
+				
+			
 				if (captureContinents) {
 					String[] parsedControlValuesByContinentsArray = readLine.split("=");
 					Continent continent = new Continent(continentID++, parsedControlValuesByContinentsArray[0],
@@ -84,6 +89,10 @@ public class Map {
 					int xCoordinate = Integer.parseInt(parsedTerritoriesArray[1]);
 					int yCoordinate = Integer.parseInt(parsedTerritoriesArray[2]);
 					Country country = new Country(countryID++, parsedTerritoriesArray[0], xCoordinate, yCoordinate);
+					
+					countries.put(parsedTerritoriesArray[0], country);
+					countryNeighbor.put(country, parsedTerritoriesArray);
+					
 					int k = 0;
 					for (String neighborCountry : parsedTerritoriesArray) {
 						if (k > 3) {
@@ -101,6 +110,19 @@ public class Map {
 					}
 				}
 			}
+	
+			Country neighbour;
+			Iterator it = countryNeighbor.entrySet().iterator();
+		    while (it.hasNext()) {
+		    	HashMap.Entry entry = (HashMap.Entry) it.next();
+		        Country country = (Country)entry.getKey();
+		        String[] neighbours = (String[])entry.getValue();
+		       for(int i=4;i<neighbours.length;i++)
+               { neighbour = countries.get(neighbours[i]);
+		         country.addNeighboursCountries(neighbour);             	   
+               }
+		    }	
+						
 			bufferedReader.close();
 		} catch (Exception e) {
 			IOHelper.printException(e);
@@ -114,7 +136,6 @@ public class Map {
 	 *            object of the continent
 	 */
 	public void addContinent(Continent continent) {
-
 		continentsList.add(continent);
 	}
 
@@ -292,7 +313,14 @@ public class Map {
 				return false;
 			}
 			if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
-				return true;
+				boolean connectedGraphContinentLevel = checkConnectedGraphOnContinentLevel();
+				if(connectedGraphContinentLevel) {
+					return true;
+				}
+				else {
+					System.out.print("Graph not connected at continent level");
+					return false;
+				}
 			} else {
 				System.out.println("List of disconnected countires:");
 				if (visitedList.size() > listOfAllCountries.size()) {
@@ -314,6 +342,55 @@ public class Map {
 		}
 	}
 
+	/**
+	 * This function returns whether the map is connected or not at the continent level.
+	 * @return boolean
+	 */
+	boolean checkConnectedGraphOnContinentLevel() {
+		for(Continent cont:this.continentsList) {
+			if(!checkIfContinentConnected(cont)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * This function returns whether a continent is connected or not.
+	 * @param induvidualCont continent passed to check if it is connected or not
+	 * @return
+	 */
+	public boolean checkIfContinentConnected(Continent induvidualCont) {
+		ArrayList<Country> totalCountries = new ArrayList<Country>();
+		ArrayList<String> totalCountriesString = new ArrayList<String>();
+		Stack<Country> s = new Stack<Country>();
+		ArrayList<Country> visitedCountries = new ArrayList<Country>();
+		ArrayList<String> visitedCountriesString = new ArrayList<String>();
+		for(Country country:induvidualCont.getCountryList()) {
+			totalCountries.add(country);
+			totalCountriesString.add(country.getCountryName());
+		}
+		s.push(totalCountries.get(0));
+		visitedCountries.add(totalCountries.get(0));
+		visitedCountriesString.add(totalCountries.get(0).getCountryName());
+		while(!s.isEmpty()) {
+			Country v = s.pop();
+			for(Country neighbouringCountry :v.getNeighbourCountries()) {
+				if(neighbouringCountry.getContId()!=induvidualCont.getContId()) {
+					continue;
+				}
+				if(!visitedCountriesString.contains(neighbouringCountry.getCountryName())) {
+					s.push(neighbouringCountry);
+					visitedCountries.add(neighbouringCountry);
+					visitedCountriesString.add(neighbouringCountry.getCountryName());
+				}
+			}
+		}
+		if(isTwoArrayListsWithSameValues(visitedCountriesString, totalCountriesString)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	/**
 	 * Checks if two array lists are same or not
 	 *

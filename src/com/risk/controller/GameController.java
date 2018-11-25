@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import com.risk.helper.GameMode;
 import com.risk.helper.IOHelper;
 import com.risk.helper.PhaseEnum;
 import com.risk.model.*;
@@ -36,6 +38,10 @@ public class GameController {
 	 * start the game form here.
 	 */
 	public void startGame() {
+		int input = -1;
+		while(input!=4)	
+		{
+		try {
 		IOHelper.print("+__________________________________________________________+");
 		IOHelper.print("|=====_==============================================_=====|");
 		IOHelper.print("|    (_)                                            (_)    |");
@@ -48,8 +54,7 @@ public class GameController {
 		IOHelper.print("2. Edit Map");
 		IOHelper.print("3. Play Game");
 		IOHelper.print("4. Exit");
-		try {
-			int input = IOHelper.getNextInteger();
+	     input = IOHelper.getNextInteger();
 
 			switch (input) {
 			case 1:
@@ -66,12 +71,17 @@ public class GameController {
 				System.exit(0);
 			default:
 				IOHelper.print("\nInvalid choice. Select Again!\n");
+				break;
 			}
-		} catch (Exception e) {
+			}
+		 catch (Exception e) {
+			
+			IOHelper.print(e.getMessage());
+			IOHelper.print("Please try again with the correct input format");
+			System.out.println(e.getCause());
 			e.printStackTrace();
-			IOHelper.print("Please try again with the right option");
 		}
-
+		}
 	}
 
 	/**
@@ -94,7 +104,7 @@ public class GameController {
 					IOHelper.print("Map is not valid.Please try again");
 				}
 				mapView.killFrame();
-				startGame();
+	//			startGame();
 			}
 		});
 	}
@@ -102,7 +112,7 @@ public class GameController {
 	/**
 	 * Method for edit map functionality for all the cases
 	 */
-	private void editMap() {
+	private void editMap()throws NumberFormatException {
 		IOHelper.print("List of Maps :- ");
 		ArrayList<String> mapList = getListOfMaps();
 		int i = 1;
@@ -119,7 +129,8 @@ public class GameController {
 		if (!map.isMapValid()) {
 			IOHelper.print("Map is Invalid !");
 		}
-		while (true) {
+		int input = -1;
+		while (input !=6) {
 			IOHelper.print("+------------------------------+");
 			IOHelper.print("|________ Edit Map Menu________| ");
 			IOHelper.print("|    1. Delete Continent       |");
@@ -127,10 +138,10 @@ public class GameController {
 			IOHelper.print("|    3. Add Continent          |");
 			IOHelper.print("|    4. Add Country            |");
 			IOHelper.print("|    5. Save Map               |");
-			IOHelper.print("|    6. Exit                   |");
+			IOHelper.print("|    6. Back                   |");
 			IOHelper.print("+------------------------------+");
 			IOHelper.print(" Enter option:");
-			int input = IOHelper.getNextInteger();
+			input = IOHelper.getNextInteger();
 			switch (input) {
 			case 1:
 				IOHelper.print("List of Continents:");
@@ -180,7 +191,7 @@ public class GameController {
 				}
 				break;
 			case 6:
-				startGame();
+//				startGame();
 				break;
 			default:
 				IOHelper.print("Option not Available. Select Again!");
@@ -193,7 +204,7 @@ public class GameController {
 	 * This function validates the map and initializes the map.
 	 * @return map
 	 */
-	private Map initializeMap() {
+	private Map initializeMap()throws NumberFormatException {
 		int i = 1;
 		IOHelper.print("List of Maps:-");
 		ArrayList<String> maps = getListOfMaps();
@@ -218,26 +229,67 @@ public class GameController {
 	 * This function creates the player objects for initializing Game
 	 * @param map, Map
 	 */
-	private void initializeGame(Map map) {
+	private void initializeGame(Map map)throws NumberFormatException  {
 		game = new Game(map);
-		cardExchangeView = new CardExchangeView();
+        int gameMode = 5;
+        while(gameMode!=1 && gameMode!=2)
+        {IOHelper.print("\nWhich mode do you want to play?");
+ 		 IOHelper.print("1 - Single Game Mode \n 2 - Tournament Mode");
+         gameMode = IOHelper.getNextInteger();
+
+        if (gameMode == 1)
+        { game.setGameMode(GameMode.SingleGameMode);
+        }
+        else if (gameMode == 2)
+        {game.setGameMode(GameMode.TournamentMode);
+        }
+        else
+        { IOHelper.print("Enter a Valid Value");
+		}        	
+        }
+        
+        cardExchangeView = new CardExchangeView();
 		gameView = new GameView();
 
 		game.addObserver(gameView);
+		inputPlayerInformation();				
+		System.out.println("Game controller before Startup phase ");
+		game.startUpPhase();
+		System.out.println("Game controller after Startup phase ");
 
+
+		
+		if(gameMode==2) {	
+			game.tournamentMode();
+		}
+		else { 
+			game.singleGameMode();
+		}
+		gameView.mapPath = map.getMapPath() + map.getMapName() + ".bmp";
+		gameView.gameInitializer();
+		activateListenersOnView();
+		game.addObserver(cardExchangeView);
+}
+
+	private void inputPlayerInformation() throws NumberFormatException 
+	{ 				
 		IOHelper.print("\nEnter the number of Players between 3 to 5");
-
 		int playerCount = IOHelper.getNextInteger();
-		if (3 <= playerCount && playerCount <= 5) {
-			for (int i = 0; i < playerCount; i++) {
+
+		if ( playerCount < 3 && playerCount > 5) {
+				IOHelper.print("Players count cannot be less than 3 and more than 5");
+				inputPlayerInformation();
+			}
+		else {
+	    for (int i = 0; i < playerCount; i++) {
 				IOHelper.print("\nEnter the name of Player " + (i + 1));
 				String playerName = IOHelper.getNextString();
 				IOHelper.print("\nEnter Strategy of the Player ");
-				IOHelper.print("\n 1- Human");
-				IOHelper.print("\n 2- Aggressive");
-				IOHelper.print("\n 3- Benevolent");
-				IOHelper.print("\n 4- Random");
-				IOHelper.print("\n 5- Cheater");
+				IOHelper.print("1- Human");
+				IOHelper.print("2- Aggressive");
+				IOHelper.print("3- Benevolent");
+				IOHelper.print("4- Random");
+				IOHelper.print("5- Cheater");
 				int playerstrategy = IOHelper.getNextInteger();
 				
 				Player player = new Player(i, playerName);
@@ -254,17 +306,9 @@ public class GameController {
 				
 				game.addPlayer(player);
 			}
-			game.startUpPhase();
-			gameView.gameInitializer();
-			activateListenersOnView();
-			game.addObserver(cardExchangeView);
-		} else {
-			IOHelper.print("Players count cannot be less than 3 and more than 5");
-			startGame();
-
-		}
+	    }		
 	}
-
+	
 	/**
 	 * This method will activate all listeners on the View
 	 */

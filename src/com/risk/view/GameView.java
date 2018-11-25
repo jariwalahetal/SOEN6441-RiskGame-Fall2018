@@ -29,7 +29,7 @@ import com.risk.model.Player;
  * 
  * @author Binay
  *
- */
+ */	
 class ViewCountries {
 	private int countryId;
 	private String countryName;
@@ -217,6 +217,7 @@ public class GameView implements Observer {
 	private static JLabel gamePhaseNameJLabel;
 
 	// Phase View Actions Label
+	//private static JLabel gamePhaseViewActionsJLabel;
 	private static JComponent gamePhaseActionsJComponent;
 	private static JScrollPane gamePhaseViewJScrollPane;
 
@@ -259,13 +260,15 @@ public class GameView implements Observer {
 	int activePlayerId;
 	EnumColor activePlayerColor = null;
 	String activePlayerUnassignedArmiesCount, reinforcementUnassignedArmiesCount;
-	String mapPath;
 	ArrayList<ViewCountries> countryList = new ArrayList<ViewCountries>();
 	PhaseEnum phase;
 	static Game game;
 	Map map;
 	private Boolean isCardExchangeViewOpenedOnce = false;
 
+
+	public String mapPath;
+	
 	/**
 	 * Method use to initialize the view of game
 	 */
@@ -300,7 +303,7 @@ public class GameView implements Observer {
 		gameJframe = new JFrame("Risk Game");
 		gameActionJpanel = new JPanel(null);
 		File imageFile = null;
-
+		
 		imageFile = new File(mapPath);
 		Image image;
 		ImageIcon icon = null;
@@ -361,7 +364,9 @@ public class GameView implements Observer {
 
 		initializationJlabel.add(playersTurnJlabel);
 		initializationJlabel.add(armyLeftJlabel);
+
 		gameActionJpanel.add(initializationJlabel);
+
 	}
 
 	/**
@@ -382,6 +387,7 @@ public class GameView implements Observer {
 
 		reinforcementsJlabel.add(reinforcementUnassignedUnit);
 		gameActionJpanel.add(reinforcementsJlabel);
+
 	}
 
 	/**
@@ -440,6 +446,7 @@ public class GameView implements Observer {
 		attackJlabel.add(endAttackButton);
 
 		gameActionJpanel.add(attackJlabel);
+
 	}
 
 	/**
@@ -464,8 +471,10 @@ public class GameView implements Observer {
 				sourceCountry.getWidth(), sourceCountry.getHeight());
 
 		ArrayList<Integer> NoOfArmies = new ArrayList<Integer>();
-		for (int i = 1; i <= Integer.parseInt(activePlayerUnassignedArmiesCount); i++) {
-			NoOfArmies.add(i);
+		if(activePlayerUnassignedArmiesCount != null && !activePlayerUnassignedArmiesCount.isEmpty()) {
+			for (int i = 1; i <= Integer.parseInt(activePlayerUnassignedArmiesCount); i++) {
+				NoOfArmies.add(i);
+			}
 		}
 
 		noOfArmyToMoveJcomboBox = new JComboBox(NoOfArmies.toArray());
@@ -509,6 +518,7 @@ public class GameView implements Observer {
 		gamePhaseNameJLabel.setBounds(15, 15, 220, 40);
 
 		gamePhaseJLabel.add(gamePhaseNameJLabel);
+
 		gameActionJpanel.add(gamePhaseJLabel);
 	}
 
@@ -520,10 +530,12 @@ public class GameView implements Observer {
 		JLabel my_label = new JLabel("Phase Action view");
 //		gamePhaseActionsJComponent.add(my_label,gamePhaseViewJScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 //				gamePhaseViewJScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		gamePhaseActionsJComponent.add(my_label);
 		gamePhaseViewJScrollPane = new JScrollPane(gamePhaseActionsJComponent);
+		//gamePhaseViewJScrollPane = new JScrollPane();
 		gamePhaseViewJScrollPane.setBounds(gamePhaseJLabel.getX(),
 				gamePhaseJLabel.getY() + 10 + gamePhaseJLabel.getHeight(), gamePhaseJLabel.getWidth(), 80);
-		gamePhaseViewJScrollPane.setBorder(new TitledBorder(""));
+		gamePhaseViewJScrollPane.setBorder(new TitledBorder("Phase Actions Performed"));
 		gameActionJpanel.add(gamePhaseViewJScrollPane);
 
 	}
@@ -546,8 +558,7 @@ public class GameView implements Observer {
 				int i = 0;
 				ArrayList<Player> listOfPlayers = game.getAllPlayers();
 				ArrayList<String> playerNames = new ArrayList<>();
-
-				int numberOfPlayers = listOfPlayers.size();
+				int numberOfPlayers = playerNames.size();
 				for (Player obj : listOfPlayers) {
 					String name = obj.getName();
 					playerNames.add(name);
@@ -634,6 +645,7 @@ public class GameView implements Observer {
 			countryList.add(viewCountry);
 		}
 	}
+
 	/**
 	 * Update method called by the observable object to perform all the actions
 	 */
@@ -641,6 +653,7 @@ public class GameView implements Observer {
 	public void update(Observable obj, Object arg1) {
 
 		game = ((Game) obj);
+		
 		map = game.getMap();
 
 		phase = game.getGamePhase();
@@ -689,6 +702,9 @@ public class GameView implements Observer {
 				defenderCountry.removeAll();
 				gamePhaseNameJLabel.setText("Fortification");
 				setSourceCountryComboBox(game.getCurrentPlayer().getCountriesWithArmiesGreaterThanOne());
+			}
+			else if(game.getGamePhase() == PhaseEnum.GameEnd) {
+				gamePhaseNameJLabel.setText("Game end");
 			}
 
 			addPhaseMessages();
@@ -1002,7 +1018,7 @@ public class GameView implements Observer {
 		if (attackMoveArmies.getSelectedItem() == null)
 			return null;
 		else
-				return (String) attackMoveArmies.getSelectedItem();
+			return (String) attackMoveArmies.getSelectedItem();
 	}
 
 	/**
@@ -1010,12 +1026,9 @@ public class GameView implements Observer {
 	 * pattern
 	 */
 	public static void addPhaseMessages() {
-		//gamePhaseViewJScrollPane.removeAll();
-		gamePhaseActionsJComponent.removeAll();
-		JViewport view = new JViewport();
+		gamePhaseViewJScrollPane.removeAll();
 		int strartY = 5;
 		for (String message : Common.PhaseActions) {
-
 			JLabel textLabel = new JLabel(message);
 			Font font = new Font("Courier", Font.ITALIC, 10);
 			textLabel.setFont(font);
@@ -1028,11 +1041,12 @@ public class GameView implements Observer {
 			gamePhaseViewJScrollPane.setViewportView(gamePhaseActionsJComponent);
 			//gamePhaseViewJScrollPane.add(textLabel);
 			//gamePhaseViewJScrollPane.add(textLabel);
-		}
+			}
+
 		gamePhaseActionsJComponent.revalidate();
 		gamePhaseActionsJComponent.repaint();
-//		gamePhaseViewJScrollPane.revalidate();
-//		gamePhaseViewJScrollPane.repaint();
+		//gamePhaseViewJScrollPane.revalidate();
+		//gamePhaseViewJScrollPane.repaint();
 	}
 
 	/**
@@ -1046,7 +1060,7 @@ public class GameView implements Observer {
 		int i = 0;
 		ArrayList<Player> listOfPlayers = game.getAllPlayers();
 		ArrayList<String> playerNames = new ArrayList<>();
-		int noOfPlayers = listOfPlayers.size();
+		int noOfPlayers = playerNames.size();
 		for (Player obj : listOfPlayers) {
 			String name = obj.getName();
 			playerNames.add(name);

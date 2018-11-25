@@ -19,6 +19,16 @@ public class Country {
 	private int xCoordiate;
 	private int yCoordiate;
 	private ArrayList<String> neighboursString = new ArrayList<>();
+	private ArrayList<Country> neighbourCountries = new ArrayList<>();
+	public ArrayList<Country> getNeighbourCountries() {
+		return neighbourCountries;
+	}
+
+	public void addNeighboursCountries(Country neighbourCountry) {
+		neighbourCountries.add(neighbourCountry);
+	}
+
+
 	private int noOfArmies;
 
 	private EnumColor countryColor;
