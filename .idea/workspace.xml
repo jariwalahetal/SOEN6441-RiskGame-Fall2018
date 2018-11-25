@@ -115,7 +115,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="10" />
     <option name="y" value="166" />
     <option name="width" value="1346" />
@@ -395,13 +395,13 @@
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/risk/model/Map.java</url>
+          <url />
           <line>241</line>
           <properties />
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/risk/model/Map.java</url>
+          <url />
           <line>545</line>
           <properties />
           <option name="timeStamp" value="31" />
@@ -415,7 +415,7 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/com/risk/model/Map.java</url>
+          <url />
           <line>157</line>
           <properties class="com.risk.model.Map">
             <option name="EMULATED" value="true" />
