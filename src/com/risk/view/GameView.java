@@ -518,7 +518,8 @@ public class GameView implements Observer {
 	public void loadingPhaseActionLabel() {
 		gamePhaseActionsJComponent = new JPanel();
 		JLabel my_label = new JLabel("Phase Action view");
-		gamePhaseActionsJComponent.add(my_label);
+//		gamePhaseActionsJComponent.add(my_label,gamePhaseViewJScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+//				gamePhaseViewJScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		gamePhaseViewJScrollPane = new JScrollPane(gamePhaseActionsJComponent);
 		gamePhaseViewJScrollPane.setBounds(gamePhaseJLabel.getX(),
 				gamePhaseJLabel.getY() + 10 + gamePhaseJLabel.getHeight(), gamePhaseJLabel.getWidth(), 80);
@@ -1022,11 +1023,11 @@ public class GameView implements Observer {
 			strartY = strartY + 15;
 			//JViewport viewPort = new JViewport(textLabel);
 			gamePhaseActionsJComponent.add(textLabel);
+//			int verticalPolicy = gamePhaseViewJScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED;
+//			gamePhaseViewJScrollPane.setVerticalScrollBarPolicy(verticalPolicy);
 			gamePhaseViewJScrollPane.setViewportView(gamePhaseActionsJComponent);
 			//gamePhaseViewJScrollPane.add(textLabel);
 			//gamePhaseViewJScrollPane.add(textLabel);
-			//JList list = new JList();
-
 		}
 		gamePhaseActionsJComponent.revalidate();
 		gamePhaseActionsJComponent.repaint();
