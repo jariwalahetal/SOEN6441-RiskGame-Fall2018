@@ -309,6 +309,7 @@ public class Game extends Observable {
 			newCountry.increaseArmyCount(1);
 			playerIndex++;
 		}
+		notifyObserverslocal(this);
 	
 	}
 	
