@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
@@ -558,11 +559,9 @@ public class Player implements Serializable {
 		
 		for (Country assignedCountry : assignedCountryList) {
 				if (assignedCountry.getCountryName().equals(sourceCountryName)) {
-					neighborCountries = assignedCountry.getNeighbourCountries();
-					for (int i = 0; i < neighborCountries.size(); i++) {
-						if (neighborCountries.get(i).getPlayer().getPlayerId() == this.playerId)
-							neighborCountries.remove(i);
-					}
+					neighborCountries = assignedCountry.getNeighbourCountries().stream()
+										.filter(x -> x.getPlayer().getPlayerId() != this.getPlayerId())
+										.collect(Collectors.toCollection(ArrayList::new));
 					break;
 				}
 			}

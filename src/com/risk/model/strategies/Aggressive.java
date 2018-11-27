@@ -34,18 +34,17 @@ public class Aggressive implements PlayerStrategy, Serializable {
 	@Override
 	public boolean reinforce(Player player) {
 		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
-		IOHelper.print("Aggressive player "+ player.getName() +" - reinforcement - available countries - " + assignedCountryList.size());
 		if (assignedCountryList.size()==0)
 		     return true;
 
 		attackingCountry = getStrongestCountry(assignedCountryList,0);						
 
 		if (attackingCountry != null) {
-			int oldArmies = attackingCountry.getnoOfArmies();
+			IOHelper.print("Adding reinforcement army in " + attackingCountry.getCountryName() + "("+ attackingCountry.getnoOfArmies()+")");
 			int armies = player.getNoOfReinforcedArmies();
 			player.setNoOfReinforcedArmies(0);
 			attackingCountry.increaseArmyCount(armies);
-			IOHelper.print("Added reinforcement army in " + attackingCountry.getCountryName() + " - old army " + oldArmies + ". new army "+ attackingCountry.getnoOfArmies());
+			IOHelper.print("Added reinforcement army in " + attackingCountry.getCountryName() + "("+ attackingCountry.getnoOfArmies()+")");
 		}
 		else {
 			IOHelper.print("Cannot find any attacking country");
@@ -114,6 +113,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 					(ArrayList<Country>) player.getAssignedCountryList().clone(), 
 														new ArrayList<Country>());
 			
+			neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
 			destinationCountry = getStrongestCountry(neighborCountries, 0);
 			
 		}
@@ -125,6 +125,8 @@ public class Aggressive implements PlayerStrategy, Serializable {
 			ArrayList<Country> neighborCountries = player.getConnectedCountriesRecursively(fromCountry,
 					(ArrayList<Country>) player.getAssignedCountryList().clone(), 
 					new ArrayList<Country>());
+			
+			neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
 			destinationCountry = getStrongestCountry(neighborCountries, 0);
 		}
 		
@@ -149,7 +151,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		Player defenderPlayer = toCountry.getPlayer();
 		
 		int attackerDiceCount = attackerPlayer.getMaximumAllowableDices(fromCountry, "Attacker");
-		int defenderDiceCount = defenderPlayer.getMaximumAllowableDices(toCountry, "Defender");
+		int defenderDiceCount = defenderPlayer.getMaximumAllowableDices(toCountry, "Defender"); 
 		defenderDiceCount = Common.getRandomNumberInRange(1, defenderDiceCount);
 
 		

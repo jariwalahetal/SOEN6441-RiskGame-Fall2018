@@ -765,9 +765,6 @@ public class Game extends Observable implements Serializable{
 			currentPlayer.fortificationPhase();
 			this.updatePhase();
 			
-			//step 5: set next player
-			this.setNextPlayerTurn();
-			
 			//Print status of players
 			this.printPlayerStatus();
 		}
