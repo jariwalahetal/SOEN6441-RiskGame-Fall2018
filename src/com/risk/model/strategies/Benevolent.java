@@ -1,5 +1,6 @@
 package com.risk.model.strategies;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,7 +19,7 @@ import com.risk.model.Player;
 * @version 1.0.0
 * @since 19-November-2018
 */
-public class Benevolent implements PlayerStrategy {
+public class Benevolent implements PlayerStrategy, Serializable {
 	private String strategyName = "Benevolent";
 	
 	public String getStrategyName() {
@@ -90,7 +91,7 @@ public class Benevolent implements PlayerStrategy {
     }
 
     private boolean countryVisited(Country country, HashMap<Country,Integer> visitedCountries,Player player)
-    { if(country.getPlayerId() == player.getPlayerId()&&
+    { if(country.getPlayer().getPlayerId() == player.getPlayerId()&&
 			!visitedCountries.containsKey(country))
     	return true;
     else

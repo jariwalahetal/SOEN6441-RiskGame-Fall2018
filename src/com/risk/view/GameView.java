@@ -254,6 +254,8 @@ public class GameView implements Observer {
 	private static JTable playerRecordsJTable;
 	private static JFrame playerWorldDominationViewJFrame;
 	private static JPanel playerWorldDominationViewJPanel;
+	
+	private static JButton saveButton;
 
 	String activePlayerName = null;
 	int activePlayerId;
@@ -272,8 +274,7 @@ public class GameView implements Observer {
 	 * Method use to initialize the view of game
 	 */
 	public void gameInitializer() {
-
-		loadGameActionView();
+	    loadGameActionView();
 		loadingInitializationLabel();
 		loadingReinforcementLabel();
 		loadingAttackLabel();
@@ -281,6 +282,7 @@ public class GameView implements Observer {
 		loadingPhaseLabel();
 		loadingPhaseActionLabel();
 		loadPlayerWorldDominationView();
+		loadSaveButton();
 		setFrameDimesnsions(gameJframe);
 	}
 	
@@ -543,7 +545,7 @@ public class GameView implements Observer {
 	public void loadPlayerWorldDominationView() {
 
 		playerWorldDominationViewJButton = new JButton("Player World Domination View");
-		playerWorldDominationViewJButton.setBounds(gamePhaseViewJScrollPane.getX() + 110,
+		playerWorldDominationViewJButton.setBounds(gamePhaseViewJScrollPane.getX() + 20,
 				gamePhaseViewJScrollPane.getY() + 10 + gamePhaseViewJScrollPane.getHeight(),
 				destinationCountry.getWidth(), 45);
 		playerWorldDominationViewJButton.addActionListener(new ActionListener() {
@@ -622,7 +624,17 @@ public class GameView implements Observer {
 		gameActionJpanel.add(playerWorldDominationViewJButton);
 	}
 
-	private void populateCountriesData(Map map) {
+	private void loadSaveButton() {
+
+		saveButton = new JButton("Save");
+		saveButton.setBounds(playerWorldDominationViewJButton.getX() + playerWorldDominationViewJButton.getWidth() + 10,
+				playerWorldDominationViewJButton.getY(),
+				playerWorldDominationViewJButton.getWidth(), playerWorldDominationViewJButton.getHeight());
+
+		gameActionJpanel.add(saveButton);
+	}	
+	
+    private void populateCountriesData(Map map) {
 		countryList.clear();
 		for (Country country : map.getCountryList()) {
 			ViewCountries viewCountry = new ViewCountries();
@@ -633,7 +645,7 @@ public class GameView implements Observer {
 			viewCountry.setxCoordinate(country.getxCoordiate());
 			viewCountry.setyCoordinate(country.getyCoordiate());
 			viewCountry.setNeighboursString(country.getNeighboursString());
-			viewCountry.setPlayerID(country.getPlayerId());
+			viewCountry.setPlayerID(country.getPlayer().getPlayerId());
 			JLabel label = (JLabel) mapLabels.get(String.valueOf(country.getCountryId()));
 			if (label != null) {
 				label.setText(String.valueOf(viewCountry.getNoOfArmies()));
@@ -955,6 +967,11 @@ public class GameView implements Observer {
 		moveArmiesButton.addActionListener(listener);
 	}
 
+	public void addActionListenToSaveButton(ActionListener listener) {
+		saveButton.addActionListener(listener);
+	}
+
+	
 	public void setSourceCountryComboBox(ArrayList<String> countries) {
 		sourceCountry.removeAllItems();
 

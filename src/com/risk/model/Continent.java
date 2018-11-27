@@ -1,5 +1,6 @@
 package com.risk.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * @version 1.0.0
  * @since 27-September-2018
  */
-public class Continent {
+public class Continent implements Serializable{
 	private int contId;
 	private String contName;
 	private int controlValue;

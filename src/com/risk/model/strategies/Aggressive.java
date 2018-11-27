@@ -1,5 +1,6 @@
 package com.risk.model.strategies;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import com.risk.model.Player;
  * @version 1.0.0
  * @since 19-November-2018
  */
-public class Aggressive implements PlayerStrategy {
+public class Aggressive implements PlayerStrategy, Serializable {
 	private String strategyName = "Aggressive";
 
 	public String getStrategyName() {
@@ -86,7 +87,7 @@ public class Aggressive implements PlayerStrategy {
 			
 			IOHelper.print(fromCountry.getCountryName()+" is attacking "+toCountry.getCountryName());
 						
-			while (toCountry.getPlayerId() != attackerPlayer.getPlayerId()) {
+			while (toCountry.getPlayer().getPlayerId() != attackerPlayer.getPlayerId()) {
 				attackOperation(fromCountry, toCountry, attackerPlayer);
 				if (fromCountry.getnoOfArmies() == 1) {	
 					CountriesForAttack.remove(fromCountry);
@@ -121,7 +122,7 @@ public class Aggressive implements PlayerStrategy {
 		int defenderDiceCount = attackerPlayer.getMaximumAllowableDices(toCountry, "Defender");
 		defenderDiceCount = Common.getRandomNumberInRange(1, defenderDiceCount);
 
-		Player defenderPlayer = Game.getPlayerFromID(toCountry.getPlayerId());
+		Player defenderPlayer = toCountry.getPlayer();
 		attackerPlayer.setAttackedPlayer(defenderPlayer);
 		attackerPlayer.setFromCountry(fromCountry);
 		attackerPlayer.setToCountry(toCountry);
@@ -233,7 +234,7 @@ public class Aggressive implements PlayerStrategy {
     }
     
     private boolean countryVisited(Country country, HashMap<Country,Integer> visitedCountries,Player player)
-    { if(country.getPlayerId() == player.getPlayerId()&&
+    { if(country.getPlayer().getPlayerId() == player.getPlayerId()&&
 			!visitedCountries.containsKey(country))
     	return true;
     else
