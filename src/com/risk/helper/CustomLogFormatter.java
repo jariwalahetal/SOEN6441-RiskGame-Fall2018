@@ -5,9 +5,12 @@ import java.io.StringWriter;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
+/**
+ * Class helps to customise formatting of log file by removing timestamp executing before each print method
+ *
+ * @author Mandeep Kaur
+ */
 public class CustomLogFormatter  extends Formatter {
-
-
     @Override
     public String format(LogRecord record) {
         StringBuilder stringBuilder = new StringBuilder();
