@@ -457,6 +457,18 @@ public class Player implements Serializable {
 		return neighborCountriesName;
 	}
 
+	public ArrayList<Country> getNeighbouringCountries(Country sourceCountry,
+			ArrayList<Country> assignedCountries) {
+		ArrayList<Country> neighborCountriesName = new ArrayList<>();
+		for (Country country : assignedCountryList) {
+			assignedCountries.add(country);
+			if (country.getCountryName().equals(sourceCountry.getCountryName())) {
+				neighborCountriesName = country.getNeighbourCountries();
+			}
+		}
+		return neighborCountriesName;
+	}
+	
 	/**
 	 * Method to get neighboring countries of a given country
 	 * 
@@ -483,6 +495,23 @@ public class Player implements Serializable {
 		return foundCountriesName;
 	}
 
+	public ArrayList<Country> getConnectedCountriesRecursively(Country sourceCountry,
+			ArrayList<Country> assignedCountries, ArrayList<Country> foundCountries) {
+
+		ArrayList<Country> neighbouringCounties = this.getNeighbouringCountries(sourceCountry,
+				assignedCountries);
+		if (neighbouringCounties.size() > 0) {
+			ArrayList<String> newConnectedNeighbours = new ArrayList<>();
+			for (Country neigbour : neighbouringCounties) {
+				if (!foundCountries.contains(neigbour)) {
+					foundCountries.add(neigbour);
+					getConnectedCountriesRecursively(neigbour, assignedCountries, foundCountries);
+				}
+			}
+		}
+		return foundCountries;
+	}
+	
 	/**
 	 * Method to get neighboring countries of a given country
 	 * 
