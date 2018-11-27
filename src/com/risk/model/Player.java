@@ -1,5 +1,6 @@
 package com.risk.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +19,7 @@ import com.risk.model.strategies.PlayerStrategy;
  * @version 1.0.0
  * @since 27-September-2018
  */
-public class Player {
+public class Player implements Serializable {
 	private int playerId;
 	private String name;
 	private EnumColor color;
@@ -290,7 +291,8 @@ public class Player {
 	public void assignCountryToPlayer(Country newCountry) {
 		assignedCountryList.add(newCountry);
 		newCountry.setCountryColor(this.getColor());
-		newCountry.setPlayerId(this.getPlayerId());
+//		newCountry.setPlayerId(this.getPlayerId());
+		newCountry.setPlayer(this);
 	}
 
 	/**
@@ -529,7 +531,7 @@ public class Player {
 				if (assignedCountry.getCountryName().equals(sourceCountryName)) {
 					neighborCountries = assignedCountry.getNeighbourCountries();
 					for (int i = 0; i < neighborCountries.size(); i++) {
-						if (neighborCountries.get(i).getPlayerId() == this.playerId)
+						if (neighborCountries.get(i).getPlayer().getPlayerId() == this.playerId)
 							neighborCountries.remove(i);
 					}
 					break;
@@ -589,7 +591,8 @@ public class Player {
 	 */
 	public void conquerCountry(Player defenderPlayer) {
 
-		toCountry.setPlayerId(playerId);
+//		toCountry.setPlayerId(playerId);
+		toCountry.setPlayer(this);
 		defenderPlayer.unAssignCountryToPlayer(toCountry);
 		assignCountryToPlayer(toCountry);
 

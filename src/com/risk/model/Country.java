@@ -1,5 +1,6 @@
 package com.risk.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.risk.helper.EnumColor;
@@ -11,24 +12,16 @@ import com.risk.helper.EnumColor;
  * @version 1.0.0
  * @since 27-September-2018
  */
-public class Country {
+public class Country implements Serializable{
 	private int countryId;
 	private String countryName;
 	private int contId;
 	private int playerId;
+	private Player player;
 	private int xCoordiate;
 	private int yCoordiate;
 	private ArrayList<String> neighboursString = new ArrayList<>();
 	private ArrayList<Country> neighbourCountries = new ArrayList<>();
-	public ArrayList<Country> getNeighbourCountries() {
-		return neighbourCountries;
-	}
-
-	public void addNeighboursCountries(Country neighbourCountry) {
-		neighbourCountries.add(neighbourCountry);
-	}
-
-
 	private int noOfArmies;
 
 	private EnumColor countryColor;
@@ -47,6 +40,14 @@ public class Country {
 		this.countryName = countryName;
 		this.xCoordiate = xCoordiate;
 		this.yCoordiate = yCoordiate;
+	}
+	
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 	/**
@@ -85,6 +86,14 @@ public class Country {
 		return countryName;
 	}
 
+	public ArrayList<Country> getNeighbourCountries() {
+		return neighbourCountries;
+	}
+
+	public void addNeighboursCountries(Country neighbourCountry) {
+		neighbourCountries.add(neighbourCountry);
+	}	
+	
 	/**
 	 * Gets continent id
 	 * 
@@ -110,10 +119,10 @@ public class Country {
 	 * @return playeId int
 	 */
 
-	public int getPlayerId() {
+/*	public int getPlayerId() {
 		return playerId;
 	}
-
+*/
 	/**
 	 * Sets player id
 	 * 
@@ -121,10 +130,10 @@ public class Country {
 	 *            int
 	 * 
 	 */
-	public void setPlayerId(int playerId) {
+/*	public void setPlayerId(int playerId) {
 		this.playerId = playerId;
 	}
-
+*/
 	/**
 	 * Gets X-coordiante position
 	 * 

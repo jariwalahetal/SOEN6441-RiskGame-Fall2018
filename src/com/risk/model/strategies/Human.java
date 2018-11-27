@@ -1,5 +1,6 @@
 package com.risk.model.strategies;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,7 +17,7 @@ import com.risk.model.Player;
  * @since 19-November-2018
 
  */
-public class Human implements PlayerStrategy {
+public class Human implements PlayerStrategy, Serializable {
 
 	private String strategyName = "Human";
 

@@ -1,5 +1,6 @@
 package com.risk.model.strategies;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -20,7 +21,7 @@ import com.risk.model.Player;
  * @version 1.0.0
  * @since 19-November-2018
  */
-public class Cheater implements PlayerStrategy {
+public class Cheater implements PlayerStrategy, Serializable {
 	private String strategyName = "Cheater";
 	
 	   public String getStrategyName() {
@@ -50,10 +51,10 @@ public class Cheater implements PlayerStrategy {
 		for (int i=0;i<size;i++) { 
 			Country fromCountry = attackerCountries.get(i);
 			for(Country toCountry : fromCountry.getNeighbourCountries()) {  
-				if(toCountry.getPlayerId() != attackerPlayer.getPlayerId()) {
+				if(toCountry.getPlayer().getPlayerId() != attackerPlayer.getPlayerId()) {
 					armies = toCountry.getnoOfArmies();
 	 	            toCountry.decreaseArmyCount(armies);   	
-	                defenderPlayer = Game.getPlayerFromID(toCountry.getPlayerId());
+	                defenderPlayer = toCountry.getPlayer();
 	                
 	                attackerPlayer.setAttackedPlayer(defenderPlayer);
 	        		attackerPlayer.setFromCountry(fromCountry);
@@ -71,7 +72,7 @@ public class Cheater implements PlayerStrategy {
         int armiesCount;
 		for (Country country:player.getAssignedCountryList())
 	    { for(Country neighbourCountry : country.getNeighbourCountries())
-	    	{ if (neighbourCountry.getPlayerId()!=player.getPlayerId())
+	    	{ if (neighbourCountry.getPlayer().getPlayerId()!=player.getPlayerId())
 	    	  { armiesCount = country.getnoOfArmies()*2;
 	    		country.increaseArmyCount(armiesCount);
 	    	  }

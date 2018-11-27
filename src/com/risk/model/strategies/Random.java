@@ -1,5 +1,6 @@
 package com.risk.model.strategies;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ import com.risk.model.Player;
  * @version 1.0.0
  * @since 19-November-2018
  */
-public class Random implements PlayerStrategy {
+public class Random implements PlayerStrategy, Serializable {
 	
 	private String strategyName = "Random";
 
@@ -139,7 +140,7 @@ public class Random implements PlayerStrategy {
 		if (defenderDiceCount >0)
 		defenderDiceCount = Common.getRandomNumberInRange(1, defenderDiceCount);
 					
-	    Player defenderPlayer = Game.getPlayerFromID(toCountry.getPlayerId());
+	    Player defenderPlayer = toCountry.getPlayer();
 	    attackerPlayer.setAttackedPlayer(defenderPlayer);
 	    attackerPlayer.setFromCountry(fromCountry);
 	    attackerPlayer.setToCountry(toCountry);
@@ -196,7 +197,7 @@ public class Random implements PlayerStrategy {
 	}
 
     private boolean countryVisited(Country country, HashMap<Country,Integer> visitedCountries,Player player)
-    { if(country.getPlayerId() == player.getPlayerId()&&
+    { if(country.getPlayer().getPlayerId() == player.getPlayerId()&&
 			!visitedCountries.containsKey(country))
     	return true;
     else

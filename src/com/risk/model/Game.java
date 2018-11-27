@@ -1,7 +1,15 @@
 package com.risk.model;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Random;
 import java.util.HashMap;
@@ -21,14 +29,15 @@ import com.risk.model.strategies.PlayerStrategy;
  * @version 1.0.0
  * @since 30-September-2018
  */
-public class Game extends Observable {
-	private static ArrayList<Player> playerList = new ArrayList<Player>();
+public class Game extends Observable implements Serializable{
+	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
 	private Map map;
 	private ArrayList<CardEnum> gameCards = new ArrayList<>();
 	private Boolean isMapConqueredFlag = false;
 	private GameMode gameMode;
+	static final long serialVersionUID = 1L;
 
 	/**
 	 * This is a constructor of Game class which will initialize the Map
@@ -213,7 +222,7 @@ public class Game extends Observable {
 	 * 
 	 * @return playerList, ArrayList of players
 	 */
-	public static Player getPlayerFromID(int playerID) {
+	public Player getPlayerFromID(int playerID) {
 
 		Player player = playerList.stream().filter(c -> c.getPlayerId() == playerID).findAny().orElse(null);
 		return player;
@@ -253,7 +262,7 @@ public class Game extends Observable {
 	 * @param game,
 	 *            object of the game
 	 */
-	private void notifyObserverslocal(Game game) {
+	public void notifyObserverslocal() {
 		setChanged();
 		notifyObservers(this);
 	}
@@ -309,7 +318,7 @@ public class Game extends Observable {
 			newCountry.increaseArmyCount(1);
 			playerIndex++;
 		}
-		notifyObserverslocal(this);
+		notifyObserverslocal();
 	
 	}
 	
@@ -368,7 +377,7 @@ public class Game extends Observable {
 			this.setGamePhase(PhaseEnum.Fortification);
 		}
 
-		notifyObserverslocal(this);
+		notifyObserverslocal();
 
 	}
 	
@@ -462,7 +471,7 @@ public class Game extends Observable {
 			updatePhase();
 		}
 
-		notifyObserverslocal(this);
+		notifyObserverslocal();
 
 		return true;
 	}
@@ -517,7 +526,7 @@ public class Game extends Observable {
 		if (!getCurrentPlayer().isAttackPossible()) {
 			updatePhase();
 		}
-		notifyObserverslocal(this);
+		notifyObserverslocal();
 
 		return true;
 	}
@@ -555,10 +564,6 @@ public class Game extends Observable {
 			getCurrentPlayer().setEligibleForCard(false);
 		}
 
-		/*
-		 * this.setNextPlayerTurn(); setGamePhase(PhaseEnum.Reinforcement);
-		 * reinforcementPhaseSetup(); notifyObserverslocal(this);
-		 */
 		updatePhase();
 
 		return true;
@@ -582,7 +587,7 @@ public class Game extends Observable {
 	public boolean moveArmyAfterAttack(int noOfArmies) {
 		boolean result = getCurrentPlayer().moveArmyAfterAttack(noOfArmies);
 		if (result) {
-			notifyObserverslocal(this);
+			notifyObserverslocal();
 		}
 		return result;
 	}
@@ -688,7 +693,7 @@ public class Game extends Observable {
 				// set trade armies
 				this.getCurrentPlayer().setNoOfTradedArmies(tradingArmies);
 				this.getCurrentPlayer().setTradingCount(tradingCount);
-				notifyObserverslocal(this);
+				notifyObserverslocal();
 				return true;
 			} else {
 				IOHelper.print("Provide either all same type of cards or one of each kind of card");
@@ -767,8 +772,41 @@ public class Game extends Observable {
 			this.printPlayerStatus();
 		}
 
-		notifyObserverslocal(this);
+		notifyObserverslocal();
 		IOHelper.print(this.getCurrentPlayer().getName() + " is a winner !!");
 	}
+	
+	
+	public void saveGame()
+	{ try {
+		String fileTime = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
+        FileOutputStream fileOut =new FileOutputStream("assets/Saved_Games/"+fileTime);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(this);
+        out.close();
+        fileOut.close();
+     } catch (IOException i) {
+        i.printStackTrace();
+     }
+		
+	}
 
+	public static Game loadGame(String gameTitle) 
+	{ Game game = null;
+    try {
+    	System.out.println("gameTitle:"+gameTitle);
+        FileInputStream fileIn = new FileInputStream("assets/Saved_Games/"+gameTitle);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        game = (Game) in.readObject();
+        in.close();
+        fileIn.close();
+     } catch (IOException i) {
+        i.printStackTrace();
+     } catch (ClassNotFoundException c) {
+        c.printStackTrace();
+     }
+    
+     return game;	
+	}
+	
 }
