@@ -53,8 +53,7 @@ public class GameController {
 		IOHelper.print("1. Create Map");
 		IOHelper.print("2. Edit Map");
 		IOHelper.print("3. Play Game");
-		IOHelper.print("4. Load Game");
-		IOHelper.print("5. Exit");
+		IOHelper.print("4. Exit");
 	     input = IOHelper.getNextInteger();
 
 			switch (input) {
@@ -69,9 +68,6 @@ public class GameController {
 				initializeGame(map);
 				break;
 			case 4:
-				loadSavedGame();
-				break;
-			case 5:
 				System.exit(0);
 			default:
 				IOHelper.print("\nInvalid choice. Select Again!\n");
@@ -79,11 +75,8 @@ public class GameController {
 			}
 			}
 		 catch (Exception e) {
-			
 			IOHelper.print(e.getMessage());
 			IOHelper.print("Please try again with the correct input format");
-			System.out.println(e.getCause());
-			e.printStackTrace();
 		}
 		}
 	}
@@ -237,20 +230,19 @@ public class GameController {
 		game = new Game(map);
         int gameMode = 5;
         while(gameMode!=1 && gameMode!=2)
-        {
-        	IOHelper.print("\nWhich mode do you want to play?");
-        	IOHelper.print("1 - Single Game Mode \n 2 - Tournament Mode");
-        	gameMode = IOHelper.getNextInteger();
+        {IOHelper.print("\nWhich mode do you want to play?");
+ 		 IOHelper.print("1 - Single Game Mode \n 2 - Tournament Mode");
+         gameMode = IOHelper.getNextInteger();
 
-        	if (gameMode == 1) { 
-        		game.setGameMode(GameMode.SingleGameMode);
-        	}
-        	else if (gameMode == 2) {
-        		game.setGameMode(GameMode.TournamentMode);
-        	}
-        	else { 
-        		IOHelper.print("Enter a Valid Value");
-        	}        	
+        if (gameMode == 1)
+        { game.setGameMode(GameMode.SingleGameMode);
+        }
+        else if (gameMode == 2)
+        {game.setGameMode(GameMode.TournamentMode);
+        }
+        else
+        { IOHelper.print("Enter a Valid Value");
+		}        	
         }
         
         cardExchangeView = new CardExchangeView();
@@ -258,15 +250,10 @@ public class GameController {
 
 		game.addObserver(gameView);
 		inputPlayerInformation();				
-		System.out.println("Game controller before Startup phase ");
 		game.startUpPhase();
-		System.out.println("Game controller after Startup phase ");
-
-		
-		if(gameMode==2) {	
-			game.tournamentMode();
+		if(gameMode==2)
+		{	game.tournamentMode();
 		}
-		gameView.mapPath = map.getMapPath() + map.getMapName() + ".bmp";
 		gameView.gameInitializer();
 		activateListenersOnView();
 		game.addObserver(cardExchangeView);
@@ -278,66 +265,36 @@ public class GameController {
 		int playerCount = IOHelper.getNextInteger();
 
 		if ( playerCount < 3 && playerCount > 5) {
-			IOHelper.print("Players count cannot be less than 3 and more than 5");
-			inputPlayerInformation();
-		}
+				IOHelper.print("Players count cannot be less than 3 and more than 5");
+				inputPlayerInformation();
+			}
 		else {
-			for (int i = 0; i < playerCount; i++) {
+	    for (int i = 0; i < playerCount; i++) {
 				IOHelper.print("\nEnter the name of Player " + (i + 1));
 				String playerName = IOHelper.getNextString();
-
+				IOHelper.print("\nEnter Strategy of the Player ");
+				IOHelper.print("1- Human");
+				IOHelper.print("2- Aggressive");
+				IOHelper.print("3- Benevolent");
+				IOHelper.print("4- Random");
+				IOHelper.print("5- Cheater");
+				int playerstrategy = IOHelper.getNextInteger();
+				
 				Player player = new Player(i, playerName);
-				PlayerStrategy playerStrategy = null;
+				if (playerstrategy==1)
+					player.setPlayerStrategy(new Human());
+				else if (playerstrategy==2)
+					player.setPlayerStrategy(new Aggressive());
+				else if (playerstrategy==3)
+					player.setPlayerStrategy(new Benevolent());
+				else if (playerstrategy==4)
+					player.setPlayerStrategy(new Random());
+				else if (playerstrategy==5)
+					player.setPlayerStrategy(new Cheater());
 				
-				if(game.getGameMode() == GameMode.TournamentMode) {
-					IOHelper.print("\nEnter Strategy of the Player ");
-					IOHelper.print("1- Aggressive");
-					IOHelper.print("2- Benevolent");
-					IOHelper.print("3- Random");
-					IOHelper.print("4- Cheater");
-					int playerstrategy = IOHelper.getNextInteger();
-					if (playerstrategy==1)
-						playerStrategy = new Aggressive();
-					else if (playerstrategy==2)
-						playerStrategy = new Benevolent();
-					else if (playerstrategy==3)
-						playerStrategy = new Random();
-					else if (playerstrategy==4)
-						playerStrategy = new Cheater();
-				}
-				else {
-					playerStrategy = new Human();
-				}
-				
-				player.setPlayerStrategy(playerStrategy);
 				game.addPlayer(player);
 			}
 	    }		
-	}
-	
-	private void loadSavedGame()
-	{ ArrayList<String> savedGameList = this.getListOfSavedGames();
-	  int i = 1;
-	  for (String GameTitle : savedGameList) {
-		IOHelper.print(i + ")" + GameTitle);
-		i++;
-	  }
-	 IOHelper.print("\nEnter Game that you want to load:");
-	 int gameNumber = IOHelper.getNextInteger();
-	 String GameTitle = savedGameList.get(gameNumber - 1);
-     game = Game.loadGame(GameTitle);	
-     
-     Map map = game.getMap();
-     cardExchangeView = new CardExchangeView();
-	 gameView = new GameView();
-     game.addObserver(gameView);
-     game.addObserver(cardExchangeView);
-	 game.notifyObserverslocal();
-     gameView.mapPath = map.getMapPath() + map.getMapName() + ".bmp";
-	 gameView.gameInitializer();
-	 activateListenersOnView();
-	 
-	 IOHelper.print("Game Successfully Loaded");
 	}
 	
 	/**
@@ -354,7 +311,6 @@ public class GameController {
 		addDefenderCountryListener();
 		addAttackArmyMoveButtonListner();
 		addSkipFortificationButtonListener();
-		addSaveButtonListener();
 	}
 
 	/**
@@ -522,18 +478,6 @@ public class GameController {
 	}
 
 	/**
-	 * to add listener on the Skip button in Fortification Phase
-	 */
-	public void addSaveButtonListener() {
-		gameView.addActionListenToSaveButton(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				game.saveGame();
-			}
-		});
-	}
-
-	/**
 	 * This function returns the list of all the maps in the assets/map directory.
 	 * 
 	 * @return List of all the map files
@@ -546,21 +490,6 @@ public class GameController {
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
 				if (listOfFiles[i].getName().toLowerCase().contains(".map"))
-					fileNames.add(listOfFiles[i].getName());
-			} else if (listOfFiles[i].isDirectory()) {
-			}
-		}
-		return fileNames;
-	}
-	
-	private ArrayList<String> getListOfSavedGames() {
-		ArrayList<String> fileNames = new ArrayList<String>();
-		File folder = new File("assets/Saved_Games/");
-		File[] listOfFiles = folder.listFiles();
-
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile()) {
-				if (listOfFiles[i].getName().toLowerCase().contains(".txt"))
 					fileNames.add(listOfFiles[i].getName());
 			} else if (listOfFiles[i].isDirectory()) {
 			}

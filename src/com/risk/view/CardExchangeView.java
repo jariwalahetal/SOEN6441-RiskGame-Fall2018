@@ -43,7 +43,8 @@ public class CardExchangeView implements Observer {
 	 * 
 	 * @param game, Game
 	 */
-	public void exchangeInitializerView(Game game) {
+	public void exchangeInitializerView(Game game,boolean isCardExchangeViewOpenedOnce) {
+		if(isCardExchangeViewOpenedOnce){
 		exchangeButton=new JButton("Exchange Cards");
 		exitButton=new JButton("Exit");
 		cardFrame = new JFrame("Card Exchange View");
@@ -117,7 +118,8 @@ public class CardExchangeView implements Observer {
 		cardFrame.setVisible(true);
 
 	}
-
+	}
+	
 	public void updateCardView(Game game) {
 
 		if (game.getCurrentPlayer() != null && totalNewArmies != null) {
