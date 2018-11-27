@@ -1,6 +1,10 @@
 package com.risk.helper;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -17,13 +21,20 @@ public class IOHelper {
 
 	public static Logger logger = Logger.getLogger("IOHelper");
 	public static FileHandler fileHandler;
+	public static BufferedWriter writeToFile;
 	static {
 		try {
+			String timeStamp = new SimpleDateFormat().format(new Date());
 			CustomLogFormatter formatter = new CustomLogFormatter();
 			fileHandler = new FileHandler("C:/Users/dell pc/IdeaProjects/SOEN_OCT4/SOEN6441-RiskGame/src/com/risk/helper/Logs.txt");
+//			writeToFile = new BufferedWriter(new FileWriter("Logs.txt"));
+//			writeToFile.write(timeStamp);
+//			writeToFile.close();
 			logger.addHandler(fileHandler);
 			fileHandler.setFormatter(formatter);
 			fileHandler.setLevel(Level.INFO);
+			logger.setUseParentHandlers(false);
+			logger.info("Log File created - TimeStamp : "+timeStamp);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
