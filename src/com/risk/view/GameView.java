@@ -216,7 +216,7 @@ public class GameView implements Observer {
 	private static JLabel gamePhaseJLabel;
 	private static JLabel gamePhaseNameJLabel;
 
-	// Phase View Actions Label
+	// Phase View Actions Components
 	private static JComponent gamePhaseActionsJComponent;
 	private static JScrollPane gamePhaseViewJScrollPane;
 
@@ -512,14 +512,11 @@ public class GameView implements Observer {
 						TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 12), Color.BLUE));
 		gamePhaseJLabel.setBounds(reinforcementsJlabel.getX(),
 				fortificationJlabel.getY() + 10 + fortificationJlabel.getHeight(), fortificationJlabel.getWidth(), 50);
-
 		gamePhaseNameJLabel = new JLabel("Initialization");
 		Font font = new Font("Courier", Font.BOLD, 24);
 		gamePhaseNameJLabel.setFont(font);
 		gamePhaseNameJLabel.setBounds(15, 15, 220, 40);
-
 		gamePhaseJLabel.add(gamePhaseNameJLabel);
-
 		gameActionJpanel.add(gamePhaseJLabel);
 	}
 
@@ -531,12 +528,10 @@ public class GameView implements Observer {
 		JLabel my_label = new JLabel();
 		gamePhaseActionsJComponent.add(my_label);
 		gamePhaseViewJScrollPane = new JScrollPane(gamePhaseActionsJComponent);
-
-		gamePhaseViewJScrollPane.setBounds(gamePhaseJLabel.getX(),
-				gamePhaseJLabel.getY() + 10 + gamePhaseJLabel.getHeight(), gamePhaseJLabel.getWidth(), 80);
+		gamePhaseViewJScrollPane.setBounds(gamePhaseJLabel.getX(),gamePhaseJLabel.getY() + 10 +
+				gamePhaseJLabel.getHeight(), gamePhaseJLabel.getWidth(), 80);
 		gamePhaseViewJScrollPane.setBorder(new TitledBorder("Phase Action view"));
 		gameActionJpanel.add(gamePhaseViewJScrollPane);
-
 	}
 
 	/**
@@ -563,7 +558,6 @@ public class GameView implements Observer {
 					playerNames.add(name);
 					i++;
 				}
-
 				Float[] mapPercent = new Float[numberOfPlayers];
 				HashMap<Integer, Float> percentageMap = game.getPercentageOfMapControlledForEachPlayer();
 				int j = 0;
@@ -572,7 +566,6 @@ public class GameView implements Observer {
 					mapPercent[j] = value;
 					j++;
 				}
-
 				int[] continentsControlled = new int[numberOfPlayers];
 				HashMap<Integer, Integer> continentsMap = game.getNumberOfContinentsControlledForEachPlayer();
 				int k = 0;
@@ -581,7 +574,6 @@ public class GameView implements Observer {
 					continentsControlled[k] = value;
 					k++;
 				}
-
 				int[] armies = new int[numberOfPlayers];
 				HashMap<Integer, Integer> armiesMap = game.getNumberOfArmiesForEachPlayer();
 				int l = 0;
@@ -609,9 +601,8 @@ public class GameView implements Observer {
 				playerWorldDominationViewJFrame = new JFrame("Player World Domination View");
 				playerWorldDominationViewJPanel = new JPanel(new BorderLayout());
 				playerRecordsJTable = new JTable(rowsJtable, columnHeader);
-				playerRecordsJTable.setBounds(20,
-						playerWorldDominationViewJFrame.getY() + 20 + playerWorldDominationViewJFrame.getHeight(), 550,
-						350);
+				playerRecordsJTable.setBounds(20,playerWorldDominationViewJFrame.getY() + 20 +
+								playerWorldDominationViewJFrame.getHeight(),550,350);
 				JTableHeader header = playerRecordsJTable.getTableHeader();
 				playerWorldDominationViewJFrame.setSize(600, 200);
 				playerWorldDominationViewJFrame.setLocationRelativeTo(null);
@@ -662,9 +653,7 @@ public class GameView implements Observer {
 	public void update(Observable obj, Object arg1) {
 
 		game = ((Game) obj);
-		
 		map = game.getMap();
-
 		phase = game.getGamePhase();
 		mapPath = map.getMapPath() + map.getMapName() + ".bmp";
 
@@ -974,7 +963,6 @@ public class GameView implements Observer {
 	
 	public void setSourceCountryComboBox(ArrayList<String> countries) {
 		sourceCountry.removeAllItems();
-
 		sourceCountry.removeAllItems();
 		for (int i = 0; i < countries.size(); i++) {
 			sourceCountry.addItem(countries.get(i));
@@ -1040,7 +1028,6 @@ public class GameView implements Observer {
 	 * pattern
 	 */
 	public static void addPhaseMessages() {
-		//gamePhaseViewJScrollPane.removeAll();
 		gamePhaseActionsJComponent.removeAll();
 		JViewport view = new JViewport();
 		int strartY = 5;
@@ -1055,7 +1042,6 @@ public class GameView implements Observer {
 			gamePhaseViewJScrollPane.setViewportView(gamePhaseActionsJComponent);
 			gamePhaseActionsJComponent.add(textLabel);
 		}
-
 		gamePhaseActionsJComponent.revalidate();
 		gamePhaseActionsJComponent.repaint();
 	}
