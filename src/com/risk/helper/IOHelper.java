@@ -1,6 +1,11 @@
 package com.risk.helper;
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Helper class to print data
@@ -9,6 +14,21 @@ import java.util.Scanner;
  *
  */
 public class IOHelper {
+	public static Logger logger = Logger.getLogger(IOHelper.class.getName());
+	public static FileHandler fh;
+
+	static {
+		try {
+			fh = new FileHandler("C:/Users/dell pc/IdeaProjects/SOEN_OCT4/SOEN6441-RiskGame/src/com/risk/helper/Logs.txt");
+			logger.addHandler(fh);
+			fh.setFormatter(new SimpleFormatter());
+			fh.setLevel(Level.INFO);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	/**
 	 * Method to print output on the command line
@@ -17,7 +37,11 @@ public class IOHelper {
 	 *            string parameter to print
 	 */
 	public static void print(String string) {
+//		logger.addHandler(fh);
+//		fh.setFormatter(new SimpleFormatter());
 		System.out.println(string);
+		logger.setUseParentHandlers(false);
+		logger.info(string);
 		Common.PhaseActions.add(string);
 	}
 

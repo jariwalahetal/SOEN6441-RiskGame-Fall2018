@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java" line="206" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java" line="208" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/risk/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/helper/IOHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/helper/IOHelper.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,20 +33,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameView.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
+      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="547" column="49" selection-start-line="547" selection-start-column="49" selection-end-line="547" selection-end-column="49" />
+            <state relative-caret-position="77">
+              <caret line="80" selection-start-line="80" selection-end-line="80" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CardExchangeView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/risk/view/CardExchangeView.java">
+      <file leaf-file-name="GameRunner.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="131" column="35" lean-forward="true" selection-start-line="131" selection-start-column="35" selection-end-line="131" selection-end-column="35" />
+            <state relative-caret-position="221">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IOHelper.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/risk/helper/IOHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret lean-forward="true" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1195#1196#0" expanded="true" />
+                <element signature="e#1222#1223#0" expanded="true" />
+                <element signature="e#1604#1605#0" expanded="true" />
+                <element signature="e#1669#1670#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,7 +96,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/risk/controller/MapController.java" />
         <option value="$PROJECT_DIR$/src/com/risk/model/Continent.java" />
-        <option value="$PROJECT_DIR$/src/com/risk/helper/IOHelper.java" />
         <option value="$PROJECT_DIR$/src/com/risk/model/Country.java" />
         <option value="$PROJECT_DIR$/assets/maps/1.map.map" />
         <option value="$PROJECT_DIR$/assets/maps/1.map" />
@@ -88,9 +108,11 @@
         <option value="$PROJECT_DIR$/src/com/risk/view/PlayerWorldDominationView.java" />
         <option value="$PROJECT_DIR$/src/com/risk/view/playerWorldDominationView.java" />
         <option value="$PROJECT_DIR$/src/com/risk/model/Game.java" />
-        <option value="$PROJECT_DIR$/src/com/risk/controller/GameController.java" />
         <option value="$PROJECT_DIR$/src/com/risk/view/CardExchangeView.java" />
         <option value="$PROJECT_DIR$/src/com/risk/view/GameView.java" />
+        <option value="$PROJECT_DIR$/src/com/risk/helper/Logs.txt" />
+        <option value="$PROJECT_DIR$/src/com/risk/controller/GameController.java" />
+        <option value="$PROJECT_DIR$/src/com/risk/helper/IOHelper.java" />
       </list>
     </option>
   </component>
@@ -106,7 +128,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
     <option name="y" value="166" />
     <option name="width" value="1346" />
@@ -140,6 +162,20 @@
               <item name="SOEN6441-RiskGame" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="risk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SOEN6441-RiskGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SOEN6441-RiskGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="risk" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SOEN6441-RiskGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SOEN6441-RiskGame" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="risk" type="462c0819:PsiDirectoryNode" />
+              <item name="helper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SOEN6441-RiskGame" type="b2602c69:ProjectViewProjectNode" />
@@ -287,12 +323,12 @@
       <workItem from="1541886339079" duration="201000" />
       <workItem from="1542643220170" duration="9765000" />
       <workItem from="1542750929942" duration="8526000" />
-      <workItem from="1543109141509" duration="6255000" />
+      <workItem from="1543109141509" duration="14399000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="237679000" />
+    <option name="totallyTimeSpent" value="245823000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -306,7 +342,7 @@
       <window_info anchor="right" id="Leiningen" order="7" weight="0.32980332" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="2" />
-      <window_info anchor="right" id="Database" order="5" weight="0.32980332" />
+      <window_info anchor="right" id="Database" order="6" weight="0.32980332" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
@@ -317,10 +353,11 @@
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.56595093" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6334356" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18381241" />
-      <window_info anchor="right" id="SciView" order="6" weight="0.32980332" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3297546" />
+      <window_info anchor="right" id="SciView" order="5" weight="0.32980332" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -328,7 +365,6 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3297546" />
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="2" />
@@ -386,13 +422,13 @@
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url />
+          <url>file://$PROJECT_DIR$/src/com/risk/model/Map.java</url>
           <line>241</line>
           <properties />
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url />
+          <url>file://$PROJECT_DIR$/src/com/risk/model/Map.java</url>
           <line>545</line>
           <properties />
           <option name="timeStamp" value="31" />
@@ -406,7 +442,7 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url />
+          <url>file://$PROJECT_DIR$/src/com/risk/model/Map.java</url>
           <line>157</line>
           <properties class="com.risk.model.Map">
             <option name="EMULATED" value="true" />
@@ -418,27 +454,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/risk/model/Continent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="64" column="7" lean-forward="true" selection-start-line="64" selection-start-column="7" selection-end-line="64" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/model/Country.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="38" column="35" lean-forward="true" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3196">
-          <caret line="188" column="8" lean-forward="true" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/model/Map.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2159">
@@ -537,23 +552,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="51" column="17" lean-forward="true" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameRunner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/helper/CardEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -572,34 +570,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="3" lean-forward="true" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/GetArmiesByTrading.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/InitialPlayerSetup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/IOHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/PhaseEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
         </state>
       </provider>
     </entry>
@@ -687,10 +657,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/GameMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/GetArmiesByTrading.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/PhaseEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/InitialPlayerSetup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/view/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="547" column="49" selection-start-line="547" selection-start-column="49" selection-end-line="547" selection-end-column="49" />
+        <state relative-caret-position="111">
+          <caret line="534" column="33" selection-start-line="534" selection-start-column="33" selection-end-line="534" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Logs.txt.lck">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/controller/GameRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Logs.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/IOHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1195#1196#0" expanded="true" />
+            <element signature="e#1222#1223#0" expanded="true" />
+            <element signature="e#1604#1605#0" expanded="true" />
+            <element signature="e#1669#1670#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

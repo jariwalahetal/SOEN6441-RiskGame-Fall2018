@@ -66,6 +66,8 @@ public class GameController {
 			case 3:
 				Map map = initializeMap();
 				initializeGame(map);
+				System.out.println("game end!");
+				//IOHelper.setLogs();
 				break;
 			case 4:
 				System.exit(0);
