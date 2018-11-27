@@ -72,9 +72,9 @@ public class CardExchangeView implements Observer {
 		palyerOwnedCard = new JList<>(cards);
 		
 		palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
-		palyerOwnedCard.setBounds(310, 45, 250, 70);
+		palyerOwnedCard.setBounds(310, 45, 260, 90);
 		scrollPane=new JScrollPane(palyerOwnedCard);
-		scrollPane.setBounds(310, 45, 252, 72);
+		scrollPane.setBounds(310, 45, 260, 90);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		totalNewArmies = new JLabel("" + game.getCurrentPlayer().getNoOfTradedArmies());
@@ -132,9 +132,9 @@ public class CardExchangeView implements Observer {
 			palyerOwnedCard = null;
 			palyerOwnedCard = new JList<>(cards);
 			palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
-			palyerOwnedCard.setBounds(310, 45, 250, 70);
+			palyerOwnedCard.setBounds(310, 45, 260, 90);
 			scrollPane=new JScrollPane(palyerOwnedCard);
-			scrollPane.setBounds(310, 45, 252, 72);
+			scrollPane.setBounds(310, 45, 260, 90);
 			scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollPane.setViewportView(palyerOwnedCard);
