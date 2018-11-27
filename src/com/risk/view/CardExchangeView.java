@@ -42,6 +42,7 @@ public class CardExchangeView implements Observer {
 	 * This method is used to initialize the Card Exchange View.
 	 * 
 	 * @param game, Game
+	 * @param isCardExchangeViewOpenedOnce, boolean type
 	 */
 	public void exchangeInitializerView(Game game,boolean isCardExchangeViewOpenedOnce) {
 		if(isCardExchangeViewOpenedOnce){
@@ -120,6 +121,11 @@ public class CardExchangeView implements Observer {
 	}
 	}
 	
+	/**
+	 * Method to update view of card exchange called by the  update method of
+	 * CardExchange Observer
+	 * @param game
+	 */
 	public void updateCardView(Game game) {
 
 		if (game.getCurrentPlayer() != null && totalNewArmies != null) {
