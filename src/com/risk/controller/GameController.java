@@ -235,19 +235,20 @@ public class GameController {
 		game = new Game(map);
         int gameMode = 5;
         while(gameMode!=1 && gameMode!=2)
-        {IOHelper.print("\nWhich mode do you want to play?");
- 		 IOHelper.print("1 - Single Game Mode \n 2 - Tournament Mode");
-         gameMode = IOHelper.getNextInteger();
+        {
+        	IOHelper.print("\nWhich mode do you want to play?");
+        	IOHelper.print("1 - Single Game Mode \n 2 - Tournament Mode");
+        	gameMode = IOHelper.getNextInteger();
 
-        if (gameMode == 1)
-        { game.setGameMode(GameMode.SingleGameMode);
-        }
-        else if (gameMode == 2)
-        {game.setGameMode(GameMode.TournamentMode);
-        }
-        else
-        { IOHelper.print("Enter a Valid Value");
-		}        	
+        	if (gameMode == 1) { 
+        		game.setGameMode(GameMode.SingleGameMode);
+        	}
+        	else if (gameMode == 2) {
+        		game.setGameMode(GameMode.TournamentMode);
+        	}
+        	else { 
+        		IOHelper.print("Enter a Valid Value");
+        	}        	
         }
         
         cardExchangeView = new CardExchangeView();
@@ -264,9 +265,6 @@ public class GameController {
 		if(gameMode==2) {	
 			game.tournamentMode();
 		}
-		else { 
-			game.singleGameMode();
-		}
 		gameView.mapPath = map.getMapPath() + map.getMapName() + ".bmp";
 		gameView.gameInitializer();
 		activateListenersOnView();
@@ -279,32 +277,35 @@ public class GameController {
 		int playerCount = IOHelper.getNextInteger();
 
 		if ( playerCount < 3 && playerCount > 5) {
-				IOHelper.print("Players count cannot be less than 3 and more than 5");
-				inputPlayerInformation();
-			}
+			IOHelper.print("Players count cannot be less than 3 and more than 5");
+			inputPlayerInformation();
+		}
 		else {
-	    for (int i = 0; i < playerCount; i++) {
+			for (int i = 0; i < playerCount; i++) {
 				IOHelper.print("\nEnter the name of Player " + (i + 1));
 				String playerName = IOHelper.getNextString();
-				IOHelper.print("\nEnter Strategy of the Player ");
-				IOHelper.print("1- Human");
-				IOHelper.print("2- Aggressive");
-				IOHelper.print("3- Benevolent");
-				IOHelper.print("4- Random");
-				IOHelper.print("5- Cheater");
-				int playerstrategy = IOHelper.getNextInteger();
-				
+
 				Player player = new Player(i, playerName);
-				if (playerstrategy==1)
+				if(game.getGameMode() == GameMode.TournamentMode) {
+					IOHelper.print("\nEnter Strategy of the Player ");
+					IOHelper.print("1- Aggressive");
+					IOHelper.print("2- Benevolent");
+					IOHelper.print("3- Random");
+					IOHelper.print("4- Cheater");
+					int playerstrategy = IOHelper.getNextInteger();
+					
+					if (playerstrategy==1)
+						player.setPlayerStrategy(new Aggressive());
+					else if (playerstrategy==2)
+						player.setPlayerStrategy(new Benevolent());
+					else if (playerstrategy==3)
+						player.setPlayerStrategy(new Random());
+					else if (playerstrategy==4)
+						player.setPlayerStrategy(new Cheater());
+				}
+				else {
 					player.setPlayerStrategy(new Human());
-				else if (playerstrategy==2)
-					player.setPlayerStrategy(new Aggressive());
-				else if (playerstrategy==3)
-					player.setPlayerStrategy(new Benevolent());
-				else if (playerstrategy==4)
-					player.setPlayerStrategy(new Random());
-				else if (playerstrategy==5)
-					player.setPlayerStrategy(new Cheater());
+				}
 				
 				game.addPlayer(player);
 			}

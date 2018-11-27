@@ -42,10 +42,21 @@ public class Game extends Observable {
 		this.setGamePhase(gamePhase.Startup);
 	}
 
+	/**
+	 * Sets game mode 
+	 * @param gameMode
+	 */
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 	}
-
+	
+	/**
+	 * Returns Game mode
+	 * @return Game Mode
+	 */
+	public GameMode getGameMode() {
+		return gameMode;
+	}
 	/**
 	 * This function returns the current player id.
 	 * 
@@ -298,6 +309,7 @@ public class Game extends Observable {
 			newCountry.increaseArmyCount(1);
 			playerIndex++;
 		}
+		notifyObserverslocal(this);
 	
 	}
 	
@@ -359,53 +371,10 @@ public class Game extends Observable {
 		notifyObserverslocal(this);
 
 	}
-
-	public void singleGameMode()
-	{   
-		while(!getCurrentPlayer().getPlayerStrategy().getStrategyName().equals("Human") &&
-				!this.isMapConquered())
-		{ 	executeCurrentPhase();
-	  	    updatePhase(); 	    
-		}
-
-		notifyObserverslocal(this);
-
-	}
-		
-	private void executeCurrentPhase() {
-		if (phaseCheckValidation(PhaseEnum.Startup)) {
-			ArrayList<Country> assignedCountryList = getCurrentPlayer().getAssignedCountryList();
-			int randomIndex = 0;
-			if(assignedCountryList.isEmpty())
-				return;
-			else if(assignedCountryList.size()>1)
-				randomIndex = Common.getRandomNumberInRange(0, assignedCountryList.size()-1);
-		
-			Country country = assignedCountryList.get(randomIndex);
-			addArmyToCountry(country.getCountryName());
-			
-		} else if (this.phaseCheckValidation(PhaseEnum.Reinforcement)) {
-			System.out.println("Reinforcement");
-			this.getCurrentPlayer().addArmyToCountryForReinforcement();
-	        
-		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
-			System.out.println("Before attack");
-			this.getCurrentPlayer().attackPhase();
-			if (isMapConquered()) {
-				IOHelper.print("Game Over, You win");
-				isMapConqueredFlag = true;
-			} 
-			System.out.println("After attack");
-	 	    System.out.println("Player 1 Countries Count:"+this.getAllPlayers().get(0).getAssignedCountryList().size());
-	  	    System.out.println("Player 2 Countries Count:"+this.getAllPlayers().get(1).getAssignedCountryList().size());
-	  	    System.out.println("Player 3 Countries Count:"+this.getAllPlayers().get(2).getAssignedCountryList().size());
-	 
-		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {
-			System.out.println("Fortification");
-			this.getCurrentPlayer().fortificationPhase();
-		}
-	}
-
+	
+	/**
+	 * Add card to current player from deck  
+	 */
 	private void addCardToCurrentPlayer() {
 		CardEnum card = getCardFromDeck();
 		if (card == null) {

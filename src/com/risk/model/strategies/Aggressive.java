@@ -50,43 +50,50 @@ public class Aggressive implements PlayerStrategy {
 
 	@Override
 	public void attack(Player attackerPlayer) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Country> CountriesForAttack;
 		//after conquering a country only 1 army is placed by default so new conquered country will not
 		//come in this list
 		CountriesForAttack = attackerPlayer.getCountriesObjectWithArmiesGreaterThanOne();
-		if (CountriesForAttack.size()==0)
-		{		IOHelper.print("No country has sufficient armies for Attack");
+		if (CountriesForAttack.size()==0) {		
+			IOHelper.print("No country has sufficient armies for Attack");
 		}
 		 
 		ArrayList<Country> CountriesToAttack ;
 		 
-		while (CountriesForAttack.size()>0)
-		   { Country fromCountry = getStrongestCountry(CountriesForAttack,1);						
-		     CountriesToAttack = attackerPlayer.getUnAssignedNeighbouringCountriesObject(fromCountry.getCountryName());
+		while (CountriesForAttack.size()>0) { 
+			Country fromCountry = getStrongestCountry(CountriesForAttack,1);	
+			
+			if(fromCountry == null) {
+				IOHelper.print("Can not find attacker fountry");
+				break;
+			}
+			
+		    CountriesToAttack = attackerPlayer.getUnAssignedNeighbouringCountriesObject(fromCountry.getCountryName());
 
-		     if (CountriesToAttack.size()==0)
-		     {  CountriesForAttack.remove(fromCountry);
+		    if (CountriesToAttack.size()==0) {  
+		    	CountriesForAttack.remove(fromCountry);
 		        System.out.println("Cannot attack from "+fromCountry.getCountryName());
 				continue;
-			 }
+			}
 		     
-		     Country toCountry = getCountryToAttack(attackerPlayer,CountriesToAttack);
+		    Country toCountry = getCountryToAttack(attackerPlayer,CountriesToAttack);
 				
 			if (toCountry == null) {
 				CountriesToAttack.remove(toCountry);
 				continue;
 			}
+			
 			IOHelper.print(fromCountry.getCountryName()+" is attacking "+toCountry.getCountryName());
 						
 			while (toCountry.getPlayerId() != attackerPlayer.getPlayerId()) {
 				attackOperation(fromCountry, toCountry, attackerPlayer);
-				if (fromCountry.getnoOfArmies() == 1)
-				{	CountriesForAttack.remove(fromCountry);
+				if (fromCountry.getnoOfArmies() == 1) {	
+					CountriesForAttack.remove(fromCountry);
 				    break;
 				}			
-			  }
-		   }
+			}
+		}
 	}
 
 	@Override
