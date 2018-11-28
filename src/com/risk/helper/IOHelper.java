@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
@@ -21,18 +22,29 @@ public class IOHelper {
 	public static Logger logger = Logger.getLogger("IOHelper");
 	public static FileHandler fileHandler;
 	static {
-		try {
+		/*try {
+			Logger logger = Logger.getLogger("IOHelper");
+			FileHandler fileHandler;
 			String timeStamp = new SimpleDateFormat().format(new Date());
 			CustomLogFormatter formatter = new CustomLogFormatter();
-			fileHandler = new FileHandler("C:/Users/dell pc/IdeaProjects/SOEN_OCT4/SOEN6441-RiskGame/src/com/risk/helper/Logs.txt");
+			fileHandler = new FileHandler("C:/Users/dell pc/IdeaProjects/SOEN_OCT4/SOEN6441-RiskGame/src/com/risk/helper/Logs.log");
 			logger.addHandler(fileHandler);
 			fileHandler.setFormatter(formatter);
 			fileHandler.setLevel(Level.INFO);
 			logger.setUseParentHandlers(false);
+//			String str = "Log File created - TimeStamp : ";
+//			logger.info(str);
+			String today= Calendar.getInstance()
+					.getTime()
+					.toString()
+					.replaceAll(" ", "_")
+					.replaceAll(":", "");
+			System.setProperty("logfilename", today);
+			//System.s
 			logger.info("Log File created - TimeStamp : "+timeStamp);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	/**
@@ -43,8 +55,32 @@ public class IOHelper {
 	 */
 	public static void print(String string) {
 		System.out.println(string);
-		logger.setUseParentHandlers(false);
-		logger.log(Level.INFO,string);
+		try {
+//			Logger logger = Logger.getLogger("IOHelper");
+//			FileHandler fileHandler;
+			String timeStamp = new SimpleDateFormat().format(new Date());
+			CustomLogFormatter formatter = new CustomLogFormatter();
+			fileHandler = new FileHandler("C:/Users/dell pc/IdeaProjects/SOEN_OCT4/SOEN6441-RiskGame/src/com/risk/helper/Logs.log");
+			logger.addHandler(fileHandler);
+			fileHandler.setFormatter(formatter);
+			fileHandler.setLevel(Level.INFO);
+			logger.setUseParentHandlers(false);
+//			String str = "Log File created - TimeStamp : ";
+//			logger.info(str);
+			String today= Calendar.getInstance()
+					.getTime()
+					.toString()
+					.replaceAll(" ", "_")
+					.replaceAll(":", "");
+			System.setProperty("logfilename", today);
+			//System.s
+			logger.setUseParentHandlers(false);
+			logger.log(Level.INFO,string);
+
+			logger.info("Log File created - TimeStamp : "+timeStamp);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Common.PhaseActions.add(string);
 	}
 
