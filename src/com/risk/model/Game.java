@@ -29,7 +29,7 @@ import com.risk.model.strategies.PlayerStrategy;
  * @version 1.0.0
  * @since 30-September-2018
  */
-public class Game extends Observable implements Serializable {
+public class Game extends Observable implements Serializable, Runnable {
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
@@ -351,6 +351,7 @@ public class Game extends Observable implements Serializable {
 			boolean isProcessed = getCurrentPlayer().addArmyToCountryForStartup(countryName);
 			if (isProcessed) {
 				setNextPlayerTurn();
+				getCurrentPlayer().determineInitialStartupAssignment();
 			}
 		} else if (phaseCheckValidation(PhaseEnum.Reinforcement)) {
 			Country toCountry = getCountryFromName(countryName);
@@ -810,4 +811,24 @@ public class Game extends Observable implements Serializable {
 		return game;
 	}
 
+	@Override
+	public void run() {
+		while(getCurrentPlayer().getIsBoat()) {
+			
+			// Artificial delay of 1s for demonstration purposes
+	        try {
+				Thread.sleep(1000L);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+			boolean isProcessed = this.getCurrentPlayer().determineInitialStartupAssignment();
+			if (isProcessed) {
+				setNextPlayerTurn();
+			}
+			notifyObserverslocal();
+		}
+		
+	}
 }

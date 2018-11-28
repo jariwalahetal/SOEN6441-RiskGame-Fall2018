@@ -14,10 +14,10 @@ import com.risk.model.Player;
 
 /**
  * A cheater computer player strategy whose reinforce() method doubles the
-*number of armies on all its countries, whose attack() method automatically
-*conquers all the neighbors of all its countries, and whose fortify() method
-*doubles the number of armies on its countries that have neighbors that belong to
-*other players. 
+ * number of armies on all its countries, whose attack() method automatically
+ * conquers all the neighbors of all its countries, and whose fortify() method
+ * doubles the number of armies on its countries that have neighbors that belong
+ * to other players.
  * 
  * @author binay
  * @version 1.0.0
@@ -25,11 +25,15 @@ import com.risk.model.Player;
  */
 public class Cheater implements PlayerStrategy, Serializable {
 	private String strategyName = "Cheater";
-	
-	   public String getStrategyName() {
-			return strategyName;
-		}
 
+	public String getStrategyName() {
+		return strategyName;
+	}
+
+	public boolean getIsBoat() {
+		return true;
+	}
+	
 	@Override
 	public boolean reinforce(Player player) {
 	    for (Country country:player.getAssignedCountryList()) { 
@@ -106,6 +110,13 @@ public class Cheater implements PlayerStrategy, Serializable {
 			}	
 	    }
 		return true;
+	}
+
+	@Override
+	public boolean determineInitialStartupAssignment(Player player) {
+		IOHelper.print("This is boat player so processing step automatically");
+		Country country = player.getAssignedCountryList().get(0);
+		return player.addArmyToCountryForStartup(country.getCountryName());
 	}
 
 }

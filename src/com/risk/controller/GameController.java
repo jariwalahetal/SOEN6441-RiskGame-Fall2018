@@ -225,8 +225,9 @@ public class GameController {
 	 * This function creates the player objects for initializing Game
 	 * 
 	 * @param map, Map
+	 * @throws InterruptedException 
 	 */
-	private void initializeGame(Map map) throws NumberFormatException {
+	private void initializeGame(Map map) throws NumberFormatException, InterruptedException {
 		game = new Game(map);
 		int gameMode = 5;
 		while (gameMode != 1 && gameMode != 2) {
@@ -265,6 +266,7 @@ public class GameController {
 		gameView.gameInitializer();
 		activateListenersOnView();
 		game.addObserver(cardExchangeView);
+		game.run();
 	}
 
 	private void inputPlayerInformation() throws NumberFormatException {

@@ -769,4 +769,12 @@ public class Player implements Serializable {
 		}
 		return status;
 	}
+	
+	public boolean getIsBoat() {
+		return this.playerStrategy.getIsBoat();
+	}
+	
+	public boolean determineInitialStartupAssignment() {
+		return this.playerStrategy.determineInitialStartupAssignment(this);
+	}
 }

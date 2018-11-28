@@ -21,9 +21,13 @@ public class Human implements PlayerStrategy, Serializable {
 
 	private String strategyName = "Human";
 
-    public String getStrategyName() {
-			return strategyName;
-		}
+	public String getStrategyName() {
+		return strategyName;
+	}
+
+	public boolean getIsBoat() {
+		return false;
+	}
 	
 	@Override
 	public boolean reinforce(Player player) {
@@ -124,6 +128,12 @@ public class Human implements PlayerStrategy, Serializable {
 
 		return true;
 
+	}
+
+	@Override
+	public boolean determineInitialStartupAssignment(Player player) {
+		IOHelper.print("Wait for human input");
+		return false;
 	}
 
 }
