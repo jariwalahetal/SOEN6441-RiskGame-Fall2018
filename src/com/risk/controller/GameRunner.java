@@ -5,6 +5,8 @@ package com.risk.controller;
  * @since 25-September-2018
  */
 
+import com.risk.helper.CustomLogFormatter;
+
 import java.io.*;
 
 /**
@@ -12,7 +14,6 @@ import java.io.*;
  */
 
 public class GameRunner {
-
 	/**
 	 * start and initilization of game
 	 * 
@@ -22,7 +23,9 @@ public class GameRunner {
 	 *             if Input Output Exception
 	 */
 	public static void main(String[] args) throws IOException {
+
 		GameController gameController = new GameController();
 		gameController.startGame();
+
 	}
 }
