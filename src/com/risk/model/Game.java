@@ -351,7 +351,8 @@ public class Game extends Observable implements Serializable, Runnable {
 			boolean isProcessed = getCurrentPlayer().addArmyToCountryForStartup(countryName);
 			if (isProcessed) {
 				setNextPlayerTurn();
-				getCurrentPlayer().determineInitialStartupAssignment();
+				if(getCurrentPlayer().getIsBoat())
+					this.run();
 			}
 		} else if (phaseCheckValidation(PhaseEnum.Reinforcement)) {
 			Country toCountry = getCountryFromName(countryName);
@@ -813,7 +814,7 @@ public class Game extends Observable implements Serializable, Runnable {
 
 	@Override
 	public void run() {
-		while(getCurrentPlayer().getIsBoat()) {
+		while(getCurrentPlayer().getIsBoat() && phaseCheckValidation(PhaseEnum.Startup)) {
 			
 			// Artificial delay of 1s for demonstration purposes
 	        try {
@@ -828,6 +829,13 @@ public class Game extends Observable implements Serializable, Runnable {
 				setNextPlayerTurn();
 			}
 			notifyObserverslocal();
+			
+			try {
+				Thread.sleep(1000L);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
