@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 import com.risk.helper.Common;
 import com.risk.helper.IOHelper;
@@ -31,6 +32,10 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		return strategyName;
 	}
 
+	public boolean getIsBoat() {
+		return true;
+	}
+	
 	@Override
 	public boolean reinforce(Player player) {
 		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
@@ -234,4 +239,11 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
        return toCountry;
     }
+
+	@Override
+	public boolean determineInitialStartupAssignment(Player player) {
+		IOHelper.print("This is boat player so processing step automatically");
+		Country country = player.getAssignedCountryList().get(0);
+		return player.addArmyToCountryForStartup(country.getCountryName());
+	}
 }

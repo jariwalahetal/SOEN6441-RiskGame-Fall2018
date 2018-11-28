@@ -13,7 +13,11 @@ import com.risk.model.Player;
 public interface PlayerStrategy {
 
    public String getStrategyName();
-	
+
+   public boolean getIsBoat();
+   
+   public boolean determineInitialStartupAssignment(Player player);
+   
    public boolean reinforce(Player player);
    
    public void attack(Player attackerPlayer);
