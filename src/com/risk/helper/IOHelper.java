@@ -1,10 +1,7 @@
 package com.risk.helper;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
@@ -20,26 +17,19 @@ import java.util.logging.Logger;
 public class IOHelper {
 
 	public static Logger logger = Logger.getLogger(IOHelper.class.getName());
-//	public static FileHandler fileHandler;
+	static Scanner sc = new Scanner(System.in);
 
 	static {
 		try {
-			//Logger logger = Logger.getLogger("IOHelper");
 			FileHandler fileHandler;
 			String timeStamp = new SimpleDateFormat().format(new Date());
-			CustomLogFormatter formatter = new CustomLogFormatter();
 			long epocTime = System.currentTimeMillis() / 1000L;
-			fileHandler = new FileHandler("assets/GameLogs" + epocTime+".txt");
+			CustomLogFormatter logFormatter = new CustomLogFormatter();
+			fileHandler = new FileHandler("assets/Logs/GameLog_" + epocTime + ".txt");
 			logger.addHandler(fileHandler);
-			fileHandler.setFormatter(formatter);
+			fileHandler.setFormatter(logFormatter);
 			fileHandler.setLevel(Level.INFO);
 			logger.setUseParentHandlers(false);
-			/*String today= Calendar.getInstance()
-					.getTime()
-					.toString()
-					.replaceAll(" ", "_")
-					.replaceAll(":", "");
-			System.setProperty("logfilename", today);*/
 			logger.info("Log File created - TimeStamp : "+timeStamp);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -48,7 +38,8 @@ public class IOHelper {
 
 	/**
 	 * Method to print output on the command line
-	 * 
+	 * Also, adds game actions to the log file
+	 *
 	 * @param string,
 	 *            string parameter to print
 	 */
@@ -58,8 +49,6 @@ public class IOHelper {
 		logger.log(Level.INFO,string);
 		Common.PhaseActions.add(string);
 	}
-
-	static Scanner sc = new Scanner(System.in);
 
 	/**
 	 * Method to take string input from user on command line

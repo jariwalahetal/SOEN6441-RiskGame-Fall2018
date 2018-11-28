@@ -5,8 +5,6 @@ package com.risk.controller;
  * @since 25-September-2018
  */
 
-import com.risk.helper.CustomLogFormatter;
-
 import java.io.*;
 
 /**
