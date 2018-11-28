@@ -29,7 +29,7 @@ import com.risk.model.strategies.PlayerStrategy;
  * @version 1.0.0
  * @since 30-September-2018
  */
-public class Game extends Observable implements Serializable{
+public class Game extends Observable implements Serializable {
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
@@ -37,13 +37,13 @@ public class Game extends Observable implements Serializable{
 	private ArrayList<CardEnum> gameCards = new ArrayList<>();
 	private Boolean isMapConqueredFlag = false;
 	private GameMode gameMode;
+	private int maxTurnsForTournament;
 	static final long serialVersionUID = 1L;
 
 	/**
 	 * This is a constructor of Game class which will initialize the Map
 	 * 
-	 * @param map,
-	 *            object of the map
+	 * @param map, object of the map
 	 */
 	public Game(Map map) {
 		super();
@@ -52,7 +52,8 @@ public class Game extends Observable implements Serializable{
 	}
 
 	/**
-	 * Sets game mode 
+	 * Sets game mode
+	 * 
 	 * @param gameMode
 	 */
 	public void setGameMode(GameMode gameMode) {
@@ -60,12 +61,31 @@ public class Game extends Observable implements Serializable{
 	}
 	
 	/**
+	 * Returns maxTurnsForTournament
+	 * @param maxTurns
+	 * @return
+	 */
+	public int getMaxTurnsForTournament() {
+		return this.maxTurnsForTournament;
+	}
+	
+	/**
+	 * Sets MaxTurnsForTournamet
+	 * @param maxTurns
+	 */
+	public void setMaxTurnsForTournament(int maxTurns) {
+		this.maxTurnsForTournament = maxTurns;
+	}
+
+	/**
 	 * Returns Game mode
+	 * 
 	 * @return Game Mode
 	 */
 	public GameMode getGameMode() {
 		return gameMode;
 	}
+
 	/**
 	 * This function returns the current player id.
 	 * 
@@ -182,8 +202,7 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Method used to set phase of the game
 	 * 
-	 * @param gamePhase,
-	 *            name of the game phase
+	 * @param gamePhase, name of the game phase
 	 */
 	public void setGamePhase(PhaseEnum gamePhase) {
 		this.gamePhase = gamePhase;
@@ -192,8 +211,7 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * This function will add the player to the game(playerList)
 	 * 
-	 * @param player,
-	 *            object of the player
+	 * @param player, object of the player
 	 */
 	public void addPlayer(Player player) {
 		this.playerList.add(player.getPlayerId(), player);
@@ -231,8 +249,7 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Method to get armies assigned to the country
 	 * 
-	 * @param sourceCountryName,name
-	 *            of the source country of player
+	 * @param sourceCountryName,name of the source country of player
 	 * @return noOfArmies, number of armies
 	 */
 	public int getArmiesAssignedToCountry(String sourceCountryName) {
@@ -244,8 +261,7 @@ public class Game extends Observable implements Serializable{
 	 * This function is called to check if correct operation is performed in the
 	 * correct phase
 	 * 
-	 * @param phase,
-	 *            PhaseEnum
+	 * @param phase, PhaseEnum
 	 * @return true if phase is valid, else false
 	 */
 	private Boolean phaseCheckValidation(PhaseEnum phase) {
@@ -259,8 +275,7 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Method used to notify observer
 	 * 
-	 * @param game,
-	 *            object of the game
+	 * @param game, object of the game
 	 */
 	public void notifyObserverslocal() {
 		setChanged();
@@ -270,8 +285,7 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Get country object from country name
 	 * 
-	 * @param countryName,
-	 *            String
+	 * @param countryName, String
 	 * @return Country
 	 */
 	public Country getCountryFromName(String countryName) {
@@ -319,14 +333,13 @@ public class Game extends Observable implements Serializable{
 			playerIndex++;
 		}
 		notifyObserverslocal();
-	
+
 	}
-	
+
 	/**
 	 * Add army to the country for Reinforcement phase
 	 * 
-	 * @param countryName,
-	 *            name of the country
+	 * @param countryName, name of the country
 	 */
 	public void addArmyToCountry(String countryName) {
 		Common.PhaseActions.clear();
@@ -380,9 +393,9 @@ public class Game extends Observable implements Serializable{
 		notifyObserverslocal();
 
 	}
-	
+
 	/**
-	 * Add card to current player from deck  
+	 * Add card to current player from deck
 	 */
 	private void addCardToCurrentPlayer() {
 		CardEnum card = getCardFromDeck();
@@ -397,10 +410,8 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Returns allowable dices for attacking country
 	 * 
-	 * @param countryName,
-	 *            name of the country in String
-	 * @param playerStatus,
-	 *            status of the player in String
+	 * @param countryName, name of the country in String
+	 * @param playerStatus, status of the player in String
 	 * 
 	 * @return Integer
 	 */
@@ -421,14 +432,10 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Method for performing attack phase
 	 * 
-	 * @param attackingCountry,
-	 *            Attacking Country in String
-	 * @param defendingCountry,
-	 *            Defending country in String
-	 * @param attackingDiceCount,
-	 *            Attacking Dice Count
-	 * @param defendingDiceCount,
-	 *            Defending Dice Count
+	 * @param attackingCountry, Attacking Country in String
+	 * @param defendingCountry, Defending country in String
+	 * @param attackingDiceCount, Attacking Dice Count
+	 * @param defendingDiceCount, Defending Dice Count
 	 * @return true, if attack done
 	 */
 	public Boolean attackPhase(String attackingCountry, String defendingCountry, int attackingDiceCount,
@@ -479,10 +486,8 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Method for performing attack phase
 	 * 
-	 * @param attackingCountry,
-	 *            Attacking Country in String
-	 * @param defendingCountry,
-	 *            Defending country in String
+	 * @param attackingCountry, Attacking Country in String
+	 * @param defendingCountry, Defending country in String
 	 * @return true, if attack phase out
 	 * 
 	 */
@@ -534,12 +539,9 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Method to perform fortification phase
 	 * 
-	 * @param sourceCountryName,
-	 *            name of the source country of player
-	 * @param destinationCountryName,
-	 *            name of the destination country of the player
-	 * @param noOfArmies,
-	 *            number of armies to be moved
+	 * @param sourceCountryName, name of the source country of player
+	 * @param destinationCountryName, name of the destination country of the player
+	 * @param noOfArmies, number of armies to be moved
 	 * @return true if no army need to move and false if source and destination
 	 *         countries are null
 	 */
@@ -580,8 +582,7 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Move armies after player win in attack
 	 * 
-	 * @param noOfArmies
-	 *            Integer
+	 * @param noOfArmies Integer
 	 * @return true , if army moved
 	 */
 	public boolean moveArmyAfterAttack(int noOfArmies) {
@@ -637,8 +638,7 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Adds the given card again to deck at random position
 	 * 
-	 * @param card,
-	 *            CardEnum
+	 * @param card, CardEnum
 	 */
 	private void addCardToDeck(CardEnum card) {
 		int random = 0;
@@ -651,8 +651,7 @@ public class Game extends Observable implements Serializable{
 	/**
 	 * Trade cards to armies
 	 * 
-	 * @param cards,
-	 *            list of Cards
+	 * @param cards, list of Cards
 	 * @return true, if card traded
 	 */
 	public boolean tradeCards(ArrayList<String> cards) {
@@ -717,13 +716,14 @@ public class Game extends Observable implements Serializable{
 
 		return false;
 	}
-	
+
 	/**
 	 * Print status for all player
 	 */
 	public void printPlayerStatus() {
-		for(int i=0;i<playerList.size();i++) {
-		   System.out.println( playerList.get(i).getName() + " player: Countries Count:"+ playerList.get(i).getAssignedCountryList().size());
+		for (int i = 0; i < playerList.size(); i++) {
+			System.out.println(playerList.get(i).getName() + " player: Countries Count:"
+					+ playerList.get(i).getAssignedCountryList().size());
 		}
 	}
 
@@ -732,8 +732,8 @@ public class Game extends Observable implements Serializable{
 	 */
 	public void tournamentMode() {
 		Player currentPlayer;
-		
-		//step 1: assign  player to countries and randomly increase countries for player
+		int turnsCounts = 0;
+		// step 1: assign player to countries and randomly increase countries for player
 		// Loop until all armies are assigned for all players
 		while (this.phaseCheckValidation(PhaseEnum.Startup)) {
 			// Randomly increase army for the country of player
@@ -743,67 +743,71 @@ public class Game extends Observable implements Serializable{
 
 			addArmyToCountry(playerCountries.get(id).getCountryName());
 		}
-		
+
 		while (true) {
 			currentPlayer = this.getCurrentPlayer();
-			
-			//step 2: reinforce counties 
+
+			// step 2: reinforce counties
 			currentPlayer.addArmyToCountryForReinforcement();
 			this.updatePhase();
-			
-			//step 3: attack phase
+
+			// step 3: attack phase
 			currentPlayer.attackPhase();
-			
-			//step 3.1: generate logic to move armies after attack phase
-			
-			if(isMapConquered())
+
+			// step 3.1: generate logic to move armies after attack phase
+
+			if (isMapConquered())
 				break;
-			
+
 			this.updatePhase();
-			
-			//step 4: fortify phase 
+
+			// step 4: fortify phase
 			currentPlayer.fortificationPhase();
 			this.updatePhase();
-			
-			//Print status of players
+
+			// Print status of players
 			this.printPlayerStatus();
+			
+			turnsCounts++;
+			if(turnsCounts >= getMaxTurnsForTournament()) {
+				this.setGamePhase(PhaseEnum.GameEnd);
+				break;
+			}
 		}
 
 		notifyObserverslocal();
 		IOHelper.print(this.getCurrentPlayer().getName() + " is a winner !!");
 	}
-	
-	
-	public void saveGame()
-	{ try {
-		String fileTime = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
-        FileOutputStream fileOut =new FileOutputStream("assets/Saved_Games/"+fileTime);
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(this);
-        out.close();
-        fileOut.close();
-     } catch (IOException i) {
-        i.printStackTrace();
-     }
-		
+
+	public void saveGame() {
+		try {
+			String fileTime = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
+			FileOutputStream fileOut = new FileOutputStream("assets/Saved_Games/" + fileTime);
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(this);
+			out.close();
+			fileOut.close();
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+
 	}
 
-	public static Game loadGame(String gameTitle) 
-	{ Game game = null;
-    try {
-    	System.out.println("gameTitle:"+gameTitle);
-        FileInputStream fileIn = new FileInputStream("assets/Saved_Games/"+gameTitle);
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        game = (Game) in.readObject();
-        in.close();
-        fileIn.close();
-     } catch (IOException i) {
-        i.printStackTrace();
-     } catch (ClassNotFoundException c) {
-        c.printStackTrace();
-     }
-    
-     return game;	
+	public static Game loadGame(String gameTitle) {
+		Game game = null;
+		try {
+			System.out.println("gameTitle:" + gameTitle);
+			FileInputStream fileIn = new FileInputStream("assets/Saved_Games/" + gameTitle);
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			game = (Game) in.readObject();
+			in.close();
+			fileIn.close();
+		} catch (IOException i) {
+			i.printStackTrace();
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+		}
+		return game;
 	}
-	
+
 }

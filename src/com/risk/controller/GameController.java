@@ -39,45 +39,43 @@ public class GameController {
 	 */
 	public void startGame() {
 		int input = -1;
-		while(input!=4)	
-		{
-		try {
-		IOHelper.print("+__________________________________________________________+");
-		IOHelper.print("|=====_==============================================_=====|");
-		IOHelper.print("|    (_)                                            (_)    |");
-		IOHelper.print("|   (___)            WELCOME TO RISK GAME          (___)   |");
-		IOHelper.print("|   _}_{_                                          _}_{_   |");
-		IOHelper.print("|__[_____]________________________________________[_____]__|");
-		IOHelper.print("+==========================================================+");
-		IOHelper.print("+======_Game Menu_======+");
-		IOHelper.print("1. Create Map");
-		IOHelper.print("2. Edit Map");
-		IOHelper.print("3. Play Game");
-		IOHelper.print("4. Exit");
-	     input = IOHelper.getNextInteger();
+		while (input != 4) {
+			try {
+				IOHelper.print("+__________________________________________________________+");
+				IOHelper.print("|=====_==============================================_=====|");
+				IOHelper.print("|    (_)                                            (_)    |");
+				IOHelper.print("|   (___)            WELCOME TO RISK GAME          (___)   |");
+				IOHelper.print("|   _}_{_                                          _}_{_   |");
+				IOHelper.print("|__[_____]________________________________________[_____]__|");
+				IOHelper.print("+==========================================================+");
+				IOHelper.print("+======_Game Menu_======+");
+				IOHelper.print("1. Create Map");
+				IOHelper.print("2. Edit Map");
+				IOHelper.print("3. Play Game");
+				IOHelper.print("4. Exit");
+				input = IOHelper.getNextInteger();
 
-			switch (input) {
-			case 1:
-				createMap();
-				break;
-			case 2:
-				editMap();
-				break;
-			case 3:
-				Map map = initializeMap();
-				initializeGame(map);
-				break;
-			case 4:
-				System.exit(0);
-			default:
-				IOHelper.print("\nInvalid choice. Select Again!\n");
-				break;
+				switch (input) {
+				case 1:
+					createMap();
+					break;
+				case 2:
+					editMap();
+					break;
+				case 3:
+					Map map = initializeMap();
+					initializeGame(map);
+					break;
+				case 4:
+					System.exit(0);
+				default:
+					IOHelper.print("\nInvalid choice. Select Again!\n");
+					break;
+				}
+			} catch (Exception e) {
+				IOHelper.print(e.getMessage());
+				IOHelper.print("Please try again with the correct input format");
 			}
-			}
-		 catch (Exception e) {
-			IOHelper.print(e.getMessage());
-			IOHelper.print("Please try again with the correct input format");
-		}
 		}
 	}
 
@@ -101,7 +99,7 @@ public class GameController {
 					IOHelper.print("Map is not valid.Please try again");
 				}
 				mapView.killFrame();
-	//			startGame();
+				// startGame();
 			}
 		});
 	}
@@ -109,7 +107,7 @@ public class GameController {
 	/**
 	 * Method for edit map functionality for all the cases
 	 */
-	private void editMap()throws NumberFormatException {
+	private void editMap() throws NumberFormatException {
 		IOHelper.print("List of Maps :- ");
 		ArrayList<String> mapList = getListOfMaps();
 		int i = 1;
@@ -127,7 +125,7 @@ public class GameController {
 			IOHelper.print("Map is Invalid !");
 		}
 		int input = -1;
-		while (input !=6) {
+		while (input != 6) {
 			IOHelper.print("+------------------------------+");
 			IOHelper.print("|________ Edit Map Menu________| ");
 			IOHelper.print("|    1. Delete Continent       |");
@@ -199,9 +197,10 @@ public class GameController {
 
 	/**
 	 * This function validates the map and initializes the map.
+	 * 
 	 * @return map
 	 */
-	private Map initializeMap()throws NumberFormatException {
+	private Map initializeMap() throws NumberFormatException {
 		int i = 1;
 		IOHelper.print("List of Maps:-");
 		ArrayList<String> maps = getListOfMaps();
@@ -224,52 +223,59 @@ public class GameController {
 
 	/**
 	 * This function creates the player objects for initializing Game
+	 * 
 	 * @param map, Map
 	 */
-	private void initializeGame(Map map)throws NumberFormatException  {
+	private void initializeGame(Map map) throws NumberFormatException {
 		game = new Game(map);
-        int gameMode = 5;
-        while(gameMode!=1 && gameMode!=2)
-        {IOHelper.print("\nWhich mode do you want to play?");
- 		 IOHelper.print("1 - Single Game Mode \n 2 - Tournament Mode");
-         gameMode = IOHelper.getNextInteger();
+		int gameMode = 5;
+		while (gameMode != 1 && gameMode != 2) {
+			IOHelper.print("\nWhich mode do you want to play?");
+			IOHelper.print("1 - Single Game Mode \n 2 - Tournament Mode");
+			gameMode = IOHelper.getNextInteger();
 
-        if (gameMode == 1)
-        { game.setGameMode(GameMode.SingleGameMode);
-        }
-        else if (gameMode == 2)
-        {game.setGameMode(GameMode.TournamentMode);
-        }
-        else
-        { IOHelper.print("Enter a Valid Value");
-		}        	
-        }
-        
-        cardExchangeView = new CardExchangeView();
+			if (gameMode == 1) {
+				game.setGameMode(GameMode.SingleGameMode);
+			} else if (gameMode == 2) {
+				while(true) {
+					IOHelper.print("Enter maximum number turns for tournament (10 - 50");
+					
+					int count = IOHelper.getNextInteger();
+					if(count>=10 && count <=50) {
+						game.setMaxTurnsForTournament(count);
+						break;
+					}
+				}
+				
+				game.setGameMode(GameMode.TournamentMode);
+			} else {
+				IOHelper.print("Enter a Valid Value");
+			}
+		}
+
+		cardExchangeView = new CardExchangeView();
 		gameView = new GameView();
 
 		game.addObserver(gameView);
-		inputPlayerInformation();				
+		inputPlayerInformation();
 		game.startUpPhase();
-		if(gameMode==2)
-		{	game.tournamentMode();
-		}
+		if (gameMode == 2) {
+			game.tournamentMode();
+		} 
 		gameView.gameInitializer();
 		activateListenersOnView();
 		game.addObserver(cardExchangeView);
-}
+	}
 
-	private void inputPlayerInformation() throws NumberFormatException 
-	{ 				
+	private void inputPlayerInformation() throws NumberFormatException {
 		IOHelper.print("\nEnter the number of Players between 3 to 5");
 		int playerCount = IOHelper.getNextInteger();
 
-		if ( playerCount < 3 && playerCount > 5) {
-				IOHelper.print("Players count cannot be less than 3 and more than 5");
-				inputPlayerInformation();
-			}
-		else {
-	    for (int i = 0; i < playerCount; i++) {
+		if (playerCount < 3 && playerCount > 5) {
+			IOHelper.print("Players count cannot be less than 3 and more than 5");
+			inputPlayerInformation();
+		} else {
+			for (int i = 0; i < playerCount; i++) {
 				IOHelper.print("\nEnter the name of Player " + (i + 1));
 				String playerName = IOHelper.getNextString();
 				IOHelper.print("\nEnter Strategy of the Player ");
@@ -279,24 +285,24 @@ public class GameController {
 				IOHelper.print("4- Random");
 				IOHelper.print("5- Cheater");
 				int playerstrategy = IOHelper.getNextInteger();
-				
+
 				Player player = new Player(i, playerName);
-				if (playerstrategy==1)
+				if (playerstrategy == 1)
 					player.setPlayerStrategy(new Human());
-				else if (playerstrategy==2)
+				else if (playerstrategy == 2)
 					player.setPlayerStrategy(new Aggressive());
-				else if (playerstrategy==3)
+				else if (playerstrategy == 3)
 					player.setPlayerStrategy(new Benevolent());
-				else if (playerstrategy==4)
+				else if (playerstrategy == 4)
 					player.setPlayerStrategy(new Random());
-				else if (playerstrategy==5)
+				else if (playerstrategy == 5)
 					player.setPlayerStrategy(new Cheater());
-				
+
 				game.addPlayer(player);
 			}
-	    }		
+		}
 	}
-	
+
 	/**
 	 * This method will activate all listeners on the View
 	 */
