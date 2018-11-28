@@ -25,59 +25,54 @@ import com.risk.model.Player;
  */
 public class Aggressive implements PlayerStrategy, Serializable {
 	private String strategyName = "Aggressive";
-
+	private Country attackingCountry;
+	
 	public String getStrategyName() {
 		return strategyName;
 	}
 
 	@Override
 	public boolean reinforce(Player player) {
-		// TODO Auto-generated method stub
 		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
-		System.out.println("Reinforce assignedCountryList.size:"+assignedCountryList.size());
 		if (assignedCountryList.size()==0)
 		     return true;
 
-		Country country = getStrongestCountry(assignedCountryList,0);						
+		attackingCountry = getStrongestCountry(assignedCountryList,0);						
 
-		if (country != null) {
-			IOHelper.print("Adding reinforcement army in " + country.getCountryName());
+		if (attackingCountry != null) {
+			IOHelper.print("Adding reinforcement army in " + attackingCountry.getCountryName() + "("+ attackingCountry.getnoOfArmies()+")");
 			int armies = player.getNoOfReinforcedArmies();
 			player.setNoOfReinforcedArmies(0);
-			country.increaseArmyCount(armies);
+			attackingCountry.increaseArmyCount(armies);
+			IOHelper.print("Added reinforcement army in " + attackingCountry.getCountryName() + "("+ attackingCountry.getnoOfArmies()+")");
+		}
+		else {
+			IOHelper.print("Cannot find any attacking country");
 		}
 		return true;
 	}
 
 	@Override
-	public void attack(Player attackerPlayer) {
-		
-		ArrayList<Country> CountriesForAttack;
-		//after conquering a country only 1 army is placed by default so new conquered country will not
-		//come in this list
-		CountriesForAttack = attackerPlayer.getCountriesObjectWithArmiesGreaterThanOne();
-		if (CountriesForAttack.size()==0) {		
-			IOHelper.print("No country has sufficient armies for Attack");
+	public void attack(Player attackerPlayer) {		
+		if(attackingCountry == null)
+		{
+			IOHelper.print("No attacking country found so skipping attack");
+			return;
 		}
-		 
-		ArrayList<Country> CountriesToAttack ;
-		 
-		while (CountriesForAttack.size()>0) { 
-			Country fromCountry = getStrongestCountry(CountriesForAttack,1);	
-			
-			if(fromCountry == null) {
-				IOHelper.print("Can not find attacker fountry");
-				break;
-			}
-			
-		    CountriesToAttack = attackerPlayer.getUnAssignedNeighbouringCountriesObject(fromCountry.getCountryName());
+		
+		IOHelper.print("Aggressive player "+ attackerPlayer.getName() +" - attack - attacking from " + attackingCountry.getCountryName());
 
-		    if (CountriesToAttack.size()==0) {  
-		    	CountriesForAttack.remove(fromCountry);
-		        System.out.println("Cannot attack from "+fromCountry.getCountryName());
-				continue;
-			}
-		     
+		ArrayList<Country> CountriesToAttack = attackerPlayer.getUnAssignedNeighbouringCountriesObject
+											(attackingCountry.getCountryName());
+		if(CountriesToAttack==null || CountriesToAttack.size() == 0)
+		{
+			IOHelper.print("Cannot find any counties to attack from this country");
+			return;
+		}
+		
+		IOHelper.print("Found " + CountriesToAttack.size() + " country for attacking...Doing attack now..");
+		while (CountriesToAttack.size()>0) { 
+			
 		    Country toCountry = getCountryToAttack(attackerPlayer,CountriesToAttack);
 				
 			if (toCountry == null) {
@@ -85,44 +80,84 @@ public class Aggressive implements PlayerStrategy, Serializable {
 				continue;
 			}
 			
-			IOHelper.print(fromCountry.getCountryName()+" is attacking "+toCountry.getCountryName());
+			IOHelper.print(attackingCountry.getCountryName()+"("+ attackingCountry.getnoOfArmies() + ") is attacking to "+ toCountry.getCountryName() + "("+ toCountry.getnoOfArmies()+")");
 						
+			//Perform attack untill country is acquired or the attacking country is lost
 			while (toCountry.getPlayer().getPlayerId() != attackerPlayer.getPlayerId()) {
-				attackOperation(fromCountry, toCountry, attackerPlayer);
-				if (fromCountry.getnoOfArmies() == 1) {	
-					CountriesForAttack.remove(fromCountry);
-				    break;
-				}			
+				if(attackingCountry.getnoOfArmies() == 1)
+					break;
+				attackOperation(attackingCountry, toCountry, attackerPlayer);
 			}
+			
+			if(attackingCountry.getnoOfArmies() == 1)
+			{
+				//Cannot perform attack now
+				break;
+			}
+			CountriesToAttack.remove(toCountry);
 		}
+		IOHelper.print("Finishing attack...");
 	}
 
 	@Override
 	public boolean fortify(Player player) {
-		// TODO Auto-generated method stub
-		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
-
-		if (assignedCountryList.size()==0)
-		    return true;
-
-		Country destinationCountry = getStrongestCountry(assignedCountryList,1);	
 		
-		if (destinationCountry != null) {
-			Country fromCountry = getFromCountryFortification(player,destinationCountry);
+		Country fromCountry;
+		Country destinationCountry;
+		ArrayList<Country> CountriesToAttack = player.getUnAssignedNeighbouringCountriesObject
+				(attackingCountry.getCountryName());
+		
+		if(attackingCountry != null && attackingCountry.getnoOfArmies() >0 &&  CountriesToAttack.size() == 0) {
+			//if attacking country wins in attack phase then all neigbours are acquired
+			//so fortify strongest neighbour of attacking country
+			IOHelper.print(attackingCountry.getCountryName() + "("+ attackingCountry.getnoOfArmies()+") cannot attack further so moving country to neigbours");
+			fromCountry = attackingCountry;
+			ArrayList<Country> neighborCountries = player.getConnectedCountriesRecursively(fromCountry,
+					(ArrayList<Country>) player.getAssignedCountryList().clone(), 
+														new ArrayList<Country>());
+			
+			neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
+			destinationCountry = getStrongestCountry(neighborCountries, 0);
+			
+		}
+		else {
+			//Select next strongest country from player and get maximum armies from neighbours
+			
+			ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
+			fromCountry = getStrongestCountry(assignedCountryList,0);	
+			ArrayList<Country> neighborCountries = player.getConnectedCountriesRecursively(fromCountry,
+					(ArrayList<Country>) player.getAssignedCountryList().clone(), 
+					new ArrayList<Country>());
+			
+			neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
+			destinationCountry = getStrongestCountry(neighborCountries, 0);
+		}
+		
+		if(fromCountry != null && destinationCountry != null) 
+		{
 			int armies = fromCountry.getnoOfArmies()-1;
+			IOHelper.print("Aggressive player "+ player.getName() +" - fortification from " + fromCountry.getCountryName() + "("+ fromCountry.getnoOfArmies() +") to " + destinationCountry.getCountryName() + "("+ destinationCountry.getnoOfArmies()+") with " + armies + " armies");
 			fromCountry.decreaseArmyCount(armies);
 			destinationCountry.increaseArmyCount(armies);
+			IOHelper.print("Finished fortification with destination country " +  destinationCountry.getCountryName() + " ("+ destinationCountry.getnoOfArmies() +")");
+			return true;
 		}
-
-		return true;
+		else {
+			IOHelper.print("Aggressive player " + player.getName() + " cannot find country for fortification");
+			return false;
+		}
+		
 	}
 
 	private void attackOperation(Country fromCountry, Country toCountry, Player attackerPlayer) {
+		
+		Player defenderPlayer = toCountry.getPlayer();
+		
 		int attackerDiceCount = attackerPlayer.getMaximumAllowableDices(fromCountry, "Attacker");
-		int defenderDiceCount = attackerPlayer.getMaximumAllowableDices(toCountry, "Defender");
+		int defenderDiceCount = defenderPlayer.getMaximumAllowableDices(toCountry, "Defender"); 
 		defenderDiceCount = Common.getRandomNumberInRange(1, defenderDiceCount);
 
-		Player defenderPlayer = toCountry.getPlayer();
+		
 		attackerPlayer.setAttackedPlayer(defenderPlayer);
 		attackerPlayer.setFromCountry(fromCountry);
 		attackerPlayer.setToCountry(toCountry);
@@ -147,7 +182,6 @@ public class Aggressive implements PlayerStrategy, Serializable {
 			int defencerDice = defendingDices.get(i);
 
 			IOHelper.print("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
-			Common.PhaseActions.add("Attacker dice - " + attackerDice + "  to Defender dice - " + defencerDice);
 
 			if (attackerDice > defencerDice) {
 				IOHelper.print("----> attacker wins for dice " + (i + 1));
@@ -157,7 +191,6 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 			} else {
 				IOHelper.print("----> defender wins for dice " + (i + 1));
-				Common.PhaseActions.add("----> defender wins for dice " + (i + 1));
 
 				fromCountry.decreaseArmyCount(1);
 			}
@@ -200,44 +233,5 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		}
 
        return toCountry;
-    }
-    
-    private Country getFromCountryFortification(Player player, Country sourceCountry){   
-    	ArrayList<Country> neighbourCountryList = sourceCountry.getNeighbourCountries();
-		HashMap<Country,Integer> visitedCountries = new HashMap<Country,Integer>();
-		visitedCountries.put(sourceCountry, sourceCountry.getnoOfArmies());
-		Country neighbourCountry;
-		for (int i=0;i<neighbourCountryList.size();i++) {
-			neighbourCountry = neighbourCountryList.get(i);
-			if (countryVisited(neighbourCountry,visitedCountries,player)) {
-				visitedCountries.put(neighbourCountry, neighbourCountry.getnoOfArmies());
-				ArrayList<Country> neighbourCountryListTemp = neighbourCountry.getNeighbourCountries();
-				for (int j=0;j<neighbourCountryListTemp.size();j++) {
-					if (countryVisited(neighbourCountry,visitedCountries,player)) {
-						visitedCountries.put(neighbourCountryListTemp.get(j), neighbourCountryListTemp.get(j).getnoOfArmies());					
-					}
-				}			
-			}
-		}
-		
-		Country toCountry = null;
-		int armies = 0;
-		Iterator it = visitedCountries.entrySet().iterator();
-	    while (it.hasNext()) {
-	        HashMap.Entry<Country,Integer> pair = (HashMap.Entry<Country,Integer>)it.next();
-	        if (armies < pair.getValue()) {
-	        	armies = pair.getValue();
-	        	toCountry = pair.getKey();
-	        }
-	    }		
-       return toCountry;
-    }
-    
-    private boolean countryVisited(Country country, HashMap<Country,Integer> visitedCountries,Player player)
-    { if(country.getPlayer().getPlayerId() == player.getPlayerId()&&
-			!visitedCountries.containsKey(country))
-    	return true;
-    else
-    	return false;    	
     }
 }

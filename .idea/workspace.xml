@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java" line="210" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/risk/controller/GameController.java" line="203" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9edb6213-e7f5-4784-8162-c3ca170b7a33" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/controller/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/risk/helper/IOHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/helper/IOHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/strategies/Aggressive.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/strategies/Aggressive.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/strategies/Benevolent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/strategies/Benevolent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/model/strategies/Random.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/model/strategies/Random.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/view/CardExchangeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/CardExchangeView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/risk/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/risk/view/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/com/risk/model/GameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/risk/model/GameTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/com/risk/model/PlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/risk/model/PlayerTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +45,8 @@
       <file leaf-file-name="IOHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/risk/helper/IOHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="363">
+              <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -292,12 +301,12 @@
       <workItem from="1542643220170" duration="9765000" />
       <workItem from="1542750929942" duration="8526000" />
       <workItem from="1543109141509" duration="23528000" />
-      <workItem from="1543367183857" duration="3546000" />
+      <workItem from="1543367183857" duration="3908000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="258498000" />
+    <option name="totallyTimeSpent" value="258860000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -322,9 +331,9 @@
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.29141104" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29141104" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22995462" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22995462" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3297546" />
       <window_info anchor="right" id="SciView" order="6" weight="0.32980332" />
       <window_info anchor="right" id="Theme Preview" order="10" />
@@ -647,12 +656,6 @@
     <entry file="file://$PROJECT_DIR$/Logs.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Logs.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Logs.log.1">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Logs.log.3">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -668,10 +671,20 @@
     <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Logs.log.10">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Logs.log.1">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/risk/helper/Logs.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/risk/helper/IOHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="363">
+          <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

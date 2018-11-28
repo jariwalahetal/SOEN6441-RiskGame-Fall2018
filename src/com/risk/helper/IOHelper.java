@@ -27,7 +27,8 @@ public class IOHelper {
 			FileHandler fileHandler;
 			String timeStamp = new SimpleDateFormat().format(new Date());
 			CustomLogFormatter formatter = new CustomLogFormatter();
-			fileHandler = new FileHandler("C:/Users/dell pc/IdeaProjects/SOEN_OCT4/SOEN6441-RiskGame/src/com/risk/helper/Logs.log");
+
+			fileHandler = new FileHandler("assets/Logs.txt");
 			logger.addHandler(fileHandler);
 			fileHandler.setFormatter(formatter);
 			fileHandler.setLevel(Level.INFO);
@@ -60,7 +61,8 @@ public class IOHelper {
 //			FileHandler fileHandler;
 			String timeStamp = new SimpleDateFormat().format(new Date());
 			CustomLogFormatter formatter = new CustomLogFormatter();
-			fileHandler = new FileHandler("C:/Users/dell pc/IdeaProjects/SOEN_OCT4/SOEN6441-RiskGame/src/com/risk/helper/Logs.log");
+			//fileHandler = new FileHandler("C:/Users/dell pc/IdeaProjects/SOEN_OCT4/SOEN6441-RiskGame/src/com/risk/helper/Logs.log");
+			fileHandler = new FileHandler("assets/Logs.txt");
 			logger.addHandler(fileHandler);
 			fileHandler.setFormatter(formatter);
 			fileHandler.setLevel(Level.INFO);

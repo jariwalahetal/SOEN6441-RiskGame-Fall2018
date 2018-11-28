@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
@@ -457,6 +458,18 @@ public class Player implements Serializable {
 		return neighborCountriesName;
 	}
 
+	public ArrayList<Country> getNeighbouringCountries(Country sourceCountry,
+			ArrayList<Country> assignedCountries) {
+		ArrayList<Country> neighborCountriesName = new ArrayList<>();
+		for (Country country : assignedCountryList) {
+			assignedCountries.add(country);
+			if (country.getCountryName().equals(sourceCountry.getCountryName())) {
+				neighborCountriesName = country.getNeighbourCountries();
+			}
+		}
+		return neighborCountriesName;
+	}
+	
 	/**
 	 * Method to get neighboring countries of a given country
 	 * 
@@ -483,6 +496,23 @@ public class Player implements Serializable {
 		return foundCountriesName;
 	}
 
+	public ArrayList<Country> getConnectedCountriesRecursively(Country sourceCountry,
+			ArrayList<Country> assignedCountries, ArrayList<Country> foundCountries) {
+
+		ArrayList<Country> neighbouringCounties = this.getNeighbouringCountries(sourceCountry,
+				assignedCountries);
+		if (neighbouringCounties.size() > 0) {
+			ArrayList<String> newConnectedNeighbours = new ArrayList<>();
+			for (Country neigbour : neighbouringCounties) {
+				if (!foundCountries.contains(neigbour)) {
+					foundCountries.add(neigbour);
+					getConnectedCountriesRecursively(neigbour, assignedCountries, foundCountries);
+				}
+			}
+		}
+		return foundCountries;
+	}
+	
 	/**
 	 * Method to get neighboring countries of a given country
 	 * 
@@ -529,11 +559,9 @@ public class Player implements Serializable {
 		
 		for (Country assignedCountry : assignedCountryList) {
 				if (assignedCountry.getCountryName().equals(sourceCountryName)) {
-					neighborCountries = assignedCountry.getNeighbourCountries();
-					for (int i = 0; i < neighborCountries.size(); i++) {
-						if (neighborCountries.get(i).getPlayer().getPlayerId() == this.playerId)
-							neighborCountries.remove(i);
-					}
+					neighborCountries = assignedCountry.getNeighbourCountries().stream()
+										.filter(x -> x.getPlayer().getPlayerId() != this.getPlayerId())
+										.collect(Collectors.toCollection(ArrayList::new));
 					break;
 				}
 			}

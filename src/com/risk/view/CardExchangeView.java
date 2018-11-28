@@ -42,8 +42,10 @@ public class CardExchangeView implements Observer {
 	 * This method is used to initialize the Card Exchange View.
 	 * 
 	 * @param game, Game
+	 * @param isCardExchangeViewOpenedOnce, boolean type
 	 */
-	public void exchangeInitializerView(Game game) {
+	public void exchangeInitializerView(Game game,boolean isCardExchangeViewOpenedOnce) {
+		if(isCardExchangeViewOpenedOnce){
 		exchangeButton=new JButton("Exchange Cards");
 		exitButton=new JButton("Exit");
 		cardFrame = new JFrame("Card Exchange View");
@@ -72,9 +74,9 @@ public class CardExchangeView implements Observer {
 		palyerOwnedCard = new JList<>(cards);
 		
 		palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
-		palyerOwnedCard.setBounds(310, 45, 250, 70);
+		palyerOwnedCard.setBounds(310, 45, 260, 90);
 		scrollPane=new JScrollPane(palyerOwnedCard);
-		scrollPane.setBounds(310, 45, 252, 72);
+		scrollPane.setBounds(310, 45, 260, 90);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		totalNewArmies = new JLabel("" + game.getCurrentPlayer().getNoOfTradedArmies());
@@ -117,7 +119,13 @@ public class CardExchangeView implements Observer {
 		cardFrame.setVisible(true);
 
 	}
-
+	}
+	
+	/**
+	 * Method to update view of card exchange called by the  update method of
+	 * CardExchange Observer
+	 * @param game
+	 */
 	public void updateCardView(Game game) {
 
 		if (game.getCurrentPlayer() != null && totalNewArmies != null) {
@@ -132,9 +140,9 @@ public class CardExchangeView implements Observer {
 			palyerOwnedCard = null;
 			palyerOwnedCard = new JList<>(cards);
 			palyerOwnedCard.setBorder(new TitledBorder("Cards Owned"));
-			palyerOwnedCard.setBounds(310, 45, 250, 70);
+			palyerOwnedCard.setBounds(310, 45, 260, 90);
 			scrollPane=new JScrollPane(palyerOwnedCard);
-			scrollPane.setBounds(310, 45, 252, 72);
+			scrollPane.setBounds(310, 45, 260, 90);
 			scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollPane.setViewportView(palyerOwnedCard);
