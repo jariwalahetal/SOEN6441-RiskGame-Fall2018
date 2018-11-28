@@ -11,7 +11,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * Helper class to print data
  * 
@@ -20,8 +19,8 @@ import java.util.logging.Logger;
  */
 public class IOHelper {
 
-	public static Logger logger = Logger.getLogger("IOHelper");
-	public static FileHandler fileHandler;
+	public static Logger logger = Logger.getLogger(IOHelper.class.getName());
+//	public static FileHandler fileHandler;
 
 	static {
 		try {
@@ -29,18 +28,18 @@ public class IOHelper {
 			FileHandler fileHandler;
 			String timeStamp = new SimpleDateFormat().format(new Date());
 			CustomLogFormatter formatter = new CustomLogFormatter();
-
-			fileHandler = new FileHandler("assets/Logs.txt");
+			long epocTime = System.currentTimeMillis() / 1000L;
+			fileHandler = new FileHandler("assets/GameLogs" + epocTime+".txt");
 			logger.addHandler(fileHandler);
 			fileHandler.setFormatter(formatter);
 			fileHandler.setLevel(Level.INFO);
 			logger.setUseParentHandlers(false);
-			String today= Calendar.getInstance()
+			/*String today= Calendar.getInstance()
 					.getTime()
 					.toString()
 					.replaceAll(" ", "_")
 					.replaceAll(":", "");
-			System.setProperty("logfilename", today);
+			System.setProperty("logfilename", today);*/
 			logger.info("Log File created - TimeStamp : "+timeStamp);
 		} catch (IOException e) {
 			e.printStackTrace();
