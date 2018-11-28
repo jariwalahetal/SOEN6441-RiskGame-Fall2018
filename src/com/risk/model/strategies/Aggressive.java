@@ -104,10 +104,13 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		
 		Country fromCountry;
 		Country destinationCountry;
-		if(attackingCountry != null && attackingCountry.getnoOfArmies() > 1) {
+		ArrayList<Country> CountriesToAttack = player.getUnAssignedNeighbouringCountriesObject
+				(attackingCountry.getCountryName());
+		
+		if(attackingCountry != null && attackingCountry.getnoOfArmies() >0 &&  CountriesToAttack.size() == 0) {
 			//if attacking country wins in attack phase then all neigbours are acquired
 			//so fortify strongest neighbour of attacking country
-			
+			IOHelper.print(attackingCountry.getCountryName() + "("+ attackingCountry.getnoOfArmies()+") cannot attack further so moving country to neigbours");
 			fromCountry = attackingCountry;
 			ArrayList<Country> neighborCountries = player.getConnectedCountriesRecursively(fromCountry,
 					(ArrayList<Country>) player.getAssignedCountryList().clone(), 
