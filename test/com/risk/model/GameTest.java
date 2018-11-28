@@ -144,6 +144,7 @@ public class GameTest {
 	    ArrayList<String> attackingCountryList = game.getCurrentPlayer().getCountriesWithArmiesGreaterThanOne();
 	    ArrayList<String> attackedCountryList;
 	    Country attackingCountry,defendingCountry;
+	    
 	    int attackingDiceCount,defendingDiceCount, attackingCountryArmyCount, defendingCountryArmyCount;
 	    Player defenderPlayer; 
     	    
@@ -171,7 +172,7 @@ public class GameTest {
 	        {   if(currentPlayer.isConquered())
 	             {  assertEquals(defendingCountry.getnoOfArmies(),1);
 		    		assertEquals(attackingCountryArmyCount, attackingCountry.getnoOfArmies()+1);	
-		    		assertEquals(defendingCountry.getPlayerId(),currentPlayer.getPlayerId());
+		    		assertEquals(defendingCountry.getPlayer().getPlayerId(),currentPlayer.getPlayerId());
 	             }
 	            else 
 	             { assertEquals(defendingCountryArmyCount, defendingCountry.getnoOfArmies());
@@ -203,7 +204,7 @@ public class GameTest {
 	      attackingCountry = game.getCountryFromName(attackingCountryName);
 	      attackingCountry.setNoOfArmies(5);
 	      attackingCountryArmyCount = attackingCountry.getnoOfArmies();
-	      currentPlayer.attackingCountry = attackingCountry;
+	      currentPlayer.setFromCountry(attackingCountry);
 	  	    		  
 	      for(String attackedCountryName : attackedCountryList)
 	      { defenderPlayer = game.getAllPlayers().stream().filter(p -> p.getAssignedCountryList().contains(attackedCountryName))
@@ -211,7 +212,7 @@ public class GameTest {
 	    	defendingCountry = game.getCountryFromName(attackedCountryName);
 	    	defendingCountry.setNoOfArmies(1);
 	    	defendingCountryArmyCount = defendingCountry.getnoOfArmies();
-		    currentPlayer.attackedCountry = defendingCountry;
+		    currentPlayer.setToCountry(defendingCountry);
 	    	game.moveArmyAfterAttack(3);
 	 	    assertEquals(defendingCountryArmyCount+3, defendingCountry.getnoOfArmies());
 		    assertEquals(attackingCountryArmyCount-3, attackingCountry.getnoOfArmies());	
@@ -419,7 +420,7 @@ public class GameTest {
 	{ Player player = game.getCurrentPlayer();
 	   
 		for(Country country:map.getCountryList())
-	    { if (country.getPlayerId()!=player.getPlayerId())
+	    { if (country.getPlayer().getPlayerId()!=player.getPlayerId())
 			player.assignCountryToPlayer(country);
 	    }		
 			
