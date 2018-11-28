@@ -4,11 +4,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  * Helper class to print data
@@ -20,15 +22,25 @@ public class IOHelper {
 
 	public static Logger logger = Logger.getLogger("IOHelper");
 	public static FileHandler fileHandler;
+
 	static {
 		try {
+			//Logger logger = Logger.getLogger("IOHelper");
+			FileHandler fileHandler;
 			String timeStamp = new SimpleDateFormat().format(new Date());
 			CustomLogFormatter formatter = new CustomLogFormatter();
+
 			fileHandler = new FileHandler("assets/Logs.txt");
 			logger.addHandler(fileHandler);
 			fileHandler.setFormatter(formatter);
 			fileHandler.setLevel(Level.INFO);
 			logger.setUseParentHandlers(false);
+			String today= Calendar.getInstance()
+					.getTime()
+					.toString()
+					.replaceAll(" ", "_")
+					.replaceAll(":", "");
+			System.setProperty("logfilename", today);
 			logger.info("Log File created - TimeStamp : "+timeStamp);
 		} catch (IOException e) {
 			e.printStackTrace();
