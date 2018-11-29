@@ -22,6 +22,8 @@ import com.risk.helper.Common;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
 import com.risk.helper.PhaseEnum;
+import com.risk.model.strategies.Human;
+import com.risk.model.strategies.PlayerStrategy;
 
 /**
  * Test class for testing game functionality
@@ -148,6 +150,9 @@ public class GameTest {
 	@Test
 	public void testAttackPhase()
 	{ 	Player currentPlayer = game.getCurrentPlayer();
+	    PlayerStrategy playerStrategy = new Human();
+	    currentPlayer.setPlayerStrategy(playerStrategy); 
+    
 	    ArrayList<String> attackingCountryList = game.getCurrentPlayer().getCountriesWithArmiesGreaterThanOne();
 	    ArrayList<String> attackedCountryList;
 	    Country attackingCountry,defendingCountry;
@@ -193,6 +198,38 @@ public class GameTest {
 	    }
 	    
 	}
+
+	@Test
+	public void testFortification()
+	{  	Player currentPlayer = game.getCurrentPlayer();
+	    //Human
+	    PlayerStrategy playerStrategy = new Human();
+	    currentPlayer.setPlayerStrategy(playerStrategy); 
+        ArrayList<Country> fromCountryList = currentPlayer.getCountriesObjectWithArmiesGreaterThanOne();
+        Country fromCountry = fromCountryList.get(1);
+        
+        for(int i=0;i<fromCountryList.size();i++)
+        { if(fromCountryList.get(i).getNeighbourCountries().size()>1)
+          {fromCountry = fromCountryList.get(i);
+        	break;
+          }       	
+        }
+	    ArrayList<Country> toCountryList = fromCountry.getNeighbourCountries();
+	    Country toCountry = null;
+        for(int i=0;i<toCountryList.size();i++)
+        { if(currentPlayer.getPlayerId()==toCountryList.get(i).getPlayer().getPlayerId())
+          {toCountry = toCountryList.get(i);
+        	break;
+          }       	
+        }
+        int fromCountryArmyCount = fromCountry.getnoOfArmies();
+        int noOfArmiesToMove = fromCountryArmyCount - 1;
+        int toCountryArmyCount = toCountry.getnoOfArmies();
+	    game.fortificationPhase(fromCountry.getCountryName(), toCountry.getCountryName(), noOfArmiesToMove);
+
+	    assertEquals(fromCountry.getnoOfArmies(), 1);
+	    assertEquals(toCountryArmyCount + noOfArmiesToMove, toCountry.getnoOfArmies());	
+	}
 	
 	/**
 	 * This is used to test Move armies after attack
@@ -211,7 +248,6 @@ public class GameTest {
 	      attackingCountry = game.getCountryFromName(attackingCountryName);
 	      attackingCountry.setNoOfArmies(5);
 	      attackingCountryArmyCount = attackingCountry.getnoOfArmies();
-	      currentPlayer.setFromCountry(attackingCountry);
 	  	    		  
 	      for(String attackedCountryName : attackedCountryList)
 	      { defenderPlayer = game.getAllPlayers().stream().filter(p -> p.getAssignedCountryList().contains(attackedCountryName))
@@ -220,6 +256,9 @@ public class GameTest {
 	    	defendingCountry.setNoOfArmies(1);
 	    	defendingCountryArmyCount = defendingCountry.getnoOfArmies();
 		    currentPlayer.setToCountry(defendingCountry);
+		    currentPlayer.setFromCountry(attackingCountry);
+		    currentPlayer.setIsConquered(true);
+		    
 	    	game.moveArmyAfterAttack(3);
 	 	    assertEquals(defendingCountryArmyCount+3, defendingCountry.getnoOfArmies());
 		    assertEquals(attackingCountryArmyCount-3, attackingCountry.getnoOfArmies());	
@@ -240,6 +279,9 @@ public class GameTest {
 		while (iterationCount > 0) {
 			// Generate reinforcement for player
 			Player currentPlayer = game.getCurrentPlayer();
+			PlayerStrategy playerStrategy = new Human();
+			currentPlayer.setPlayerStrategy(playerStrategy); 
+		     
 			ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
 			List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
 			boolean isPhaseUpdated = false;
@@ -440,7 +482,7 @@ public class GameTest {
 	 * This will test game is saved or not
 	 */
 	@Test
-	public void isGameSaved()
+	public void testGameSaved()
 	{
 		try {
 			game.saveGame();
@@ -460,14 +502,12 @@ public class GameTest {
 	 * This will test wheather game is loaded correctly or not
 	 */
 	@Test
-	public void isGameLoad()
+	public void testGameLoad()
 	{
 		try {
-			Game gameLoad=null;
-			String gameTitle="Single";
-			game.saveGame();
-			gameLoad=game.loadGame(gameTitle);	
-			assertEquals(game, gameLoad);			
+			String gameTitle = game.saveGame();
+			Game gameLoad = game.loadGame(gameTitle);	
+			assertEquals(game, gameLoad);	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -54,7 +54,9 @@ public class Cheater implements PlayerStrategy, Serializable {
 		ArrayList<Integer> attackerCountryIds = attackerPlayer.getAssignedCountryList()
 											.stream().map(c -> c.getCountryId())
 											.collect(Collectors.toCollection(ArrayList::new));
+		
 		IOHelper.print("Cheater player " + attackerPlayer.getName() + " found " + attackerCountryIds.size() +" countries for attack. Doing attack now..");
+		
 		for (int i=0;i<attackerCountryIds.size();i++) { 
 			int attackerCountryId = attackerCountryIds.get(i);
 			Country fromCountry = attackerPlayer.getAssignedCountryList()

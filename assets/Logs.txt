@@ -1,0 +1,146 @@
+Log File created - TimeStamp : 28/11/18 4:00 PM
++__________________________________________________________+
+|=====_==============================================_=====|
+|    (_)                                            (_)    |
+|   (___)            WELCOME TO RISK GAME          (___)   |
+|   _}_{_                                          _}_{_   |
+|__[_____]________________________________________[_____]__|
++==========================================================+
++======_Game Menu_======+
+1. Create Map
+2. Edit Map
+3. Play Game
+4. Exit
+List of Maps:-
+1)Africa.map
+2)AfricaTest.map
+3)bestestmap.map
+4)d.map
+5)Enter Map Name here.map
+6)MapWithNoCountry.map
+7)random.map
+8)temp.map
+9)test1.map
+10)test_BInay.map
+11)The Best Map.map
+12)The Second best map in this world.map
+13)validMapTest.map
+
+Enter Map number to load Map file:
+
+
+Which mode do you want to play?
+1 - Single Game Mode 
+2 - Tournament Mode
+
+Enter the number of Players between 3 to 5
+
+Enter the name of Player 1
+
+Enter Strategy of the Player 
+1- Human
+2- Aggressive
+3- Benevolent
+4- Random
+5- Cheater
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+
+Enter the name of Player 2
+
+Enter Strategy of the Player 
+1- Human
+2- Aggressive
+3- Benevolent
+4- Random
+5- Cheater
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+
+Enter the name of Player 3
+
+Enter Strategy of the Player 
+1- Human
+2- Aggressive
+3- Benevolent
+4- Random
+5- Cheater
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
++__________________________________________________________+
+|=====_==============================================_=====|
+|    (_)                                            (_)    |
+|   (___)            WELCOME TO RISK GAME          (___)   |
+|   _}_{_                                          _}_{_   |
+|__[_____]________________________________________[_____]__|
++==========================================================+
++======_Game Menu_======+
+1. Create Map
+2. Edit Map
+3. Play Game
+4. Exit
+Adding startup army in Egypt
+This is boat player so processing step automatically
+Adding startup army in Chad
+This is boat player so processing step automatically
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Egypt
+This is boat player so processing step automatically
+Adding startup army in Chad
+This is boat player so processing step automatically
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Egypt
+This is boat player so processing step automatically
+Adding startup army in Chad
+This is boat player so processing step automatically
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Egypt
+This is boat player so processing step automatically
+Adding startup army in Chad
+This is boat player so processing step automatically
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Egypt
+This is boat player so processing step automatically
+Adding startup army in Chad
+This is boat player so processing step automatically
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Egypt
+This is boat player so processing step automatically
+Adding startup army in Chad
+This is boat player so processing step automatically
+Adding startup army in D.R.O.T. Congo
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Adding reinforcement army in North Sudan
+Attacker's dices -- [6, 4, 4]
+Defender's dices -- [6]
+Attacker dice - 6  to Defender dice - 6
+----> defender wins for dice 1
+Attacker's dices -- [2, 5, 2]
+Defender's dices -- [5]
+Attacker dice - 5  to Defender dice - 5
+----> defender wins for dice 1
+Attacker's dices -- [2, 5, 1]
+Defender's dices -- [5]
+Attacker dice - 5  to Defender dice - 5
+----> defender wins for dice 1
+Attacker's dices -- [1, 6, 2]
+Defender's dices -- [3]
+Attacker dice - 6  to Defender dice - 3
+----> attacker wins for dice 1
+----> Defender lost all armies in 1 dice roll
+Moving 1 armies from Egypt to Libya
+Added Cavalry card to player
+Adding reinforcement army in Chad(7)
+Added reinforcement army in Chad(11)
