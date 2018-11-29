@@ -443,16 +443,28 @@ public class GameTest {
 	public void isGameSaved()
 	{
 		try {
+			game.saveGame();
 			String fileTime = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
-			FileOutputStream fileOut = new FileOutputStream("assets/Saved_Games/" + fileTime);
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(game);
-			out.close();
-			fileOut.close();
 			FileInputStream fileInput = new FileInputStream("assets/Saved_Games/" + fileTime);
 			ObjectInputStream in =new ObjectInputStream(fileInput);
 			Game testObject=(Game) in.readObject();
+			in.close();
+			fileInput.close();
 			assertEquals(game, testObject);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void isGameLoad()
+	{
+		try {
+			Game gameLoad=null;
+			String gameTitle="Single";
+			game.saveGame();
+			gameLoad=game.loadGame(gameTitle);	
+			assertEquals(game, gameLoad);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
