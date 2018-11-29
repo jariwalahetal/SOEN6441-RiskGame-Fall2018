@@ -456,6 +456,9 @@ public class GameTest {
 		}
 	}
 	
+	/**
+	 * This will test wheather game is loaded correctly or not
+	 */
 	@Test
 	public void isGameLoad()
 	{
