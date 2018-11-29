@@ -210,6 +210,7 @@ public class GameView implements Observer {
 	// Map Label
 	private static JLabel mapJlabel;
 	private static JScrollPane mapScrollPane = null;
+	private static JLabel stratergyJLabel;
 	private static HashMap<String, Component> mapLabels = new HashMap<>();
 
 	// Phase label
@@ -333,6 +334,12 @@ public class GameView implements Observer {
 		mapScrollPane = new JScrollPane(mapJlabel);
 		mapScrollPane.setBounds(10, 10, 700, 650);
 		mapScrollPane.setBorder(new TitledBorder(""));
+
+		stratergyJLabel = new JLabel("Test");
+		Font font = new Font("Courier", Font.BOLD, 20);
+		stratergyJLabel.setFont(font);
+		stratergyJLabel.setBounds(10,680,600,40);
+		gameActionJpanel.add(stratergyJLabel);
 		gameActionJpanel.add(mapScrollPane);
 
 		gameJframe.add(gameActionJpanel);
@@ -663,7 +670,7 @@ public class GameView implements Observer {
 		activePlayerUnassignedArmiesCount = Integer.toString(game.getCurrentPlayer().getNoOfUnassignedArmies());
 		populateCountriesData(map);
 
-		if (playersTurnJlabel != null) {
+		if (playersTurnJlabel != null && gamePhaseNameJLabel!=null) {
 			playersTurnJlabel.setText(activePlayerName);
 			playersTurnJlabel.setForeground(Common.getColor(activePlayerColor));
 			armyLeftJlabel.setText(activePlayerUnassignedArmiesCount);
@@ -707,6 +714,12 @@ public class GameView implements Observer {
 
 			addPhaseMessages();
 			updateWorldDominationView();
+			if(game.getCurrentPlayer().getIsBot()) {
+				stratergyJLabel.setText(game.getCurrentPlayer().getStrategyName() + " is playing as " + game.getCurrentPlayer().getName());
+			}
+			else {
+				stratergyJLabel.setText(game.getCurrentPlayer().getName() + " is human.");
+			}
 
 		}
 	}

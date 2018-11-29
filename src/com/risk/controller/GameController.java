@@ -253,6 +253,7 @@ public class GameController {
 				IOHelper.print("Enter a Valid Value");
 			}
 		}
+		
 
 		cardExchangeView = new CardExchangeView();
 		gameView = new GameView();
@@ -260,13 +261,18 @@ public class GameController {
 		game.addObserver(gameView);
 		inputPlayerInformation();
 		game.startUpPhase();
-		if (gameMode == 2) {
+
+		if(gameMode == 1) {
+			game.singleGameMode();
+		}
+		else if(gameMode == 2) {
 			game.tournamentMode();
 		} 
+		
 		gameView.gameInitializer();
 		activateListenersOnView();
 		game.addObserver(cardExchangeView);
-		game.run();
+		
 	}
 
 	private void inputPlayerInformation() throws NumberFormatException {
@@ -332,6 +338,7 @@ public class GameController {
 				String string = jLabel.getToolTipText();
 				if (game.getGamePhase() == PhaseEnum.Startup || game.getGamePhase() == PhaseEnum.Reinforcement)
 					game.addArmyToCountry(string);
+					//game.continueSinglePlayerMde();
 			}
 		});
 	}
@@ -341,7 +348,7 @@ public class GameController {
 	 */
 	public void addAttackerCountryListener() {
 		gameView.addActionListenToAttackerCountryList(new ActionListener() {
-
+			
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getAttackerCountry();
 				if (countryName != null) {
@@ -481,6 +488,9 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == PhaseEnum.Fortification)
 					game.updatePhase();
+					if (game.getGameMode() == GameMode.SingleGameMode) {
+						game.singleGameMode();
+					}
 			}
 		});
 	}

@@ -14,9 +14,28 @@ public interface PlayerStrategy {
 
    public String getStrategyName();
 
-   public boolean getIsBoat();
+   public boolean getIsBot();
    
-   public boolean determineInitialStartupAssignment(Player player);
+   public default void beforeInitialStartupAssignment (Player player) {
+	   Thread t = new Thread(new Runnable() {
+			@Override
+				public void run() {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+			t.start();
+			try {
+				t.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+   }
    
    public boolean reinforce(Player player);
    

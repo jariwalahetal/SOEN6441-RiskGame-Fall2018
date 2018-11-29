@@ -25,7 +25,7 @@ public class Human implements PlayerStrategy, Serializable {
 		return strategyName;
 	}
 
-	public boolean getIsBoat() {
+	public boolean getIsBot() {
 		return false;
 	}
 	
@@ -130,10 +130,9 @@ public class Human implements PlayerStrategy, Serializable {
 
 	}
 
-	@Override
-	public boolean determineInitialStartupAssignment(Player player) {
-		IOHelper.print("Wait for human input");
-		return false;
-	}
 
+	@Override
+	public void beforeInitialStartupAssignment(Player player) {
+		IOHelper.print("I'm human. So waiting for user input");
+	}
 }
