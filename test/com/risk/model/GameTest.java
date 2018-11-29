@@ -2,7 +2,14 @@ package com.risk.model;
 
 import static org.junit.Assert.*;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -427,6 +434,28 @@ public class GameTest {
 		Boolean result = game.isMapConquered();
 	    assertEquals(result, true);
 	
+	}
+	
+	/**
+	 * This will test game is saved or not
+	 */
+	@Test
+	public void isGameSaved()
+	{
+		try {
+			String fileTime = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
+			FileOutputStream fileOut = new FileOutputStream("assets/Saved_Games/" + fileTime);
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(game);
+			out.close();
+			fileOut.close();
+			FileInputStream fileInput = new FileInputStream("assets/Saved_Games/" + fileTime);
+			ObjectInputStream in =new ObjectInputStream(fileInput);
+			Game testObject=(Game) in.readObject();
+			assertEquals(game, testObject);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
