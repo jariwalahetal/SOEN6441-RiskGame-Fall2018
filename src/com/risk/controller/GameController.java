@@ -127,7 +127,7 @@ public class GameController {
 		int input = -1;
 		while (input != 6) {
 			IOHelper.print("+------------------------------+");
-			IOHelper.print("|________ Edit Map Menu________| ");
+			IOHelper.print("|________ Edit Map Menu________|");
 			IOHelper.print("|    1. Delete Continent       |");
 			IOHelper.print("|    2. Delete Country         |");
 			IOHelper.print("|    3. Add Continent          |");
