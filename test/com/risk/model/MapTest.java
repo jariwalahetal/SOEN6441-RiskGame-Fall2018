@@ -140,7 +140,6 @@ public class MapTest {
 	/**
 	 * Test if invalid map treated as
 	 */
-
 	@Test
 	public void testInValidCreateMap() {
 		String mapName = "inValidMapTest";
@@ -172,6 +171,50 @@ public class MapTest {
 		assertTrue(equalLists(testContinents, testMapContinents));
 		assertTrue(equalLists(testCountries, testMapCountries));
 	}
+
+// read existing valid map file and validate
+	@Test
+	public void readValidMapFile(){
+		Map map = new Map("validMapTest.map");
+		map.readMap();
+		ArrayList<String> testContinents = new ArrayList<String>();
+		ArrayList<String> testCountries = new ArrayList<String>();
+		ArrayList<Continent> a = map.getContinentList();
+		for (Continent i : a) {
+			testContinents.add(i.getContName());
+			for (Country x : i.getCountryList()) {
+				if (testCountries.contains(x.getCountryName())) {
+					// do nothing
+				} else {
+					testCountries.add(x.getCountryName());
+				}
+			}
+		}
+		Collections.sort(testContinents);
+		assertTrue(equalLists(testContinents, testMapContinents));
+		assertTrue(equalLists(testCountries, testMapCountries));
+	}
+
+	@Test
+	public void readInvalidMapFile(){
+		Map map = new Map("invalidMapTest.map");
+		map.readMap();
+		ArrayList<String> testContinents = new ArrayList<String>();
+		ArrayList<String> testCountries = new ArrayList<String>();
+		ArrayList<Continent> a = map.getContinentList();
+		for (Continent i : a) {
+			testContinents.add(i.getContName());
+			for (Country x : i.getCountryList()) {
+				if (!testCountries.contains(x.getCountryName())){
+					testCountries.add(x.getCountryName());
+				}
+			}
+		}
+		Collections.sort(testContinents);
+		assertFalse(equalLists(testContinents, testMapContinents));
+		assertFalse(equalLists(testCountries, testMapCountries));
+	}
+
 	/**
 	 * This method tears down the testvariables.
 	 */
