@@ -29,7 +29,7 @@ public class Random implements PlayerStrategy, Serializable {
 		return strategyName;
 	}
 
-	public boolean getIsBoat() {
+	public boolean getIsBot() {
 		return true;
 	}
 	
@@ -193,13 +193,6 @@ public class Random implements PlayerStrategy, Serializable {
 			return true;
 		else
 			return false;
-	}
-
-	@Override
-	public boolean determineInitialStartupAssignment(Player player) {
-		IOHelper.print("This is boat player so processing step automatically");
-		Country country = player.getAssignedCountryList().get(0);
-		return player.addArmyToCountryForStartup(country.getCountryName());
 	}
 
 }

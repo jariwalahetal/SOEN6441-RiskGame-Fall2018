@@ -29,7 +29,7 @@ import com.risk.model.strategies.PlayerStrategy;
  * @version 1.0.0
  * @since 30-September-2018
  */
-public class Game extends Observable implements Serializable, Runnable {
+public class Game extends Observable implements Serializable {
 	private ArrayList<Player> playerList = new ArrayList<Player>();
 	private int currentPlayerId;
 	private PhaseEnum gamePhase;
@@ -38,7 +38,6 @@ public class Game extends Observable implements Serializable, Runnable {
 	private Boolean isMapConqueredFlag = false;
 	private GameMode gameMode;
 	private int maxTurnsForTournament;
-	static final long serialVersionUID = 1L;
 
 	/**
 	 * This is a constructor of Game class which will initialize the Map
@@ -59,18 +58,20 @@ public class Game extends Observable implements Serializable, Runnable {
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 	}
-	
+
 	/**
 	 * Returns maxTurnsForTournament
+	 * 
 	 * @param maxTurns
 	 * @return
 	 */
 	public int getMaxTurnsForTournament() {
 		return this.maxTurnsForTournament;
 	}
-	
+
 	/**
 	 * Sets MaxTurnsForTournamet
+	 * 
 	 * @param maxTurns
 	 */
 	public void setMaxTurnsForTournament(int maxTurns) {
@@ -277,7 +278,7 @@ public class Game extends Observable implements Serializable, Runnable {
 	 * 
 	 * @param game, object of the game
 	 */
-	public void notifyObserverslocal() {
+	public void notifyObserversLocal() {
 		setChanged();
 		notifyObservers(this);
 	}
@@ -332,7 +333,7 @@ public class Game extends Observable implements Serializable, Runnable {
 			newCountry.increaseArmyCount(1);
 			playerIndex++;
 		}
-		notifyObserverslocal();
+		notifyObserversLocal();
 
 	}
 
@@ -342,7 +343,6 @@ public class Game extends Observable implements Serializable, Runnable {
 	 * @param countryName, name of the country
 	 */
 	public void addArmyToCountry(String countryName) {
-		Common.PhaseActions.clear();
 		if (phaseCheckValidation(PhaseEnum.Attack) || phaseCheckValidation(PhaseEnum.Fortification)) {
 			IOHelper.print("Cannot add army in attack or fortification phase");
 			return;
@@ -351,8 +351,6 @@ public class Game extends Observable implements Serializable, Runnable {
 			boolean isProcessed = getCurrentPlayer().addArmyToCountryForStartup(countryName);
 			if (isProcessed) {
 				setNextPlayerTurn();
-				if(getCurrentPlayer().getIsBoat())
-					this.run();
 			}
 		} else if (phaseCheckValidation(PhaseEnum.Reinforcement)) {
 			Country toCountry = getCountryFromName(countryName);
@@ -360,6 +358,9 @@ public class Game extends Observable implements Serializable, Runnable {
 			getCurrentPlayer().addArmyToCountryForReinforcement();
 		}
 		updatePhase();
+		if (this.getGameMode() == GameMode.SingleGameMode) {
+			singleGameMode();
+		}
 	}
 
 	/**
@@ -392,8 +393,48 @@ public class Game extends Observable implements Serializable, Runnable {
 			this.setGamePhase(PhaseEnum.Fortification);
 		}
 
-		notifyObserverslocal();
+		notifyObserversLocal();
 
+	}
+
+	private void executeCurrentPhase() {
+		if (phaseCheckValidation(PhaseEnum.Startup)) {
+			ArrayList<Country> assignedCountryList = getCurrentPlayer().getAssignedCountryList();
+			int randomIndex = 0;
+			if (assignedCountryList.isEmpty())
+				return;
+			else if (assignedCountryList.size() > 1)
+				randomIndex = Common.getRandomNumberInRange(0, assignedCountryList.size() - 1);
+
+			Country country = assignedCountryList.get(randomIndex);
+			boolean isProcessed = getCurrentPlayer().addArmyToCountryForStartup(country.getCountryName());
+			if (isProcessed) {
+				setNextPlayerTurn();
+			}
+
+		} else if (this.phaseCheckValidation(PhaseEnum.Reinforcement)) {
+			System.out.println("Reinforcement");
+			this.getCurrentPlayer().addArmyToCountryForReinforcement();
+
+		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
+			System.out.println("Before attack");
+			this.getCurrentPlayer().attackPhase();
+			if (isMapConquered()) {
+				IOHelper.print("Game Over, You win");
+				isMapConqueredFlag = true;
+			}
+			System.out.println("After attack");
+			System.out
+					.println("Player 1 Countries Count:" + this.getAllPlayers().get(0).getAssignedCountryList().size());
+			System.out
+					.println("Player 2 Countries Count:" + this.getAllPlayers().get(1).getAssignedCountryList().size());
+			System.out
+					.println("Player 3 Countries Count:" + this.getAllPlayers().get(2).getAssignedCountryList().size());
+
+		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {
+			System.out.println("Fortification");
+			this.getCurrentPlayer().fortificationPhase();
+		}
 	}
 
 	/**
@@ -480,7 +521,7 @@ public class Game extends Observable implements Serializable, Runnable {
 			updatePhase();
 		}
 
-		notifyObserverslocal();
+		notifyObserversLocal();
 
 		return true;
 	}
@@ -533,7 +574,7 @@ public class Game extends Observable implements Serializable, Runnable {
 		if (!getCurrentPlayer().isAttackPossible()) {
 			updatePhase();
 		}
-		notifyObserverslocal();
+		notifyObserversLocal();
 
 		return true;
 	}
@@ -569,7 +610,9 @@ public class Game extends Observable implements Serializable, Runnable {
 		}
 
 		updatePhase();
-
+		if (this.getGameMode() == GameMode.SingleGameMode) {
+			singleGameMode();
+		}
 		return true;
 	}
 
@@ -590,7 +633,7 @@ public class Game extends Observable implements Serializable, Runnable {
 	public boolean moveArmyAfterAttack(int noOfArmies) {
 		boolean result = getCurrentPlayer().moveArmyAfterAttack(noOfArmies);
 		if (result) {
-			notifyObserverslocal();
+			notifyObserversLocal();
 		}
 		return result;
 	}
@@ -694,7 +737,7 @@ public class Game extends Observable implements Serializable, Runnable {
 				// set trade armies
 				this.getCurrentPlayer().setNoOfTradedArmies(tradingArmies);
 				this.getCurrentPlayer().setTradingCount(tradingCount);
-				notifyObserverslocal();
+				notifyObserversLocal();
 				return true;
 			} else {
 				IOHelper.print("Provide either all same type of cards or one of each kind of card");
@@ -736,6 +779,7 @@ public class Game extends Observable implements Serializable, Runnable {
 		Player currentPlayer;
 		int turnsCounts = 0;
 		// step 1: assign player to countries and randomly increase countries for player
+
 		// Loop until all armies are assigned for all players
 		while (this.phaseCheckValidation(PhaseEnum.Startup)) {
 			// Randomly increase army for the country of player
@@ -769,15 +813,15 @@ public class Game extends Observable implements Serializable, Runnable {
 
 			// Print status of players
 			this.printPlayerStatus();
-			
+
 			turnsCounts++;
-			if(turnsCounts >= getMaxTurnsForTournament()) {
+			if (turnsCounts >= getMaxTurnsForTournament()) {
 				this.setGamePhase(PhaseEnum.GameEnd);
 				break;
 			}
 		}
 
-		notifyObserverslocal();
+		notifyObserversLocal();
 		IOHelper.print(this.getCurrentPlayer().getName() + " is a winner !!");
 	}
 
@@ -812,31 +856,24 @@ public class Game extends Observable implements Serializable, Runnable {
 		return game;
 	}
 
-	@Override
-	public void run() {
-		while(getCurrentPlayer().getIsBoat() && phaseCheckValidation(PhaseEnum.Startup)) {
-			
-			// Artificial delay of 1s for demonstration purposes
-	        try {
-				Thread.sleep(1000L);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        
-			boolean isProcessed = this.getCurrentPlayer().determineInitialStartupAssignment();
-			if (isProcessed) {
-				setNextPlayerTurn();
-			}
-			notifyObserverslocal();
-			
-			try {
-				Thread.sleep(1000L);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void continueSinglePlayerMde() {
+		while (getCurrentPlayer().getIsBot() && !isMapConquered()) {
+			if (phaseCheckValidation(PhaseEnum.Startup) || phaseCheckValidation(PhaseEnum.Reinforcement)) {
+				int randomIndex = Common.getRandomNumberInRange(0,
+						getCurrentPlayer().getAssignedCountryList().size() - 1);
+				Country country = getCurrentPlayer().getAssignedCountryList().get(randomIndex);
+				addArmyToCountry(country.getCountryName());
 			}
 		}
-		
+	}
+
+	public void singleGameMode() {
+		while (getCurrentPlayer().getIsBot() && !this.isMapConquered()) {
+			executeCurrentPhase();
+			updatePhase();
+		}
+
+		notifyObserversLocal();
+
 	}
 }

@@ -52,7 +52,8 @@ public class GameController {
 				IOHelper.print("1. Create Map");
 				IOHelper.print("2. Edit Map");
 				IOHelper.print("3. Play Game");
-				IOHelper.print("4. Exit");
+				IOHelper.print("4. Load Game");
+				IOHelper.print("5. Exit");
 				input = IOHelper.getNextInteger();
 
 				switch (input) {
@@ -67,14 +68,20 @@ public class GameController {
 					initializeGame(map);
 					break;
 				case 4:
+					loadSavedGame();
+					break;
+				case 5:
 					System.exit(0);
 				default:
 					IOHelper.print("\nInvalid choice. Select Again!\n");
 					break;
 				}
 			} catch (Exception e) {
+
 				IOHelper.print(e.getMessage());
 				IOHelper.print("Please try again with the correct input format");
+				System.out.println(e.getCause());
+				e.printStackTrace();
 			}
 		}
 	}
@@ -253,6 +260,7 @@ public class GameController {
 				IOHelper.print("Enter a Valid Value");
 			}
 		}
+		
 
 		cardExchangeView = new CardExchangeView();
 		gameView = new GameView();
@@ -260,13 +268,18 @@ public class GameController {
 		game.addObserver(gameView);
 		inputPlayerInformation();
 		game.startUpPhase();
-		if (gameMode == 2) {
+
+		if(gameMode == 1) {
+			game.singleGameMode();
+		}
+		else if(gameMode == 2) {
 			game.tournamentMode();
 		} 
+		
 		gameView.gameInitializer();
 		activateListenersOnView();
 		game.addObserver(cardExchangeView);
-		game.run();
+		
 	}
 
 	private void inputPlayerInformation() throws NumberFormatException {
@@ -304,6 +317,33 @@ public class GameController {
 			}
 		}
 	}
+	
+	private void loadSavedGame()
+	{ ArrayList<String> savedGameList = this.getListOfSavedGames();
+	  int i = 1;
+	  for (String GameTitle : savedGameList) {
+		IOHelper.print(i + ")" + GameTitle);
+		i++;
+	  }
+	 IOHelper.print("\nEnter Game that you want to load:");
+	 int gameNumber = IOHelper.getNextInteger();
+	 String GameTitle = savedGameList.get(gameNumber - 1);
+     game = Game.loadGame(GameTitle);	
+     
+     Map map = game.getMap();
+     cardExchangeView = new CardExchangeView();
+	 gameView = new GameView();
+     game.addObserver(gameView);
+     game.addObserver(cardExchangeView);
+	 game.notifyObserversLocal();
+     gameView.mapPath = map.getMapPath() + map.getMapName() + ".bmp";
+	 gameView.gameInitializer();
+	 activateListenersOnView();
+	 game.notifyObserversLocal();
+	 
+	 IOHelper.print("Game Successfully Loaded");
+	}
+	
 
 	/**
 	 * This method will activate all listeners on the View
@@ -319,6 +359,7 @@ public class GameController {
 		addDefenderCountryListener();
 		addAttackArmyMoveButtonListner();
 		addSkipFortificationButtonListener();
+		addSaveButtonListener();
 	}
 
 	/**
@@ -332,6 +373,7 @@ public class GameController {
 				String string = jLabel.getToolTipText();
 				if (game.getGamePhase() == PhaseEnum.Startup || game.getGamePhase() == PhaseEnum.Reinforcement)
 					game.addArmyToCountry(string);
+					//game.continueSinglePlayerMde();
 			}
 		});
 	}
@@ -341,7 +383,7 @@ public class GameController {
 	 */
 	public void addAttackerCountryListener() {
 		gameView.addActionListenToAttackerCountryList(new ActionListener() {
-
+			
 			public void actionPerformed(ActionEvent e) {
 				String countryName = gameView.getAttackerCountry();
 				if (countryName != null) {
@@ -481,6 +523,9 @@ public class GameController {
 			public void actionPerformed(ActionEvent e) {
 				if (game.getGamePhase() == PhaseEnum.Fortification)
 					game.updatePhase();
+					if (game.getGameMode() == GameMode.SingleGameMode) {
+						game.singleGameMode();
+					}
 			}
 		});
 	}
@@ -498,6 +543,33 @@ public class GameController {
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
 				if (listOfFiles[i].getName().toLowerCase().contains(".map"))
+					fileNames.add(listOfFiles[i].getName());
+			} else if (listOfFiles[i].isDirectory()) {
+			}
+		}
+		return fileNames;
+	}
+	
+	/**
+	 * to add listener on the Skip button in Fortification Phase
+	 */
+	public void addSaveButtonListener() {
+		gameView.addActionListenToSaveButton(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				game.saveGame();
+			}
+		});
+	}
+	
+	private ArrayList<String> getListOfSavedGames() {
+		ArrayList<String> fileNames = new ArrayList<String>();
+		File folder = new File("assets/Saved_Games/");
+		File[] listOfFiles = folder.listFiles();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				if (listOfFiles[i].getName().toLowerCase().contains(".txt"))
 					fileNames.add(listOfFiles[i].getName());
 			} else if (listOfFiles[i].isDirectory()) {
 			}

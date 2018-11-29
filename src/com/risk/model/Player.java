@@ -770,11 +770,11 @@ public class Player implements Serializable {
 		return status;
 	}
 	
-	public boolean getIsBoat() {
-		return this.playerStrategy.getIsBoat();
+	public boolean getIsBot() {
+		return this.playerStrategy.getIsBot();
 	}
 	
-	public boolean determineInitialStartupAssignment() {
-		return this.playerStrategy.determineInitialStartupAssignment(this);
+	public String getStrategyName() {
+		return playerStrategy.getStrategyName();
 	}
 }
