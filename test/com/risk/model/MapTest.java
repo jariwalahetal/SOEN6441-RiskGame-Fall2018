@@ -172,7 +172,9 @@ public class MapTest {
 		assertTrue(equalLists(testCountries, testMapCountries));
 	}
 
-// read existing valid map file and validate
+	/**
+	 * To read existing valid map file and validate readMap() method
+ 	 */
 	@Test
 	public void readValidMapFile(){
 		Map map = new Map("validMapTest.map");
@@ -195,6 +197,9 @@ public class MapTest {
 		assertTrue(equalLists(testCountries, testMapCountries));
 	}
 
+	/**
+	 * To read invalid Map file and validate readMap() method
+	 */
 	@Test
 	public void readInvalidMapFile(){
 		Map map = new Map("invalidMapTest.map");
