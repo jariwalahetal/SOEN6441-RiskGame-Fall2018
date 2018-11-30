@@ -15,20 +15,30 @@ import com.risk.model.Player;
  * @author binay
  * @version 1.0.0
  * @since 19-November-2018
-
+ * 
  */
 public class Human implements PlayerStrategy, Serializable {
 
 	private String strategyName = "Human";
 
+	/**
+	 * This method will return strategy Name
+	 * @return strategy name
+	 */
 	public String getStrategyName() {
 		return strategyName;
 	}
 
+	/**
+	 * This method will return true if strategy is a bot
+	 */
 	public boolean getIsBot() {
 		return false;
 	}
-	
+
+	/**
+	 * This method will execute reinforce method for the Strategy
+	 */
 	@Override
 	public boolean reinforce(Player player) {
 		// TODO Auto-generated method stub
@@ -38,7 +48,7 @@ public class Human implements PlayerStrategy, Serializable {
 		}
 
 		Country country = player.getToCountry();
-		
+
 		if (country == null) {
 			IOHelper.print("Country name - " + country.getCountryName() + " does not exist!");
 			return false;
@@ -51,13 +61,16 @@ public class Human implements PlayerStrategy, Serializable {
 		return true;
 	}
 
+	/**
+	 * This method will execute attack method for the Strategy
+	 */
 	@Override
 	public void attack(Player attackerPlayer) {
 		// TODO Auto-generated method stub
 		Country attackingCountry = attackerPlayer.getFromCountry();
-		Country defendingCountry = 	attackerPlayer.getToCountry();	
-	    Player defenderPlayer = attackerPlayer.getAttackedPlayer();
-		
+		Country defendingCountry = attackerPlayer.getToCountry();
+		Player defenderPlayer = attackerPlayer.getAttackedPlayer();
+
 		ArrayList<Integer> attackingDices = attackerPlayer.getDiceOutComes();
 		ArrayList<Integer> defendingDices = defenderPlayer.getDiceOutComes();
 
@@ -102,18 +115,21 @@ public class Human implements PlayerStrategy, Serializable {
 		}
 
 		if (defendingCountry.getnoOfArmies() == 0) {
-	             attackerPlayer.conquerCountry(defenderPlayer);	
+			attackerPlayer.conquerCountry(defenderPlayer);
 		}
 	}
 
+	/**
+	 * This method will execute fortify method for the Strategy
+	 */
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
-		
+
 		Country sourceCountry = player.getFromCountry();
 		Country destinationCountry = player.getToCountry();
 		int noOfArmies = player.getNoOfArmiesToMove();
-		
+
 		if (sourceCountry == null || destinationCountry == null) {
 			IOHelper.print("Source or destination country is invalid!");
 			return false;
@@ -130,9 +146,4 @@ public class Human implements PlayerStrategy, Serializable {
 
 	}
 
-
-	@Override
-	public void beforeInitialStartupAssignment(Player player) {
-		IOHelper.print("I'm human. So waiting for user input");
-	}
 }

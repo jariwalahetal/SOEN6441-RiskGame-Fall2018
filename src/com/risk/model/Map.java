@@ -25,7 +25,7 @@ import com.risk.helper.IOHelper;
  * @version 1.0.0
  * @since 27-September-2018
  */
-public class Map implements Serializable{
+public class Map implements Serializable {
 	private String mapName;
 	private String mapPath = "assets/maps/";
 	private ArrayList<Continent> continentsList = new ArrayList<>();
@@ -33,7 +33,9 @@ public class Map implements Serializable{
 
 	/**
 	 * This is a constructor of Map Class which sets mapId and mapName
-	 * @param mapName, Name of the map
+	 * 
+	 * @param mapName,
+	 *            Name of the map
 	 */
 	public Map(String mapName) {
 		super();
@@ -63,8 +65,8 @@ public class Map implements Serializable{
 			String readLine;
 			int continentID = 0;
 			int countryID = 0;
-			HashMap<String,Country> countries = new HashMap<String,Country>();
-			HashMap<Country,String[]> countryNeighbor = new HashMap<Country,String[]>();
+			HashMap<String, Country> countries = new HashMap<String, Country>();
+			HashMap<Country, String[]> countryNeighbor = new HashMap<Country, String[]>();
 
 			while ((readLine = bufferedReader.readLine()) != null) {
 				if (readLine.trim().length() == 0)
@@ -77,8 +79,7 @@ public class Map implements Serializable{
 					captureCountries = true;
 					continue;
 				}
-				
-			
+
 				if (captureContinents) {
 					String[] parsedControlValuesByContinentsArray = readLine.split("=");
 					Continent continent = new Continent(continentID++, parsedControlValuesByContinentsArray[0],
@@ -91,12 +92,12 @@ public class Map implements Serializable{
 					int xCoordinate = Integer.parseInt(parsedTerritoriesArray[1]);
 					int yCoordinate = Integer.parseInt(parsedTerritoriesArray[2]);
 					Country country = new Country(countryID++, parsedTerritoriesArray[0], xCoordinate, yCoordinate);
-					
+
 					countries.put(parsedTerritoriesArray[0], country);
 					countryNeighbor.put(country, parsedTerritoriesArray);
-					
+
 					int k = 0;
-					// k is initialized to get neighboring countries 
+					// k is initialized to get neighboring countries
 					for (String neighborCountry : parsedTerritoriesArray) {
 						if (k > 3) {
 							country.addNeighboursString(neighborCountry);
@@ -113,19 +114,19 @@ public class Map implements Serializable{
 					}
 				}
 			}
-	
+
 			Country neighbour;
 			Iterator it = countryNeighbor.entrySet().iterator();
-		    while (it.hasNext()) {
-		    	HashMap.Entry entry = (HashMap.Entry) it.next();
-		        Country country = (Country)entry.getKey();
-		        String[] neighbours = (String[])entry.getValue();
-		       for(int i=4;i<neighbours.length;i++)
-               { neighbour = countries.get(neighbours[i]);
-		         country.addNeighboursCountries(neighbour);             	   
-               }
-		    }	
-						
+			while (it.hasNext()) {
+				HashMap.Entry entry = (HashMap.Entry) it.next();
+				Country country = (Country) entry.getKey();
+				String[] neighbours = (String[]) entry.getValue();
+				for (int i = 4; i < neighbours.length; i++) {
+					neighbour = countries.get(neighbours[i]);
+					country.addNeighboursCountries(neighbour);
+				}
+			}
+
 			bufferedReader.close();
 		} catch (Exception e) {
 			IOHelper.printException(e);
@@ -222,7 +223,7 @@ public class Map implements Serializable{
 							.orElse(null);
 					if (c != null) {
 						country.getNeighboursString().remove(i);
-					} 
+					}
 				}
 			}
 		}
@@ -317,10 +318,9 @@ public class Map implements Serializable{
 			}
 			if (isTwoArrayListsWithSameValues(visitedList, listOfAllCountries)) {
 				boolean connectedGraphContinentLevel = checkConnectedGraphOnContinentLevel();
-				if(connectedGraphContinentLevel) {
+				if (connectedGraphContinentLevel) {
 					return true;
-				}
-				else {
+				} else {
 					System.out.print("Graph not connected at continent level");
 					return false;
 				}
@@ -346,20 +346,25 @@ public class Map implements Serializable{
 	}
 
 	/**
-	 * This function returns whether the map is connected or not at the continent level.
+	 * This function returns whether the map is connected or not at the continent
+	 * level.
+	 * 
 	 * @return boolean
 	 */
 	boolean checkConnectedGraphOnContinentLevel() {
-		for(Continent cont:this.continentsList) {
-			if(!checkIfContinentConnected(cont)) {
+		for (Continent cont : this.continentsList) {
+			if (!checkIfContinentConnected(cont)) {
 				return false;
 			}
 		}
 		return true;
 	}
+
 	/**
 	 * This function returns whether a continent is connected or not.
-	 * @param induvidualCont continent passed to check if it is connected or not
+	 * 
+	 * @param induvidualCont
+	 *            continent passed to check if it is connected or not
 	 * @return true,if connected is connected else false
 	 */
 	public boolean checkIfContinentConnected(Continent induvidualCont) {
@@ -368,32 +373,33 @@ public class Map implements Serializable{
 		Stack<Country> s = new Stack<Country>();
 		ArrayList<Country> visitedCountries = new ArrayList<Country>();
 		ArrayList<String> visitedCountriesString = new ArrayList<String>();
-		for(Country country:induvidualCont.getCountryList()) {
+		for (Country country : induvidualCont.getCountryList()) {
 			totalCountries.add(country);
 			totalCountriesString.add(country.getCountryName());
 		}
 		s.push(totalCountries.get(0));
 		visitedCountries.add(totalCountries.get(0));
 		visitedCountriesString.add(totalCountries.get(0).getCountryName());
-		while(!s.isEmpty()) {
+		while (!s.isEmpty()) {
 			Country v = s.pop();
-			for(Country neighbouringCountry :v.getNeighbourCountries()) {
-				if(neighbouringCountry.getContId()!=induvidualCont.getContId()) {
+			for (Country neighbouringCountry : v.getNeighbourCountries()) {
+				if (neighbouringCountry.getContId() != induvidualCont.getContId()) {
 					continue;
 				}
-				if(!visitedCountriesString.contains(neighbouringCountry.getCountryName())) {
+				if (!visitedCountriesString.contains(neighbouringCountry.getCountryName())) {
 					s.push(neighbouringCountry);
 					visitedCountries.add(neighbouringCountry);
 					visitedCountriesString.add(neighbouringCountry.getCountryName());
 				}
 			}
 		}
-		if(isTwoArrayListsWithSameValues(visitedCountriesString, totalCountriesString)) {
+		if (isTwoArrayListsWithSameValues(visitedCountriesString, totalCountriesString)) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
+
 	/**
 	 * Checks if two array lists are same or not
 	 *

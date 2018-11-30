@@ -16,7 +16,6 @@ public class Country implements Serializable{
 	private int countryId;
 	private String countryName;
 	private int contId;
-	private int playerId;
 	private Player player;
 	private int xCoordiate;
 	private int yCoordiate;
@@ -114,27 +113,6 @@ public class Country implements Serializable{
 	}
 
 	/**
-	 * Gets player id
-	 * 
-	 * @return playeId int
-	 */
-
-/*	public int getPlayerId() {
-		return playerId;
-	}
-*/
-	/**
-	 * Sets player id
-	 * 
-	 * @param playerId
-	 *            int
-	 * 
-	 */
-/*	public void setPlayerId(int playerId) {
-		this.playerId = playerId;
-	}
-*/
-	/**
 	 * Gets X-coordiante position
 	 * 
 	 * @return xCoordiate int
@@ -201,7 +179,6 @@ public class Country implements Serializable{
 	public void increaseArmyCount(int count) {
 		noOfArmies += count;
 	}
-
 
 	/**
 	 * Decreases the army count by given value

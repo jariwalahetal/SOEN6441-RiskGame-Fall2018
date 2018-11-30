@@ -113,6 +113,7 @@ public class GameTest {
 	
 		// Generate reinforcement for player
 		Player currentPlayer = game.getCurrentPlayer();
+		currentPlayer.setPlayerStrategy(new Human());
 		if(!currentPlayer.isCardsAvailableForTradeInReinforcement()) {
 			ArrayList<Country> playerCountries = game.getCurrentPlayer().getAssignedCountryList();
 			List<Integer> countryIds = playerCountries.stream().map(c -> c.getCountryId()).collect(Collectors.toList());
@@ -222,6 +223,8 @@ public class GameTest {
         	break;
           }       	
         }
+        if (fromCountry != null &&
+        		toCountry != null) {
         int fromCountryArmyCount = fromCountry.getnoOfArmies();
         int noOfArmiesToMove = fromCountryArmyCount - 1;
         int toCountryArmyCount = toCountry.getnoOfArmies();
@@ -229,6 +232,7 @@ public class GameTest {
 
 	    assertEquals(fromCountry.getnoOfArmies(), 1);
 	    assertEquals(toCountryArmyCount + noOfArmiesToMove, toCountry.getnoOfArmies());	
+        }
 	}
 	
 	/**
@@ -304,10 +308,6 @@ public class GameTest {
 
 			assertEquals(0, currentPlayer.getNoOfUnassignedArmies());
 			assertEquals(0, currentPlayer.getNoOfReinforcedArmies());
-
-			// Do attack
-			//TODO: change this
-			//game.attackPhase();
 
 			// Randomly select a country to move armies from
 			Country fromCountry = playerCountries.get(Common.getRandomNumberInRange(0, playerCountries.size() - 1));

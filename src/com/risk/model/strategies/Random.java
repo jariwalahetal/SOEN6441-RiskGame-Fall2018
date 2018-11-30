@@ -25,14 +25,24 @@ public class Random implements PlayerStrategy, Serializable {
 
 	private String strategyName = "Random";
 
+	/**
+	 * This method will return strategy Name
+	 * @return strategy name
+	 */
 	public String getStrategyName() {
 		return strategyName;
 	}
 
+	/**
+	 * This method will return true if strategy is a bot
+	 */
 	public boolean getIsBot() {
 		return true;
 	}
-	
+
+	/**
+	 * This method will execute reinforce method for the Strategy
+	 */
 	@Override
 	public boolean reinforce(Player player) {
 		ArrayList<Country> countryList = player.getAssignedCountryList();
@@ -54,43 +64,50 @@ public class Random implements PlayerStrategy, Serializable {
 		return true;
 	}
 
+	/**
+	 * This method will execute attack method for the Strategy
+	 */
 	@Override
 	public void attack(Player attackerPlayer) {
 		int totalAttack = Common.getRandomNumberInRange(1, 10);
 
 		IOHelper.print("Total " + totalAttack + " random attacks are generated");
+		ArrayList<Country> countryList = attackerPlayer.getCountriesObjectWithArmiesGreaterThanOne();
+		int randomIndex = 0;
+		if (countryList == null || countryList.size() == 0)
+			return;
+		else if (countryList.size() > 1)
+			randomIndex = Common.getRandomNumberInRange(0, countryList.size() - 1);
+
+		Country fromCountry = countryList.get(randomIndex);
+		IOHelper.print("Randomly selectd " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
+				+ ") for attack");
+
+		ArrayList<Country> neighborCountries = attackerPlayer
+				.getUnAssignedNeighbouringCountriesObject(fromCountry.getCountryName());
+
+		if (neighborCountries.isEmpty()) {
+			IOHelper.print("No neighbour found as a defender");
+			return;
+		} else if (neighborCountries.size() == 1)
+			randomIndex = 0;
+		else
+			randomIndex = Common.getRandomNumberInRange(0, neighborCountries.size() - 1);
+
+		Country toCountry = neighborCountries.get(randomIndex);
+		IOHelper.print("Randomly selectd " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
+				+ ") as a defender");
+
 		for (int i = 0; i < totalAttack; i++) {
-			ArrayList<Country> countryList = attackerPlayer.getCountriesObjectWithArmiesGreaterThanOne();
-			int randomIndex = 0;
-			if (countryList == null || countryList.size() == 0)
-				break;
-			else if (countryList.size() > 1)
-				randomIndex = Common.getRandomNumberInRange(0, countryList.size() - 1);
-
-			Country fromCountry = countryList.get(randomIndex);
-			IOHelper.print("Randomly selectd " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
-					+ ") for attack");
-
-			ArrayList<Country> neighborCountries = attackerPlayer
-					.getUnAssignedNeighbouringCountriesObject(fromCountry.getCountryName());
-
-			if (neighborCountries.isEmpty()) {
-				IOHelper.print("No neighbour found as a defender");
-				continue;
-			} else if (neighborCountries.size() == 1)
-				randomIndex = 0;
-			else
-				randomIndex = Common.getRandomNumberInRange(0, neighborCountries.size() - 1);
-
-			Country toCountry = neighborCountries.get(randomIndex);
-			IOHelper.print("Randomly selectd " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
-					+ ") as a defender");
 
 			attackOperation(fromCountry, toCountry, attackerPlayer);
 		}
 
 	}
 
+	/**
+	 * This method will execute fortify method for the Strategy
+	 */
 	@Override
 	public boolean fortify(Player player) {
 		ArrayList<Country> countryList = player.getCountriesObjectWithArmiesGreaterThanOne();
@@ -124,6 +141,13 @@ public class Random implements PlayerStrategy, Serializable {
 		return true;
 	}
 
+	/**
+	 * This method will execute core operation of Attack Phase
+	 * 
+	 * @param fromCountry
+	 * @param toCountry
+	 * @param attackerPlayer
+	 */
 	private void attackOperation(Country fromCountry, Country toCountry, Player attackerPlayer) {
 
 		int attackerDiceCount = attackerPlayer.getMaximumAllowableDices(fromCountry, "Attacker");
@@ -186,13 +210,6 @@ public class Random implements PlayerStrategy, Serializable {
 		if (toCountry.getnoOfArmies() == 0) {
 			attackerPlayer.conquerCountry(defenderPlayer);
 		}
-	}
-
-	private boolean countryVisited(Country country, HashMap<Country, Integer> visitedCountries, Player player) {
-		if (country.getPlayer().getPlayerId() == player.getPlayerId() && !visitedCountries.containsKey(country))
-			return true;
-		else
-			return false;
 	}
 
 }

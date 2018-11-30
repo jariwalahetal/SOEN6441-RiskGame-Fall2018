@@ -26,20 +26,30 @@ import com.risk.model.Player;
 public class Benevolent implements PlayerStrategy, Serializable {
 	private String strategyName = "Benevolent";
 
+	/**
+	 * This method will return strategy Name
+	 * @return strategy name
+	 */
 	public String getStrategyName() {
 		return strategyName;
 	}
 
+	/**
+	 * This method will return true if strategy is a bot
+	 */
 	public boolean getIsBot() {
 		return true;
 	}
-	
+
+	/**
+	 * This method will execute reinforce method for the Strategy
+	 */
 	@Override
 	public boolean reinforce(Player player) {
 		int minArmies = getMinimumArmies(player);
 		List<Country> weakestCountries = player.getAssignedCountryList().stream()
 				.filter(x -> x.getnoOfArmies() == minArmies).collect(Collectors.toList());
-		
+
 		if (weakestCountries != null) {
 			IOHelper.print("Found " + weakestCountries.size() + " weakest countries. Now assigning "
 					+ player.getNoOfReinforcedArmies() + " armies");
@@ -60,38 +70,46 @@ public class Benevolent implements PlayerStrategy, Serializable {
 		return true;
 	}
 
+	/**
+	 * This method will execute attack method for the Strategy
+	 */
 	@Override
 	public void attack(Player attackerPlayer) {
 		IOHelper.print("Player's strategy is benevolent so Attack skipped");
 	}
 
+	/**
+	 * This method will execute fortify method for the Strategy
+	 */
 	@Override
 	public boolean fortify(Player player) {
 		// TODO Auto-generated method stub
-		
+
 		ArrayList<Country> sortedList = player.getAssignedCountryList().stream()
-											.sorted(Comparator.comparing(Country::getnoOfArmies).reversed())
-											.collect(Collectors.toCollection(ArrayList::new));
-		
-		for(Country fromCountry : sortedList) {
-			
-			if(fromCountry == null)
+				.sorted(Comparator.comparing(Country::getnoOfArmies).reversed())
+				.collect(Collectors.toCollection(ArrayList::new));
+
+		for (Country fromCountry : sortedList) {
+
+			if (fromCountry == null)
 				break;
 			IOHelper.print("Found strongest country " + fromCountry.getCountryName() + ". Now finding weakest link...");
 			ArrayList<Country> neighborCountries = player.getConnectedCountriesRecursively(fromCountry,
-					(ArrayList<Country>) player.getAssignedCountryList().clone(), 
-														new ArrayList<Country>());
-			if(neighborCountries!= null && neighborCountries.size() > 0)
-			{
+					(ArrayList<Country>) player.getAssignedCountryList().clone(), new ArrayList<Country>());
+			if (neighborCountries != null && neighborCountries.size() > 0) {
 				Country toCountry = getWeakestCountry(neighborCountries);
-				if(fromCountry !=null && toCountry !=null && toCountry.getnoOfArmies() < fromCountry.getnoOfArmies() )
-				{
-					//fortify weakest country
+				if (fromCountry != null && toCountry != null
+						&& toCountry.getnoOfArmies() < fromCountry.getnoOfArmies()) {
+					// fortify weakest country
 					int armies = (fromCountry.getnoOfArmies() - toCountry.getnoOfArmies()) / 2;
-					IOHelper.print("Benevolent player "+ player.getName() +" - fortification from " + fromCountry.getCountryName() + "("+ fromCountry.getnoOfArmies() +") to " + toCountry.getCountryName() + "("+ toCountry.getnoOfArmies()+") with " + armies + " armies");
+					IOHelper.print("Benevolent player " + player.getName() + " - fortification from "
+							+ fromCountry.getCountryName() + "(" + fromCountry.getnoOfArmies() + ") to "
+							+ toCountry.getCountryName() + "(" + toCountry.getnoOfArmies() + ") with " + armies
+							+ " armies");
 					fromCountry.decreaseArmyCount(armies);
 					toCountry.increaseArmyCount(armies);
-					IOHelper.print("Finished fortification with destination country " +  toCountry.getCountryName() + " ("+ toCountry.getnoOfArmies() +")");
+					IOHelper.print("Finished fortification with destination country " + toCountry.getCountryName()
+							+ " (" + toCountry.getnoOfArmies() + ")");
 					break;
 				}
 			}
@@ -100,19 +118,12 @@ public class Benevolent implements PlayerStrategy, Serializable {
 		return true;
 	}
 
-/*	private Country getWeakestCountry(Player player) {
-		Country country = null;
-		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
-		int armiesCount = Integer.MAX_VALUE;
-		for (Country c : assignedCountryList) {
-			if (c.getnoOfArmies() < armiesCount) {
-				armiesCount = c.getnoOfArmies();
-				country = c;
-			}
-		}
-		return country;
-	}
-*/
+	/**
+	 * This method will return the weakest country
+	 * 
+	 * @param countries
+	 * @return
+	 */
 	private Country getWeakestCountry(ArrayList<Country> countries) {
 		Country country = null;
 		int armiesCount = Integer.MAX_VALUE;
@@ -125,6 +136,12 @@ public class Benevolent implements PlayerStrategy, Serializable {
 		return country;
 	}
 
+	/**
+	 * This method will return the army count of the weakest country
+	 * 
+	 * @param player
+	 * @return
+	 */
 	private int getMinimumArmies(Player player) {
 		int returnVal = Integer.MAX_VALUE;
 		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
@@ -135,17 +152,4 @@ public class Benevolent implements PlayerStrategy, Serializable {
 		return returnVal;
 	}
 
-/*	private Country getStrongestCounty(Player player) {
-		Country country = null;
-		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
-		int armiesCount = 0;
-		for (Country c : assignedCountryList) {
-			if (c.getnoOfArmies() > armiesCount) {
-				armiesCount = c.getnoOfArmies();
-				country = c;
-			}
-		}
-		return country;
-	}
-*/
 }
