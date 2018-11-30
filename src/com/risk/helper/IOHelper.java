@@ -25,7 +25,7 @@ public class IOHelper {
 			String timeStamp = new SimpleDateFormat().format(new Date());
 			long epocTime = System.currentTimeMillis() / 1000L;
 			CustomLogFormatter logFormatter = new CustomLogFormatter();
-			fileHandler = new FileHandler("assets/Logs/GameLog_" + epocTime + ".txt");
+			fileHandler = new FileHandler("assets/Logs/GameLog_" + epocTime + ".txt",true);
 			logger.addHandler(fileHandler);
 			fileHandler.setFormatter(logFormatter);
 			fileHandler.setLevel(Level.INFO);

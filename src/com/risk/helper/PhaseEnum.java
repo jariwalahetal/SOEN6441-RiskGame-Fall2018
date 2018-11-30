@@ -7,5 +7,5 @@ package com.risk.helper;
  *
  */
 public enum PhaseEnum {
-	Startup, Reinforcement, Attack, Fortification, GameEnd
+	Startup, Reinforcement, Attack, Fortification, GameWinner, GameDraw
 }
