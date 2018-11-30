@@ -53,7 +53,7 @@ public class Game extends Observable implements Serializable {
 	/**
 	 * Sets game mode
 	 * 
-	 * @param gameMode
+	 * @param gameMode,mode of the Game
 	 */
 	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
@@ -62,8 +62,7 @@ public class Game extends Observable implements Serializable {
 	/**
 	 * Returns maxTurnsForTournament
 	 * 
-	 * @param maxTurns
-	 * @return
+	 * @return int, maxTurnsForTournament
 	 */
 	public int getMaxTurnsForTournament() {
 		return this.maxTurnsForTournament;
@@ -72,7 +71,7 @@ public class Game extends Observable implements Serializable {
 	/**
 	 * Sets MaxTurnsForTournamet
 	 * 
-	 * @param maxTurns
+	 * @param maxTurns, Maximum Turns
 	 */
 	public void setMaxTurnsForTournament(int maxTurns) {
 		this.maxTurnsForTournament = maxTurns;
@@ -81,7 +80,7 @@ public class Game extends Observable implements Serializable {
 	/**
 	 * Returns Game mode
 	 * 
-	 * @return Game Mode
+	 * @return Game Mode,  GameMode object 
 	 */
 	public GameMode getGameMode() {
 		return gameMode;
@@ -238,7 +237,7 @@ public class Game extends Observable implements Serializable {
 
 	/**
 	 * Method use to get player from player ID
-	 * 
+	 * @param playerID, Id of the Player
 	 * @return playerList, ArrayList of players
 	 */
 	public Player getPlayerFromID(int playerID) {
@@ -276,7 +275,6 @@ public class Game extends Observable implements Serializable {
 	/**
 	 * Method used to notify observer
 	 * 
-	 * @param game, object of the game
 	 */
 	public void notifyObserversLocal() {
 		setChanged();

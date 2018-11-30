@@ -69,6 +69,9 @@ public class PlayerTest {
 		}
 	}
 
+	/**
+	 * Test Method for Reinforcement  for Benevolent Player
+	 */
 	@Test
 	public void testReinforceBenevolent() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -103,6 +106,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Reinforcement  for Cheater Player
+	 */
 	@Test
 	public void testReinforcePhaseCheater() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -124,6 +130,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Reinforcement  for Random Player
+	 */
 	@Test
 	public void testReinforcePhaseRandom() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -151,6 +160,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Reinforcement  for Aggressive Player
+	 */
 	@Test
 	public void testReinforcePhaseAggressive() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -179,6 +191,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Reinforcement  for Human Player
+	 */
 	@Test
 	public void testReinforcePhaseHuman() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -198,6 +213,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Attack for Benevolent Player
+	 */
 	@Test
 	public void testAttackPhaseBenevolent() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -221,6 +239,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Attack for Cheater Player
+	 */
 	@Test
 	public void testAttackPhaseCheater() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -244,6 +265,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Attack for Random Player
+	 */
 	@Test
 	public void testAttackPhaseRandom() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -274,6 +298,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Attack for Aggressive Player
+	 */
 	@Test
 	public void testAttackPhaseAggressive() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -307,6 +334,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Attack for Human Player
+	 */
 	@Test
 	public void testAttackPhaseHuman() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -360,6 +390,9 @@ public class PlayerTest {
 		}
 	}
 
+	/**
+	 * Test Method for Fortification for Benevolent Player
+	 */
 	@Test
 	public void testFortificationPhaseBenevolent() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -368,6 +401,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Fortification for Random Player
+	 */
 	@Test
 	public void testFortificationPhaseRandom() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -410,6 +446,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Fortification for Cheater Player
+	 */
 	@Test
 	public void testFortificationPhaseCheater() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -446,6 +485,9 @@ public class PlayerTest {
 		}
 	}
 
+	/**
+	 * Test Method for Fortification for Aggressive Player
+	 */
 	@Test
 	public void testFortificationPhaseAggressive() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -489,6 +531,9 @@ public class PlayerTest {
 
 	}
 
+	/**
+	 * Test Method for Fortification for Human Player
+	 */
 	@Test
 	public void testFortificationPhaseHuman() {
 		Player currentPlayer = game.getCurrentPlayer();
@@ -640,30 +685,12 @@ public class PlayerTest {
 			boolean value = game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
 			assertEquals(value, true);
 		}
-
-		// game.getCurrentPlayer().addCardToPlayer(cardEnum.Infantry);
-		// game.getCurrentPlayer().addCardToPlayer(cardEnum.Artillery);
-		// game.getCurrentPlayer().addCardToPlayer(cardEnum.Cavalry);
-		// PlayerStrategy strategy=new Human();
-		// game.getCurrentPlayer().setPlayerStrategy(strategy);
-		// int cardSize=game.getCurrentPlayer().getCards().size();
-		// boolean
-		// allowed=game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
-		// game.getCurrentPlayer().getAssignedCountryList().add(c1);
-		// game.getCurrentPlayer().getAssignedCountryList().add(c1);
-		// game.getCurrentPlayer().getAssignedCountryList().add(c1);
-		// game.getCurrentPlayer().getAssignedCountryList().add(c1);
-		// Math.floor(game.getCurrentPlayer().getAssignedCountryList().size()/3);
-		//
-		//
-		//
-		// game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
-		// game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
+		
 
 	}
 
 	/**
-	 * 
+	 * Test Method to add Army to Country for Startup Phase
 	 */
 	@Test
 	public void addArmyToCountryForStartup() {
@@ -702,14 +729,6 @@ public class PlayerTest {
 		c2 = null;
 
 	}
-	/**
-	 * This method tests the total armies.
-	 * 
-	 * @param list1
-	 *            array list number 1
-	 * @param list2
-	 *            array list number 2
-	 * @return boolean
-	 */
+	
 
 }
