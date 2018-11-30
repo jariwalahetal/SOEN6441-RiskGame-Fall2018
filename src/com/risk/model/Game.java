@@ -355,7 +355,7 @@ public class Game extends Observable implements Serializable {
 		} else if (phaseCheckValidation(PhaseEnum.Reinforcement)) {
 			Country toCountry = getCountryFromName(countryName);
 			getCurrentPlayer().setToCountry(toCountry);
-			getCurrentPlayer().addArmyToCountryForReinforcement();
+			getCurrentPlayer().reinforce();
 		}
 		updatePhase();
 		if (this.getGameMode() == GameMode.SingleGameMode) {
@@ -414,7 +414,7 @@ public class Game extends Observable implements Serializable {
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Reinforcement)) {
 			System.out.println("Reinforcement");
-			this.getCurrentPlayer().addArmyToCountryForReinforcement();
+			this.getCurrentPlayer().reinforce();
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
 			System.out.println("Before attack");
@@ -794,7 +794,7 @@ public class Game extends Observable implements Serializable {
 			currentPlayer = this.getCurrentPlayer();
 
 			// step 2: reinforce counties
-			currentPlayer.addArmyToCountryForReinforcement();
+			currentPlayer.reinforce();
 			this.updatePhase();
 
 			// step 3: attack phase
@@ -825,9 +825,9 @@ public class Game extends Observable implements Serializable {
 		IOHelper.print(this.getCurrentPlayer().getName() + " is a winner !!");
 	}
 
-	public void saveGame() {
+	public String saveGame() {
+		String fileTime = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
 		try {
-			String fileTime = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
 			FileOutputStream fileOut = new FileOutputStream("assets/Saved_Games/" + fileTime);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(this);
@@ -836,7 +836,7 @@ public class Game extends Observable implements Serializable {
 		} catch (IOException i) {
 			i.printStackTrace();
 		}
-
+     return fileTime;
 	}
 
 	public static Game loadGame(String gameTitle) {

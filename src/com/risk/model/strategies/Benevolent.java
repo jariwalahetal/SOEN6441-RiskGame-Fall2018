@@ -36,11 +36,12 @@ public class Benevolent implements PlayerStrategy, Serializable {
 	
 	@Override
 	public boolean reinforce(Player player) {
-		int mimumArmies = getMinimumArmies(player);
+		int minArmies = getMinimumArmies(player);
 		List<Country> weakestCountries = player.getAssignedCountryList().stream()
-				.filter(x -> x.getnoOfArmies() == mimumArmies).collect(Collectors.toList());
+				.filter(x -> x.getnoOfArmies() == minArmies).collect(Collectors.toList());
+		
 		if (weakestCountries != null) {
-			IOHelper.print("Found " + weakestCountries.size() + " weakest counties. Now assigning "
+			IOHelper.print("Found " + weakestCountries.size() + " weakest countries. Now assigning "
 					+ player.getNoOfReinforcedArmies() + " armies");
 			int index = 0;
 			while (player.getNoOfReinforcedArmies() > 0) {
@@ -99,7 +100,7 @@ public class Benevolent implements PlayerStrategy, Serializable {
 		return true;
 	}
 
-	private Country getWeakestCountry(Player player) {
+/*	private Country getWeakestCountry(Player player) {
 		Country country = null;
 		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
 		int armiesCount = Integer.MAX_VALUE;
@@ -111,7 +112,7 @@ public class Benevolent implements PlayerStrategy, Serializable {
 		}
 		return country;
 	}
-
+*/
 	private Country getWeakestCountry(ArrayList<Country> countries) {
 		Country country = null;
 		int armiesCount = Integer.MAX_VALUE;
@@ -134,7 +135,7 @@ public class Benevolent implements PlayerStrategy, Serializable {
 		return returnVal;
 	}
 
-	private Country getStrongestCounty(Player player) {
+/*	private Country getStrongestCounty(Player player) {
 		Country country = null;
 		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
 		int armiesCount = 0;
@@ -146,5 +147,5 @@ public class Benevolent implements PlayerStrategy, Serializable {
 		}
 		return country;
 	}
-
+*/
 }

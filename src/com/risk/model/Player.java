@@ -113,6 +113,10 @@ public class Player implements Serializable {
 		return isConquered;
 	}
 
+	public void setIsConquered(Boolean isConquered) {
+		this.isConquered = isConquered;
+	}
+
 	/**
 	 * This method will tell if a player is eligible for card exchange
 	 * 
@@ -414,7 +418,7 @@ public class Player implements Serializable {
 	 *            of the country
 	 * @return false, if phase is not valid otherwise return true
 	 */
-	public boolean addArmyToCountryForReinforcement() {
+	public boolean reinforce() {
 		return this.playerStrategy.reinforce(this);
 	}
 
@@ -619,7 +623,6 @@ public class Player implements Serializable {
 	 */
 	public void conquerCountry(Player defenderPlayer) {
 
-//		toCountry.setPlayerId(playerId);
 		toCountry.setPlayer(this);
 		defenderPlayer.unAssignCountryToPlayer(toCountry);
 		assignCountryToPlayer(toCountry);
