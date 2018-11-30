@@ -52,9 +52,6 @@ public class Player implements Serializable {
 	 */
 	public Player(int playerId, String name) {
 		super();
-		this.addCardToPlayer(CardEnum.Artillery);
-		this.addCardToPlayer(CardEnum.Artillery);
-		this.addCardToPlayer(CardEnum.Artillery);
 		this.playerId = playerId;
 		this.name = name;
 		this.color = InitialPlayerSetup.getPlayerColor(playerId);

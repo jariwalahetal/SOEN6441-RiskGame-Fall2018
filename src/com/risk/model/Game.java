@@ -776,6 +776,12 @@ public class Game extends Observable implements Serializable {
 	public void tournamentMode() {
 		Player currentPlayer;
 		int turnsCounts = 0;
+		
+		IOHelper.print("\n");
+		IOHelper.print("\n");
+		IOHelper.print("===========================================================================================");
+		IOHelper.print("=================================TOURNAMENT START==========================================");
+		IOHelper.print("===========================================================================================");
 		// step 1: assign player to countries and randomly increase countries for player
 
 		// Loop until all armies are assigned for all players
@@ -817,10 +823,11 @@ public class Game extends Observable implements Serializable {
 			turnsCounts++;
 			if (turnsCounts >= getMaxTurnsForTournament()) {
 				this.setGamePhase(PhaseEnum.GameDraw);
+				IOHelper.print("Tournament draw after " + turnsCounts + " turns");
 				break;
 			}
 		}
-
+		IOHelper.print("===========================================================================================");
 		notifyObserversLocal();
 	}
 

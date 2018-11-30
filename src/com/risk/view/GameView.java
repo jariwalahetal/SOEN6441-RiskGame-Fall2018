@@ -313,7 +313,7 @@ public class GameView implements Observer {
 			image = ImageIO.read(imageFile);
 			icon = new ImageIcon(image);
 		} catch (IOException e) {
-			IOHelper.printException(e);
+			//IOHelper.printException(e);
 		}
 
 		mapJlabel = new JLabel(icon);
@@ -681,7 +681,7 @@ public class GameView implements Observer {
 			} else if (game.getGamePhase() == PhaseEnum.Reinforcement) {
 
 				if (game.getCurrentPlayer().isCardsAvailableForTradeInReinforcement()
-						&& (!isCardExchangeViewOpenedOnce)) {
+						&& (!isCardExchangeViewOpenedOnce) && !game.getCurrentPlayer().getIsBot()) {
 					CardExchangeView cardExchangeView = new CardExchangeView();
 					cardExchangeView.exchangeInitializerView(game);
 					isCardExchangeViewOpenedOnce = true;
@@ -714,6 +714,7 @@ public class GameView implements Observer {
 
 			addPhaseMessages();
 			updateWorldDominationView();
+			stratergyJLabel.setForeground(Common.getColor(activePlayerColor));
 			if(game.getCurrentPlayer().getIsBot()) {
 				stratergyJLabel.setText(game.getCurrentPlayer().getStrategyName() + " is playing as " + game.getCurrentPlayer().getName());
 			}

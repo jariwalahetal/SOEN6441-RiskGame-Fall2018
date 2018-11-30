@@ -77,5 +77,7 @@ public class IOHelper {
 	 */
 	public static void printException(Exception exception) {
 		System.out.println("Exception: " + exception.getMessage());
+		System.out.println(exception.getCause());
+		exception.printStackTrace();
 	}
 }

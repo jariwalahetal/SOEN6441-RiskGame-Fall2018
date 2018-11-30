@@ -64,7 +64,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 			return;
 		}
 		
-		IOHelper.print("Aggressive player "+ attackerPlayer.getName() +" - attack - attacking from " + attackingCountry.getCountryName());
+		IOHelper.print("Aggressive player "+ attackerPlayer.getName() +" - attack - attacking from " + attackingCountry.getCountryName() + "("+  attackingCountry.getnoOfArmies()+")");
 
 		ArrayList<Country> CountriesToAttack = attackerPlayer.getUnAssignedNeighbouringCountriesObject
 											(attackingCountry.getCountryName());
@@ -84,7 +84,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 				continue;
 			}
 			
-			IOHelper.print(attackingCountry.getCountryName()+"("+ attackingCountry.getnoOfArmies() + ") is attacking to "+ toCountry.getCountryName() + "("+ toCountry.getnoOfArmies()+")");
+			
 						
 			//Perform attack untill country is acquired or the attacking country is lost
 			while (toCountry.getPlayer().getPlayerId() != attackerPlayer.getPlayerId()) {
@@ -158,6 +158,8 @@ public class Aggressive implements PlayerStrategy, Serializable {
 	}
 
 	private void attackOperation(Country fromCountry, Country toCountry, Player attackerPlayer) {
+		
+		IOHelper.print(attackingCountry.getCountryName()+"("+ attackingCountry.getnoOfArmies() + ") is attacking to "+ toCountry.getCountryName() + "("+ toCountry.getnoOfArmies()+")");
 		
 		Player defenderPlayer = toCountry.getPlayer();
 		

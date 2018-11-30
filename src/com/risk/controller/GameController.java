@@ -84,9 +84,9 @@ public class GameController {
 				System.out.println(e.getCause());
 				e.printStackTrace();
 			} finally {
-				System.out.println("Do you want to continue? (1/0)");
+				System.out.println("Do you want to continue with game? (1/0)");
 				int doCont = IOHelper.getNextInteger();
-				if (doCont == 1)
+				if (doCont == 0)
 					break;
 			}
 		}
@@ -349,8 +349,7 @@ public class GameController {
 					for (int j = 0; j < G; j++) {
 						game = new Game(maps.get(i));
 						game.setGameMode(GameMode.TournamentMode);
-						
-						
+
 						for (int ps = 0; ps < stratergies.size(); ps++) {
 							Player player = new Player(ps, stratergies.get(ps).getStrategyName());
 							player.setPlayerStrategy(stratergies.get(ps));
