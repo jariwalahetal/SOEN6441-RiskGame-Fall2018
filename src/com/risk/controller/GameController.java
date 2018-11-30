@@ -215,13 +215,15 @@ public class GameController {
 	 */
 	private Map initializeMap(boolean showList) throws NumberFormatException {
 		int i = 1;
-		IOHelper.print("List of Maps:-");
 		ArrayList<String> maps = getListOfMaps();
-		for (String file : maps) {
-			IOHelper.print(i + ")" + file);
-			i++;
+		if(showList) {
+			IOHelper.print("List of Maps:-");
+			for (String file : maps) {
+				IOHelper.print(i + ")" + file);
+				i++;
+			}
+			IOHelper.print("\nEnter Map number to load Map file:\n");
 		}
-		IOHelper.print("\nEnter Map number to load Map file:\n");
 		int mapNumber = IOHelper.getNextInteger();
 		String selectedMapName = maps.get(mapNumber - 1);
 		Map map = new Map(selectedMapName);
@@ -379,7 +381,7 @@ public class GameController {
 					}
 					tournamentResult.put("Map " + i, result);
 				}
-				printTournamentResult(M, G, tournamentResult);
+				printTournamentResult(M, G, D, tournamentResult, stratergies);
 				
 			} else {
 				IOHelper.print("Enter a Valid Value for game mode");
@@ -684,8 +686,18 @@ public class GameController {
 		return fileNames;
 	}
 	
-	private void printTournamentResult(int M, int G, HashMap<String, ArrayList<String>> result) {
-		
+	private void printTournamentResult(int M, int G, int D,HashMap<String, ArrayList<String>> result, ArrayList<PlayerStrategy> stratergies) {
+		 
+		String[] mapStrings = result.keySet().toArray(new String[result.keySet().size()]);
+		IOHelper.print("===========================================================================================");
+		IOHelper.print("=================================TOURNAMENT RESULT=========================================");
+		IOHelper.print("===========================================================================================");
+		IOHelper.print("M:" + mapStrings.toString());
+		IOHelper.print("P:" + stratergies.toString());
+		IOHelper.print("G:" + G);
+		IOHelper.print("D:" + D);
+		IOHelper.print("\n");
+		IOHelper.print("\n");
 		StringBuilder sb = new StringBuilder();
 		sb.append("|");
 		sb.append(getFormattedString(" "));
@@ -697,14 +709,12 @@ public class GameController {
 		IOHelper.print(getRepeatedFormattedString("-", sb.length()));
 		IOHelper.print(sb.toString());
 		IOHelper.print(getRepeatedFormattedString("-", sb.length()));
-		 
-		String[] mapStrings = result.keySet().toArray(new String[result.keySet().size()]);
 		
 		for(int i=0;i< mapStrings.length;i++) {
 			
 			StringBuilder sbMap = new StringBuilder();
 			sbMap.append("|");
-			sbMap.append(getFormattedString("Map " + (i+1)));
+			sbMap.append(getFormattedString(mapStrings[i]));
 			
 			ArrayList<String> gameResults = result.get(mapStrings[i]);
 			for(int j=0;j<G;j++) {
