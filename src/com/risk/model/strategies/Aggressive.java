@@ -130,17 +130,27 @@ public class Aggressive implements PlayerStrategy, Serializable {
 	public boolean fortify(Player player) {
 		
 		Country fromCountry;
-		Country destinationCountry;
+		Country destinationCountry = null;
 		
 		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
-		fromCountry = getStrongestCountry(assignedCountryList,0);	
+		fromCountry = getStrongestCountry(assignedCountryList,1);	
 		
 		ArrayList<Country> neighborCountries = player.getConnectedCountriesRecursively(fromCountry,
 				(ArrayList<Country>) player.getAssignedCountryList().clone(), 
 				new ArrayList<Country>());
 		
-		neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
-		destinationCountry = getStrongestCountry(neighborCountries, 0);
+//		neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
+		Country country = null;
+		int armiesCount = 0;
+		for (Country c : assignedCountryList) {
+			if (c.getnoOfArmies() > armiesCount &&
+					fromCountry!= c) {
+				armiesCount = c.getnoOfArmies();
+				destinationCountry = c;
+			}
+		}
+		
+//		destinationCountry = getStrongestCountry(neighborCountries, 0);
 		
 		if(fromCountry != null && destinationCountry != null) 
 		{   int armies = fromCountry.getnoOfArmies()-1;

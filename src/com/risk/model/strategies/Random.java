@@ -59,33 +59,36 @@ public class Random implements PlayerStrategy, Serializable {
 		int totalAttack = Common.getRandomNumberInRange(1, 10);
 
 		IOHelper.print("Total " + totalAttack + " random attacks are generated");
+		ArrayList<Country> countryList = attackerPlayer.getCountriesObjectWithArmiesGreaterThanOne();
+		int randomIndex = 0;
+		if (countryList == null || countryList.size() == 0)
+			return;
+		else if (countryList.size() > 1)
+			randomIndex = Common.getRandomNumberInRange(0, countryList.size() - 1);
+
+		Country fromCountry = countryList.get(randomIndex);
+		IOHelper.print("Randomly selectd " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
+				+ ") for attack");
+
+		ArrayList<Country> neighborCountries = attackerPlayer
+				.getUnAssignedNeighbouringCountriesObject(fromCountry.getCountryName());
+
+		if (neighborCountries.isEmpty()) {
+			IOHelper.print("No neighbour found as a defender");
+			return;
+		} else if (neighborCountries.size() == 1)
+			randomIndex = 0;
+		else
+			randomIndex = Common.getRandomNumberInRange(0, neighborCountries.size() - 1);
+
+		Country toCountry = neighborCountries.get(randomIndex);
+		IOHelper.print("Randomly selectd " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
+				+ ") as a defender");
+
+		
+		
 		for (int i = 0; i < totalAttack; i++) {
-			ArrayList<Country> countryList = attackerPlayer.getCountriesObjectWithArmiesGreaterThanOne();
-			int randomIndex = 0;
-			if (countryList == null || countryList.size() == 0)
-				break;
-			else if (countryList.size() > 1)
-				randomIndex = Common.getRandomNumberInRange(0, countryList.size() - 1);
-
-			Country fromCountry = countryList.get(randomIndex);
-			IOHelper.print("Randomly selectd " + fromCountry.getCountryName() + " (" + fromCountry.getnoOfArmies()
-					+ ") for attack");
-
-			ArrayList<Country> neighborCountries = attackerPlayer
-					.getUnAssignedNeighbouringCountriesObject(fromCountry.getCountryName());
-
-			if (neighborCountries.isEmpty()) {
-				IOHelper.print("No neighbour found as a defender");
-				continue;
-			} else if (neighborCountries.size() == 1)
-				randomIndex = 0;
-			else
-				randomIndex = Common.getRandomNumberInRange(0, neighborCountries.size() - 1);
-
-			Country toCountry = neighborCountries.get(randomIndex);
-			IOHelper.print("Randomly selectd " + toCountry.getCountryName() + " (" + toCountry.getnoOfArmies()
-					+ ") as a defender");
-
+		
 			attackOperation(fromCountry, toCountry, attackerPlayer);
 		}
 

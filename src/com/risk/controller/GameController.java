@@ -112,7 +112,6 @@ public class GameController {
 					IOHelper.print("Map is not valid.Please try again");
 				}
 				mapView.killFrame();
-				// startGame();
 			}
 		});
 	}
@@ -199,7 +198,6 @@ public class GameController {
 				}
 				break;
 			case 6:
-//				startGame();
 				break;
 			default:
 				IOHelper.print("Option not Available. Select Again!");
@@ -239,7 +237,8 @@ public class GameController {
 	/**
 	 * This function creates the player objects for initializing Game
 	 * 
-	 * @param map, Map
+	 * @param map,
+	 *            Map
 	 * @throws InterruptedException
 	 */
 	private void initializeGame() throws NumberFormatException, InterruptedException {
@@ -247,7 +246,7 @@ public class GameController {
 		int gameMode = 5;
 		while (gameMode != 1 && gameMode != 2) {
 			IOHelper.print("\nWhich mode do you want to play?");
-			IOHelper.print("1 - Single Game Mode \n 2 - Tournament Mode");
+			IOHelper.print("1 - Single Game Mode \n2 - Tournament Mode");
 			gameMode = IOHelper.getNextInteger();
 
 			if (gameMode == 1) {
@@ -349,8 +348,7 @@ public class GameController {
 					for (int j = 0; j < G; j++) {
 						game = new Game(maps.get(i));
 						game.setGameMode(GameMode.TournamentMode);
-						
-						
+
 						for (int ps = 0; ps < stratergies.size(); ps++) {
 							Player player = new Player(ps, stratergies.get(ps).getStrategyName());
 							player.setPlayerStrategy(stratergies.get(ps));
@@ -471,7 +469,6 @@ public class GameController {
 				String string = jLabel.getToolTipText();
 				if (game.getGamePhase() == PhaseEnum.Startup || game.getGamePhase() == PhaseEnum.Reinforcement)
 					game.addArmyToCountry(string);
-				// game.continueSinglePlayerMde();
 			}
 		});
 	}

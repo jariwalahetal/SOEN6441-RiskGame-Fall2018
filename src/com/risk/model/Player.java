@@ -36,7 +36,6 @@ public class Player implements Serializable {
 	private Player attackedPlayer;
 	private Boolean isConquered = false;
 	private ArrayList<CardEnum> playerCards = new ArrayList<>();
-	// TODO: implement lost logic in game check whole flow
 	private boolean isLost = false;
 	private ArrayList<Integer> diceOutComes = new ArrayList<>();
 	private Boolean eligibleForCard = false;
@@ -52,9 +51,6 @@ public class Player implements Serializable {
 	 */
 	public Player(int playerId, String name) {
 		super();
-		this.addCardToPlayer(CardEnum.Artillery);
-		this.addCardToPlayer(CardEnum.Artillery);
-		this.addCardToPlayer(CardEnum.Artillery);
 		this.playerId = playerId;
 		this.name = name;
 		this.color = InitialPlayerSetup.getPlayerColor(playerId);
