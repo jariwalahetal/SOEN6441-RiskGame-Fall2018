@@ -1,0 +1,87 @@
+[Map]
+author=Ekij
+image=Twin Volcano.bmp
+wrap=no
+scroll=none
+warn=yes
+
+[Continents]
+Active Volcano=6
+Passive Volcano=5
+Starfish Island=3
+Round Island=2
+Humpback Island=2
+Cone Island=1
+Slug Island=1
+Triangle Island=1
+Crescent Island=1
+Boomerang Island=1
+Barren Rocks=0
+
+[Territories]
+Round North,447,92,Round Island,Round West, Round East
+Round East,485,120,Round Island,Round North,Round South,North Barren Rock
+Round West,415,128,Round Island,Round North,Round South,Cone End
+Round South,455,153,Round Island,Round West,Round East,Beech Beach
+
+Cone Tip,280,240,Cone Island,Swelling Shore,Merry Water,Cone Ring
+Cone Ring,310,210,Cone Island,Cone Tip,Cone End
+Cone End,345,185,Cone Island,Cone Ring,Round West
+
+Slug's Head,662,142,Slug Island,North Barren Rock,North Pass,Slug Midriff
+Slug Midriff,714,162,Slug Island,Slug's Head,Slug Tail
+Slug Tail,757,196,Slug Island,Slug Midriff,Scalene Sands
+
+Swelling Shore,170,295,Humpback Island,Landward Lump,Cone Tip
+Brine Bulge,122,344,Humpback Island,Landward Lump,Base Bump
+Landward Lump,160,340,Humpback Island,Swelling Shore,Brine Bulge,Base Bump,Lump View,West Point
+Base Bump,132,389,Humpback Island,Brine Bulge,Landward Lump,Scythe Sands
+
+Scalene Sands,726,275,Triangle Island,Deltoid Dell,Pascal's Point,Slug Tail
+Deltoid Dell,765,290,Triangle Island,Scalene Sands,Pascal's Point
+Pascal's Point,728,318,Triangle Island,Scalene Sands,Deltoid Dell,East Barren Rock
+
+Scythe Sands,85,475,Crescent Island,Falcate Forest,Base Bump
+Falcate Forest,107,529,Crescent Island,Scythe Sands,Waxing Strand
+Waxing Strand,155,538,Crescent Island,Falcate Forest,South Barren Rock
+
+Body,623,476,Starfish Island,Meth-Ray,Eth-Ray,Prope-Ray,Bute-Ray,Pent-Ray
+Meth-Ray,611,442,Starfish Island,Body,Eth-Ray,Pent-Ray,Wide Beach
+Eth-Ray,653,450,Starfish Island,Body,Meth-Ray,Prope-Ray,East Barren Rock
+Prope-Ray,658,492,Starfish Island,Body,Eth-Ray,Bute-Ray
+Bute-Ray,612,510,Starfish Island,Body,Prope-Ray,Pent-Ray,East Boomerang
+Pent-Ray,575,475,Starfish Island,Body,Meth-Ray,Bute-Ray,Mid Barren Rock
+
+West Boomerang,369,560,Boomerang Island,Mid Boomerang,South Barren Rock
+Mid Boomerang,420,562,Boomerang Island,West Boomerang,East Boomerang
+East Boomerang,464,525,Boomerang Island,Mid Boomerang,Mid Barren Rock,Bute-Ray
+
+North Barren Rock,562,123,Barren Rocks,Round East,Slug's Head
+East Barren Rock,705,387,Barren Rocks,Pascal's Point,Eth-Ray
+Mid Barren Rock,501,452,Barren Rocks,Bad Lands,Wide Beach,Pent-Ray,East Boomerang
+South Barren Rock,261,551,Barren Rocks,Waxing Strand,Magma Plains,West Boomerang
+
+North Pass,603,208,Passive Volcano,Grand Glade,Slug's Head
+Grand Glade,580,240,Passive Volcano,North Pass,Beech Beach,Cone Shadow
+Beech Beach,510,242,Passive Volcano,Grand Glade,Elm Pass,Mount-View,Round South
+Elm Pass,464,272,Passive Volcano,Beech Beach,Mount-View,Oak Pass
+Mount-View,505,300,Passive Volcano,Beech Beach,Elm Pass,Grim Glade,Larch Pass
+Cone Shadow,615,290,Passive Volcano,Grand Glade,Grim Glade,Pointless point
+Grim Glade,555,316,Passive Volcano,Mount-View,Cone Shadow,Larch Pass,Wide Beach,Pointless Point
+Larch Pass,497,337,Passive Volcano,Mount-View,Grim Glade,Wide Beach,Ash Pass
+Pointless Point,615,335,Passive Volcano,Cone Shadow,Grim Glade,Wide Beach
+Wide Beach,560,350,Passive Volcano,Grim Glade,Larch Pass,Pointless Point,Meth-Ray,Mid Barren Rock
+
+Oak Pass,390,280,Active Volcano,Merry Water,Middle Flats,Elm Pass
+Merry Water,315,305,Active Volcano,Oak Pass,Fir Flats,Middle Flats,Cone Tip
+Lump View,255,345,Active Volcano,Fir Flats,Volcano View,Landward Lump
+Middle Flats,360,333,Active Volcano,Oak Pass,Merry Water,Fir Flats,Ash Pass,Bad Lands
+Fir Flats,315,340,Active Volcano,Merry Water,Middle Flats,Lump View
+Ash Pass,430,355,Active Volcano,Middle Flats,Bad Lands,Larch Pass
+Bad Lands,408,397,Active Volcano,Middle Flats,Ash Pass,Lava Land,Mid Barren Rock
+Volcano View,260,388,Active Volcano,Lump View,West Point,River Side
+West Point,215,417,Active Volcano,Volcano View,River Side,Landward Lump
+River Side,264,434,Active Volcano,Volcano View,West point,Magma Plains
+Lava Land,358,437,Active Volcano,Bad Lands,Magma Plains,Land's End
+Magma Plains,300,450,Active Volcano,River Side,Lava Land,Land's End,South Barren Rock
+Land's End,338,475,Active Volcano,Lava Land,Magma Plains
