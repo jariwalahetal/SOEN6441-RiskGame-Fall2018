@@ -802,8 +802,10 @@ public class Game extends Observable implements Serializable {
 
 			// step 3.1: generate logic to move armies after attack phase
 
-			if (isMapConquered())
+			if (isMapConquered()) {
+				IOHelper.print(this.getCurrentPlayer().getName() + " is a winner !!");
 				break;
+			}
 
 			this.updatePhase();
 
@@ -822,7 +824,6 @@ public class Game extends Observable implements Serializable {
 		}
 
 		notifyObserversLocal();
-		IOHelper.print(this.getCurrentPlayer().getName() + " is a winner !!");
 	}
 
 	public String saveGame() {
