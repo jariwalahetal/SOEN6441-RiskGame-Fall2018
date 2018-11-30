@@ -425,7 +425,7 @@ public class Player implements Serializable {
 	 * @return true, if reinforcement assignation Armies allowed
 	 */
 	public boolean isAssigningReinforcementArmiesAllowed() {
-		if (this.playerCards.size() >= 4) {
+		if (this.playerCards.size() >= 5) {
 			return false;
 		} else {
 			return true;
