@@ -492,7 +492,25 @@ public class GameTest {
 			Game testObject=(Game) in.readObject();
 			in.close();
 			fileInput.close();
-			assertEquals(game, testObject);			
+			
+			ArrayList<Player> players1 = testObject.getAllPlayers();
+			ArrayList<Player> players2 = game.getAllPlayers();
+			assertEquals(players1.size(),players2.size());
+			int armySize1[] = new int[players1.size()];
+			int armySize2[] = new int[players1.size()];
+			int i = 0;
+			for(Player p : players1) {
+				armySize1[i] = p.getNoOfTradedArmies();
+				i++;
+			}
+			i = 0;
+			for(Player p : players2) {
+				armySize2[i] = p.getNoOfTradedArmies();
+				i++;
+			}
+			for (i=0;i<armySize2.length;i++) {
+				assertEquals(armySize1[i],armySize2[i]);
+			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
