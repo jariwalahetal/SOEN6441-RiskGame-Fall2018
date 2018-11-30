@@ -84,6 +84,11 @@ public class GameController {
 				System.out.println(e.getCause());
 				e.printStackTrace();
 			}
+			finally {
+				System.out.println("Do you want to continue? (1/0)");
+				int doCont = IOHelper.getNextInteger();
+				if(doCont == 1) break;	
+			}			
 		}
 	}
 
@@ -695,7 +700,7 @@ public class GameController {
 		 
 		String[] mapStrings = result.keySet().toArray(new String[result.keySet().size()]);
 		
-		for(int i=0;i< mapStrings.length - 1;i++) {
+		for(int i=0;i< mapStrings.length;i++) {
 			
 			StringBuilder sbMap = new StringBuilder();
 			sbMap.append("|");
@@ -714,7 +719,7 @@ public class GameController {
 	
 	private String getRepeatedFormattedString(String input, int length) {		
 		StringBuilder str = new StringBuilder(input);
-		for (int i = input.length(); i <= length; i++)
+		for (int i = input.length(); i <= length-1; i++)
             str.append(input);
 		return str.toString();
 	}
