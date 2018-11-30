@@ -58,7 +58,7 @@ public class Player implements Serializable {
 	/**
 	 * This method is used to set Player Strategy
 	 * 
-	 * @param playerStrategy
+	 * @param playerStrategy player stratergy
 	 */
 	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
 		this.playerStrategy = playerStrategy;
@@ -67,7 +67,7 @@ public class Player implements Serializable {
 	/**
 	 * This method is used to get Player Strategy
 	 * 
-	 * @return
+	 * @return player stratergy
 	 */
 	public PlayerStrategy getPlayerStrategy() {
 		return playerStrategy;
@@ -76,7 +76,7 @@ public class Player implements Serializable {
 	/**
 	 * This method is used to get Attacked Player
 	 * 
-	 * @return
+	 * @return player stratergy
 	 */
 	public Player getAttackedPlayer() {
 		return attackedPlayer;
@@ -85,67 +85,62 @@ public class Player implements Serializable {
 	/**
 	 * This method is used to set Attacked Player
 	 * 
-	 * @param attackedPlayer
+	 * @param attackedPlayer attacked player object
 	 */
 	public void setAttackedPlayer(Player attackedPlayer) {
 		this.attackedPlayer = attackedPlayer;
 	}
 
 	/**
-	 * This method is used to get No. of armies to move in fortification &
-	 * reinforcement Phase
+	 * This method is used to get No. of armies to move in fortification and reinforcement Phase
 	 * 
-	 * @return
+	 * @return number of armies to move
 	 */
 	public int getNoOfArmiesToMove() {
 		return noOfArmiesToMove;
 	}
 
 	/**
-	 * This method is used to set No. of armies to move in fortification &
-	 * reinforcement Phase
+	 * This method is used to set No. of armies to move in fortification and reinforcement Phase
 	 * 
-	 * @param noOfArmiesToMove
+	 * @param noOfArmiesToMove armies to move
 	 */
 	public void setNoOfArmiesToMove(int noOfArmiesToMove) {
 		this.noOfArmiesToMove = noOfArmiesToMove;
 	}
 
 	/**
-	 * This method is used to get source Country in fortification & reinforcement
+	 * This method is used to get source Country in fortification and reinforcement
 	 * Phase
 	 * 
-	 * @return
+	 * @return country object
 	 */
 	public Country getFromCountry() {
 		return fromCountry;
 	}
 
 	/**
-	 * This method is used to set source Country in fortification & reinforcement
-	 * Phase
+	 * This method is used to set source Country in fortification and reinforcement Phase
 	 * 
-	 * @param fromCountry
+	 * @param fromCountry country object
 	 */
 	public void setFromCountry(Country fromCountry) {
 		this.fromCountry = fromCountry;
 	}
 
 	/**
-	 * This method is used to get destination Country in fortification &
-	 * reinforcement Phase
+	 * This method is used to get destination Country in fortification and reinforcement Phase
 	 * 
-	 * @return
+	 * @return country object
 	 */
 	public Country getToCountry() {
 		return toCountry;
 	}
 
 	/**
-	 * This method is used to set destination Country in fortification &
-	 * reinforcement Phase
+	 * This method is used to set destination Country in fortification and  reinforcement Phase
 	 * 
-	 * @param toCountry
+	 * @param toCountry country object
 	 */
 	public void setToCountry(Country toCountry) {
 		this.toCountry = toCountry;
@@ -154,8 +149,8 @@ public class Player implements Serializable {
 	/**
 	 * This method will return Dice outcomes
 	 * 
-	 * @return
-	 */
+	 * @return dices count
+	 */ 
 	public ArrayList<Integer> getDiceOutComes() {
 		return diceOutComes;
 	}
@@ -832,7 +827,7 @@ public class Player implements Serializable {
 	/**
 	 * This method will return if a Player is bot or not
 	 * 
-	 * @return
+	 * @return is boat
 	 */
 	public boolean getIsBot() {
 		return this.playerStrategy.getIsBot();
@@ -841,7 +836,7 @@ public class Player implements Serializable {
 	/**
 	 * This method will return strategy name
 	 * 
-	 * @return
+	 * @return stratergy name
 	 */
 	public String getStrategyName() {
 		return playerStrategy.getStrategyName();
