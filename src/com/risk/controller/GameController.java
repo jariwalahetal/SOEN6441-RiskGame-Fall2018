@@ -83,12 +83,12 @@ public class GameController {
 				IOHelper.print("Please try again with the correct input format");
 				System.out.println(e.getCause());
 				e.printStackTrace();
-			}
-			finally {
+			} finally {
 				System.out.println("Do you want to continue? (1/0)");
 				int doCont = IOHelper.getNextInteger();
-				if(doCont == 1) break;	
-			}			
+				if (doCont == 1)
+					break;
+			}
 		}
 	}
 
@@ -216,7 +216,7 @@ public class GameController {
 	private Map initializeMap(boolean showList) throws NumberFormatException {
 		int i = 1;
 		ArrayList<String> maps = getListOfMaps();
-		if(showList) {
+		if (showList) {
 			IOHelper.print("List of Maps:-");
 			for (String file : maps) {
 				IOHelper.print(i + ")" + file);
@@ -240,10 +240,10 @@ public class GameController {
 	 * This function creates the player objects for initializing Game
 	 * 
 	 * @param map, Map
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	private void initializeGame() throws NumberFormatException, InterruptedException {
-		
+
 		int gameMode = 5;
 		while (gameMode != 1 && gameMode != 2) {
 			IOHelper.print("\nWhich mode do you want to play?");
@@ -252,7 +252,7 @@ public class GameController {
 
 			if (gameMode == 1) {
 				Map map = initializeMap(true);
-				game = new Game(map);				
+				game = new Game(map);
 				game.setGameMode(GameMode.SingleGameMode);
 
 				cardExchangeView = new CardExchangeView();
@@ -263,130 +263,119 @@ public class GameController {
 				game.startUpPhase();
 
 				game.singleGameMode();
-				
+
 				gameView.gameInitializer();
 				activateListenersOnView();
 				game.addObserver(cardExchangeView);
-				
+
 			} else if (gameMode == 2) {
-				
+
 				int M = 0, P = 0, G = 0, D = 0;
 				ArrayList<Map> maps = new ArrayList<>();
 				ArrayList<PlayerStrategy> stratergies = new ArrayList<>();
-				//Enter number of maps 
-				while(true) {
+				// Enter number of maps
+				while (true) {
 					IOHelper.print("Enter number of maps you want to play (1-5)?");
-					
+
 					int count = IOHelper.getNextInteger();
-					if(count>=1 && count <=5) {
+					if (count >= 1 && count <= 5) {
 						M = count;
 						break;
 					}
 				}
-				
-				for(int i=0;i<M;i++) {
-					maps.add(initializeMap(i==0));
+
+				for (int i = 0; i < M; i++) {
+					maps.add(initializeMap(i == 0));
 				}
-				
-				while(true) {
+
+				while (true) {
 					IOHelper.print("Enter number of player strategy you want to play (2-4)?");
-					
+
 					int count = IOHelper.getNextInteger();
-					if(count >=2 && count<=4) {
+					if (count >= 2 && count <= 4) {
 						P = count;
 						break;
 					}
 				}
-				
+
 				IOHelper.print("Enter " + P + " different strargies from following list");
 				IOHelper.print("1- Aggressive");
 				IOHelper.print("2- Benevolent");
 				IOHelper.print("3- Random");
 				IOHelper.print("4- Cheater");
-				for(int i=0;i<P;i++) {
+				for (int i = 0; i < P; i++) {
 					int playerstrategy = IOHelper.getNextInteger();
-					
-					if(playerstrategy == 1) {
+
+					if (playerstrategy == 1) {
 						stratergies.add(new Aggressive());
-					}
-					else if(playerstrategy == 2) {
+					} else if (playerstrategy == 2) {
 						stratergies.add(new Benevolent());
-					}
-					else if(playerstrategy == 3) {
+					} else if (playerstrategy == 3) {
 						stratergies.add(new Random());
-					}
-					else if (playerstrategy == 4) {
+					} else if (playerstrategy == 4) {
 						stratergies.add(new Cheater());
-					}
-					else {
+					} else {
 						IOHelper.print("Enter valid strargy");
 						i--;
 						continue;
 					}
-					
-					
+
 				}
-				
-				while(true) {
+
+				while (true) {
 					IOHelper.print("Enter number of games you want to play in each map (1-5)?");
-					
+
 					int count = IOHelper.getNextInteger();
-					if(count >=1 && count<=5) {
+					if (count >= 1 && count <= 5) {
 						G = count;
 						break;
 					}
 				}
-				
-				//Enter maximum number of turns
-				while(true) {
+
+				// Enter maximum number of turns
+				while (true) {
 					IOHelper.print("Enter maximum number turns for for each game (10 - 50");
-					
+
 					int count = IOHelper.getNextInteger();
-					if(count>=10 && count <=50) {
+					if (count >= 10 && count <= 50) {
 						D = count;
 						break;
 					}
 				}
 				HashMap<String, ArrayList<String>> tournamentResult = new HashMap<>();
-				
-				for(int i=0;i<M;i++) {
+
+				for (int i = 0; i < M; i++) {
 					ArrayList<String> result = new ArrayList<>();
-					for(int j = 0;j<G; j++) {
-						game = new Game(maps.get(i));				
+					for (int j = 0; j < G; j++) {
+						game = new Game(maps.get(i));
 						game.setGameMode(GameMode.TournamentMode);
 						
-						gameView = new GameView();
-	
-						game.addObserver(gameView);
-						for(int ps = 0;ps<stratergies.size();ps++) {
+						
+						for (int ps = 0; ps < stratergies.size(); ps++) {
 							Player player = new Player(ps, stratergies.get(ps).getStrategyName());
 							player.setPlayerStrategy(stratergies.get(ps));
 							game.addPlayer(player);
 						}
-						
+
 						game.startUpPhase();
-	
+
 						game.tournamentMode();
-						
-						gameView.gameInitializer();
-						activateListenersOnView();
-					
-						//add result 
-						if(game.getGamePhase() == PhaseEnum.GameDraw) {
+
+						// add result
+						if (game.getGamePhase() == PhaseEnum.GameDraw) {
 							result.add("DRAW");
-						}
-						else {
+						} else {
 							result.add(game.getCurrentPlayer().getName());
 						}
 					}
-					tournamentResult.put("Map " + i, result);
+					tournamentResult.put(maps.get(i).getMapName(), result);
 				}
 				printTournamentResult(M, G, D, tournamentResult, stratergies);
-				
+
 			} else {
 				IOHelper.print("Enter a Valid Value for game mode");
 			}
-		}		
+		}
 	}
 
 	private void inputPlayerInformation() throws NumberFormatException {
@@ -685,9 +674,10 @@ public class GameController {
 		}
 		return fileNames;
 	}
-	
-	private void printTournamentResult(int M, int G, int D,HashMap<String, ArrayList<String>> result, ArrayList<PlayerStrategy> stratergies) {
-		 
+
+	private void printTournamentResult(int M, int G, int D, HashMap<String, ArrayList<String>> result,
+			ArrayList<PlayerStrategy> stratergies) {
+
 		String[] mapStrings = result.keySet().toArray(new String[result.keySet().size()]);
 		IOHelper.print("===========================================================================================");
 		IOHelper.print("=================================TOURNAMENT RESULT=========================================");
@@ -701,23 +691,23 @@ public class GameController {
 		StringBuilder sb = new StringBuilder();
 		sb.append("|");
 		sb.append(getFormattedString(" "));
-		for(int i=0;i<G;i++) {
+		for (int i = 0; i < G; i++) {
 			sb.append("|");
-			sb.append(getFormattedString("Game " + (i+1)));
+			sb.append(getFormattedString("Game " + (i + 1)));
 		}
 		sb.append("|");
 		IOHelper.print(getRepeatedFormattedString("-", sb.length()));
 		IOHelper.print(sb.toString());
 		IOHelper.print(getRepeatedFormattedString("-", sb.length()));
-		
-		for(int i=0;i< mapStrings.length;i++) {
-			
+
+		for (int i = 0; i < mapStrings.length; i++) {
+
 			StringBuilder sbMap = new StringBuilder();
 			sbMap.append("|");
 			sbMap.append(getFormattedString(mapStrings[i]));
-			
+
 			ArrayList<String> gameResults = result.get(mapStrings[i]);
-			for(int j=0;j<G;j++) {
+			for (int j = 0; j < G; j++) {
 				sbMap.append("|");
 				sbMap.append(getFormattedString(gameResults.get(j)));
 			}
@@ -726,20 +716,20 @@ public class GameController {
 			IOHelper.print(getRepeatedFormattedString("-", sb.length()));
 		}
 	}
-	
-	private String getRepeatedFormattedString(String input, int length) {		
+
+	private String getRepeatedFormattedString(String input, int length) {
 		StringBuilder str = new StringBuilder(input);
-		for (int i = input.length(); i <= length-1; i++)
-            str.append(input);
+		for (int i = input.length(); i <= length - 1; i++)
+			str.append(input);
 		return str.toString();
 	}
-	
+
 	private String getFormattedString(String input) {
 		int length = 14;
-		
-		StringBuilder str = new StringBuilder(" "+ input);
+
+		StringBuilder str = new StringBuilder(" " + input);
 		for (int i = input.length(); i <= length; i++)
-            str.append(" ");
+			str.append(" ");
 		return str.toString();
 	}
 }
