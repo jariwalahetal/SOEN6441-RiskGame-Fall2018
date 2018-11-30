@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,13 +34,12 @@ public class PlayerTest {
 	Map map;
 	Game game;
 	Game game2;
-    CardEnum cardEnum;
+	CardEnum cardEnum;
 	String mapToTest = "Africa.map";
 	Integer playerCount = 5;
 	Player p1;
 	Country c1;
 	Country c2;
-	
 
 	/**
 	 * Test Method for assign countries to player after reading the map
@@ -74,34 +74,33 @@ public class PlayerTest {
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerStrategy playerStrategy = new Benevolent();
 		currentPlayer.setPlayerStrategy(playerStrategy);
-		
+
 		int minArmies = Integer.MAX_VALUE;
 		ArrayList<Country> assignedCountryList = currentPlayer.getAssignedCountryList();
 		for (Country c : assignedCountryList) {
 			if (c.getnoOfArmies() < minArmies)
 				minArmies = c.getnoOfArmies();
 		}
-		
-		HashMap<Country,Integer> CountryArmyMap =  new HashMap<Country,Integer>();     
-		ArrayList<Country> weakestCountries = new ArrayList<Country>();
-        for(Country country:currentPlayer.getAssignedCountryList())
-        { if(country.getnoOfArmies() == minArmies)
-           { weakestCountries.add(country);        	
-            CountryArmyMap.put(country, country.getnoOfArmies());
-           }
-        }
-                
-        currentPlayer.setNoOfReinforcedArmies(weakestCountries.size());
 
-        currentPlayer.reinforce();
-        
-        for(Country country:weakestCountries)
-        {  assertEquals(country.getnoOfArmies(),CountryArmyMap.get(country) +1);        	
-        }
-        
-        assertEquals(currentPlayer.getNoOfReinforcedArmies(), 0);        	
-        
-        
+		HashMap<Country, Integer> CountryArmyMap = new HashMap<Country, Integer>();
+		ArrayList<Country> weakestCountries = new ArrayList<Country>();
+		for (Country country : currentPlayer.getAssignedCountryList()) {
+			if (country.getnoOfArmies() == minArmies) {
+				weakestCountries.add(country);
+				CountryArmyMap.put(country, country.getnoOfArmies());
+			}
+		}
+
+		currentPlayer.setNoOfReinforcedArmies(weakestCountries.size());
+
+		currentPlayer.reinforce();
+
+		for (Country country : weakestCountries) {
+			assertEquals(country.getnoOfArmies(), CountryArmyMap.get(country) + 1);
+		}
+
+		assertEquals(currentPlayer.getNoOfReinforcedArmies(), 0);
+
 	}
 
 	@Test
@@ -111,18 +110,18 @@ public class PlayerTest {
 		currentPlayer.setPlayerStrategy(playerStrategy);
 
 		ArrayList<Country> assignedCountryList = currentPlayer.getAssignedCountryList();
-		HashMap<Country,Integer> CountryArmyMap =  new HashMap<Country,Integer>();     
+		HashMap<Country, Integer> CountryArmyMap = new HashMap<Country, Integer>();
 
 		for (Country country : assignedCountryList) {
 			CountryArmyMap.put(country, country.getnoOfArmies());
 		}
-		
-        currentPlayer.reinforce();
-        
-        for(Country country:assignedCountryList)
-        {  assertEquals(country.getnoOfArmies(),CountryArmyMap.get(country) *2);        	
-        }
-		
+
+		currentPlayer.reinforce();
+
+		for (Country country : assignedCountryList) {
+			assertEquals(country.getnoOfArmies(), CountryArmyMap.get(country) * 2);
+		}
+
 	}
 
 	@Test
@@ -130,26 +129,26 @@ public class PlayerTest {
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerStrategy playerStrategy = new Random();
 		currentPlayer.setPlayerStrategy(playerStrategy);
-		
+
 		ArrayList<Country> assignedCountryList = currentPlayer.getAssignedCountryList();
-        int totalOldArmies = 0; 
+		int totalOldArmies = 0;
 		for (Country country : assignedCountryList) {
 			totalOldArmies = totalOldArmies + country.getnoOfArmies();
 		}
-	
+
 		int reinforcedArmies = 5;
-		
+
 		currentPlayer.setNoOfReinforcedArmies(reinforcedArmies);
-		assertEquals(currentPlayer.getNoOfReinforcedArmies(),reinforcedArmies);        	
+		assertEquals(currentPlayer.getNoOfReinforcedArmies(), reinforcedArmies);
 		currentPlayer.reinforce();
-        int totalNewArmies = 0; 
-        for (Country country : assignedCountryList) {
+		int totalNewArmies = 0;
+		for (Country country : assignedCountryList) {
 			totalNewArmies = totalNewArmies + country.getnoOfArmies();
 		}
-        
-        assertEquals(totalOldArmies + reinforcedArmies,totalNewArmies);        	
-		assertEquals(currentPlayer.getNoOfReinforcedArmies(),0);        	        
-		
+
+		assertEquals(totalOldArmies + reinforcedArmies, totalNewArmies);
+		assertEquals(currentPlayer.getNoOfReinforcedArmies(), 0);
+
 	}
 
 	@Test
@@ -157,27 +156,27 @@ public class PlayerTest {
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerStrategy playerStrategy = new Aggressive();
 		currentPlayer.setPlayerStrategy(playerStrategy);
-		
+
 		Country strongestCountry = null;
 		int armiesCount = 0;
-		
+
 		for (Country c : currentPlayer.getAssignedCountryList()) {
 			if (c.getnoOfArmies() > armiesCount) {
 				armiesCount = c.getnoOfArmies();
 				strongestCountry = c;
 			}
 		}
-		
+
 		int oldArmiesCount = strongestCountry.getnoOfArmies();
 		int reinforcedArmies = 5;
 		currentPlayer.setNoOfReinforcedArmies(reinforcedArmies);
-		assertEquals(currentPlayer.getNoOfReinforcedArmies(),reinforcedArmies);        	
-		
+		assertEquals(currentPlayer.getNoOfReinforcedArmies(), reinforcedArmies);
+
 		currentPlayer.reinforce();
-		
-	    assertEquals(strongestCountry.getnoOfArmies(),oldArmiesCount+reinforcedArmies);        	
-		assertEquals(currentPlayer.getNoOfReinforcedArmies(),0);        	
-			
+
+		assertEquals(strongestCountry.getnoOfArmies(), oldArmiesCount + reinforcedArmies);
+		assertEquals(currentPlayer.getNoOfReinforcedArmies(), 0);
+
 	}
 
 	@Test
@@ -186,17 +185,17 @@ public class PlayerTest {
 		PlayerStrategy playerStrategy = new Human();
 		currentPlayer.setPlayerStrategy(playerStrategy);
 
-        Country country = currentPlayer.getAssignedCountryList().get(0);
-        int oldArmiesCount = country.getnoOfArmies();
-        currentPlayer.setToCountry(country);
-        int reinforcedArmies = 5;
-        currentPlayer.setNoOfReinforcedArmies(reinforcedArmies);
-		assertEquals(currentPlayer.getNoOfReinforcedArmies(),reinforcedArmies);        	
-        
-    	currentPlayer.reinforce();        
-    	assertEquals(country.getnoOfArmies(),oldArmiesCount+1);        	
-		assertEquals(currentPlayer.getNoOfReinforcedArmies(),reinforcedArmies-1);        	
-    		
+		Country country = currentPlayer.getAssignedCountryList().get(0);
+		int oldArmiesCount = country.getnoOfArmies();
+		currentPlayer.setToCountry(country);
+		int reinforcedArmies = 5;
+		currentPlayer.setNoOfReinforcedArmies(reinforcedArmies);
+		assertEquals(currentPlayer.getNoOfReinforcedArmies(), reinforcedArmies);
+
+		currentPlayer.reinforce();
+		assertEquals(country.getnoOfArmies(), oldArmiesCount + 1);
+		assertEquals(currentPlayer.getNoOfReinforcedArmies(), reinforcedArmies - 1);
+
 	}
 
 	@Test
@@ -206,20 +205,20 @@ public class PlayerTest {
 		currentPlayer.setPlayerStrategy(playerStrategy);
 
 		ArrayList<Country> assignedCountryList = currentPlayer.getAssignedCountryList();
-        int totalOldArmies = 0; 
+		int totalOldArmies = 0;
 		for (Country country : assignedCountryList) {
 			totalOldArmies = totalOldArmies + country.getnoOfArmies();
 		}
-		
+
 		currentPlayer.attackPhase();
-		
-        int totalNewArmies = 0; 
-        for (Country country : assignedCountryList) {
+
+		int totalNewArmies = 0;
+		for (Country country : assignedCountryList) {
 			totalNewArmies = totalNewArmies + country.getnoOfArmies();
 		}
-        
-        assertEquals(totalOldArmies ,totalNewArmies);        	
-		
+
+		assertEquals(totalOldArmies, totalNewArmies);
+
 	}
 
 	@Test
@@ -227,22 +226,22 @@ public class PlayerTest {
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerStrategy playerStrategy = new Cheater();
 		currentPlayer.setPlayerStrategy(playerStrategy);
-		
-		ArrayList<Country> assignedCountries = currentPlayer.getAssignedCountryList();
-		HashMap<Country,Integer> neighbourCountries = new HashMap<Country,Integer>();
 
-		for(Country country:assignedCountries)
-		{ if (!neighbourCountries.containsKey(country)
-				&& country.getPlayer().getPlayerId()!= currentPlayer.getPlayerId())
-			neighbourCountries.put(country, country.getnoOfArmies());			
+		ArrayList<Country> assignedCountries = currentPlayer.getAssignedCountryList();
+		HashMap<Country, Integer> neighbourCountries = new HashMap<Country, Integer>();
+
+		for (Country country : assignedCountries) {
+			if (!neighbourCountries.containsKey(country)
+					&& country.getPlayer().getPlayerId() != currentPlayer.getPlayerId())
+				neighbourCountries.put(country, country.getnoOfArmies());
 		}
-		
+
 		currentPlayer.attackPhase();
-		
-		for(Country country:neighbourCountries.keySet())
-		{  assertEquals(currentPlayer.getPlayerId(),country.getPlayer().getPlayerId());   
+
+		for (Country country : neighbourCountries.keySet()) {
+			assertEquals(currentPlayer.getPlayerId(), country.getPlayer().getPlayerId());
 		}
-		
+
 	}
 
 	@Test
@@ -250,30 +249,29 @@ public class PlayerTest {
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerStrategy playerStrategy = new Random();
 		currentPlayer.setPlayerStrategy(playerStrategy);
-		
+
 		ArrayList<Country> assignedCountries = currentPlayer.getCountriesObjectWithArmiesGreaterThanOne();
-		HashMap<Country,Integer> neighbourCountries = new HashMap<Country,Integer>();
-		
-		for(Country country:assignedCountries)
-		{ if (!neighbourCountries.containsKey(country) 
-				&& country.getPlayer().getPlayerId()!= currentPlayer.getPlayerId())
-			neighbourCountries.put(country, country.getnoOfArmies());			
+		HashMap<Country, Integer> neighbourCountries = new HashMap<Country, Integer>();
+
+		for (Country country : assignedCountries) {
+			if (!neighbourCountries.containsKey(country)
+					&& country.getPlayer().getPlayerId() != currentPlayer.getPlayerId())
+				neighbourCountries.put(country, country.getnoOfArmies());
 		}
 
 		currentPlayer.setIsConquered(false);
 		currentPlayer.attackPhase();
-		 
-		if(currentPlayer.isConquered())
-		{ Country fromCountry = currentPlayer.getFromCountry();
-	 	  Country toCountry = currentPlayer.getToCountry();
-		  assertEquals(currentPlayer.getPlayerId(),toCountry.getPlayer().getPlayerId());   	 				
-		}
-		else
-		{  for(Country country:neighbourCountries.keySet())
-			{  assertNotEquals(currentPlayer.getPlayerId(),country.getPlayer().getPlayerId());   
+
+		if (currentPlayer.isConquered()) {
+			Country fromCountry = currentPlayer.getFromCountry();
+			Country toCountry = currentPlayer.getToCountry();
+			assertEquals(currentPlayer.getPlayerId(), toCountry.getPlayer().getPlayerId());
+		} else {
+			for (Country country : neighbourCountries.keySet()) {
+				assertNotEquals(currentPlayer.getPlayerId(), country.getPlayer().getPlayerId());
 			}
 		}
-		
+
 	}
 
 	@Test
@@ -281,33 +279,32 @@ public class PlayerTest {
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerStrategy playerStrategy = new Aggressive();
 		currentPlayer.setPlayerStrategy(playerStrategy);
-		
+
 		Country strongestCountry = null;
-		int armiesCount = 0;	
+		int armiesCount = 0;
 		for (Country c : currentPlayer.getAssignedCountryList()) {
 			if (c.getnoOfArmies() > armiesCount) {
 				armiesCount = c.getnoOfArmies();
 				strongestCountry = c;
 			}
 		}
-		
-		ArrayList<Country> CountriesToAttack = currentPlayer.getUnAssignedNeighbouringCountriesObject
-				(strongestCountry.getCountryName());
-	
+
+		ArrayList<Country> CountriesToAttack = currentPlayer
+				.getUnAssignedNeighbouringCountriesObject(strongestCountry.getCountryName());
+
 		currentPlayer.setIsConquered(false);
 		currentPlayer.attackPhase();
-		 
-		if(currentPlayer.isConquered())
-		{ Country fromCountry = currentPlayer.getFromCountry();
-	 	  Country toCountry = currentPlayer.getToCountry();
-		  assertEquals(currentPlayer.getPlayerId(),toCountry.getPlayer().getPlayerId());   	 				
-		}
-		else
-		{  for(Country country:CountriesToAttack)
-			{  assertNotEquals(currentPlayer.getPlayerId(),country.getPlayer().getPlayerId());   
+
+		if (currentPlayer.isConquered()) {
+			Country fromCountry = currentPlayer.getFromCountry();
+			Country toCountry = currentPlayer.getToCountry();
+			assertEquals(currentPlayer.getPlayerId(), toCountry.getPlayer().getPlayerId());
+		} else {
+			for (Country country : CountriesToAttack) {
+				assertNotEquals(currentPlayer.getPlayerId(), country.getPlayer().getPlayerId());
 			}
 		}
-		
+
 	}
 
 	@Test
@@ -334,7 +331,7 @@ public class PlayerTest {
 
 				attackingDiceCount = 1;
 				defendingDiceCount = 1;
-	
+
 				currentPlayer.setFromCountry(attackingCountry);
 				currentPlayer.setToCountry(defendingCountry);
 				currentPlayer.setAttackedPlayer(defenderPlayer);
@@ -368,7 +365,6 @@ public class PlayerTest {
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerStrategy playerStrategy = new Benevolent();
 		currentPlayer.setPlayerStrategy(playerStrategy);
-		
 
 	}
 
@@ -379,34 +375,39 @@ public class PlayerTest {
 		currentPlayer.setPlayerStrategy(playerStrategy);
 
 		ArrayList<Country> sourceCountryList = currentPlayer.getCountriesObjectWithArmiesGreaterThanOne();
-		HashMap<Country,Integer> neighbourCountryArmyMap = new HashMap<Country,Integer>();
+		HashMap<Country, Integer> neighbourCountryArmyMap = new HashMap<Country, Integer>();
 		int oldArmiesCount = 0;
-		
-		for(Country country: sourceCountryList)
-		{ ArrayList<Country> neigbouringCountries = currentPlayer.getConnectedCountriesRecursively(country,
-				(ArrayList<Country>) currentPlayer.getAssignedCountryList().clone(), new ArrayList<Country>());
-		   if(!neighbourCountryArmyMap.containsKey(country)) 
-		   {neighbourCountryArmyMap.put(country, country.getnoOfArmies());	
-		    oldArmiesCount = oldArmiesCount + country.getnoOfArmies();
-		   }
-		  for(Country neighbourCountry: neigbouringCountries)
-		   { if (!neighbourCountryArmyMap.containsKey(neighbourCountry) 
-					&& neighbourCountry.getPlayer().getPlayerId()== currentPlayer.getPlayerId())
-		     { neighbourCountryArmyMap.put(neighbourCountry, neighbourCountry.getnoOfArmies());	
-		       oldArmiesCount = oldArmiesCount + neighbourCountry.getnoOfArmies();		
-		     }
-		   } 		
+
+		for (Country country : sourceCountryList) {
+			ArrayList<Country> neigbouringCountries = currentPlayer.getConnectedCountriesRecursively(country,
+					(ArrayList<Country>) currentPlayer.getAssignedCountryList().clone(), new ArrayList<Country>());
+			if (!neighbourCountryArmyMap.containsKey(country)) {
+				neighbourCountryArmyMap.put(country, country.getnoOfArmies());
+				oldArmiesCount = oldArmiesCount + country.getnoOfArmies();
+			}
+			for (Country neighbourCountry : neigbouringCountries) {
+				if (!neighbourCountryArmyMap.containsKey(neighbourCountry)
+						&& neighbourCountry.getPlayer().getPlayerId() == currentPlayer.getPlayerId()) {
+					neighbourCountryArmyMap.put(neighbourCountry, neighbourCountry.getnoOfArmies());
+					oldArmiesCount = oldArmiesCount + neighbourCountry.getnoOfArmies();
+				}
+			}
 		}
-			
+
 		currentPlayer.fortificationPhase();
-		
-		int newArmyCount = 0;
-		for (Country country:neighbourCountryArmyMap.keySet()) { 
-			newArmyCount = newArmyCount + country.getnoOfArmies();		
+
+		int newArmyCount = 0, newArmyCount2 = 0;
+		for (Country country : neighbourCountryArmyMap.keySet()) {
+			newArmyCount = newArmyCount + country.getnoOfArmies();
+			newArmyCount2 = newArmyCount2 + neighbourCountryArmyMap.get(country);
 		}
-		
-		assertEquals(oldArmiesCount, newArmyCount);				
-		
+
+		System.out.println("testFortificationPhaseRandom oldArmiesCount:"+oldArmiesCount);
+		System.out.println("testFortificationPhaseRandom newArmyCount:"+newArmyCount);
+		System.out.println("testFortificationPhaseRandom newArmyCount2:"+newArmyCount2);
+			
+		assertEquals(oldArmiesCount, newArmyCount);
+
 	}
 
 	@Test
@@ -416,28 +417,33 @@ public class PlayerTest {
 		currentPlayer.setPlayerStrategy(playerStrategy);
 
 		ArrayList<Country> assignedCountryList = currentPlayer.getAssignedCountryList();
-		HashMap<Country,Integer> neighbourCountryArmyMap = new HashMap<Country,Integer>();
-		int oldArmiesCount = 0;
-		
-		for (Country country:assignedCountryList) { 
-			ArrayList<Country> assignedCountryListTemp = country.getNeighbourCountries();	
+		HashMap<Country, Integer> neighbourCountryArmyMap = new HashMap<Country, Integer>();
+		// int oldArmiesCount = 0;
+
+		for (Country country : assignedCountryList) {
+			ArrayList<Country> assignedCountryListTemp = currentPlayer.getUnAssignedNeighbouringCountriesObject(country.getCountryName());
+			
+//					country.getNeighbourCountries();
 			neighbourCountryArmyMap.put(country, country.getnoOfArmies());
-			oldArmiesCount = oldArmiesCount + country.getnoOfArmies();
-			for (Country neighbourCountry:assignedCountryListTemp) { 
-			if (neighbourCountry.getPlayer().getPlayerId() == currentPlayer.getPlayerId() &&
-					!neighbourCountryArmyMap.containsKey(neighbourCountry)) {
-				neighbourCountryArmyMap.put(neighbourCountry, neighbourCountry.getnoOfArmies());
-				oldArmiesCount = oldArmiesCount + neighbourCountry.getnoOfArmies();
-			}			
-		 }
+			// oldArmiesCount = oldArmiesCount + country.getnoOfArmies();
+			for (Country neighbourCountry : assignedCountryListTemp) {
+				if (neighbourCountry.getPlayer().getPlayerId() == currentPlayer.getPlayerId()
+						&& !neighbourCountryArmyMap.containsKey(neighbourCountry)) {
+					neighbourCountryArmyMap.put(neighbourCountry, neighbourCountry.getnoOfArmies());
+					// oldArmiesCount = oldArmiesCount + neighbourCountry.getnoOfArmies();
+				}
+			}
 		}
-		
+
 		currentPlayer.fortificationPhase();
-		
-		for (Country country:neighbourCountryArmyMap.keySet()) { 
-				assertEquals(oldArmiesCount * 2, country.getnoOfArmies());		
-		 }
-				
+
+		Iterator it = neighbourCountryArmyMap.entrySet().iterator();
+
+		while (it.hasNext()) {
+			HashMap.Entry<Country, Integer> pair = (HashMap.Entry<Country, Integer>) it.next();
+			assertEquals((Integer) pair.getValue() * 2, pair.getKey().getnoOfArmies());
+
+		}
 	}
 
 	@Test
@@ -448,23 +454,23 @@ public class PlayerTest {
 
 		Country fromCountry = null;
 		Country destinationCountry = null;
-		
+
 		ArrayList<Country> assignedCountryList = currentPlayer.getAssignedCountryList();
 		int armiesCount = 0;
-		
+
 		for (Country c : assignedCountryList) {
 			if (c.getnoOfArmies() > armiesCount) {
 				armiesCount = c.getnoOfArmies();
 				fromCountry = c;
 			}
 		}
-		
+
 		ArrayList<Country> neighborCountries = currentPlayer.getConnectedCountriesRecursively(fromCountry,
-				(ArrayList<Country>) currentPlayer.getAssignedCountryList().clone(), 
-				new ArrayList<Country>());
-		
-	//	neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
-		
+				(ArrayList<Country>) currentPlayer.getAssignedCountryList().clone(), new ArrayList<Country>());
+
+		// neighborCountries.removeIf(x ->
+		// x.getCountryName().equals(fromCountry.getCountryName()));
+
 		armiesCount = 0;
 		for (Country c : neighborCountries) {
 			if (c.getnoOfArmies() > armiesCount) {
@@ -472,15 +478,15 @@ public class PlayerTest {
 				destinationCountry = c;
 			}
 		}
-		
+
 		int destinationOldArmiesCount = destinationCountry.getnoOfArmies();
-		
-		int armiesToMove = fromCountry.getnoOfArmies()-1;		
+
+		int armiesToMove = fromCountry.getnoOfArmies() - 1;
 		currentPlayer.fortificationPhase();
-				
-		assertEquals(fromCountry.getnoOfArmies(), 1);		
-		assertEquals(destinationCountry.getnoOfArmies(), destinationOldArmiesCount + armiesToMove);		
-		
+
+		assertEquals(fromCountry.getnoOfArmies(), 1);
+		assertEquals(destinationCountry.getnoOfArmies(), destinationOldArmiesCount + armiesToMove);
+
 	}
 
 	@Test
@@ -595,24 +601,24 @@ public class PlayerTest {
 		assertEquals(4, armies);
 
 	}
-	
+
 	@Test
-	public void setReinforcementArmies() {
+	public void testSetReinforcementArmies() {
 		int MINIMUM_REINFORCEMENT_PLAYERS = 3;
 		game.getCurrentPlayer().addCardToPlayer(cardEnum.Infantry);
 		game.getCurrentPlayer().addCardToPlayer(cardEnum.Artillery);
 		game.getCurrentPlayer().addCardToPlayer(cardEnum.Cavalry);
 		game.getCurrentPlayer().addCardToPlayer(cardEnum.Cavalry);
-		PlayerStrategy strategy=new Human();
+		PlayerStrategy strategy = new Human();
 		game.getCurrentPlayer().setPlayerStrategy(strategy);
-		String strategyName=game.getCurrentPlayer().getPlayerStrategy().getStrategyName();
-		int cardSize=game.getCurrentPlayer().getCards().size();
-		boolean allowed=game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
+		String strategyName = game.getCurrentPlayer().getPlayerStrategy().getStrategyName();
+		int cardSize = game.getCurrentPlayer().getCards().size();
+		boolean allowed = game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
 		game.getCurrentPlayer().setNoOfTradedArmies(3);
 		int countriesCount = (int) Math.floor(game.getCurrentPlayer().getAssignedCountryList().size() / 3);
 
-		List<Integer> assignedCountryIds = game.getCurrentPlayer().getAssignedCountryList().stream().map(c -> c.getCountryId())
-				.collect(Collectors.toList());
+		List<Integer> assignedCountryIds = game.getCurrentPlayer().getAssignedCountryList().stream()
+				.map(c -> c.getCountryId()).collect(Collectors.toList());
 
 		for (Continent continent : map.getContinentList()) {
 			List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
@@ -626,36 +632,35 @@ public class PlayerTest {
 		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PLAYERS ? MINIMUM_REINFORCEMENT_PLAYERS
 				: countriesCount;
 		game.getCurrentPlayer().setNoOfReinforcedArmies(countriesCount);
-		
-		if(!allowed&&strategyName=="Human"){
-			boolean value=game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
+
+		if (!allowed && strategyName == "Human") {
+			boolean value = game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
 			assertEquals(value, false);
+		} else {
+			boolean value = game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
+			assertEquals(value, true);
 		}
-		else{
-		boolean value=game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
-		assertEquals(value, true);
-		}
-		
-//		game.getCurrentPlayer().addCardToPlayer(cardEnum.Infantry);
-//		game.getCurrentPlayer().addCardToPlayer(cardEnum.Artillery);
-//		game.getCurrentPlayer().addCardToPlayer(cardEnum.Cavalry);
-//		PlayerStrategy strategy=new Human();
-//		game.getCurrentPlayer().setPlayerStrategy(strategy);
-//		int cardSize=game.getCurrentPlayer().getCards().size();
-//		boolean allowed=game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
-//		game.getCurrentPlayer().getAssignedCountryList().add(c1);
-//		game.getCurrentPlayer().getAssignedCountryList().add(c1);
-//		game.getCurrentPlayer().getAssignedCountryList().add(c1);
-//		game.getCurrentPlayer().getAssignedCountryList().add(c1);
-//		Math.floor(game.getCurrentPlayer().getAssignedCountryList().size()/3);
-//		
-//		
-//		
-//		game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
-//		game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
+
+		// game.getCurrentPlayer().addCardToPlayer(cardEnum.Infantry);
+		// game.getCurrentPlayer().addCardToPlayer(cardEnum.Artillery);
+		// game.getCurrentPlayer().addCardToPlayer(cardEnum.Cavalry);
+		// PlayerStrategy strategy=new Human();
+		// game.getCurrentPlayer().setPlayerStrategy(strategy);
+		// int cardSize=game.getCurrentPlayer().getCards().size();
+		// boolean
+		// allowed=game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
+		// game.getCurrentPlayer().getAssignedCountryList().add(c1);
+		// game.getCurrentPlayer().getAssignedCountryList().add(c1);
+		// game.getCurrentPlayer().getAssignedCountryList().add(c1);
+		// game.getCurrentPlayer().getAssignedCountryList().add(c1);
+		// Math.floor(game.getCurrentPlayer().getAssignedCountryList().size()/3);
+		//
+		//
+		//
+		// game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
+		// game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
 
 	}
-
 
 	/**
 	 * 
