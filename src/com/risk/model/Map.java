@@ -87,6 +87,7 @@ public class Map implements Serializable{
 				} else if (captureCountries) {
 					String[] parsedTerritoriesArray = readLine.split(",");
 					String continentName = parsedTerritoriesArray[3];
+					// parsedTerritoriesArray[0] is the country name
 					int xCoordinate = Integer.parseInt(parsedTerritoriesArray[1]);
 					int yCoordinate = Integer.parseInt(parsedTerritoriesArray[2]);
 					Country country = new Country(countryID++, parsedTerritoriesArray[0], xCoordinate, yCoordinate);
@@ -95,6 +96,7 @@ public class Map implements Serializable{
 					countryNeighbor.put(country, parsedTerritoriesArray);
 					
 					int k = 0;
+					// k is initialized to get neighboring countries 
 					for (String neighborCountry : parsedTerritoriesArray) {
 						if (k > 3) {
 							country.addNeighboursString(neighborCountry);
