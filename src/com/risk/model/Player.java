@@ -107,12 +107,17 @@ public class Player implements Serializable {
 	/**
 	 * This method is used to find if a player has conquered any country
 	 * 
-	 * @return
+	 * @return true, if map is conquered else false
 	 */
 	public Boolean isConquered() {
 		return isConquered;
 	}
 
+	/**
+	 * This method is used to set conquring
+	 * 
+	 * @param isConquered, if map is conquered else false
+	 */
 	public void setIsConquered(Boolean isConquered) {
 		this.isConquered = isConquered;
 	}
@@ -120,7 +125,7 @@ public class Player implements Serializable {
 	/**
 	 * This method will tell if a player is eligible for card exchange
 	 * 
-	 * @return
+	 * @return true,if eligible for card else false
 	 */
 	public Boolean isEligibleForCard() {
 		return eligibleForCard;
@@ -129,7 +134,7 @@ public class Player implements Serializable {
 	/**
 	 * This method will set a player eligible for card exchange
 	 * 
-	 * @param eligibleForCard
+	 * @param eligibleForCard,boolean eligiblility for card
 	 */
 	public void setEligibleForCard(Boolean eligibleForCard) {
 		this.eligibleForCard = eligibleForCard;
@@ -138,7 +143,7 @@ public class Player implements Serializable {
 	/**
 	 * This method returns the Countries assigned to the particular Player
 	 * 
-	 * @return assignedCountryList
+	 * @return ArrayList,assignedCountryList of Country
 	 */
 	public ArrayList<Country> getAssignedCountryList() {
 		return assignedCountryList;
@@ -147,7 +152,7 @@ public class Player implements Serializable {
 	/**
 	 * This method returns the number of unassigned army unit
 	 * 
-	 * @return noOfUnassignedArmies int
+	 * @return int,noOfUnassignedArmies
 	 */
 	public int getNoOfUnassignedArmies() {
 		return noOfUnassignedArmies;
@@ -338,15 +343,7 @@ public class Player implements Serializable {
 
 	/**
 	 * Method to perform fortification phase
-	 * 
-	 * @param sourceCountryName,
-	 *            name of the source country of player
-	 * @param destinationCountryName,
-	 *            name of the destination country of the player
-	 * @param noOfArmies,
-	 *            number of armies to be moved
-	 * @return true if no army need to move and false if source and destination
-	 *         countries are null
+	 * @return true ,if player strategy matched
 	 */
 	public boolean fortificationPhase() {
 		return this.playerStrategy.fortify(this);
@@ -414,9 +411,7 @@ public class Player implements Serializable {
 	/**
 	 * Add army to the country for reinforcement phase
 	 * 
-	 * @param countryName,name
-	 *            of the country
-	 * @return false, if phase is not valid otherwise return true
+	 * @return true, if playerStrategy matched for reinforcement
 	 */
 	public boolean reinforce() {
 		return this.playerStrategy.reinforce(this);
@@ -427,7 +422,7 @@ public class Player implements Serializable {
 	 * 
 	 * @param sourceCountryName,name
 	 *            of the source country of player
-	 * @return noOfArmies, number of armies
+	 * @return int, number of armies
 	 */
 	public int getArmiesAssignedToCountry(String sourceCountryName) {
 		int noOfArmies = 0;
@@ -481,6 +476,8 @@ public class Player implements Serializable {
 	 *            name of the source country of player
 	 * @param assignedCountriesName,
 	 *            list of assigned countries name
+	 * @param foundCountriesName,
+	 *            list of found countries name        
 	 * @return ArrayList , returning array list of countries.
 	 */
 	public ArrayList<String> getConnectedCountriesRecursively(String sourceCountryName,
@@ -586,28 +583,6 @@ public class Player implements Serializable {
 
 	/**
 	 * This method will process attack on given player
-	 * 
-	 * @param defenderPlayer
-	 *            Player
-	 * @param attackingCountry
-	 *            Attacking country
-	 * @param defendingCountry
-	 *            Defending country
-	 * @param attackingDices
-	 *            attacking dices
-	 * @param denfendingDices
-	 *            defending dices
-	 * @return true if successful
-	 * @param defenderPlayer,
-	 *            Player
-	 * @param attackingCountry,
-	 *            Attacking country
-	 * @param defendingCountry,
-	 *            Defending country
-	 * @param attackingDiceCount,
-	 *            attacking dices count
-	 * @param defendingDiceCount,
-	 *            defending dices count
 	 */
 	public void attackPhase() {
 
@@ -618,7 +593,7 @@ public class Player implements Serializable {
 	/**
 	 * This method will perform operation required after conquering a country
 	 * 
-	 * @param defenderPlayer
+	 * @param defenderPlayer, Player object
 	 */
 	public void conquerCountry(Player defenderPlayer) {
 
@@ -641,6 +616,12 @@ public class Player implements Serializable {
 		}
 	}
 
+	/**
+	 * This method will perform operation required after conquering a country
+	 * 
+	 * @param armiesCount, Armies Count
+	 * @return true, if army movement after attack is successful else false
+	 */
 	public boolean moveArmyAfterAttack(int armiesCount) {
 		if (isConquered) {
 			if (fromCountry == null || toCountry == null) {

@@ -683,7 +683,7 @@ public class GameView implements Observer {
 				if (game.getCurrentPlayer().isCardsAvailableForTradeInReinforcement()
 						&& (!isCardExchangeViewOpenedOnce)) {
 					CardExchangeView cardExchangeView = new CardExchangeView();
-					cardExchangeView.exchangeInitializerView(game,isCardExchangeViewOpenedOnce);
+					cardExchangeView.exchangeInitializerView(game);
 					isCardExchangeViewOpenedOnce = true;
 				}
 

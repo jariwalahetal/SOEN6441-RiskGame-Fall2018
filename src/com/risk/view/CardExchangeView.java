@@ -42,10 +42,9 @@ public class CardExchangeView implements Observer {
 	 * This method is used to initialize the Card Exchange View.
 	 * 
 	 * @param game, Game
-	 * @param isCardExchangeViewOpenedOnce, boolean type
 	 */
-	public void exchangeInitializerView(Game game,boolean isCardExchangeViewOpenedOnce) {
-		if(isCardExchangeViewOpenedOnce){
+	public void exchangeInitializerView(Game game) {
+	
 		exchangeButton=new JButton("Exchange Cards");
 		exitButton=new JButton("Exit");
 		cardFrame = new JFrame("Card Exchange View");
@@ -119,12 +118,12 @@ public class CardExchangeView implements Observer {
 		cardFrame.setVisible(true);
 
 	}
-	}
+	
 	
 	/**
 	 * Method to update view of card exchange called by the  update method of
 	 * CardExchange Observer
-	 * @param game
+	 * @param game, Game object
 	 */
 	public void updateCardView(Game game) {
 

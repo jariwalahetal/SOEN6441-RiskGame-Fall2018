@@ -360,7 +360,7 @@ public class Map implements Serializable{
 	/**
 	 * This function returns whether a continent is connected or not.
 	 * @param induvidualCont continent passed to check if it is connected or not
-	 * @return
+	 * @return true,if connected is connected else false
 	 */
 	public boolean checkIfContinentConnected(Continent induvidualCont) {
 		ArrayList<Country> totalCountries = new ArrayList<Country>();

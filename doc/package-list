@@ -2,4 +2,5 @@
 com.risk.controller
 com.risk.helper
 com.risk.model
+com.risk.model.strategies
 com.risk.view
