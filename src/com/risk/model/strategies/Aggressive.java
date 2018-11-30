@@ -60,8 +60,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 	@Override
 	public void attack(Player attackerPlayer) {		
 		if(attackingCountry == null)
-		{
-			IOHelper.print("No attacking country found so skipping attack");
+		{   IOHelper.print("No attacking country found so skipping attack");
 			return;
 		}
 		
@@ -132,11 +131,10 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		
 		Country fromCountry;
 		Country destinationCountry;
-		ArrayList<Country> CountriesToAttack = player.getUnAssignedNeighbouringCountriesObject
-				(attackingCountry.getCountryName());
 		
 		ArrayList<Country> assignedCountryList = player.getAssignedCountryList();
 		fromCountry = getStrongestCountry(assignedCountryList,0);	
+		
 		ArrayList<Country> neighborCountries = player.getConnectedCountriesRecursively(fromCountry,
 				(ArrayList<Country>) player.getAssignedCountryList().clone(), 
 				new ArrayList<Country>());
@@ -145,8 +143,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		destinationCountry = getStrongestCountry(neighborCountries, 0);
 		
 		if(fromCountry != null && destinationCountry != null) 
-		{
-			int armies = fromCountry.getnoOfArmies()-1;
+		{   int armies = fromCountry.getnoOfArmies()-1;
 			IOHelper.print("Aggressive player "+ player.getName() +" - fortification from " + fromCountry.getCountryName() + "("+ fromCountry.getnoOfArmies() +") to " + destinationCountry.getCountryName() + "("+ destinationCountry.getnoOfArmies()+") with " + armies + " armies");
 			fromCountry.decreaseArmyCount(armies);
 			destinationCountry.increaseArmyCount(armies);

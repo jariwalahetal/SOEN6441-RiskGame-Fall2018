@@ -249,8 +249,9 @@ public class PlayerTest {
 		PlayerStrategy playerStrategy = new Random();
 		currentPlayer.setPlayerStrategy(playerStrategy);
 		
-		ArrayList<Country> assignedCountries = currentPlayer.getAssignedCountryList();
+		ArrayList<Country> assignedCountries = currentPlayer.getCountriesObjectWithArmiesGreaterThanOne();
 		HashMap<Country,Integer> neighbourCountries = new HashMap<Country,Integer>();
+		
 		for(Country country:assignedCountries)
 		{ if (!neighbourCountries.containsKey(country) 
 				&& country.getPlayer().getPlayerId()!= currentPlayer.getPlayerId())
@@ -278,6 +279,33 @@ public class PlayerTest {
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerStrategy playerStrategy = new Aggressive();
 		currentPlayer.setPlayerStrategy(playerStrategy);
+		
+		Country strongestCountry = null;
+		int armiesCount = 0;	
+		for (Country c : currentPlayer.getAssignedCountryList()) {
+			if (c.getnoOfArmies() > armiesCount) {
+				armiesCount = c.getnoOfArmies();
+				strongestCountry = c;
+			}
+		}
+		
+		ArrayList<Country> CountriesToAttack = currentPlayer.getUnAssignedNeighbouringCountriesObject
+				(strongestCountry.getCountryName());
+	
+		currentPlayer.setIsConquered(false);
+		currentPlayer.attackPhase();
+		 
+		if(currentPlayer.isConquered())
+		{ Country fromCountry = currentPlayer.getFromCountry();
+	 	  Country toCountry = currentPlayer.getToCountry();
+		  assertEquals(currentPlayer.getPlayerId(),toCountry.getPlayer().getPlayerId());   	 				
+		}
+		else
+		{  for(Country country:CountriesToAttack)
+			{  assertNotEquals(currentPlayer.getPlayerId(),country.getPlayer().getPlayerId());   
+			}
+		}
+		
 	}
 
 	@Test
@@ -304,7 +332,7 @@ public class PlayerTest {
 
 				attackingDiceCount = 1;
 				defendingDiceCount = 1;
-				// problem here
+	
 				currentPlayer.setFromCountry(attackingCountry);
 				currentPlayer.setToCountry(defendingCountry);
 				currentPlayer.setAttackedPlayer(defenderPlayer);
@@ -338,6 +366,7 @@ public class PlayerTest {
 		Player currentPlayer = game.getCurrentPlayer();
 		PlayerStrategy playerStrategy = new Benevolent();
 		currentPlayer.setPlayerStrategy(playerStrategy);
+		
 
 	}
 
@@ -347,6 +376,35 @@ public class PlayerTest {
 		PlayerStrategy playerStrategy = new Random();
 		currentPlayer.setPlayerStrategy(playerStrategy);
 
+		ArrayList<Country> sourceCountryList = currentPlayer.getCountriesObjectWithArmiesGreaterThanOne();
+		HashMap<Country,Integer> neighbourCountryArmyMap = new HashMap<Country,Integer>();
+		int oldArmiesCount = 0;
+		
+		for(Country country: sourceCountryList)
+		{ ArrayList<Country> neigbouringCountries = currentPlayer.getConnectedCountriesRecursively(country,
+				(ArrayList<Country>) currentPlayer.getAssignedCountryList().clone(), new ArrayList<Country>());
+		   if(!neighbourCountryArmyMap.containsKey(country)) 
+		   {neighbourCountryArmyMap.put(country, country.getnoOfArmies());	
+		    oldArmiesCount = oldArmiesCount + country.getnoOfArmies();
+		   }
+		  for(Country neighbourCountry: neigbouringCountries)
+		   { if (!neighbourCountryArmyMap.containsKey(neighbourCountry) 
+					&& neighbourCountry.getPlayer().getPlayerId()== currentPlayer.getPlayerId())
+		     { neighbourCountryArmyMap.put(neighbourCountry, neighbourCountry.getnoOfArmies());	
+		       oldArmiesCount = oldArmiesCount + neighbourCountry.getnoOfArmies();		
+		     }
+		   } 		
+		}
+			
+		currentPlayer.fortificationPhase();
+		
+		int newArmyCount = 0;
+		for (Country country:neighbourCountryArmyMap.keySet()) { 
+			newArmyCount = newArmyCount + country.getnoOfArmies();		
+		}
+		
+		assertEquals(oldArmiesCount, newArmyCount);				
+		
 	}
 
 	@Test
@@ -355,6 +413,29 @@ public class PlayerTest {
 		PlayerStrategy playerStrategy = new Cheater();
 		currentPlayer.setPlayerStrategy(playerStrategy);
 
+		ArrayList<Country> assignedCountryList = currentPlayer.getAssignedCountryList();
+		HashMap<Country,Integer> neighbourCountryArmyMap = new HashMap<Country,Integer>();
+		int oldArmiesCount = 0;
+		
+		for (Country country:assignedCountryList) { 
+			ArrayList<Country> assignedCountryListTemp = country.getNeighbourCountries();	
+			neighbourCountryArmyMap.put(country, country.getnoOfArmies());
+			oldArmiesCount = oldArmiesCount + country.getnoOfArmies();
+			for (Country neighbourCountry:assignedCountryListTemp) { 
+			if (neighbourCountry.getPlayer().getPlayerId() == currentPlayer.getPlayerId() &&
+					!neighbourCountryArmyMap.containsKey(neighbourCountry)) {
+				neighbourCountryArmyMap.put(neighbourCountry, neighbourCountry.getnoOfArmies());
+				oldArmiesCount = oldArmiesCount + neighbourCountry.getnoOfArmies();
+			}			
+		 }
+		}
+		
+		currentPlayer.fortificationPhase();
+		
+		for (Country country:neighbourCountryArmyMap.keySet()) { 
+				assertEquals(oldArmiesCount * 2, country.getnoOfArmies());		
+		 }
+				
 	}
 
 	@Test
@@ -363,6 +444,41 @@ public class PlayerTest {
 		PlayerStrategy playerStrategy = new Aggressive();
 		currentPlayer.setPlayerStrategy(playerStrategy);
 
+		Country fromCountry = null;
+		Country destinationCountry = null;
+		
+		ArrayList<Country> assignedCountryList = currentPlayer.getAssignedCountryList();
+		int armiesCount = 0;
+		
+		for (Country c : assignedCountryList) {
+			if (c.getnoOfArmies() > armiesCount) {
+				armiesCount = c.getnoOfArmies();
+				fromCountry = c;
+			}
+		}
+		
+		ArrayList<Country> neighborCountries = currentPlayer.getConnectedCountriesRecursively(fromCountry,
+				(ArrayList<Country>) currentPlayer.getAssignedCountryList().clone(), 
+				new ArrayList<Country>());
+		
+	//	neighborCountries.removeIf(x -> x.getCountryName().equals(fromCountry.getCountryName()));
+		
+		armiesCount = 0;
+		for (Country c : neighborCountries) {
+			if (c.getnoOfArmies() > armiesCount) {
+				armiesCount = c.getnoOfArmies();
+				destinationCountry = c;
+			}
+		}
+		
+		int destinationOldArmiesCount = destinationCountry.getnoOfArmies();
+		
+		int armiesToMove = fromCountry.getnoOfArmies()-1;		
+		currentPlayer.fortificationPhase();
+				
+		assertEquals(fromCountry.getnoOfArmies(), 1);		
+		assertEquals(destinationCountry.getnoOfArmies(), destinationOldArmiesCount + armiesToMove);		
+		
 	}
 
 	@Test

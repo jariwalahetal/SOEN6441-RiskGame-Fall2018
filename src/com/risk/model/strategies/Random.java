@@ -93,7 +93,7 @@ public class Random implements PlayerStrategy, Serializable {
 
 	@Override
 	public boolean fortify(Player player) {
-		ArrayList<Country> countryList = player.getAssignedCountryList();
+		ArrayList<Country> countryList = player.getCountriesObjectWithArmiesGreaterThanOne();
 		int randomIndex = 0;
 
 		if (countryList.isEmpty())

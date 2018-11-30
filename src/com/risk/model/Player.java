@@ -506,7 +506,6 @@ public class Player implements Serializable {
 		ArrayList<Country> neighbouringCounties = this.getNeighbouringCountries(sourceCountry,
 				assignedCountries);
 		if (neighbouringCounties.size() > 0) {
-			ArrayList<String> newConnectedNeighbours = new ArrayList<>();
 			for (Country neigbour : neighbouringCounties) {
 				if (!foundCountries.contains(neigbour)) {
 					foundCountries.add(neigbour);
