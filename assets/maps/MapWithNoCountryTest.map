@@ -13,7 +13,7 @@ Eastern Africa=3
 Central Africa=6
 The Horn=3
 The Congo=5
-
+ContinentWithNoCountry=2
 
 [Territories]
 Morocco,127,46,Northern Africa,Western Sahara,Algeria

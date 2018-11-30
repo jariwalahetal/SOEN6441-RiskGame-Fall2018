@@ -1,0 +1,14 @@
+[Map]
+author=SOEN6441 - Team8
+image=Africa.bmp
+
+[Continents]
+C1=10
+C2=20
+C3=50
+
+[Territories]
+A,127,46,C1,B,C
+B,193,85,C2,A,C
+C,252,33,C2,A,C
+D,985,203,C3,A,B,C
