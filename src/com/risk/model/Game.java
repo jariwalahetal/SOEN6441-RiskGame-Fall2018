@@ -755,7 +755,7 @@ public class Game extends Observable implements Serializable {
 	 */
 	public Boolean isMapConquered() {
 		if (map.getCountryList().size() == this.getCurrentPlayer().getAssignedCountryList().size()) {
-			this.gamePhase = PhaseEnum.GameEnd;
+			this.gamePhase = PhaseEnum.GameWinner;
 			return true;
 		}
 
@@ -816,7 +816,7 @@ public class Game extends Observable implements Serializable {
 
 			turnsCounts++;
 			if (turnsCounts >= getMaxTurnsForTournament()) {
-				this.setGamePhase(PhaseEnum.GameEnd);
+				this.setGamePhase(PhaseEnum.GameDraw);
 				break;
 			}
 		}

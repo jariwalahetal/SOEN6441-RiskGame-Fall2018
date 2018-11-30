@@ -708,7 +708,7 @@ public class GameView implements Observer {
 				gamePhaseNameJLabel.setText("Fortification");
 				setSourceCountryComboBox(game.getCurrentPlayer().getCountriesWithArmiesGreaterThanOne());
 			}
-			else if(game.getGamePhase() == PhaseEnum.GameEnd) {
+			else if(game.getGamePhase() == PhaseEnum.GameWinner || game.getGamePhase() == PhaseEnum.GameDraw) {
 				gamePhaseNameJLabel.setText("Game end");
 			}
 
