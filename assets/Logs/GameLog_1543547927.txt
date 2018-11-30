@@ -1,0 +1,1158 @@
+Log File created - TimeStamp : 29/11/18 10:18 PM
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Uganda
+Adding startup army in Rep. of the Congo
+Adding startup army in Zambia
+Adding startup army in Benin
+Adding startup army in Zimbabwe
+Adding startup army in South Africa
+Adding startup army in Tanzania
+Adding startup army in Senegal
+Adding startup army in Madagascar
+Adding startup army in Algeria
+Adding startup army in Egypt
+Adding startup army in Morocco
+Adding startup army in Mauritania
+Adding startup army in Ethiopia
+Adding startup army in Cameroon
+Adding startup army in Sierra Leone
+Adding startup army in Morocco
+Adding startup army in Liberia
+Adding startup army in Ghana
+Adding startup army in Cameroon
+Adding startup army in Western Sahara
+Adding startup army in Kenya
+Adding startup army in Mauritania
+Adding startup army in Central African Rep.
+Adding startup army in Algeria
+Adding startup army in South Africa
+Adding startup army in Libya
+Adding startup army in Mali
+Adding startup army in Central African Rep.
+Adding startup army in Algeria
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Libya
+Adding startup army in Mauritania
+Adding startup army in Namibia
+Adding startup army in D.R.O.T. Congo
+Randomly select South Africa(3) country for fortification
+Randomly select Botswana(1) country for fortification
+Finished fortification with destination country Botswana (2)
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Madagascar
+Adding startup army in Libya
+Adding startup army in Senegal
+Adding startup army in Mauritania
+Adding startup army in Burkina Faso
+Adding startup army in Mozambique
+Adding startup army in Tunisia
+Adding startup army in Kenya
+Adding startup army in Ethiopia
+Adding startup army in Burkina Faso
+Adding startup army in Algeria
+Adding startup army in Eritrea
+Adding startup army in Senegal
+Adding startup army in Sierra Leone
+Adding startup army in Guinea
+Adding startup army in Uganda
+Adding startup army in Ghana
+Adding startup army in Zambia
+Adding startup army in North Sudan
+Adding startup army in Zimbabwe
+Adding startup army in Namibia
+Adding startup army in Mali
+Adding startup army in Kenya
+Adding startup army in Western Sahara
+Adding startup army in Rep. of the Congo
+Adding startup army in Uganda
+Adding startup army in Ghana
+Adding startup army in Egypt
+Adding startup army in Western Sahara
+Adding startup army in South Africa
+Player player 0 doesn't have unassigned armies!
+Adding startup army in South Sudan
+Adding startup army in Niger
+Adding startup army in Ethiopia
+Adding startup army in South Africa
+Cheater player player 0 found 9 countries for attack. Doing attack now..
+Tanzania is attacking (1)Kenya(3)
+Tanzania is attacking (1)Malawi(1)
+Tanzania is attacking (1)Zambia(2)
+Namibia is attacking (2)Angola(1)
+Namibia is attacking (2)South Africa(3)
+D.R.O.T. Congo is attacking (1)Central African Rep.(1)
+D.R.O.T. Congo is attacking (1)South Sudan(2)
+D.R.O.T. Congo is attacking (1)Rep. of the Congo(2)
+Botswana is attacking (1)Zimbabwe(2)
+Chad is attacking (1)Libya(2)
+Chad is attacking (1)North Sudan(2)
+Chad is attacking (1)Cameroon(1)
+Chad is attacking (1)Nigeria(1)
+Chad is attacking (1)Niger(2)
+Algeria is attacking (2)Morocco(1)
+Algeria is attacking (2)Western Sahara(3)
+Algeria is attacking (2)Mauritania(2)
+Algeria is attacking (2)Mali(2)
+Algeria is attacking (2)Tunisia(2)
+Finishing attack...
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Madagascar
+Adding startup army in Sierra Leone
+Adding startup army in Senegal
+Adding startup army in Angola
+Adding startup army in Algeria
+Adding startup army in Western Sahara
+Adding startup army in Gabon
+Adding startup army in Uganda
+Adding startup army in South Sudan
+Adding startup army in Kenya
+Adding startup army in Madagascar
+Adding startup army in Malawi
+Adding startup army in Zambia
+Adding startup army in Mauritania
+Adding startup army in Mali
+Adding startup army in Madagascar
+Adding startup army in Sierra Leone
+Adding startup army in Nigeria
+Adding startup army in Angola
+Adding startup army in Algeria
+Adding startup army in Western Sahara
+Adding startup army in Liberia
+Adding startup army in Uganda
+Adding startup army in Mauritania
+Adding startup army in Rep. of the Congo
+Adding startup army in Madagascar
+Adding startup army in Malawi
+Adding startup army in Egypt
+Adding startup army in Mozambique
+Adding startup army in Rep. of the Congo
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Malawi
+Adding startup army in Uganda
+Adding startup army in North Sudan
+Adding startup army in Morocco
+Moving 3 armies from Madagascar to Mozambique
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in South Africa
+Adding startup army in Senegal
+Adding startup army in Ghana
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Liberia
+Adding startup army in Namibia
+Adding startup army in Central African Rep.
+Adding startup army in Kenya
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Algeria
+Adding startup army in North Sudan
+Adding startup army in Egypt
+Adding startup army in Chad
+Adding startup army in Cameroon
+Adding startup army in Mozambique
+Adding startup army in Namibia
+Adding startup army in Central African Rep.
+Adding startup army in Ghana
+Adding startup army in Ivory Coast
+Adding startup army in Angola
+Adding startup army in Tanzania
+Adding startup army in Egypt
+Adding startup army in Mauritania
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Mozambique
+Adding startup army in Somalia
+Adding startup army in Zimbabwe
+Adding startup army in Chad
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Botswana
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Gabon
+Adding startup army in Nigeria
+Adding startup army in Ivory Coast
+Adding startup army in Algeria
+Adding reinforcement army in Tunisia
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Gabon
+Adding startup army in Somalia
+Adding startup army in Madagascar
+Adding startup army in Tanzania
+Adding startup army in Zambia
+Adding startup army in Libya
+Adding startup army in Malawi
+Adding startup army in Ivory Coast
+Adding startup army in Algeria
+Adding startup army in Zambia
+Adding startup army in Gabon
+Adding startup army in Uganda
+Adding startup army in Rep. of the Congo
+Adding startup army in Algeria
+Adding startup army in Kenya
+Adding startup army in South Africa
+Adding startup army in Uganda
+Adding startup army in Ethiopia
+Adding startup army in Tunisia
+Adding startup army in Ghana
+Adding startup army in Mauritania
+Adding startup army in South Sudan
+Adding startup army in Senegal
+Adding startup army in Cameroon
+Adding startup army in Zambia
+Adding startup army in Libya
+Adding startup army in Nigeria
+Adding startup army in Burkina Faso
+Adding startup army in Cameroon
+Adding startup army in Zambia
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Uganda
+Adding startup army in Liberia
+Adding startup army in Niger
+Adding startup army in Chad
+Adding reinforcement army in Guinea(1)
+Added reinforcement army in Guinea(2)
+Adding reinforcement army in Libya(3)
+Added reinforcement army in Libya(6)
+Adding reinforcement army in Western Sahara(1)
+Added reinforcement army in Western Sahara(2)
+Adding reinforcement army in Gabon(3)
+Added reinforcement army in Gabon(6)
+Adding reinforcement army in Mozambique(1)
+Added reinforcement army in Mozambique(2)
+Adding reinforcement army in Morocco(1)
+Added reinforcement army in Morocco(2)
+Adding reinforcement army in South Africa(2)
+Added reinforcement army in South Africa(4)
+Adding reinforcement army in Mauritania(2)
+Added reinforcement army in Mauritania(4)
+Adding reinforcement army in Sierra Leone(1)
+Added reinforcement army in Sierra Leone(2)
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Angola
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Tunisia
+Adding startup army in Ghana
+Adding startup army in Sierra Leone
+Adding startup army in Tanzania
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Eritrea
+Adding startup army in Ethiopia
+Adding startup army in Benin
+Adding startup army in Angola
+Adding startup army in Mauritania
+Adding startup army in Zambia
+Adding startup army in Rep. of the Congo
+Adding startup army in Sierra Leone
+Adding startup army in Tanzania
+Adding startup army in Western Sahara
+Adding startup army in Tunisia
+Adding startup army in South Sudan
+Adding startup army in Mozambique
+Adding startup army in Niger
+Adding startup army in Botswana
+Adding startup army in Eritrea
+Adding startup army in Kenya
+Adding startup army in Mozambique
+Adding startup army in Cameroon
+Adding startup army in Western Sahara
+Adding startup army in Morocco
+Adding startup army in Kenya
+Adding startup army in Gabon
+Player player 0 doesn't have unassigned armies!
+Adding startup army in South Africa
+Adding startup army in Namibia
+Adding startup army in South Sudan
+Adding startup army in Gabon
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Guinea
+Adding startup army in Angola
+Adding startup army in Liberia
+Adding startup army in Algeria
+Adding startup army in Niger
+Adding startup army in North Sudan
+Adding startup army in Angola
+Adding startup army in South Sudan
+Adding startup army in Rep. of the Congo
+Adding startup army in Niger
+Adding startup army in Ethiopia
+Adding startup army in Mozambique
+Adding startup army in Mauritania
+Adding startup army in Mali
+Adding startup army in Egypt
+Adding startup army in Ethiopia
+Adding startup army in Burkina Faso
+Adding startup army in Madagascar
+Adding startup army in Morocco
+Adding startup army in Botswana
+Adding startup army in Eritrea
+Adding startup army in Angola
+Adding startup army in Liberia
+Adding startup army in Rep. of the Congo
+Adding startup army in Benin
+Adding startup army in Sierra Leone
+Adding startup army in Malawi
+Adding startup army in Tanzania
+Adding startup army in D.R.O.T. Congo
+Adding startup army in South Africa
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Burkina Faso
+Adding startup army in Mauritania
+Adding startup army in Morocco
+Adding startup army in Zimbabwe
+Randomly selected Somalia(1) for reinforcement
+Adding reinforcement army in Somalia(1)
+Added reinforcement army in Somalia(6)
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Malawi
+Adding startup army in Ethiopia
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Somalia
+Adding startup army in Tunisia
+Adding startup army in Zambia
+Adding startup army in Western Sahara
+Adding startup army in Egypt
+Adding startup army in Somalia
+Adding startup army in Ghana
+Adding startup army in Malawi
+Adding startup army in Liberia
+Adding startup army in Uganda
+Adding startup army in Mauritania
+Adding startup army in Algeria
+Adding startup army in Malawi
+Adding startup army in Liberia
+Adding startup army in Angola
+Adding startup army in Burkina Faso
+Adding startup army in Namibia
+Adding startup army in Zambia
+Adding startup army in Senegal
+Adding startup army in Uganda
+Adding startup army in South Africa
+Adding startup army in Tunisia
+Adding startup army in Zambia
+Adding startup army in Guinea
+Adding startup army in Rep. of the Congo
+Adding startup army in Mauritania
+Adding startup army in Ghana
+Player player 0 doesn't have unassigned armies!
+Adding startup army in South Sudan
+Adding startup army in Angola
+Adding startup army in Libya
+Adding startup army in Ghana
+Aggressive player player 0 - fortification from Malawi(4) to Zambia(4) with 3 armies
+Finished fortification with destination country Zambia (7)
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Somalia
+Adding startup army in Eritrea
+Adding startup army in Ivory Coast
+Adding startup army in Ghana
+Adding startup army in Western Sahara
+Adding startup army in Ethiopia
+Adding startup army in Tanzania
+Adding startup army in Gabon
+Adding startup army in Malawi
+Adding startup army in Mozambique
+Adding startup army in Ethiopia
+Adding startup army in Zimbabwe
+Adding startup army in Niger
+Adding startup army in Kenya
+Adding startup army in Western Sahara
+Adding startup army in Nigeria
+Adding startup army in Madagascar
+Adding startup army in Benin
+Adding startup army in Mauritania
+Adding startup army in Liberia
+Adding startup army in Rep. of the Congo
+Adding startup army in Madagascar
+Adding startup army in Ivory Coast
+Adding startup army in Algeria
+Adding startup army in Uganda
+Adding startup army in Ethiopia
+Adding startup army in Botswana
+Adding startup army in North Sudan
+Adding startup army in Kenya
+Adding startup army in D.R.O.T. Congo
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Burkina Faso
+Adding startup army in Gabon
+Adding startup army in Ghana
+Adding startup army in Mozambique
+Added Infantry card to player
+Added Artillery card to player
+Added Cavalry card to player
+Added Cavalry card to player
+Cannot set reinforcement armies. Trade your cards first
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Gabon
+Adding startup army in Botswana
+Adding startup army in South Africa
+Adding startup army in Senegal
+Adding startup army in North Sudan
+Adding startup army in Zambia
+Adding startup army in Nigeria
+Adding startup army in Mozambique
+Adding startup army in Morocco
+Adding startup army in North Sudan
+Adding startup army in Libya
+Adding startup army in Tanzania
+Adding startup army in Rep. of the Congo
+Adding startup army in Senegal
+Adding startup army in Zimbabwe
+Adding startup army in Tunisia
+Adding startup army in Angola
+Adding startup army in Chad
+Adding startup army in Madagascar
+Adding startup army in Algeria
+Adding startup army in Ghana
+Adding startup army in South Sudan
+Adding startup army in Rep. of the Congo
+Adding startup army in Namibia
+Adding startup army in Uganda
+Adding startup army in Benin
+Adding startup army in Mali
+Adding startup army in Rep. of the Congo
+Adding startup army in Namibia
+Adding startup army in Uganda
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Liberia
+Adding startup army in Mozambique
+Adding startup army in Morocco
+Adding startup army in North Sudan
+Total 7 random attacks are generated
+Randomly selectd Benin (2) for attack
+Randomly selectd Burkina Faso (1) as a defender
+Attacker's dices -- [3]
+Defender's dices -- [4]
+Attacker dice - 3  to Defender dice - 4
+----> defender wins for dice 1
+----> Attacker not able to Attack 
+Randomly selectd Zambia (2) for attack
+Randomly selectd Mozambique (3) as a defender
+Attacker's dices -- [1]
+Defender's dices -- [3, 2]
+Attacker dice - 1  to Defender dice - 3
+----> defender wins for dice 1
+----> Attacker not able to Attack 
+Randomly selectd Gabon (2) for attack
+Randomly selectd Rep. of the Congo (4) as a defender
+Attacker's dices -- [5]
+Defender's dices -- [5]
+Attacker dice - 5  to Defender dice - 5
+----> defender wins for dice 1
+----> Attacker not able to Attack 
+Randomly selectd Libya (2) for attack
+Randomly selectd Algeria (2) as a defender
+Attacker's dices -- [6]
+Defender's dices -- [5]
+Attacker dice - 6  to Defender dice - 5
+----> attacker wins for dice 1
+Randomly selectd Libya (2) for attack
+Randomly selectd North Sudan (4) as a defender
+Attacker's dices -- [6]
+Defender's dices -- [6, 1]
+Attacker dice - 6  to Defender dice - 6
+----> defender wins for dice 1
+----> Attacker not able to Attack 
+Randomly selectd Ghana (2) for attack
+Randomly selectd Burkina Faso (1) as a defender
+Attacker's dices -- [6]
+Defender's dices -- [3]
+Attacker dice - 6  to Defender dice - 3
+----> attacker wins for dice 1
+----> Defender lost all armies in 1 dice roll
+Randomly selectd Tunisia (2) for attack
+Randomly selectd Algeria (1) as a defender
+Attacker's dices -- [6]
+Defender's dices -- [2]
+Attacker dice - 6  to Defender dice - 2
+----> attacker wins for dice 1
+----> Defender lost all armies in 1 dice roll
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in North Sudan
+Adding startup army in Madagascar
+Adding startup army in Benin
+Adding startup army in Burkina Faso
+Adding startup army in Uganda
+Adding startup army in South Sudan
+Adding startup army in Tanzania
+Adding startup army in Senegal
+Adding startup army in Guinea
+Adding startup army in Malawi
+Adding startup army in Sierra Leone
+Adding startup army in Zambia
+Adding startup army in Libya
+Adding startup army in Zimbabwe
+Adding startup army in Mali
+Adding startup army in South Sudan
+Adding startup army in Tanzania
+Adding startup army in Angola
+Adding startup army in Eritrea
+Adding startup army in Mozambique
+Adding startup army in Ethiopia
+Adding startup army in Madagascar
+Adding startup army in Senegal
+Adding startup army in Eritrea
+Adding startup army in D.R.O.T. Congo
+Adding startup army in North Sudan
+Adding startup army in Ivory Coast
+Adding startup army in Liberia
+Adding startup army in Burkina Faso
+Adding startup army in Mali
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Rep. of the Congo
+Adding startup army in Libya
+Adding startup army in Guinea
+Adding startup army in Cameroon
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Liberia
+Adding startup army in Egypt
+Adding startup army in Gabon
+Adding startup army in Mauritania
+Adding startup army in South Sudan
+Adding startup army in Burkina Faso
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Guinea
+Adding startup army in Kenya
+Adding startup army in Zimbabwe
+Adding startup army in Benin
+Adding startup army in Ghana
+Adding startup army in Guinea
+Adding startup army in Mauritania
+Adding startup army in Zimbabwe
+Adding startup army in North Sudan
+Adding startup army in Ghana
+Adding startup army in Algeria
+Adding startup army in Chad
+Adding startup army in South Sudan
+Adding startup army in Burkina Faso
+Adding startup army in Eritrea
+Adding startup army in Ethiopia
+Adding startup army in Senegal
+Adding startup army in Zambia
+Adding startup army in Benin
+Adding startup army in Angola
+Adding startup army in Central African Rep.
+Adding startup army in Senegal
+Adding startup army in South Sudan
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Tanzania
+Adding startup army in Western Sahara
+Adding startup army in Chad
+Adding startup army in South Sudan
+No attacking country found so skipping attack
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Nigeria
+Adding startup army in Sierra Leone
+Adding startup army in Cameroon
+Adding startup army in Uganda
+Adding startup army in Kenya
+Adding startup army in Nigeria
+Adding startup army in Benin
+Adding startup army in Burkina Faso
+Adding startup army in Rep. of the Congo
+Adding startup army in Ethiopia
+Adding startup army in Western Sahara
+Adding startup army in Sierra Leone
+Adding startup army in Ghana
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Morocco
+Adding startup army in Egypt
+Adding startup army in Tunisia
+Adding startup army in Cameroon
+Adding startup army in Botswana
+Adding startup army in Kenya
+Adding startup army in Tanzania
+Adding startup army in Sierra Leone
+Adding startup army in Mali
+Adding startup army in Rep. of the Congo
+Adding startup army in Niger
+Adding startup army in Namibia
+Adding startup army in Mozambique
+Adding startup army in Somalia
+Adding startup army in Rep. of the Congo
+Adding startup army in Madagascar
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Benin
+Adding startup army in Senegal
+Adding startup army in Angola
+Adding startup army in Ethiopia
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Egypt
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Chad
+Adding startup army in Madagascar
+Adding startup army in North Sudan
+Adding startup army in Botswana
+Adding startup army in Western Sahara
+Adding startup army in Liberia
+Adding startup army in Madagascar
+Adding startup army in Benin
+Adding startup army in Angola
+Adding startup army in Uganda
+Adding startup army in Eritrea
+Adding startup army in Madagascar
+Adding startup army in Namibia
+Adding startup army in Angola
+Adding startup army in Uganda
+Adding startup army in Kenya
+Adding startup army in Niger
+Adding startup army in Senegal
+Adding startup army in South Sudan
+Adding startup army in Uganda
+Adding startup army in Cameroon
+Adding startup army in Tanzania
+Adding startup army in Senegal
+Adding startup army in Algeria
+Adding startup army in Gabon
+Adding startup army in Cameroon
+Adding startup army in Rep. of the Congo
+Adding startup army in Zimbabwe
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Ethiopia
+Adding startup army in Eritrea
+Adding startup army in Central African Rep.
+Adding startup army in Nigeria
+Player's strategy is benevolent so Attack skipped
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Angola
+Adding startup army in Egypt
+Adding startup army in Guinea
+Adding startup army in Liberia
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Cameroon
+Adding startup army in Ethiopia
+Adding startup army in Tunisia
+Adding startup army in Mali
+Adding startup army in Central African Rep.
+Adding startup army in Angola
+Adding startup army in Zimbabwe
+Adding startup army in Gabon
+Adding startup army in Uganda
+Adding startup army in Mozambique
+Adding startup army in Angola
+Adding startup army in Senegal
+Adding startup army in Guinea
+Adding startup army in Nigeria
+Adding startup army in Eritrea
+Adding startup army in Malawi
+Adding startup army in Ethiopia
+Adding startup army in Tanzania
+Adding startup army in Liberia
+Adding startup army in Eritrea
+Adding startup army in Niger
+Adding startup army in Ghana
+Adding startup army in Tanzania
+Adding startup army in Liberia
+Adding startup army in Mozambique
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Ethiopia
+Adding startup army in Gabon
+Adding startup army in Mauritania
+Adding startup army in North Sudan
+Cheater player player 0 is trying to fortify Cameroon(2)
+-- Cannot fortify as there is no neigbouring county found from other player
+Cheater player player 0 is trying to fortify Somalia(1)
+-- Cannot fortify as there is no neigbouring county found from other player
+Cheater player player 0 is trying to fortify Zambia(1)
+-- Cannot fortify as there is no neigbouring county found from other player
+Cheater player player 0 is trying to fortify Western Sahara(1)
+-- Cannot fortify as there is no neigbouring county found from other player
+Cheater player player 0 is trying to fortify Angola(4)
+-- Cannot fortify as there is no neigbouring county found from other player
+Cheater player player 0 is trying to fortify Botswana(1)
+-- Cannot fortify as there is no neigbouring county found from other player
+Cheater player player 0 is trying to fortify Malawi(2)
+-- Cannot fortify as there is no neigbouring county found from other player
+Cheater player player 0 is trying to fortify Sierra Leone(1)
+-- Cannot fortify as there is no neigbouring county found from other player
+Cheater player player 0 is trying to fortify Niger(2)
+-- Cannot fortify as there is no neigbouring county found from other player
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Libya
+Adding startup army in Burkina Faso
+Adding startup army in Gabon
+Adding startup army in Niger
+Adding startup army in Morocco
+Adding startup army in Zambia
+Adding startup army in South Africa
+Adding startup army in Mauritania
+Adding startup army in Niger
+Adding startup army in Somalia
+Adding startup army in Uganda
+Adding startup army in Burkina Faso
+Adding startup army in Mali
+Adding startup army in Tunisia
+Adding startup army in Malawi
+Adding startup army in Libya
+Adding startup army in Cameroon
+Adding startup army in Senegal
+Adding startup army in Niger
+Adding startup army in Botswana
+Adding startup army in Sierra Leone
+Adding startup army in Zimbabwe
+Adding startup army in Mauritania
+Adding startup army in Egypt
+Adding startup army in Malawi
+Adding startup army in Uganda
+Adding startup army in Cameroon
+Adding startup army in Ethiopia
+Adding startup army in Algeria
+Adding startup army in Eritrea
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Cameroon
+Adding startup army in Chad
+Adding startup army in Tunisia
+Adding startup army in South Sudan
+Found 5 weakest countries. Now assigning 5 armies
+Added reinforcement army in Guinea(2)
+Added reinforcement army in Ivory Coast(2)
+Added reinforcement army in Nigeria(2)
+Added reinforcement army in Western Sahara(2)
+Added reinforcement army in North Sudan(2)
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Guinea
+Adding startup army in Senegal
+Adding startup army in North Sudan
+Adding startup army in Niger
+Adding startup army in Eritrea
+Adding startup army in Madagascar
+Adding startup army in Mali
+Adding startup army in Chad
+Adding startup army in Botswana
+Adding startup army in Eritrea
+Adding startup army in Western Sahara
+Adding startup army in Malawi
+Adding startup army in Libya
+Adding startup army in Ghana
+Adding startup army in Algeria
+Adding startup army in Liberia
+Adding startup army in Ivory Coast
+Adding startup army in Uganda
+Adding startup army in Ethiopia
+Adding startup army in Nigeria
+Adding startup army in Tunisia
+Adding startup army in Ivory Coast
+Adding startup army in Uganda
+Adding startup army in Ghana
+Adding startup army in Algeria
+Adding startup army in Guinea
+Adding startup army in South Africa
+Adding startup army in Kenya
+Adding startup army in Niger
+Adding startup army in Central African Rep.
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Mali
+Adding startup army in Tanzania
+Adding startup army in Botswana
+Adding startup army in Burkina Faso
+Attacker's dices -- [4]
+Defender's dices -- [2]
+Attacker dice - 4  to Defender dice - 2
+----> attacker wins for dice 1
+----> Defender lost all armies in 1 dice roll
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Senegal
+Adding startup army in Gabon
+Adding startup army in Kenya
+Adding startup army in Guinea
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Senegal
+Adding startup army in Gabon
+Adding startup army in Kenya
+Adding startup army in Central African Rep.
+Adding startup army in Botswana
+Adding startup army in Zambia
+Adding startup army in Ivory Coast
+Adding startup army in Kenya
+Adding startup army in Morocco
+Adding startup army in Tanzania
+Adding startup army in Mozambique
+Adding startup army in Madagascar
+Adding startup army in Malawi
+Adding startup army in North Sudan
+Adding startup army in Uganda
+Adding startup army in Ethiopia
+Adding startup army in Madagascar
+Adding startup army in Malawi
+Adding startup army in Guinea
+Adding startup army in Botswana
+Adding startup army in Zambia
+Adding startup army in Benin
+Adding startup army in Somalia
+Adding startup army in Nigeria
+Adding startup army in Tunisia
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Burkina Faso
+Adding startup army in Kenya
+Adding startup army in Sierra Leone
+Adding startup army in Mali
+Adding startup army in Zambia
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Benin
+Adding startup army in Uganda
+Adding startup army in Mozambique
+Adding startup army in Eritrea
+Adding startup army in Libya
+Adding startup army in South Africa
+Adding startup army in Cameroon
+Adding startup army in Namibia
+Adding startup army in Chad
+Adding startup army in Angola
+Adding startup army in Burkina Faso
+Adding startup army in Ivory Coast
+Adding startup army in Mauritania
+Adding startup army in Eritrea
+Adding startup army in Senegal
+Adding startup army in South Sudan
+Adding startup army in Ghana
+Adding startup army in Madagascar
+Adding startup army in Eritrea
+Adding startup army in Niger
+Adding startup army in Western Sahara
+Adding startup army in Sierra Leone
+Adding startup army in Tanzania
+Adding startup army in Zambia
+Adding startup army in Somalia
+Adding startup army in South Africa
+Adding startup army in Kenya
+Adding startup army in Mauritania
+Adding startup army in Chad
+Adding startup army in Senegal
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Kenya
+Adding startup army in Mauritania
+Adding startup army in Ethiopia
+Adding startup army in Botswana
+Test: creating maps and generating player randomly
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Added Artillery card to player
+Adding startup army in Libya
+Adding startup army in Algeria
+Adding startup army in Ivory Coast
+Adding startup army in Western Sahara
+Adding startup army in Egypt
+Adding startup army in Cameroon
+Adding startup army in Benin
+Adding startup army in Liberia
+Adding startup army in Western Sahara
+Adding startup army in Senegal
+Adding startup army in Gabon
+Adding startup army in Uganda
+Adding startup army in Nigeria
+Adding startup army in Central African Rep.
+Adding startup army in Malawi
+Adding startup army in D.R.O.T. Congo
+Adding startup army in Ghana
+Adding startup army in Liberia
+Adding startup army in Burkina Faso
+Adding startup army in Senegal
+Adding startup army in Gabon
+Adding startup army in Benin
+Adding startup army in Morocco
+Adding startup army in South Sudan
+Adding startup army in Rep. of the Congo
+Adding startup army in Chad
+Adding startup army in Uganda
+Adding startup army in Ivory Coast
+Adding startup army in Burkina Faso
+Adding startup army in South Africa
+Player player 0 doesn't have unassigned armies!
+Adding startup army in Uganda
+Adding startup army in Nigeria
+Adding startup army in Burkina Faso
+Adding startup army in Tanzania
+Adding reinforcement army in Gabon(3)
+Added reinforcement army in Gabon(8)
