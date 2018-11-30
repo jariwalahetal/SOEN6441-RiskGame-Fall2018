@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
 import com.risk.helper.IOHelper;
 import com.risk.helper.InitialPlayerSetup;
@@ -32,12 +33,13 @@ public class PlayerTest {
 	Map map;
 	Game game;
 	Game game2;
-
+    CardEnum cardEnum;
 	String mapToTest = "Africa.map";
 	Integer playerCount = 5;
 	Player p1;
 	Country c1;
 	Country c2;
+	
 
 	/**
 	 * Test Method for assign countries to player after reading the map
@@ -477,6 +479,67 @@ public class PlayerTest {
 		assertEquals(4, armies);
 
 	}
+	
+	@Test
+	public void setReinforcementArmies() {
+		int MINIMUM_REINFORCEMENT_PLAYERS = 3;
+		game.getCurrentPlayer().addCardToPlayer(cardEnum.Infantry);
+		game.getCurrentPlayer().addCardToPlayer(cardEnum.Artillery);
+		game.getCurrentPlayer().addCardToPlayer(cardEnum.Cavalry);
+		game.getCurrentPlayer().addCardToPlayer(cardEnum.Cavalry);
+		PlayerStrategy strategy=new Human();
+		game.getCurrentPlayer().setPlayerStrategy(strategy);
+		String strategyName=game.getCurrentPlayer().getPlayerStrategy().getStrategyName();
+		int cardSize=game.getCurrentPlayer().getCards().size();
+		boolean allowed=game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
+		game.getCurrentPlayer().setNoOfTradedArmies(3);
+		int countriesCount = (int) Math.floor(game.getCurrentPlayer().getAssignedCountryList().size() / 3);
+
+		List<Integer> assignedCountryIds = game.getCurrentPlayer().getAssignedCountryList().stream().map(c -> c.getCountryId())
+				.collect(Collectors.toList());
+
+		for (Continent continent : map.getContinentList()) {
+			List<Integer> continentCountryIds = continent.getCountryList().stream().map(c -> c.getCountryId())
+					.collect(Collectors.toList());
+			boolean hasPlayerAllCountries = assignedCountryIds.containsAll(continentCountryIds);
+			if (hasPlayerAllCountries)
+				countriesCount += continent.getControlValue();
+		}
+
+		countriesCount += game.getCurrentPlayer().getNoOfTradedArmies();
+		countriesCount = countriesCount < MINIMUM_REINFORCEMENT_PLAYERS ? MINIMUM_REINFORCEMENT_PLAYERS
+				: countriesCount;
+		game.getCurrentPlayer().setNoOfReinforcedArmies(countriesCount);
+		
+		if(!allowed&&strategyName=="Human"){
+			boolean value=game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
+			assertEquals(value, false);
+		}
+		else{
+		boolean value=game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
+		assertEquals(value, true);
+		}
+		
+//		game.getCurrentPlayer().addCardToPlayer(cardEnum.Infantry);
+//		game.getCurrentPlayer().addCardToPlayer(cardEnum.Artillery);
+//		game.getCurrentPlayer().addCardToPlayer(cardEnum.Cavalry);
+//		PlayerStrategy strategy=new Human();
+//		game.getCurrentPlayer().setPlayerStrategy(strategy);
+//		int cardSize=game.getCurrentPlayer().getCards().size();
+//		boolean allowed=game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
+//		game.getCurrentPlayer().getAssignedCountryList().add(c1);
+//		game.getCurrentPlayer().getAssignedCountryList().add(c1);
+//		game.getCurrentPlayer().getAssignedCountryList().add(c1);
+//		game.getCurrentPlayer().getAssignedCountryList().add(c1);
+//		Math.floor(game.getCurrentPlayer().getAssignedCountryList().size()/3);
+//		
+//		
+//		
+//		game.getCurrentPlayer().isAssigningReinforcementArmiesAllowed();
+//		game.getCurrentPlayer().setReinformcementArmies(map.getContinentList());
+
+	}
+
 
 	/**
 	 * 
