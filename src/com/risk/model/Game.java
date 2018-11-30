@@ -411,26 +411,20 @@ public class Game extends Observable implements Serializable {
 			}
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Reinforcement)) {
-			System.out.println("Reinforcement");
+			System.out.println("Doing Reinforcement for " + this.getCurrentPlayer().getStrategyName() + " stratergie");
 			this.getCurrentPlayer().reinforce();
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Attack)) {
-			System.out.println("Before attack");
+			System.out.println("Before attack  for " + this.getCurrentPlayer().getStrategyName() + " stratergie");
 			this.getCurrentPlayer().attackPhase();
 			if (isMapConquered()) {
 				IOHelper.print("Game Over, You win");
 				isMapConqueredFlag = true;
 			}
-			System.out.println("After attack");
-			System.out
-					.println("Player 1 Countries Count:" + this.getAllPlayers().get(0).getAssignedCountryList().size());
-			System.out
-					.println("Player 2 Countries Count:" + this.getAllPlayers().get(1).getAssignedCountryList().size());
-			System.out
-					.println("Player 3 Countries Count:" + this.getAllPlayers().get(2).getAssignedCountryList().size());
+			System.out.println("After attack  for " + this.getCurrentPlayer().getStrategyName() + " stratergie");
 
 		} else if (this.phaseCheckValidation(PhaseEnum.Fortification)) {
-			System.out.println("Fortification");
+			System.out.println("Doing Fortification for " + this.getCurrentPlayer().getStrategyName() + " stratergie");
 			this.getCurrentPlayer().fortificationPhase();
 		}
 	}
