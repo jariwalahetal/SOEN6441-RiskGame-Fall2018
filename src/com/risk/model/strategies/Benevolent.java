@@ -50,9 +50,10 @@ public class Benevolent implements PlayerStrategy, Serializable {
 		List<Country> weakestCountries = player.getAssignedCountryList().stream()
 				.filter(x -> x.getnoOfArmies() == minArmies).collect(Collectors.toList());
 
-		if (weakestCountries != null) {
-			IOHelper.print("Found " + weakestCountries.size() + " weakest countries. Now assigning "
-					+ player.getNoOfReinforcedArmies() + " armies");
+		IOHelper.print("Found " + weakestCountries.size() + " weakest countries. Now assigning "
+				+ player.getNoOfReinforcedArmies() + " armies");
+		if (weakestCountries != null && weakestCountries.size() > 0) {
+			
 			int index = 0;
 			while (player.getNoOfReinforcedArmies() > 0) {
 				Country c = weakestCountries.get(index);

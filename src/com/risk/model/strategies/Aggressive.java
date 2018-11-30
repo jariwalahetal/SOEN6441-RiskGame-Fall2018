@@ -73,9 +73,6 @@ public class Aggressive implements PlayerStrategy, Serializable {
 		
 		IOHelper.print("Aggressive player "+ attackerPlayer.getName() +" - attack - attacking from " + attackingCountry.getCountryName() + "("+  attackingCountry.getnoOfArmies()+")");
 
-		IOHelper.print("Aggressive player " + attackerPlayer.getName() + " - attack - attacking from "
-				+ attackingCountry.getCountryName());
-
 		ArrayList<Country> CountriesToAttack = attackerPlayer
 				.getUnAssignedNeighbouringCountriesObject(attackingCountry.getCountryName());
 		if (CountriesToAttack == null || CountriesToAttack.size() == 0) {
@@ -101,7 +98,8 @@ public class Aggressive implements PlayerStrategy, Serializable {
 			
 						
 			//Perform attack untill country is acquired or the attacking country is lost
-			while (toCountry.getPlayer().getPlayerId() != attackerPlayer.getPlayerId()) {
+			while (toCountry.getPlayer().getPlayerId() != attackerPlayer.getPlayerId()
+		&& toCountry.getnoOfArmies() > 0) {
 				if (attackingCountry.getnoOfArmies() == 1)
 					break;
 				attackOperation(attackingCountry, toCountry, attackerPlayer);
@@ -143,7 +141,7 @@ public class Aggressive implements PlayerStrategy, Serializable {
 	}
 
 	/**
-	 * This method will execute fortify method for the Strategy
+	 *  This method will execute fortify method for the Strategy
 	 */
 	@Override
 	public boolean fortify(Player player) {
@@ -203,6 +201,10 @@ public class Aggressive implements PlayerStrategy, Serializable {
 
 		int attackerDiceCount = attackerPlayer.getMaximumAllowableDices(fromCountry, "Attacker");
 		int defenderDiceCount = defenderPlayer.getMaximumAllowableDices(toCountry, "Defender");
+		if(attackerDiceCount <= 0 || defenderDiceCount<=0) {
+			//IOHelper.print("Attack skipped");
+			return;
+		}
 		defenderDiceCount = Common.getRandomNumberInRange(1, defenderDiceCount);
 
 		attackerPlayer.setAttackedPlayer(defenderPlayer);

@@ -418,10 +418,9 @@ public class PlayerTest {
 
 		currentPlayer.fortificationPhase();
 
-		int newArmyCount = 0, newArmyCount2 = 0;
+		int newArmyCount = 0;
 		for (Country country : neighbourCountryArmyMap.keySet()) {
 			newArmyCount = newArmyCount + country.getnoOfArmies();
-			newArmyCount2 = newArmyCount2 + neighbourCountryArmyMap.get(country);
 		}
 
 		assertEquals(oldArmiesCount, newArmyCount);

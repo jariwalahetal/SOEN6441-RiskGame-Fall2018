@@ -813,6 +813,8 @@ public class Game extends Observable implements Serializable {
 			addArmyToCountry(playerCountries.get(id).getCountryName());
 		}
 
+		// Print status of players
+		this.printPlayerStatus();
 		while (true) {
 			currentPlayer = this.getCurrentPlayer();
 
@@ -853,7 +855,7 @@ public class Game extends Observable implements Serializable {
 	/**
 	 * This method is used to save the Game
 	 * 
-	 * @return
+	 * @return file name 
 	 */
 	public String saveGame() {
 		String fileTime = new SimpleDateFormat("yyyyMMddHHmm'.txt'").format(new Date());
@@ -868,12 +870,12 @@ public class Game extends Observable implements Serializable {
 		}
 		return fileTime;
 	}
-
+	
 	/**
 	 * This method is used to load the saved Game
 	 * 
-	 * @param gameTitle
-	 * @return
+	 * @param gameTitle title of game
+	 * @return Game file object of game
 	 */
 	public static Game loadGame(String gameTitle) {
 		Game game = null;

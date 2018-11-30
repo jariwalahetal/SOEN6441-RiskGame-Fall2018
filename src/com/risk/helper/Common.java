@@ -63,7 +63,7 @@ public class Common {
 		if(min == max)
 			return min;
 		
-		if (min >= max) {
+		if (min > max) {
 			throw new IllegalArgumentException("Max value must be greater than Min value!");
 		}
 		Random r = new Random();

@@ -333,7 +333,7 @@ public class GameController {
 
 				// Enter maximum number of turns
 				while (true) {
-					IOHelper.print("Enter maximum number turns for for each game (10 - 50");
+					IOHelper.print("Enter maximum number turns for for each game (10 - 50)");
 
 					int count = IOHelper.getNextInteger();
 					if (count >= 10 && count <= 50) {
@@ -348,7 +348,7 @@ public class GameController {
 					for (int j = 0; j < G; j++) {
 						game = new Game(maps.get(i));
 						game.setGameMode(GameMode.TournamentMode);
-
+						game.setMaxTurnsForTournament(D);
 						for (int ps = 0; ps < stratergies.size(); ps++) {
 							Player player = new Player(ps, stratergies.get(ps).getStrategyName());
 							player.setPlayerStrategy(stratergies.get(ps));
@@ -679,8 +679,18 @@ public class GameController {
 		IOHelper.print("===========================================================================================");
 		IOHelper.print("=================================TOURNAMENT RESULT=========================================");
 		IOHelper.print("===========================================================================================");
-		IOHelper.print("M:" + mapStrings.toString());
-		IOHelper.print("P:" + stratergies.toString());
+		
+		StringBuffer mapNameString = new StringBuffer();
+		for (int i = 0; i < mapStrings.length; i++) {
+			mapNameString.append(mapStrings[i]+ ",");
+		}
+		IOHelper.print("M:" + mapNameString);
+		
+		StringBuffer stratergiesNameString = new StringBuffer();
+		for (int i = 0; i < stratergies.size(); i++) {
+			stratergiesNameString.append(stratergies.get(i).getStrategyName() + ",");
+		}
+		IOHelper.print("P:" + stratergiesNameString);
 		IOHelper.print("G:" + G);
 		IOHelper.print("D:" + D);
 		IOHelper.print("\n");
