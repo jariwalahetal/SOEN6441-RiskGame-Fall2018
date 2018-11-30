@@ -206,7 +206,7 @@ public class GameTest {
 	    PlayerStrategy playerStrategy = new Human();
 	    currentPlayer.setPlayerStrategy(playerStrategy); 
         ArrayList<Country> fromCountryList = currentPlayer.getCountriesObjectWithArmiesGreaterThanOne();
-        Country fromCountry = fromCountryList.get(1);
+        Country fromCountry = null;
         
         for(int i=0;i<fromCountryList.size();i++)
         { if(fromCountryList.get(i).getNeighbourCountries().size()>1)
