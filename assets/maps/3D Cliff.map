@@ -13,7 +13,7 @@ leftstair=3
 rightstair=3
 
 [Territories]
-topleft,300,150,clifftop,topleftc,fourthleft,thirdleft,ledgeleft,xys
+topleft,300,150,clifftop,topleftc,fourthleft,thirdleft,ledgeleft
 topleftc,400,130,clifftop,topleft,toprightc,topright,ledgecentre
 toprightc,500,130,clifftop,topleftc,topright
 topright,600,150,clifftop,topleftc,toprightc,fifthright,thirdright,ledgeright
