@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import com.risk.helper.CardEnum;
 import com.risk.helper.Common;
@@ -56,46 +55,107 @@ public class Player implements Serializable {
 		this.color = InitialPlayerSetup.getPlayerColor(playerId);
 	}
 
+	/**
+	 * This method is used to set Player Strategy
+	 * 
+	 * @param playerStrategy
+	 */
 	public void setPlayerStrategy(PlayerStrategy playerStrategy) {
 		this.playerStrategy = playerStrategy;
 	}
 
+	/**
+	 * This method is used to get Player Strategy
+	 * 
+	 * @return
+	 */
 	public PlayerStrategy getPlayerStrategy() {
 		return playerStrategy;
 	}
 
+	/**
+	 * This method is used to get Attacked Player
+	 * 
+	 * @return
+	 */
 	public Player getAttackedPlayer() {
 		return attackedPlayer;
 	}
 
+	/**
+	 * This method is used to set Attacked Player
+	 * 
+	 * @param attackedPlayer
+	 */
 	public void setAttackedPlayer(Player attackedPlayer) {
 		this.attackedPlayer = attackedPlayer;
 	}
 
+	/**
+	 * This method is used to get No. of armies to move in fortification &
+	 * reinforcement Phase
+	 * 
+	 * @return
+	 */
 	public int getNoOfArmiesToMove() {
 		return noOfArmiesToMove;
 	}
 
+	/**
+	 * This method is used to set No. of armies to move in fortification &
+	 * reinforcement Phase
+	 * 
+	 * @param noOfArmiesToMove
+	 */
 	public void setNoOfArmiesToMove(int noOfArmiesToMove) {
 		this.noOfArmiesToMove = noOfArmiesToMove;
 	}
 
+	/**
+	 * This method is used to get source Country in fortification & reinforcement
+	 * Phase
+	 * 
+	 * @return
+	 */
 	public Country getFromCountry() {
 		return fromCountry;
 	}
 
+	/**
+	 * This method is used to set source Country in fortification & reinforcement
+	 * Phase
+	 * 
+	 * @param fromCountry
+	 */
 	public void setFromCountry(Country fromCountry) {
 		this.fromCountry = fromCountry;
 	}
 
+	/**
+	 * This method is used to get destination Country in fortification &
+	 * reinforcement Phase
+	 * 
+	 * @return
+	 */
 	public Country getToCountry() {
 		return toCountry;
 	}
 
+	/**
+	 * This method is used to set destination Country in fortification &
+	 * reinforcement Phase
+	 * 
+	 * @param toCountry
+	 */
 	public void setToCountry(Country toCountry) {
 		this.toCountry = toCountry;
 	}
 
+	/**
+	 * This method will return Dice outcomes
+	 * 
+	 * @return
+	 */
 	public ArrayList<Integer> getDiceOutComes() {
 		return diceOutComes;
 	}
@@ -112,7 +172,8 @@ public class Player implements Serializable {
 	/**
 	 * This method is used to set conquring
 	 * 
-	 * @param isConquered, if map is conquered else false
+	 * @param isConquered,
+	 *            if map is conquered else false
 	 */
 	public void setIsConquered(Boolean isConquered) {
 		this.isConquered = isConquered;
@@ -130,7 +191,8 @@ public class Player implements Serializable {
 	/**
 	 * This method will set a player eligible for card exchange
 	 * 
-	 * @param eligibleForCard,boolean eligiblility for card
+	 * @param eligibleForCard,boolean
+	 *            eligiblility for card
 	 */
 	public void setEligibleForCard(Boolean eligibleForCard) {
 		this.eligibleForCard = eligibleForCard;
@@ -297,7 +359,6 @@ public class Player implements Serializable {
 	public void assignCountryToPlayer(Country newCountry) {
 		assignedCountryList.add(newCountry);
 		newCountry.setCountryColor(this.getColor());
-//		newCountry.setPlayerId(this.getPlayerId());
 		newCountry.setPlayer(this);
 	}
 
@@ -339,6 +400,7 @@ public class Player implements Serializable {
 
 	/**
 	 * Method to perform fortification phase
+	 * 
 	 * @return true ,if player strategy matched
 	 */
 	public boolean fortificationPhase() {
@@ -378,8 +440,11 @@ public class Player implements Serializable {
 	 * @return true, if armies can be set for reinforcement else false
 	 */
 	public boolean setReinformcementArmies(ArrayList<Continent> continents) {
-		if (!isAssigningReinforcementArmiesAllowed()&&
-				this.playerStrategy.getStrategyName()=="Human") {          //TO-DO might have to remove this
+		if (!isAssigningReinforcementArmiesAllowed() && this.playerStrategy.getStrategyName() == "Human") { // TO-DO
+																											// might
+																											// have to
+																											// remove
+																											// this
 			IOHelper.print("Cannot set reinforcement armies. Trade your cards first");
 			return false;
 		}
@@ -453,8 +518,7 @@ public class Player implements Serializable {
 		return neighborCountriesName;
 	}
 
-	public ArrayList<Country> getNeighbouringCountries(Country sourceCountry,
-			ArrayList<Country> assignedCountries) {
+	public ArrayList<Country> getNeighbouringCountries(Country sourceCountry, ArrayList<Country> assignedCountries) {
 		ArrayList<Country> neighborCountriesName = new ArrayList<>();
 		for (Country country : assignedCountryList) {
 			assignedCountries.add(country);
@@ -464,7 +528,7 @@ public class Player implements Serializable {
 		}
 		return neighborCountriesName;
 	}
-	
+
 	/**
 	 * Method to get neighboring countries of a given country
 	 * 
@@ -473,7 +537,7 @@ public class Player implements Serializable {
 	 * @param assignedCountriesName,
 	 *            list of assigned countries name
 	 * @param foundCountriesName,
-	 *            list of found countries name        
+	 *            list of found countries name
 	 * @return ArrayList , returning array list of countries.
 	 */
 	public ArrayList<String> getConnectedCountriesRecursively(String sourceCountryName,
@@ -496,8 +560,7 @@ public class Player implements Serializable {
 	public ArrayList<Country> getConnectedCountriesRecursively(Country sourceCountry,
 			ArrayList<Country> assignedCountries, ArrayList<Country> foundCountries) {
 
-		ArrayList<Country> neighbouringCounties = this.getNeighbouringCountries(sourceCountry,
-				assignedCountries);
+		ArrayList<Country> neighbouringCounties = this.getNeighbouringCountries(sourceCountry, assignedCountries);
 		if (neighbouringCounties.size() > 0) {
 			for (Country neigbour : neighbouringCounties) {
 				if (!foundCountries.contains(neigbour)) {
@@ -508,7 +571,7 @@ public class Player implements Serializable {
 		}
 		return foundCountries;
 	}
-	
+
 	/**
 	 * Method to get neighboring countries of a given country
 	 * 
@@ -552,15 +615,15 @@ public class Player implements Serializable {
 
 	public ArrayList<Country> getUnAssignedNeighbouringCountriesObject(String sourceCountryName) {
 		ArrayList<Country> neighborCountries = new ArrayList<Country>();
-		
+
 		for (Country assignedCountry : assignedCountryList) {
-				if (assignedCountry.getCountryName().equals(sourceCountryName)) {
-					neighborCountries = assignedCountry.getNeighbourCountries().stream()
-										.filter(x -> x.getPlayer().getPlayerId() != this.getPlayerId())
-										.collect(Collectors.toCollection(ArrayList::new));
-					break;
-				}
+			if (assignedCountry.getCountryName().equals(sourceCountryName)) {
+				neighborCountries = assignedCountry.getNeighbourCountries().stream()
+						.filter(x -> x.getPlayer().getPlayerId() != this.getPlayerId())
+						.collect(Collectors.toCollection(ArrayList::new));
+				break;
 			}
+		}
 		return neighborCountries;
 	}
 
@@ -589,7 +652,8 @@ public class Player implements Serializable {
 	/**
 	 * This method will perform operation required after conquering a country
 	 * 
-	 * @param defenderPlayer, Player object
+	 * @param defenderPlayer,
+	 *            Player object
 	 */
 	public void conquerCountry(Player defenderPlayer) {
 
@@ -615,7 +679,8 @@ public class Player implements Serializable {
 	/**
 	 * This method will perform operation required after conquering a country
 	 * 
-	 * @param armiesCount, Armies Count
+	 * @param armiesCount,
+	 *            Armies Count
 	 * @return true, if army movement after attack is successful else false
 	 */
 	public boolean moveArmyAfterAttack(int armiesCount) {
@@ -748,11 +813,21 @@ public class Player implements Serializable {
 		}
 		return status;
 	}
-	
+
+	/**
+	 * This method will return if a Player is bot or not
+	 * 
+	 * @return
+	 */
 	public boolean getIsBot() {
 		return this.playerStrategy.getIsBot();
 	}
-	
+
+	/**
+	 * This method will return strategy name
+	 * 
+	 * @return
+	 */
 	public String getStrategyName() {
 		return playerStrategy.getStrategyName();
 	}
